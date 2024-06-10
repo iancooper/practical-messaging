@@ -4,7 +4,7 @@ Material to support my Practical Messaging Workshop's exercises. Note that this 
 
 Please contact me if your company would like a private presentation of this material
 
-I am very open with my course content for my workshops; I recognize that not everyone has an employer with a budget for them to travel and join others for the taught material, or works with me and gets to join a course for free. Whilst it is not the same as "being there" just in case it helps any of you, the material is in GitHub. It does get change over time as I find better ways to express this.
+I am very open with my course content for my workshops; I recognize that not everyone has an employer with a budget for them to travel and join others for the taught material, or works with me and gets to join a course for free. Whilst it is not the same as "being there" just in case it helps any of you, the material is in GitHub. It does get changed over time as I find better ways to express this.
 
 I usually try a different thing every workshop, to see if some new ideas help folks. So there is likely to be a 'surprise' that is not in this material yet.
 
