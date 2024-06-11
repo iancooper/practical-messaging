@@ -19,9 +19,10 @@ Exercise: Pub-Sub-Stream
 
 ### Activity and Correlation ###
 
-request-reply-exercise.pptx
+[Not Available] request-reply-exercise.pptx
 Exercise: Request-Reply -- sends a message and then blocks waiting for a reply. Can also use a correlation id, and non-blocking approach in production code
 
+[Not Available] 
 ## Fat and Skinny ##
 
 conversations.pptx

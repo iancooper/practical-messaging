@@ -1,0 +1,94 @@
+<mxfile host="Electron" modified="2024-06-11T07:40:27.938Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.1 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="kp8NhJIhexupzW_7pLY9" version="24.5.1" type="device">
+  <diagram id="avjBS_V88wy_BeY-Tbqa" name="Page-1">
+    <mxGraphModel dx="1242" dy="907" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" tooltip="Inertia.&#xa;Likely to face a resistance to change." id="DQJrWs0o3BV4cv8Y2vMH-1">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#000000;strokeWidth=5;fillColor=#000000;fontSize=14;" parent="1" vertex="1">
+            <mxGeometry x="580" y="40" width="10" height="750" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-2" value="Occupancy" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;fontSize=24;" parent="1" vertex="1">
+          <mxGeometry x="30" y="730" width="270" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-3" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;shape=mxgraph.floorplan.table;" parent="1" vertex="1">
+          <mxGeometry x="786" y="218" width="170" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-4" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;shape=mxgraph.floorplan.chair;rotation=-195;" parent="1" vertex="1">
+          <mxGeometry x="896" y="358" width="41" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-5" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.phone_digital;" parent="1" vertex="1">
+          <mxGeometry x="806" y="261.5" width="40" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-6" value="&lt;font color=&quot;#ff6666&quot;&gt;Take Room Service Order&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="856" y="232.5" width="53.5" height="85.5" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-7" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.concepts.mailbox2;" parent="1" vertex="1">
+          <mxGeometry x="909.5" y="261.5" width="40" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-8" value="Concierge" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1002.75" y="272" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-9" value="&lt;font style=&quot;font-size: 29px&quot;&gt;1&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" parent="1" vertex="1">
+          <mxGeometry x="976" y="318" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-10" value="" style="verticalLabelPosition=bottom;sketch=0;aspect=fixed;html=1;verticalAlign=top;strokeColor=none;align=center;outlineConnect=0;shape=mxgraph.citrix.document;fillColor=#FF3333;" parent="1" vertex="1">
+          <mxGeometry x="130" y="50" width="47" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-12" value="&lt;font color=&quot;#ff6666&quot;&gt;Take Order&lt;br&gt;Confirmation from Inbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="989.25" y="162.75" width="53.5" height="85.5" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-15" value="" style="endArrow=classic;html=1;startArrow=classic;startFill=1;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="366" y="268" as="sourcePoint" />
+            <mxPoint x="776" y="268" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-16" value="Phone call" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="606" y="282.5" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-17" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;shape=mxgraph.floorplan.table;" parent="1" vertex="1">
+          <mxGeometry x="186" y="248" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-18" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;shape=mxgraph.floorplan.chair;rotation=-195;" parent="1" vertex="1">
+          <mxGeometry x="250" y="348" width="41" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-19" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.phone_digital;" parent="1" vertex="1">
+          <mxGeometry x="286" y="272.5" width="40" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-20" value="&lt;font color=&quot;#ff6666&quot;&gt;Order Room Service&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="230.75" y="248.25" width="53.5" height="85.5" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-22" value="Guest" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="126" y="281" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="DQJrWs0o3BV4cv8Y2vMH-23" value="&lt;font style=&quot;font-size: 29px&quot;&gt;1&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" parent="1" vertex="1">
+          <mxGeometry x="356" y="282.5" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KOxadKRCyTgJTVl5rh0y-1" value="Room Service Menu" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="226.75" y="76" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KOxadKRCyTgJTVl5rh0y-3" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.communications.disconnected_mailbox;" vertex="1" parent="1">
+          <mxGeometry x="196" y="272.5" width="43" height="42" as="geometry" />
+        </mxCell>
+        <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="KOxadKRCyTgJTVl5rh0y-4">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" edge="1" parent="1">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="944.4274647887323" y="292" as="sourcePoint" />
+              <mxPoint x="989.25" y="414" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="DQJrWs0o3BV4cv8Y2vMH-11">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" parent="1" target="KOxadKRCyTgJTVl5rh0y-3" edge="1" source="DQJrWs0o3BV4cv8Y2vMH-10">
+            <mxGeometry width="50" height="50" relative="1" as="geometry">
+              <mxPoint x="881.1774647887323" y="192" as="sourcePoint" />
+              <mxPoint x="851.5239436619713" y="313" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
