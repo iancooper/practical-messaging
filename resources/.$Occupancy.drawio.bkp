@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-06-11T12:12:31.707Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.1 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="-uRfBmQzP_Y0uPjIDVcP" version="24.5.1" type="device">
+<mxfile host="Electron" modified="2024-06-11T12:12:04.221Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.1 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="HbQFx43IbZPgGPE3uhKA" version="24.5.1" type="device">
   <diagram id="avjBS_V88wy_BeY-Tbqa" name="Page-1">
     <mxGraphModel dx="1242" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -135,8 +135,8 @@
         <mxCell id="KOxadKRCyTgJTVl5rh0y-19" value="&lt;font color=&quot;#ff6666&quot;&gt;File Room Service Invoice&amp;nbsp;from Inbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="953.25" y="594" width="53.5" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="KOxadKRCyTgJTVl5rh0y-20" value="Guest Stay File" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="953.25" y="530" width="40" height="20" as="geometry" />
+        <mxCell id="KOxadKRCyTgJTVl5rh0y-20" value="Booking Confirmation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="913.5" y="512" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="KOxadKRCyTgJTVl5rh0y-21" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.concepts.mailbox;" parent="1" vertex="1">
           <mxGeometry x="760" y="680.5" width="40" height="25.5" as="geometry" />
