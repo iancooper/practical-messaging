@@ -31,7 +31,7 @@ Quick Start Rabbit MQ (RMQ).pptx
 ### Publish-Subscribe Channel ###
 
 * publish-subscribe-channel.mp4
-* [Optional] Exercise: Publish Subscribe 
+* (More on pub-sub in the Kafka )
 
 ### Invalid Message Channel ###
 
