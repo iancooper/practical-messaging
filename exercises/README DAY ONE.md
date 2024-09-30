@@ -2,8 +2,6 @@
 
 This is the order to work through this material. The code is marked up for what you need to implement to understand how RMQ provides those patterns.
 
-If an exercise is marked [Optional] then it does not come with a slide deck, but if you have extra time, feel free to look at it.  You may prefer to skip these, and return to them, if you have time.
-
 ## Precursors ##
 
 These have speaker notes accompanying the slides
@@ -39,7 +37,6 @@ Quick Start Rabbit MQ (RMQ).pptx
 * Invalid Message Channel.mp4
 * invalid-message-channel.pptx
 * Exercise: Invalid Message Channel
-* [Optional] Exercise: Guaranteed Delivery -- flags to make RMQ persist messages
 
 ## Endpoints ##
 
@@ -64,5 +61,5 @@ Quick Start Rabbit MQ (RMQ).pptx
 * resequencer.mp4
 * message-translator.mp4
 * content-enricher.mp4
-* pipes0and-filters-exercise.pptx
+* pipes-and-filters-exercise.pptx
 * Exercise: Pipes and Filters
