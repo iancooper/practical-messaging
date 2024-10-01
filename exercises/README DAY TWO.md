@@ -36,6 +36,34 @@ volumes:
     driver: local      
 ```
 
+### Working with a MySQL database
+
+Your IDE will probably be able to work with a MySQL Db.
+
+In Visual Code use: MySQL by Weijan Chen
+
+A stand-alone alternative is: https://www.mysql.com/products/workbench/
+
+
+### Python MySQL Dependencies
+
+You will need to install the MySQL package
+
+```
+
+brew install mysql pkg-config
+
+```
+
+to be able to install
+
+```
+
+https://github.com/PyMySQL/mysqlclient?tab=readme-ov-file#macos-homebrew
+
+```
+
+
 ### Creating the Database
 
 Use
