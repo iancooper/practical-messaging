@@ -2,7 +2,7 @@
 
 This is the order to work through this material. The code is marked up for what you need to implement to understand how RMQ or Kafka provides those patterns.
 
-If an  exercises are marked [Optional] and do not come with a slide deck, but if you have extra time, feel free to look at them.  You may prefer to skip these, and return to them, if you have time.
+If an  exercises are marked [Not Available] there may be code but we are not currently covering in the course. They may be covered in some presentations of the course where we are trying it out.
 
 ## Precursors ##
 
@@ -14,8 +14,44 @@ Quick Start Rabbit Kafka.pptx
 
 ## Streams ##
 
-pub-sub-stream-exercise.pptx
+[Not Available]pub-sub-stream-exercise.pptx
 Exercise: Pub-Sub-Stream
+
+### Adding the MySQL database
+
+Please ensure you add the following to the Docker Compose file
+
+```
+ mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+```
+
+### Creating the Database
+
+Use
+
+```
+docker exec -i pub-sub-stream-mysql-1 sh -s < Database/create_database.sh
+```
+
+where `pub-sub-stream-mysql-1' is the container name. Use `docker ps` to find this.
+
+### Kafka Topics
+
+To ensure creation of Kafka topics automatically when you produce to them ensure that withing your Dockerfile we have set
+
+```
+KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+
+```
+
+
 
 ### Activity and Correlation ###
 
