@@ -30,6 +30,10 @@ Please ensure you add the following to the Docker Compose file
       - ./mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "root"
+
+volumes:
+  mysql-data:
+    driver: local      
 ```
 
 ### Creating the Database
@@ -47,7 +51,7 @@ where `pub-sub-stream-mysql-1' is the container name. Use `docker ps` to find th
 To ensure creation of Kafka topics automatically when you produce to them ensure that withing your Dockerfile we have set
 
 ```
-KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
 
 ```
 
