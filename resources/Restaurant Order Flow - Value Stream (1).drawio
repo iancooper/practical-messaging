@@ -1,0 +1,16 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/25.0.2 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="25.0.2">
+  <diagram name="Page-1" id="RtHUVzV2qZgCcaEVoTdw">
+    <mxGraphModel dx="1482" dy="878" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="VUdKdxQBG3Wcl5X0cKic-1" value="Customer" style="strokeWidth=2;html=1;shape=mxgraph.lean_mapping.outside_sources;whiteSpace=wrap;align=center;" vertex="1" parent="1">
+          <mxGeometry x="540" y="140" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="VUdKdxQBG3Wcl5X0cKic-2" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Just Paper Takeaway&lt;/h1&gt;&lt;p&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Current State Value Stream Map&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font size=&quot;3&quot;&gt;Order Flow&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font size=&quot;3&quot;&gt;Demand Rate 10/day&lt;/font&gt;&lt;/p&gt;&lt;p&gt;&lt;font size=&quot;3&quot;&gt;3 JAN 2024&lt;/font&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="100" width="290" height="180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
