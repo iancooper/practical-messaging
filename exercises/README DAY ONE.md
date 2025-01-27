@@ -62,4 +62,4 @@ Quick Start Rabbit MQ (RMQ).pptx
 * message-translator.mp4
 * content-enricher.mp4
 * pipes-and-filters-exercise.pptx
-* Exercise: Pipes and Filters
+* [Optional Exercise: Pipes and Filters]
