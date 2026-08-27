@@ -1,0 +1,7 @@
+# Session hand-off scratch — not for committing
+/PROMPT.md
+/session-work/
+
+# PowerPoint lock/temp files
+~$*.pptx
+.DS_Store
