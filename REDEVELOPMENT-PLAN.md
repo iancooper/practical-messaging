@@ -79,13 +79,23 @@ Domain/Summary is about what is **in** the message and how state propagates, whi
 
 | section | goal |
 |---|---|
-| Day 1 §1 Distributed Systems | *set up the problems messaging solves* — not: justify distributing |
+| Day 1 §1 Distributed Systems | *set up the problems messaging solves* — not: justify distributing. Framed as **easy to change + robust**, see below |
 | Day 1 §4 Messaging Patterns | a **build order**, not a catalogue — see below |
 | Day 1 §5 Conversations | *choose the right exchange pattern* — pick between In-Only / Out-Only / In-Out / Out-In and know what each commits you to in coupling terms |
 | Day 2 §1 Designing Messages | *decide what goes in a message* — choose what to put in it, and know how the receiver gets whatever you left out and what that costs in availability |
 
 ### Teaching decisions
 
+- **Day 1 opens on two properties, not on microservices** (2026-08-27). We want to be **easy to change**
+  (independent deployability) and **robust** (guaranteed delivery). Microservices are *one* way to buy
+  the first and are not free; **task queues buy the second with no reorganisation at all**. Both are
+  bought with messages. The microservices-justification framing is dated — in 2026 nobody in the room
+  needs persuading microservices exist, and the section's own agreed goal already said *not: justify
+  distributing*.
+- **This plants a Day 2 payoff — do not spend it early.** The Reactive Manifesto (2014) names the second
+  property **Resilient**, and claims the first in its own words: *"Systems built as Reactive Systems are
+  more flexible, loosely-coupled and scalable. This makes them easier to develop and amenable to
+  change."* Day 1 must **not** mention Reactive; Day 2 should land as recognition, not repetition.
 - **The course's central argument**, established in §1 and paid off in §2: availabilities multiply only
   when the chain is *temporally* coupled. Store-and-forward with guaranteed delivery breaks that — the
   outage becomes a delay, not a failure. Availability loss traded for latency variance.
@@ -139,7 +149,7 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
-| 1 | Distributed Systems | 10 | ✅ regrouped into 3 movements, 2 cuts | ☐ | ☐ |
+| 1 | Distributed Systems | 10 | ✅ reframed on *easy to change + robust*; Task Queues promoted | ☐ | ☐ |
 | 2 | Coupling | 4 | ✅ rebuilt on two axes | ☐ 1 new grid diagram | ☐ |
 | 3 | Integration Styles | 5 | ✅ split into 4 style slides + trade-offs on the grid | ☐ reuse §2 grid artwork | ☐ |
 | 4 | **Messaging Patterns** | **52** | ✅ rebuilt as a build order | ☐ 20 EIP redraws | ☐ merge scripts |
@@ -171,7 +181,20 @@ in front and 5 of wrap-up behind.
 | 1d | · Versioning *(moved from Day 1)* | 4 | +**What You Inlined Is What You Version** (new) | | |
 | 2 | **Flow and Reactive Programming** | 32 | ☐ ← **next work item** | ☐ | ☐ |
 | 2a | · Flow (paper workflows, the frame) | 5 | on-ramp, not its own section; also the exercise's *see one* | | |
-| 2b | · Reactive Programming | 27 | | | |
+| 2b | · Reactive Programming | 27 | **☐ close the Day 1 loop — see below** | | |
+
+**When reviewing 2b, three things are already owed to it:**
+
+1. **Pay off Day 1's plant.** Day 1 §1 now frames everything as *easy to change* + *robust*, deliberately
+   without naming Reactive. *The Reactive Manifesto* slide should land as recognition: **Resilient** is
+   their "robust"; *amenable to change* is their "easy to change", in the manifesto's own words; and
+   **Elastic** and **Responsive** are the two they did not have names for yet.
+2. **Close the loop on the slide that already exists.** *Microservices Are Reactive Architectures* should
+   call back explicitly to Day 1 §1's *Easy to Change — Independent Deployability*.
+3. **Fix an attribution.** The *Reactive Traits — Value, Form, Means* slide asserts a mapping the
+   manifesto does not itself make — the manifesto names four traits and makes Message Driven the
+   mechanism, but never assigns value/form/means. It is a defensible gloss and it is how Bonér has
+   presented it, but the slide currently reads as if quoting. Attribute it.
 | 3 | **Paper Flow** exercise | 9 | ✅ run-of-show settled (§7) | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
 | 4 | **Process Automation** | 50 | ☐ **needs cutting** — 45% of the day; **+ pizza → hotel redraw** | ☐ ~11 BPMN redraws | ☐ |
 | 4a | · Tentative Operations *(moved from Repair)* | 2 | ✅ bridge into Durable Execution | | |
@@ -413,6 +436,28 @@ consolidated entries break the 1:1. Do it per section during Phase 2.
 
 Newest first. Records **why**, including reasoning that changed no file — git history covers what
 changed in the outlines, not this.
+
+### 2026-08-27 — Day 1 §1 reframed on "easy to change + robust"; Task Queues promoted
+Ian's question: do Task Queues still earn their weight, given they were there to show messaging is
+useful *without* microservices — and is the microservices framing still the right driver? Two findings.
+**Task Queues had lost their job to their position**: at slide 7 of 10, sandwiched between the
+microservice anatomy slides, they read as a microservices pattern, the opposite of their point. And
+**§1 was still off its own agreed goal** — the goal says *not: justify distributing*, but two full
+slides were doing exactly that via the monolith branch-and-merge argument. Ian's reframe finishes a job
+that was half-done when *Product Mode* was cut. Checked the manifesto rather than paraphrasing it: it
+names four traits (Responsive, Resilient, Elastic, Message Driven) and its own preamble says reactive
+systems are *"easier to develop and amenable to change"* — so **both** halves of Ian's framing are
+literally in it, and the Day 1 plant pays off on Day 2 with no stretching. Changes, 10 entries in and
+10 out: new **Easy to Change, and Robust** framing slide at position 2; *Monoliths Do Not Scale* and
+*Microservices Let Us Scale* merged into **Easy to Change — Independent Deployability** with the two
+diagrams as a before/after pair; **Task Queues moved up to position 4** and reframed as *robustness
+without reorganising the company*; the 202 slide given the line that it is HTTP's own way of saying
+store-and-forward. Third instance of the same pathology in this deck — the thesis was in the presenter
+notes ("Independent deployability is the whole prize"), as the coupling verdict was in Conversations and
+the lifetime rule in Designing Messages; promoted onto the slide. *No Cross-Service Transactions* and
+*The Price of Distribution* untouched: the reframe sits in front of the locked-in argument, it does not
+disturb it. Also fixed: the Fallacies table's cross-references were stale — two rows pointed at
+*Managing Asynchronous APIs* (now a handout) and one at "Day 2 *Conversations*" (now Day 1 §5).
 
 ### 2026-08-27 — Day 2 §1 Designing Messages rebuilt (19 → 19, re-sequenced not cut)
 Unlike Conversations this section was dense and well-argued; it needed joining up, not trimming. Goal:
