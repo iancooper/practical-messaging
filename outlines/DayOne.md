@@ -973,191 +973,248 @@ Presenter notes: Conditional/parallel steps, retries, and competing consumers ca
 
 ---
 
-## Managing Asynchronous APIs
+## Conversations
 
-### Slide: Versioning — Postel's Law
+*From single messages to conversations — choosing an exchange pattern.*
 
-▎ Be strict when sending and tolerant when receiving.
+**Section goal:** given an interaction you need to build, choose between In-Only, Out-Only, In-Out and
+Out-In — and know what each one commits you to in coupling terms.
 
-Robustness Principle (Postel's Law) — Jon Postel, RFC 1958: implementations must follow specs precisely when sending, and tolerate faulty input from the network.
+### Slide: Messaging Participants
 
-### Slide: Additive Change — Tolerant Reader (Ignore New Fields)
+You can now send a message, receive it, and not lose it. Real interactions are rarely one message —
+they are **conversations**, and the shape of the conversation is a design decision.
 
-Adding fields (e.g. `latitude`/`longitude`, not required) is non-breaking. A **Tolerant Reader** ignores new fields it doesn't understand.
+An application acts as either a **requestor** or a **provider**.
 
-Presenter notes: A general rule — *adding* things does not cause a versioning conflict, as long as a new version is convertible from an old one. When old versions are read, upcast them to the latest before handling, so a handler only knows the latest version. Add new non-nullable fields with a **default value** (as with a new DB column). Additive changes → new messages process on old consumers; new consumers default missing values from older messages; may use an Enricher.
+- A message is sent over a **channel** — a virtual pipe (topic, routing key).
+- A message has a **header** (metadata) and a **body** (data).
+- A channel is **unidirectional** (one way) — a two-way conversation needs two channels.
+- Prefer *requestor/provider* over *producer/consumer* for conversation patterns, because they indicate role.
 
-### Slide: Additive Change — Default Missing Fields
+**Example.** *Provider (Store Information)* manages stores for our ecommerce site. *Requestor (Search)*
+registers a store and optimizes for fast lookup on key search terms. The message `changedstore()`
+indicates new store details.
 
-The other side of tolerant reading: a new consumer reading an old message **defaults missing fields** (e.g. Default Latitude: 0, Default Longitude: 0). Note the added fields are *not required*.
+Presenter notes: The problem with producer/consumer is that the *consumer* of a message might be the one exposing operations (receiving a command), or the *producer* might be the one exposing operations (sending a notification). Thinking in requestor/provider makes the role clear — are you providing the API or using it? Note that the channel being one-way is what forces every pattern that follows: if you want an answer you need a second channel, and that is a decision with consequences.
 
-### Slide: Breaking Change
+### Slide: Messaging or Eventing?
 
-Renaming/splitting fields (e.g. `customerName` → `firstName` + `surName`) and making new fields required is a **breaking change**.
+The first question, before any pattern: **are you expressing intent, or reporting a fact?**
 
-- We might code around it, but we must *know* a required field is missing and new fields exist instead.
-- For that we rely on a **version in the header** and the ability to process the new version alongside old ones, running out the old until the new replaces it.
+| | Messaging | Eventing |
+|---|---|---|
+| carries | **intent** — do this, tell me this | **facts** — this happened |
+| examples | Command (transfer of control), Query (request an answer), transfer of value | Notification |
+| expectations | part of a workflow or conversation | none — things you report on |
+| concerned with | the **future** | the **past** |
+| patterns | In-Only, In-Out | Out-Only |
 
-Presenter notes: Breaking changes → create a **new message type**. Source systems may need to send original *and* new, or source the missing info via a Message Translator in the pipeline.
+▎ A message asks for something. An event announces something.
 
-### Slide: Documentation — Endpoints
+#image: two UML-style pattern diagrams — In-Only (fire-and-forget) and In-Out (request-reaction), requestor/provider  [→ resources/'Practical Messaging - Day 2 - 2024 - 25.png' + '...- 29.png' — exported slide images]
+#image: UML-style diagram — the Out-Only (notification) pattern, requestor to provider  [→ resources/'Practical Messaging - Day 2 - 2024 - 27.png' — exported slide image]
 
-An **endpoint** is where messages are sent or received, defining everything required for the exchange — *where* messages go, *how* they're sent, and *what* they look like. (Reference: WCF fundamental concepts.)
+Presenter notes: This is the first fork in the decision and it decides most of the rest. If you are expressing intent you are addressing someone — you know who should act, and that is behavioural coupling. If you are reporting a fact you are not addressing anyone — the subscriber list is not your concern, which is why eventing is the loosest coupling available. Tie back to Integration Styles: the same trade, one level down.
 
-### Slide: Documentation — Discovery Problems
+### Slide: The Four Exchange Patterns
 
-Two symmetric questions that motivate documenting async APIs:
+Two questions give you all four. **Who speaks first** — the requestor, or the provider? And **is there
+a message back?**
 
-- **Consumer side (Restaurant Availability):** How do I know who exposes the data I need? How do I find the endpoint to consume from? (Search every GitHub repo? Ask on Slack/Teams?)
-- **Producer side (Restaurant Management):** Who consumes the messages I send? Whom do I have a contract with? (Search repos for my message name? Ask on Slack/Teams?)
+|  | no message back | a message back |
+|---|---|---|
+| **In** — requestor speaks first | **In-Only** (fire and forget) | **In-Out** (request-reaction) |
+| **Out** — provider speaks first | **Out-Only** (notification) | **Out-In** (solicit-response) |
 
+- *In* and *Out* are named from the **provider's** point of view: In = a message arrives, Out = a message leaves.
+- Everything else in this section is one of these four, or a composition of them.
 
-#image: shape diagram (consumer side) — 'how do I find the endpoint I need?' with GitHub and Slack logos
-#image: shape diagram (producer side) — 'who consumes the messages I send?' with GitHub and Slack logos
+#image: NEW — the 2×2 exchange-pattern grid (who speaks first × is there a reply) with all four patterns named  [Phase 2 — new drawing]
 
-### Slide: Asynchronous Endpoints Need Documenting
+### Slide: In-Only (Fire and Forget)
 
-Our async APIs need documenting just like any other API (HTTP, etc.). We need to document:
+Under **In-Only**, the requestor sends a request to the provider but does not seek acknowledgment of
+completion. Typically called *fire-and-forget*.
 
-- The **message** — it is the contract.
-- The **channel** — where the message flows.
-- The **protocol** — how to send/receive.
-- **Who** sends and receives — to understand flow.
+- Used where we are finished with our part in a flow and are **transferring control** — we need no response because we are done.
+- **Example.** *Requestor (cashier)* has a paid-for basket it wants to turn into an order; *provider (order placement)* raises an order — `place order()`.
 
-### Slide: Endpoint — Documenting the Contract
+**What it commits you to**
 
-An endpoint is where/how messages are sent and what they look like — the promises we make. Its parts:
+- *Coupled about:* the command contract — you name an operation on someone else.
+- *Must you both be up?* **No.** Store-and-forward; the provider can be down.
+- Behavioural (control) coupling: you decided who should act.
 
-- **Channel** — the logical pipe over which messages flow; our address.
-- **Message** — data we send or receive (Metadata/headers + Data/payload). We agree the headers, and the encoding and schema of the body.
-- **Binding** — how we implement the channel: transport and encoding (e.g. AMQP and text/plain). In principle a channel can have multiple bindings.
+### Slide: In-Only — What About Faults?
 
-### Slide: AsyncAPI
+The requestor is not waiting for a response. So what guarantee does the provider make about **faults**?
 
-Introducing AsyncAPI as the standard for documenting message-driven APIs.
+**No Fault** — the provider makes no attempt to communicate triggered faults back. From the requestor's
+perspective, faults are the provider's application issue. Consistency is repaired out-of-band, via logs
+or error reports.
 
+**Message Triggers Fault (Robust In-Only)** — the provider propagates faults from the operation back to
+the triggering requestor on a **reverse channel**. There is no existing subsequent message to replace
+with a fault, so we add one.
 
-#image: screenshot — the AsyncAPI 'Why AsyncAPI?' feature-cards webpage
+- Assumes the requestor can act on receipt of the fault, but it still takes no success response.
+- **Example.** The cashier sends `place order()`; if order placement cannot place the order it raises `fault()`. The cashier does not acknowledge success, but on a fault may need to issue a refund.
 
-### Slide: AsyncAPI Elements (V3)
+Presenter notes: No Fault is "good enough" in many cases — say so, because teams reach for fault channels reflexively. The question to ask is: *is there an action the requestor would take?* If there is no action, a fault message is noise and a log line is the right answer. Robust In-Only earns its keep when the fault has a compensating action, like the refund.
 
-- **Application** — running code with operations: producer (sends) / consumer (receives).
-- **Operations** — send or receive messages over channels.
-- **Channels** — where messages flow.
-- **Message** — must have a payload, may have headers (protocol- or application-specific).
-- **Server** — has a protocol by which messages are exchanged.
-- **Bindings** — protocol-specific information.
+### Slide: Out-Only (Notification)
 
-### Slide: AsyncAPI Document Structure (V3)
+Under **Out-Only**, the requestor subscribes to the provider; an operation is triggered by receipt of a
+message, but it does not acknowledge the message back to the provider. Out-Only *is* the
+Publish-Subscribe pattern: a provider is not aware of its consumers.
 
-- **AsyncAPI Object** — the root; identifies the application.
-- **Info Object** — metadata for this specification.
-- **Servers Object** — connection details for the server.
-- **Channels Object** — the channels used by the application.
-- **Operation Object** — an operation (publish or subscribe) on a channel.
-- **Components Object** — reusable components.
-- **Tags Object** — user-defined tags.
+- **Example.** *Provider (Store Information)* manages stores and raises `changedstore()`. Multiple requestors subscribe: **Search** (fast lookup), **Availability** (factors for whether a store is open), **Pick-Up Locations** (where couriers pick up, and restrictions).
+- Adding a fourth subscriber requires no change to the provider — that is the whole point.
 
-### Slide: AsyncAPI (V3) and Endpoint ABCs
+**What it commits you to**
 
-Mapping AsyncAPI objects to the endpoint building blocks: Operation → **Endpoint**; Channels → **Channel**; Bindings → **Binding**; Message → **Message** (Metadata/headers + Data/payload).
+- *Coupled about:* the event schema, and nothing else. No operation is named.
+- *Must you both be up?* **No.**
+- The loosest coupling available — which is exactly why its fault story is the one on the next slide.
 
-### Slide: AsyncAPI — Info Object (example)
+### Slide: Out-Only — Faults Are Not Available
 
-Example `info:` block — contact (Paramore Brighter), Apache 2.0 license, description, title ("Brighter Sample App"), version 1.0.0, and tags.
+With a notification, **No Fault is essentially forced** — and that is a consequence of the coupling, not
+an oversight.
 
-### Slide: AsyncAPI — Servers Object (example)
+- **Example.** Search cannot add a store to its results after `changedstore()`, and makes no attempt to tell Store Information.
+- The provider does not know its subscribers. There is nobody to tell.
+- And if it *did* know, it would be coupled to them — you would have traded away the property you chose pub-sub for.
 
-Example `development:` server — a Kafka broker for local dev at `localhost:9092`, protocol `kafka`.
+▎ You cannot have loose coupling and a fault path back. Pick one.
 
-### Slide: AsyncAPI — Channels (V3, example)
+Presenter notes: This is the payoff of putting the coupling verdict on every slide — the fault story is not a separate topic bolted on, it falls out of the pattern you chose. Repair happens on the subscriber's side: retries, dead-letter queues and the reconciliation they already met in Guaranteed Delivery.
 
-Example `greeting:` channel — address `goparamore.io.greeting`, summary/description, `servers` ref, `messages` ref, and Kafka `bindings` (partitions: 20, replicas: 3).
+### Slide: In-Out (Request-Reaction)
 
-### Slide: AsyncAPI — Operations (V3, example)
+Under **In-Out**, the provider receives a request on one channel and returns a response — from the
+triggered operation — on a *separate* channel.
 
-Example `sendGreeting:` operation — `action: send`, summary/description, `channel` ref, and Kafka bindings.
+- The requestor sets a **correlation id** (conversation id) in the request header; the provider returns it in the response header, so replies arriving over a separate channel can be matched to the request that caused them.
+- **Example.** *Requestor (Basket)* sends `checkout()` — a command asking the cashier to price a basket. *Provider (Cashier)* takes payment for the agreed amount and turns the basket into an order, replying `successfulpayment()`.
 
-### Slide: AsyncAPI — Components (example)
+**What it commits you to**
 
-Example `components.messages.greeting` — name, title, summary, `contentType: application/json`, `traits` (commonHeaders), and `payload` ref to `schemas.greetingContent` (a JSON object with a `greeting` string).
+- *Coupled about:* both the request contract and the response contract.
+- *Must you both be up?* **Not necessarily** — as long as you do not *block*. See Blocking In-Out.
+- Behavioural (control) coupling, and now you hold **state**: something must remember what the correlation id refers to.
 
-### Slide: JSON Schema (AsyncAPI Schema Object)
+Presenter notes: The correlation id is the cheapest thing on the slide and the most consequential. The moment you need one you have a conversation with state in it — and something has to own that state across a process restart.
 
-Payload schemas via JSON Schema — `$schema`, `$id`, `title`, `description`, `type`, `properties`. Example: a `greeting` object with a `greeting` string property.
+### Slide: In-Out — When the Reaction Is a Fault
 
-### Slide: Avro
+Under **Fault Replaces Message (Robust In-Out)**, the provider propagates faults by switching to a fault
+flow — replacing any message *after the first* with a fault. The requestor handles the error; the fault
+replaces the expected response (`reaction()` → `fault()`).
 
-An alternative encoding. Complex types: records, enums, arrays, maps, unions, fixed. Records carry: name, namespace, doc, alias, and fields (each with name, doc, type, default).
+- **Example.** The Pricer sends `take payment()` to a payment provider. On failure the payment provider signals `payment error()` back.
+- The fault message should indicate **why** — a provider issue, an invalid card, insufficient funds — because the requestor has to choose the next move: ask for an alternate payment method, or cancel the order.
 
-### Slide: Avro (example + capabilities)
+Presenter notes: Any message in the conversation after the first may indicate a fault instead of the normal outcome. The design rule is that a fault is a *response*, not an exception — it travels the same channel, carries the same correlation id, and is handled by the same code path.
 
-Example record schema for `greeting` with a single string field. Encodings: JSON, Binary. Languages: C, C++, C#, Java, Perl, Python, Ruby, and others.
+### Slide: In-Out — When Nothing Comes Back
 
-### Slide: Protobuf
+The requestor may not receive the expected response at all. What can it do?
 
-Another encoding. Example: `syntax = "proto3"; message Greeting { string greeting = 1; }`.
+- Set a **timeout** within which to receive a response.
+- **Retry** if no response arrives within that window (`greet()` → `greet()` → `acknowledge()`).
+- Because we might send twice, the provider operation must be **idempotent**, or the consumer must **de-duplicate** already-seen messages.
 
-### Slide: Protobuf (capabilities)
+▎ A timeout does not tell you the request failed. It tells you that you do not know.
 
-Encodings: Binary. Languages: Dart, C++, C#, Java, Kotlin, Python, Ruby, Go, Objective-C, and others.
+#image: icon — a stopwatch/timer (the retry timeout)
 
-### Slide: Schema Registry
+Presenter notes: Call back to Guaranteed Delivery — this is the Inbox pattern earning its keep. Retry is why de-duplication is not optional: at-least-once delivery and requestor-side retry are two independent sources of duplicates.
 
-A schema registry (e.g. Confluent) manages and evolves schemas centrally. (Reference: Confluent Schema Registry docs.)
+### Slide: Command or Query?
 
+Command-Acknowledgement and Query-Result are the **same exchange pattern** — In-Out. What differs is the
+**intent** of the message, and intent is what decides what you must design for.
 
-#image: screenshot — a Confluent Schema Registry diagram with Kafka, producers and consumers
+| | Command-Acknowledgement | Query-Result |
+|---|---|---|
+| the requestor asks | *do this* | *tell me this* |
+| example | Basket → Cashier: `checkout()` → `successfulpayment()` | Basket → Delivery: `getdeliveryfees()` → `deliverfee()` |
+| provider state | changes | unchanged |
+| retry is | unsafe without idempotency | naturally safe |
 
-### Slide: Cloud Events
+Both carry behavioural (control) coupling — you named the provider and the operation.
 
-A standard event envelope. **Metadata** (required + optional attributes) + **Payload** (data).
+Presenter notes: Worth being explicit that the pattern catalogue does not distinguish these, and that is correct — as an exchange they are identical. It is the intent, back to *Messaging or Eventing*, that changes the design. Retry safety is the practical tell.
 
-- Required: `id` (unique identifier), `source` (production context — together unique), `specversion` (CE version), `type` (name + version).
-- Optional: `datacontenttype` (MIME type), `dataschema` (URI of payload schema), `subject` (qualifies source), `time` (timestamp).
+### Slide: Subscribe-Notify
 
-### Slide: CloudEvents — Protocol Binding (Binary vs. Structured)
+In-Out **composed with** Out-Only: a requestor asks to subscribe to a provider, and then notifications
+flow.
 
-- **Binary** — uses the protocol's native approach to metadata.
-- **Structured** — adds headers to the payload (envelope).
+- `subscribe()` → the provider manages a list of subscribers → optional `confirm()` / `confirmed()` (note the role switch — the provider is now the requestor).
+- Then Out-Only `notification()` messages flow; a `stop()` ends them.
 
-Bindings include: amqp 1-0, avro, http, http-webhooks, kafka, mqtt, nats, protobuf, websockets.
+**What it commits you to**
 
-### Slide: Protocol Binding — Worked Example
+- Behavioural (control) coupling on the subscribe exchange — then the loose coupling of Out-Only for everything after it.
+- The provider now holds **subscriber state**, which it did not in plain Out-Only.
 
-A Kafka message shown both ways: **Binary** (CloudEvents attributes as `ce_*` headers, Avro value) vs. **Structured** (`content-type: application/cloudevents+json`, the CloudEvent as the JSON value).
+Presenter notes: This is the pattern that shows the four are a *basis*, not a catalogue — real conversations are compositions. It is also the honest version of "pub-sub is loosely coupled": the subscription itself is coupled; the notifications are not.
 
-### Slide: AsyncAPI Object — Identifying Apps
+### Slide: Blocking In-Out (Request-Reply)
 
-Use a specification file per app (a producer or consumer), identified by `id` (e.g. `https://github.com/brightercommand/greetings/`).
+The requestor provides a unique **Reply-To** channel in the request header; the provider uses it for the
+response, letting the requestor look up the suspended workflow — so a correlation id is not required.
+**The requestor may block** on the Reply-To channel while awaiting the reply.
 
-### Slide: Tooling — VS Code
+▎ Block, and you have rebuilt RPC on top of a message broker.
 
-Authoring/preview of AsyncAPI in VS Code.
+**What it commits you to**
 
+- *Must you both be up?* **Yes.** This is the one pattern in the set that puts **temporal coupling** back.
+- Availabilities multiply again — the thing we distributed to avoid, and spent Guaranteed Delivery breaking.
+- You have paid the cost of a broker and kept the failure mode of a synchronous call.
 
-#image: screenshot — VS Code editing AsyncAPI YAML with the rendered AsyncAPI preview
+**When it is still the right answer:** an interactive request where a human is waiting and there is no
+useful "later" — the caller cannot do anything with a response that arrives in ten minutes.
 
-### Slide: Tooling — Backstage
+Presenter notes: This is the callback slide for the whole day. Distributed Systems said availabilities multiply; Coupling named the axis; Integration Styles put messaging on the loose end of it; Guaranteed Delivery turned an outage into a delay. Blocking In-Out undoes all of it in one line of code. Delegates *will* reach for this because it looks like the code they already write — say so, and give them the legitimate case, so the answer is "when", not "never".
 
-Cataloguing async APIs in Backstage.
+### Slide: Out-In (Solicit-Response)
 
+Under **Out-In**, a provider solicits a response from a subscriber and awaits confirmation; the
+subscriber confirms receipt of the provider's solicitation.
 
-#image: screenshot — a Backstage software-catalog docs page for an API entity
+- **Example.** *Provider (Delivery)* assigns delivery requests to drivers and queries whether a courier is available — `solicit()` — usually followed by notifications of available work. *Requestor (Courier)* offers to take jobs depending on location and busyness — `ready()`.
+- Use it when the provider needs to know **who is willing** before it allocates work.
 
-### Slide: Tooling — Event Catalog
+**What it commits you to**
 
-Event Catalog (github.com/boyney123/eventcatalog) for documenting events.
+- *Coupled about:* the solicitation contract. The provider must know subscribers exist, though not who they are.
+- *Must you both be up?* **No** — but the solicitation has a useful lifetime. An answer that arrives too late is worthless, which is a **timeout** problem, not an availability one.
 
+### Slide: Choosing an Exchange Pattern
 
-#image: screenshot — the EventCatalog visualiser showing a Basket Service publishing an event
+The decision, in order:
 
-### Slide: Tooling — AsyncAPI Studio
+1. **Intent or fact?** Fact → Out-Only, and accept No Fault. Intent → keep going.
+2. **Do you need an answer?** No → In-Only. Yes → In-Out.
+3. **Who starts?** If the provider needs to canvass its subscribers → Out-In.
+4. **Do you need the answer *now*?** Only then Blocking In-Out — and know what you just paid.
 
-AsyncAPI Studio for authoring and visualising specs.
+| pattern | coupled about | both up? | fault path |
+|---|---|---|---|
+| Out-Only | the event schema | no | none available |
+| In-Only | the command contract | no | reverse channel, if there is an action to take |
+| In-Out | request + response contracts | no, unless you block | fault replaces the response |
+| Out-In | the solicitation contract | no | fault replaces the response |
+| Blocking In-Out | request + response contracts | **yes** | fault replaces the response |
 
+#image: the §2 two-axis grid re-plotted a third time — *what are we coupled about* × *must we both be up* — with the four exchange patterns plotted and Blocking In-Out alone in the temporally-coupled quadrant  [Phase 2 — reuse the §2/§3 grid artwork]
 
-#image: screenshot — AsyncAPI Studio rendering the Brighter Sample App spec
+Presenter notes: Third appearance of the grid — §2 introduced it, §3 plotted the integration styles on it, and now the exchange patterns land on it too. The repetition is deliberate: it is the one picture that carries the argument of the day, and delegates should be able to draw it from memory by the end.
 
 ---
 

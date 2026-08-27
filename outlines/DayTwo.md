@@ -2,191 +2,9 @@
 
 A 101 guide to messaging. Ian Cooper. (X, BlueSky and Hachyderm: ICooper)
 
-Day Two moves from single messages to *conversations*: the message-exchange patterns between participants, how faults are repaired, fat vs. skinny messages and reference data, then the shift to reactive thinking (dataflow and flow-based programming, reactive architectures) and finally process automation — BPMN, orchestration vs. choreography, durable execution, and workflow engines.
+Day Two moves from the single message to the **flow**. It opens on message design — fat vs. skinny messages and reference data, how state propagates through delta and snapshot events, and how a published message is versioned safely. It then shifts to reactive thinking (paper workflows, dataflow and flow-based programming, reactive architectures), puts delegates through a **paper-modelling exercise**, and closes on process automation — BPMN, orchestration vs. choreography, durable execution, and workflow engines.
 
----
-
-## Conversations
-
-*From messages to conversations — In & Out.*
-
-### Slide: Messaging Participants
-
-An application acts as either a **requestor** or a **provider**.
-
-- A message is sent over a **channel** — a virtual pipe (topic, routing key).
-- A message has a **header** (metadata) and a **body** (data).
-- A channel is **unidirectional** (one way).
-- Prefer *requestor/provider* over *producer/consumer* for conversation patterns, because they indicate role.
-
-Presenter notes: The problem with producer/consumer is that the *consumer* of a message might be the one exposing operations (receiving a command), or the *producer* might be the one exposing operations (sending a notification). Thinking in requestor/provider makes the role clear — are you providing the API or using it?
-
-### Slide: Messaging Participants — Example
-
-- **Provider (Store Information):** manages stores for our ecommerce site.
-- **Requestor (Search):** registers a store and optimizes for fast lookup on key search terms.
-- Message: indicates new store details (`changedstore()`).
-
-### Slide: In-Only (Fire and Forget)
-
-Under **In-Only**, the requestor sends a request to the provider but does not seek acknowledgment of completion. Typically called *fire-and-forget*.
-
-### Slide: In-Only — Example
-
-- **Requestor (cashier):** has a paid-for basket it wants to turn into an order.
-- **Provider (order placement):** raises an order (`place order()`).
-- Typically used where we are finished with our part in a flow and transferring control — we need no response because we are done.
-
-### Slide: Out-Only (Notification)
-
-Under **Out-Only**, the requestor subscribes to the provider; an operation is triggered by receipt of a message, but it does not acknowledge the message back to the provider. Typically called a *notification*.
-
-### Slide: Out-Only — Publish-Subscribe Example
-
-Out-Only *is* the Publish-Subscribe pattern: a producer is not aware of its consumers; the notification has loose coupling.
-
-- **Provider (Store Information):** manages stores; raises `changedstore()`.
-- Multiple requestors subscribe: **Search** (fast lookup), **Availability** (factors for whether a store is open), **Pick-Up Locations** (where couriers pick up, and restrictions).
-
-### Slide: In-Out (Request-Reaction)
-
-Under **In-Out**, the provider receives a request on one channel and returns a response (from the triggered operation) on a *separate* channel.
-
-The provider sets a **correlation id** (conversation id) in the request header, and returns it in the response header, so replies over a separate channel can be correlated.
-
-### Slide: In-Out — Request-Reaction (Command-Acknowledgement)
-
-In-Out supports Request-Response / Command-Acknowledgement: a requestor triggers an operation on the provider and gets a response.
-
-- **Requestor (Basket):** manages items for purchase. Sends `checkout()` — a command asking the cashier to price a basket.
-- **Provider (Cashier):** takes payment for the agreed amount and turns a basket into an order; replies `successfulpayment()`.
-
-Presenter notes: This has behavioural (control) coupling.
-
-### Slide: In-Out — Query-Result
-
-In-Out supports Query-Result: a requestor triggers a query and gets a result.
-
-- **Requestor (Basket):** sends `getdeliveryfees()` — a query for delivery fees for this basket.
-- **Provider (Delivery):** determines the fee based on store and items; replies `deliverfee()`.
-
-Presenter notes: This has behavioural (control) coupling.
-
-### Slide: In-Out — Subscribe-Notify
-
-In-Out coupled with Out-Only supports Subscribe-Notify: a requestor asks to subscribe (start/stop) to a provider.
-
-- `subscribe()` → provider manages a list of subscribers → optional `confirm()`/`confirmed()` (note the role switch).
-- Then Out-Only `notification()` messages flow; a `stop()` ends them.
-
-Presenter notes: This has behavioural (control) coupling.
-
-### Slide: Blocking In-Out (Request-Reply)
-
-The requestor provides a unique **Reply-To** channel in the request header; the provider uses it for the response, letting the requestor look up the suspended workflow — so a correlation id is not required.
-
-- To resume, we need a way to identify the suspended workflow.
-- The requestor *may block* on the Reply-To channel while awaiting the reply.
-
-### Slide: Out-In (Solicit-Response)
-
-Under **Out-In**, a provider solicits a response from a subscriber and awaits confirmation; the subscriber confirms receipt of the provider's solicitation.
-
-### Slide: Out-In — Example
-
-- **Provider (Delivery):** assigns delivery requests to drivers; queries whether a courier is available (`solicit()`), usually followed by notifications of available work.
-- **Requestor (Courier):** offers to take jobs depending on location and busyness (`ready()`).
-
-### Slide: Messaging vs. Eventing — Patterns Map (Messaging)
-
-**Messaging** — has intent; request an answer (Query), transfer of control (Command), transfer of value; part of a workflow/conversation; concerned with the future. Patterns:
-
-- In-Only (fire and forget)
-- In-Out (request-reaction)
-
-#image: two UML-style pattern diagrams — In-Only (fire-and-forget) and In-Out (request-reaction), requestor/provider  [→ resources/'Practical Messaging - Day 2 - 2024 - 25.png' + '...- 29.png' — exported slide images]
-
-### Slide: Messaging vs. Eventing — Patterns Map (Eventing)
-
-**Eventing** — provides facts; things you report on; no expectations; history/context; concerned with the past. Pattern:
-
-- Out-Only (notification)
-
-#image: UML-style diagram — the Out-Only (notification) pattern, requestor to provider  [→ resources/'Practical Messaging - Day 2 - 2024 - 27.png' — exported slide image]
-
----
-
-## Repair and Clarification
-
-*What guarantees does a provider make about communicating faults?*
-
-### Slide: Repair and Clarification
-
-The requestor triggers an operation on the provider by sending a message. We must consider a fault being triggered by that operation. The question: what guarantees does the provider make to the requestor about communicating any faults?
-
-### Slide: No Fault
-
-Under **No Fault**, the provider makes no attempt to communicate triggered faults to the requestor. From the requestor's perspective, faults are the provider's application issue, not its concern.
-
-### Slide: No Fault — Example
-
-- **Search** cannot add a store to its results after `changedstore()`, but makes no attempt to tell **Store Information**.
-- Most likely we fix consistency issues out-of-band via logs or error reports.
-
-Presenter notes: This is "good enough" in many cases.
-
-### Slide: Message Triggers Fault (Robust In-Only)
-
-Under **Message Triggers Fault**, the provider propagates faults from the operation back to the triggering requestor via a message.
-
-- The fault message goes in the opposite direction, back to the requestor.
-- Assumes the requestor can act on receipt of the fault, but does not normally take a (success) response.
-
-Presenter notes: The key: there is no existing subsequent message to replace with a fault, but we still want to communicate faults back.
-
-### Slide: Message Triggers Fault — Example
-
-- **Requestor (cashier):** `place order()`.
-- **Provider (order placement):** if it cannot place the order due to a fault, raises `fault()`.
-- The requestor doesn't acknowledge success, but on a fault may need to take other action such as a refund.
-
-### Slide: Fault Replaces Message
-
-Under **Fault Replaces Message**, the provider propagates faults by switching to a fault flow — replacing any message *after the first* with a fault. The requestor handles the error; the fault replaces the existing response (`reaction()` → `fault()`).
-
-Presenter notes: Any message in the conversation after the first may indicate a fault instead of the normal outcome.
-
-### Slide: Fault Replaces Message (Robust In-Out) — Example
-
-- **Pricer → Payment Provider:** `take payment()`.
-- On failure the payment provider signals `payment error()` back to the pricer.
-- Assumes the pricer can orchestrate a new flow (ask for an alternate payment method, or cancel the order). The message should indicate *why* payment failed — a provider issue, or an invalid card / insufficient funds.
-
-### Slide: In-Out-Retry
-
-The requestor may not receive an expected response. What can it do?
-
-- Set a **timeout** within which to receive a response.
-- **Retry** if no response arrives within that window (`greet()` → `greet()` → `acknowledge()`).
-- Because we might send twice, the provider operation must be **idempotent**, or the consumer must **de-duplicate** already-seen messages.
-
-
-#image: icon — a stopwatch/timer (the retry timeout)
-
-### Slide: Tentative Operations
-
-The requestor may not know whether the provider can succeed, and may not want to proceed without knowing.
-
-- `reserve()` — the requestor asks if the operation is possible and reserves the resources; the provider reserves the resource (usually with a timeout) and awaits commit or rollback (`reservation()`).
-- On success → `commit()` → `acknowledge()` (allocate the reserved capacity).
-- On failure → `rollback()` → `freed()` (free the reserved capacity).
-
-### Slide: Tentative Operations — Example
-
-- **Basket → Warehouse:** `reserve()` stock (Fault-Replaces-Message could apply if out of stock).
-- Warehouse reserves the stock with a timeout so others can buy it if we don't.
-- If the customer pays before the limit → `commit()` → `acknowledge()` (allocate stock).
-- If the basket doesn't complete → `rollback()` → `freed()`.
+*Message-exchange patterns and fault repair now live on Day One, in `## Conversations`. Managing Asynchronous APIs is a takeaway handout; only its versioning material is taught, in `## Versioning` below.*
 
 ---
 
@@ -311,6 +129,39 @@ An approach to Pub-Sub where a **public** provider communicates with collaborato
 
 - Private providers raise granular `event()`s.
 - The public provider republishes a versioned `summary()` with metadata describing the cause(s) of changes.
+
+---
+
+## Versioning
+
+*How do you change a message you have already published?*
+
+### Slide: Versioning — Postel's Law
+
+▎ Be strict when sending and tolerant when receiving.
+
+Robustness Principle (Postel's Law) — Jon Postel, RFC 1958: implementations must follow specs precisely when sending, and tolerate faulty input from the network.
+
+### Slide: Additive Change — Tolerant Reader (Ignore New Fields)
+
+Adding fields (e.g. `latitude`/`longitude`, not required) is non-breaking. A **Tolerant Reader** ignores new fields it doesn't understand.
+
+Presenter notes: A general rule — *adding* things does not cause a versioning conflict, as long as a new version is convertible from an old one. When old versions are read, upcast them to the latest before handling, so a handler only knows the latest version. Add new non-nullable fields with a **default value** (as with a new DB column). Additive changes → new messages process on old consumers; new consumers default missing values from older messages; may use an Enricher.
+
+### Slide: Additive Change — Default Missing Fields
+
+The other side of tolerant reading: a new consumer reading an old message **defaults missing fields** (e.g. Default Latitude: 0, Default Longitude: 0). Note the added fields are *not required*.
+
+### Slide: Breaking Change
+
+Renaming/splitting fields (e.g. `customerName` → `firstName` + `surName`) and making new fields required is a **breaking change**.
+
+- We might code around it, but we must *know* a required field is missing and new fields exist instead.
+- For that we rely on a **version in the header** and the ability to process the new version alongside old ones, running out the old until the new replaces it.
+
+Presenter notes: Breaking changes → create a **new message type**. Source systems may need to send original *and* new, or source the missing info via a Message Translator in the pipeline.
+
+#note: the rest of the old Day 1 §Managing Asynchronous APIs — AsyncAPI, JSON Schema/Avro/Protobuf, schema registries, CloudEvents and tooling — is now the **takeaway handout**, built from the QCon London 2026 deck. Mention it here and hand it out; do not teach it.
 
 ---
 
@@ -850,6 +701,23 @@ A sensible balance of orchestrated bounded contexts and choreography between the
 Presenter notes: Implementation paths depend on model type — embedded logic (orchestration) vs. API contracts/events (choreography). Clear boundaries → better automation decisions and a clearer division between messaging and eventing.
 
 ---
+
+### Slide: Tentative Operations
+
+A conversation that spans more than a request and a response: the requestor may not know whether the provider can succeed, and may not want to proceed without knowing.
+
+- `reserve()` — the requestor asks if the operation is possible and reserves the resources; the provider reserves the resource (usually with a timeout) and awaits commit or rollback (`reservation()`).
+- On success → `commit()` → `acknowledge()` (allocate the reserved capacity).
+- On failure → `rollback()` → `freed()` (free the reserved capacity).
+
+### Slide: Tentative Operations — Example
+
+- **Basket → Warehouse:** `reserve()` stock (Fault-Replaces-Message could apply if out of stock).
+- Warehouse reserves the stock with a timeout so others can buy it if we don't.
+- If the customer pays before the limit → `commit()` → `acknowledge()` (allocate stock).
+- If the basket doesn't complete → `rollback()` → `freed()`.
+
+Presenter notes: This is the bridge into durable execution. Reserve/commit/rollback is a conversation with a *lifetime* — someone has to remember the reservation exists, honour its timeout, and drive it to commit or rollback even across a restart. That requirement is what the rest of this section is about.
 
 ### Slide: Durable Execution
 
