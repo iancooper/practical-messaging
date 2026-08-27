@@ -8,9 +8,29 @@ Day Two moves from the single message to the **flow**. It opens on message desig
 
 ---
 
-## Fat & Skinny
+## Fat and Skinny Messages
 
-*How much data does a message carry?*
+*Sub-topic of **Designing Messages** — what goes in a message, how the receiver gets the rest, and what
+happens when it changes.*
+
+**Section goal:** given a message to design, choose what to put in it — and know how the receiver gets
+whatever you left out, and what that costs in availability.
+
+### Slide: What Goes in a Message?
+
+The decision is **per field, not per message**. For every piece of data the provider needs in order to
+act, there are three choices:
+
+- **Inline it** — put the value in the message.
+- **Reference it** — put an id in the message; the provider looks the data up.
+- **Replicate it** — the provider already holds a copy, kept fresh out-of-band.
+
+▎ Designing a message is a normalisation problem.
+
+- A **fat** message is fully denormalised. A **skinny** message is fully normalised. Neither extreme is usually right.
+- The rest of this section is the rule that decides per field, and the price of each answer.
+
+Presenter notes: Delegates already have this mental model from database design — they have just never applied it to messages. Normalise by default; denormalise deliberately for the lookups that hurt; and own the staleness you have created. That is the whole section in three sentences.
 
 ### Slide: Fat Message
 
@@ -18,72 +38,104 @@ With a **Fat Message**, the requestor sends across all the *external* informatio
 
 - The requestor provides all external information the provider needs to act.
 - The resulting document message may be large (a **Claim Check** can help).
+- **Example.** *Order Fulfilment → Courier Assignment:* the request provides delivery and pickup address, size, weights, etc. of the order.
 
-### Slide: Fat Message — Example
-
-- **Order Fulfilment → Courier Assignment:** the request provides delivery and pickup address, size, weights, etc. of the order.
+**What it buys you:** the provider needs nobody else in order to act. No lookup, no cache, no second system that has to be up.
 
 ### Slide: Fat Message — Transitive Dependencies
 
-A purchase-order message that inlines customer and restaurant data illustrates the cost:
+A purchase-order message that inlines customer and restaurant data shows the cost.
 
-- The order data has the *lifetime of the message*; its schema changes if the purchase order changes.
-- Customer data is a **transitive dependency** — its lifetime is the Customer's; a Customer schema change may force a message change.
+- The order data has the **lifetime of the message** — its schema changes if the purchase order changes. That is fine; it is *our* data.
+- Customer data is a **transitive dependency** — its lifetime is the Customer's. A Customer schema change may force a message change.
 - Restaurant data is likewise a transitive dependency on the Restaurant schema.
+
+▎ Inline someone else's data and you have inherited their release schedule.
+
+Presenter notes: This is the slide that motivates the rule two slides later. The message did not just get bigger — it acquired two more reasons to change, and both are owned by other teams.
 
 ### Slide: Skinny Message
 
-With a **Skinny Message**, the requestor provides only information unique to the event and assumes the provider has, or can obtain, the other information.
+With a **Skinny Message**, the requestor provides only information unique to the event, and assumes the provider has, or can obtain, the other information.
 
 - The resulting notification message is normally skinny.
+- **Example.** *Order Notification → Courier Assignment:* notifies that there is an order, inlining only order-unique data — not reference data like weights or addresses. Courier Assignment must source the missing information from elsewhere.
 
-### Slide: Skinny Message — Example
+**What it costs you:** the provider can no longer act alone. Something else has to supply the rest — which is the next sub-topic.
 
-- **Order Notification → Courier Assignment:** notifies that there is an order, inlining only order-unique data — not reference data like weights or addresses.
-- Courier Assignment must source the missing information (weights, addresses) from elsewhere.
+### Slide: The Lifetime Rule
 
-### Slide: Skinny Message — Normalized
+▎ If the data does not share the message's lifetime, put an id in the message, not the data.
 
-The purchase-order message carries `CustomerId` and `RestaurantId` instead of inlined data:
+The purchase-order message carries `CustomerId` and `RestaurantId` instead of inlined data.
 
-- Use an **Id** where the data does not share the message's lifetime; assume the requestor obtains the data out-of-band.
+- Data that shares the message's lifetime → **inline it**.
+- Data with its own lifetime → **reference it** by id; assume the requestor obtains the data out-of-band.
 - These ids must be looked up with other providers (Customer, Restaurant).
 
-### Slide: Skinny Message using Reference Data
+**Then be pragmatic.** Exactly as with a database, you may **denormalise** — inline a common lookup so you do not pay for it on every message.
 
-The requestor assumes **Provider A** has a local cache of data from **Provider B** it can use to look up identifiers in the skinny message.
+- Do it for the lookups that actually hurt, not by default.
+- The moment you copy someone else's data into your message you own a **stale copy**, and you have taken on their schema.
+- The rule is the default; a denormalisation is a decision you should be able to justify.
+
+Presenter notes: Just like a Db, we allow optimisation by inlining some common lookups — so "it depends", and be pragmatic, *on top of the rule*. The rule stops the choice being arbitrary; the pragmatism stops it being dogma. Ask which lookups in their own systems would justify it.
+
+---
+
+## Reference Data
+
+*How the provider gets what the message did not carry.*
+
+### Slide: Reference Data
+
+The requestor assumes **Provider A** has a local cache of data from **Provider B** that it can use to look up the identifiers in a skinny message.
 
 - Data that leaves Provider B via an API is **Reference Data**: immutable, versioned, stale.
+- Immutable and versioned because a copy that can change shape under its holder cannot be cached safely.
 - It can be cached locally to Provider A to avoid frequent lookups (`cache lookup()`).
 
-### Slide: Skinny Message via REST/RPC
+### Slide: Get It On Demand — REST/RPC
 
 On a cache miss, Provider A fetches the data from Provider B synchronously.
 
 - Look up missing data in the local reference-data cache (may specify identity *and* version).
-- On a miss, request from Provider B and store in the cache (`request()`/`reply()`/`cache write()`).
-- The cache chooses **Availability over Consistency**, *except* on a miss.
-- On a miss, this is **Consistency over Availability** (CAP): A's uptime becomes that of A & B — if B fails, A fails.
+- On a miss, request from Provider B and store it in the cache (`request()` / `reply()` / `cache write()`).
 
-### Slide: Skinny Message — Reference Data via ECST (Event-Carried State Transfer)
+**What it costs you**
+
+- On a hit: **availability over consistency** — you serve possibly-stale data and stay up.
+- On a miss: **consistency over availability** — and A's uptime becomes the uptime of **A *and* B**. If B fails, A fails.
+
+▎ A cache miss is a temporal coupling you did not plan for.
+
+Presenter notes: This is the Day 1 argument arriving inside message design. The lookup is a synchronous call in the middle of a message flow, so availabilities multiply again — and only on the unlucky path, which is exactly what makes it hard to catch in testing.
+
+### Slide: Get It In Advance — ECST (Event-Carried State Transfer)
 
 Provider B pushes state changes to A ahead of time, so A rarely needs a synchronous lookup.
 
 - The upstream provider raises a **notification** when its own entity state changes (Out-Only / pub-sub).
 - The downstream provider subscribes and writes to its local cache (`cache write()`); later requests hit the cache.
-- CAP: this chooses **Availability over Consistency** — accept stale data rather than risk failure due to a partition.
 
-### Slide: Skinny Message using Reference Data — Example
+**What it costs you:** **availability over consistency** — accept stale data rather than risk failure due to a partition. You are always reading a copy that is behind.
 
-- **Order Fulfilment → Courier Assignment:** the request omits restaurant pickup address; we assume Courier Assignment obtained it from Restaurant Information.
+Presenter notes: ECST is the answer to the previous slide's miss path — you stop having misses. The price is that you are now running a replica of someone else's data, and replicas go stale, go wrong, and need rebuilding. Say that out loud: teams adopt ECST expecting it to be free.
+
+### Slide: Reference Data — Worked Example
+
+*Order Fulfilment → Courier Assignment:* the request omits the restaurant pickup address; we assume Courier Assignment obtained it from Restaurant Information.
+
 - Look up the restaurant in the local cache by **id and version**.
-- If we have the restaurant but not the version, apply **backpressure** and retry the order after a delay.
+- If we have the restaurant but **not that version**, apply **backpressure** and retry the order after a delay.
+
+Presenter notes: The id-and-version lookup is the detail that makes this work. Without the version you cannot tell "I have not seen this yet" from "I have it"; with it, a missing version becomes a *wait* rather than a wrong answer. Backpressure here is the same idea they met in the reactive material.
 
 ---
 
-## Domain, Summary & Sequence
+## Event Shape
 
-*How events communicate state changes, and how ordering is handled.*
+*What shape of event lets the receiver keep a copy — and what guarantees that buys.*
 
 ### Slide: Domain or Delta Event
 
@@ -99,6 +151,17 @@ An approach to Pub-Sub where the provider communicates a **summary** of state ch
 - The message is **versioned** and contains metadata describing the cause(s) of changes; usually named after the observable (e.g. `BasketChanged`).
 - *Can* use a Datatype Channel — there is just one schema for a snapshot of the observable.
 
+### Slide: Why ECST Needs Snapshots
+
+You cannot replicate someone else's state from deltas unless you receive **every one of them, in order**.
+
+- With **Domain/Delta events**, a missed or reordered message leaves the replica permanently wrong — and nothing in the stream tells you. You must apply them all, you can only use blocking retry, and you cannot shed load.
+- With **Summary/Snapshot events**, each message is complete in itself. A missed one is repaired by the next one to arrive.
+
+▎ Choose the delta and you have chosen strict ordering. Choose the snapshot and you have bought it back.
+
+Presenter notes: This is the join between the two halves of the section. ECST is only tolerable because of the snapshot event — it is what makes the next two slides possible at all. The rule: publish complete new versions rather than deltas.
+
 ### Slide: If Later, Stream
 
 **If Later** lets us use a versioned Summary Event to ignore ordering errors.
@@ -106,7 +169,6 @@ An approach to Pub-Sub where the provider communicates a **summary** of state ch
 - Consumer reads v1 of 12345 and handles it; reads v3 and applies it (later than v1); reads v2 and **discards** it (earlier than the already-applied v3).
 - Even on a stream, non-blocking retry or guaranteed delivery via an outbox can produce out-of-order messages; If-Later also lets us shed load.
 - We *cannot* use If-Later with a Domain Event — those must all be applied. With Domain Events we can only use a blocking retry and cannot shed load.
-
 
 #image: diagram — a stream of versioned message envelopes (12345 v1..v3) read by a consumer applying 'if later'
 
@@ -120,7 +182,6 @@ If-Later also lets messages be processed out-of-order with a queue and competing
 - A queue normally processes messages (not events), so this applies only where we use a queue.
 - If a message *must* be ordered (e.g. a series of commands), use requeue-with-delay or a sequencer to re-order.
 
-
 #image: diagram — a queue of versioned message envelopes with two competing consumers and read-past
 
 ### Slide: Public and Private Providers
@@ -130,11 +191,13 @@ An approach to Pub-Sub where a **public** provider communicates with collaborato
 - Private providers raise granular `event()`s.
 - The public provider republishes a versioned `summary()` with metadata describing the cause(s) of changes.
 
+Presenter notes: This is how both event shapes coexist — deltas inside a domain, where ordering is cheap and the consumers are yours; snapshots across the boundary, where neither is true. It is the same public/private split as an Open Host Service.
+
 ---
 
 ## Versioning
 
-*How do you change a message you have already published?*
+*What happens when the message changes.*
 
 ### Slide: Versioning — Postel's Law
 
@@ -142,15 +205,15 @@ An approach to Pub-Sub where a **public** provider communicates with collaborato
 
 Robustness Principle (Postel's Law) — Jon Postel, RFC 1958: implementations must follow specs precisely when sending, and tolerate faulty input from the network.
 
-### Slide: Additive Change — Tolerant Reader (Ignore New Fields)
+### Slide: Additive Change
 
-Adding fields (e.g. `latitude`/`longitude`, not required) is non-breaking. A **Tolerant Reader** ignores new fields it doesn't understand.
+Adding fields (e.g. `latitude`/`longitude`, not required) is non-breaking — and it has to work from both ends:
 
-Presenter notes: A general rule — *adding* things does not cause a versioning conflict, as long as a new version is convertible from an old one. When old versions are read, upcast them to the latest before handling, so a handler only knows the latest version. Add new non-nullable fields with a **default value** (as with a new DB column). Additive changes → new messages process on old consumers; new consumers default missing values from older messages; may use an Enricher.
+- **New message, old consumer** — a **Tolerant Reader** ignores new fields it doesn't understand.
+- **Old message, new consumer** — the consumer **defaults the missing fields** (Default Latitude: 0, Default Longitude: 0).
+- The added fields must be *not required*. Add new non-nullable fields with a **default value**, as you would a new DB column.
 
-### Slide: Additive Change — Default Missing Fields
-
-The other side of tolerant reading: a new consumer reading an old message **defaults missing fields** (e.g. Default Latitude: 0, Default Longitude: 0). Note the added fields are *not required*.
+Presenter notes: A general rule — *adding* things does not cause a versioning conflict, as long as a new version is convertible from an old one. When old versions are read, upcast them to the latest before handling, so a handler only ever knows the latest version. Additive changes → new messages process on old consumers; new consumers default missing values from older messages; may use an Enricher.
 
 ### Slide: Breaking Change
 
@@ -160,6 +223,18 @@ Renaming/splitting fields (e.g. `customerName` → `firstName` + `surName`) and 
 - For that we rely on a **version in the header** and the ability to process the new version alongside old ones, running out the old until the new replaces it.
 
 Presenter notes: Breaking changes → create a **new message type**. Source systems may need to send original *and* new, or source the missing info via a Message Translator in the pipeline.
+
+### Slide: What You Inlined Is What You Version
+
+The versioning cost of a message was decided back on the first sub-topic, by what you chose to put in it.
+
+- **Inlined data** — you re-version your message whenever *their* schema changes. A fat message inherits every transitive dependency's breaking changes.
+- **Referenced data** — you version only your own fields. An id is the most stable thing you can carry.
+- **Replicated data** — this is *why* reference data is immutable and versioned: a copy that changes shape under its holder cannot be cached safely.
+
+▎ Every field you inline is a field someone else can break for you.
+
+Presenter notes: Close the loop. The lifetime rule was never only about message size — it was about how many other teams can force you to publish a new message version. Ask the room: which of your current messages would you have to re-version if a team you have never met changed a column?
 
 #note: the rest of the old Day 1 §Managing Asynchronous APIs — AsyncAPI, JSON Schema/Avro/Protobuf, schema registries, CloudEvents and tooling — is now the **takeaway handout**, built from the QCon London 2026 deck. Mention it here and hand it out; do not teach it.
 
