@@ -16,7 +16,7 @@ Three artefacts:
 | artefact | source | state |
 |---|---|---|
 | **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to 91 entries |
-| **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to 112 entries |
+| **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to 108 entries |
 | **AsyncAPI handout** | QCon London 2026 deck (43 slides) | to assemble — §6 |
 
 Working style: **outline in Markdown first**, then rebuild the deck from the outline. The outlines in
@@ -67,8 +67,8 @@ Day 1 is **the message**; Day 2 is **the flow**.
 2. **Managing Asynchronous APIs became a takeaway handout**, not taught material (§6).
 3. **A paper-modelling exercise took its Day 2 slot** — found to already exist (§7).
 
-Current: **Day 1 = 91 entries** with two code exercises; **Day 2 = 112** with one paper exercise.
-Day 2 is the bigger day on slide count, but Process Automation (50, 45% of the day) is still to be cut
+Current: **Day 1 = 91 entries** with two code exercises; **Day 2 = 108** with one paper exercise.
+Day 2 is the bigger day on slide count, but Process Automation (50, 46% of the day) is still to be cut
 — that is the relief valve.
 
 Why the split holds on content, not just counts: Conversations + Repair continues Day 1's build order
@@ -83,6 +83,7 @@ Domain/Summary is about what is **in** the message and how state propagates, whi
 | Day 1 §4 Messaging Patterns | a **build order**, not a catalogue — see below |
 | Day 1 §5 Conversations | *choose the right exchange pattern* — pick between In-Only / Out-Only / In-Out / Out-In and know what each commits you to in coupling terms |
 | Day 2 §1 Designing Messages | *decide what goes in a message* — choose what to put in it, and know how the receiver gets whatever you left out and what that costs in availability |
+| Day 2 §2 Flow and Reactive | *stop drawing your system as call-and-return* — draw it as flow instead, and know what that buys. Also arms the Paper Flow exercise |
 
 ### Teaching decisions
 
@@ -170,7 +171,7 @@ in front and 5 of wrap-up behind.
 
 ---
 
-## 5. Day 2 work queue — `outlines/DayTwo.md`, 4 real sections, 112 entries
+## 5. Day 2 work queue — `outlines/DayTwo.md`, 4 real sections, 108 entries
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
@@ -179,29 +180,72 @@ in front and 5 of wrap-up behind.
 | 1b | · Reference Data | 4 | on-demand vs. in-advance, CAP cost on-slide | | |
 | 1c | · Event Shape | 6 | +**Why ECST Needs Snapshots** (new) | | |
 | 1d | · Versioning *(moved from Day 1)* | 4 | +**What You Inlined Is What You Version** (new) | | |
-| 2 | **Flow and Reactive Programming** | 32 | ☐ ← **next work item** | ☐ | ☐ |
-| 2a | · Flow (paper workflows, the frame) | 5 | on-ramp, not its own section; also the exercise's *see one* | | |
-| 2b | · Reactive Programming | 27 | **☐ close the Day 1 loop — see below** | | |
+| 2 | **Flow and Reactive Programming** | **28** | ✅ 32 → 28, rebuilt as four movements | ☐ 3 new/redrawn | ☐ |
+| 2a | · A — Call and Return | 5 | goal: *stop drawing your system as call-and-return* | | |
+| 2b | · B — Paper Workflows | 6 | the exercise's **see one**; notation now taught explicitly | | |
+| 2c | · C — Dataflow and FBP | 7 | the same flows as a graph; ends on the Fax worked example | | |
+| 2d | · D — Reactive | 10 | ✅ all three Day 1 debts paid | | |
 
-**When reviewing 2b, three things are already owed to it:**
+**Section goal (agreed 2026-08-28):** *stop drawing your system as call-and-return, and start drawing it
+as flow — and know what that buys.*
 
-1. **Pay off Day 1's plant.** Day 1 §1 now frames everything as *easy to change* + *robust*, deliberately
-   without naming Reactive. *The Reactive Manifesto* slide should land as recognition: **Resilient** is
-   their "robust"; *amenable to change* is their "easy to change", in the manifesto's own words; and
-   **Elastic** and **Responsive** are the two they did not have names for yet.
-2. **Close the loop on the slide that already exists.** *Microservices Are Reactive Architectures* should
-   call back explicitly to Day 1 §1's *Easy to Change — Independent Deployability*.
-3. **Fix an attribution.** The *Reactive Traits — Value, Form, Means* slide asserts a mapping the
-   manifesto does not itself make — the manifesto names four traits and makes Message Driven the
-   mechanism, but never assigns value/form/means. It is a defensible gloss and it is how Bonér has
-   presented it, but the slide currently reads as if quoting. Attribute it.
+### What changed in the §2 rebuild
+
+**The argument order was inverted.** It ran paper → OO → dataflow → FBP → *back to OO at service scale
+(SOA)* → Reactive — making the "call and return doesn't scale" argument twice, twenty slides apart. The
+SOA block **moved to the front and merged with OO**, so the antagonist is stated once, at both scales, and
+everything after it is the answer:
+
+- **A — Call and Return.** OO → *Call and Return, and the God Object* → *SOA Is OO at Macro Scale* →
+  *Feature Envy — You Built a Distributed Monolith*. Ends on **the gateway is `main`**, and the deck's
+  own question, *is there a better paradigm?*
+- **B — Paper Workflows.** Answers it with a photograph: the office was a distributed system with no god
+  object.
+- **C — Dataflow and FBP.** The formalism, and the same four flows again as a graph.
+- **D — Reactive.** The name for what they have been building since Day 1.
+
+**The *see one* is now actually taught.** The old *Paper Workflow Illustrations* slide was a single entry
+holding **17 unlabelled images**. Split into four real slides — *The Frame*, **· *The Desk — In-Tray,
+Out-Tray, File* (new)**, *Worked Flow — Restaurant Onboarding*, *Worked Flows — Order, Placement,
+Confirmation* — plus *How Do We Deal with Errors?* as a table mapping each paper failure to its pattern
+name. The notation (boundary bar, numbered steps, red dashed = paper, trays, files) had **never been
+stated**; it is now, because delegates draw in it within the hour. The error slide deliberately uses the
+same words as the exercise's **failure cards**, so round 3 is recall, not invention.
+
+**Cuts (−4 net).** *SOA — Faults Propagate* — Day 1 §1 owns fault propagation, and the idea returns in D
+as the thing **Bulkheads** fix, where it does work instead of repeating. *Two Axes — Discrete/Series and
+Skinny/Fat* — Day 2 §1 owns it now. *Dataflow — Packets* merged into *Nodes, Ports and Firing*. *FBP —
+Node Lifetime* and *FBP — Capacity* merged into *Flow-Based Programming*. *Backpressure* + *Load-Shedding*
+merged into one decision slide, **When the Pipe Fills**. Two of the four section markers dropped.
+
+**Promoted.** *FBP — Where Do Lookups Live?* — three substantive diagrams (the lookup-port "walk of
+shame", the *Build Lookup* pre-cache node) were buried under a heading about buffers. It is the direct
+graph-shaped restatement of §1 *Reference Data*: on-demand vs. in-advance, and the CAP cost of each.
+*Putting Reactive Together* also absorbed its own three orphaned images — circuit breaker, and
+supervisor/scale-out — which were never taught.
+
+**The three Day 1 debts are paid** — all three were listed here and are now in the outline:
+
+1. ✅ *The Reactive Manifesto* lands as **recognition**: Resilient is Day 1's *robust*; *amenable to
+   change* is Day 1's *easy to change* in the manifesto's own words; Elastic and Responsive are the two
+   Day 1 had no names for. Callout: **two properties, one mechanism — somebody wrote it down in 2014.**
+2. ✅ *Microservices Are Reactive Architectures* now calls back explicitly to Day 1 §1 *Easy to Change —
+   Independent Deployability*: **"Day 1 called independent deployability the whole prize. This is how you
+   stop giving it back."**
+3. ✅ *Reactive Traits — Value, Form, Means* is attributed on the slide as **Bonér's gloss, not manifesto
+   text**. Flagged in its notes as the most cuttable slide in the movement if Ian would rather not carry
+   someone else's reading.
+
+**Open item for the Process Automation review:** the **Josuttis quote** is now a callout on §2 *SOA Is OO
+at Macro Scale* (where it is the yardstick Feature Envy fails against) **and** a standalone opening slide
+of Process Automation. One of the two has to go.
 | 3 | **Paper Flow** exercise | 9 | ✅ run-of-show settled (§7) | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
 | 4 | **Process Automation** | 50 | ☐ **needs cutting** — 45% of the day; **+ pizza → hotel redraw** | ☐ ~11 BPMN redraws | ☐ |
 | 4a | · Tentative Operations *(moved from Repair)* | 2 | ✅ bridge into Durable Execution | | |
 | 5 | Putting It Together | 6 | ☐ | ☐ | ☐ |
 | 6 | Next Steps | 5 | ☐ | ☐ | ☐ |
 
-**The balance problem that remains:** Process Automation at 50 entries is 45% of Day 2 and is entirely
+**The balance problem that remains:** Process Automation at 50 entries is 46% of Day 2 and is entirely
 lecture — which is exactly what the modelling exercise should relieve.
 
 ---
@@ -396,6 +440,12 @@ than a blank canvas.
    single item in the budget; decides whether the material looks like ours or assembled.
 6. **2 If-Later diagrams** — versioned envelopes on a stream, and on a queue with competing consumers
    and read-past (Day 2 §1).
+6a. **Day 2 §2 — three items.** (a) *The Desk — In-Tray, Out-Tray, File*: a **notation key** drawn in the
+   Paper Flow house style (box, two trays, file, boundary bar, red-dashed vs. solid arrows) — delegates
+   draw in this notation within the hour, so it must be a legend, not a photograph. Doubles as the
+   exercise handout. (b) An **order wheel** photograph — the only one of the three physical devices with
+   no image in the deck today. (c) The *Worked Flows* **montage** of the four takeaway flow diagrams;
+   sources all exist in `resources/`, so this is composition, not drawing.
 7. **`resources/Departure.drawio`** and the *Guest Cycle* replacement (Day 2 Paper Flow).
 8. **~11 BPMN redraws**, pizza → hotel (Day 2 Process Automation).
 
