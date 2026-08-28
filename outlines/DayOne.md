@@ -614,13 +614,39 @@ The pump registers a callback that the middleware invokes when a message is avai
 
 ### Slide: Service Activator
 
+**The line between the messaging code and your code.**
 
-Lets application code be invoked by callers *other* than the pump — useful for developer tests, or serving the same code over HTTP/gRPC.
+Everything in this sub-topic so far — endpoint, pump, mapper, registries — is the **messaging gateway**.
+The **handler** is your code. The Service Activator is the join, and its whole job is that the handler
+**does not know the pump exists**.
 
+- The pump has a message; the **Message Mapper** has already turned it into a domain object.
+- The activator makes an ordinary **synchronous, in-process method call** into your code, usually through
+  a service layer.
+- The handler takes a domain type and returns, or throws. No channel, no broker, no headers, no ack.
 
-#image: (s62) EIP diagram — Service Activator invoking a service for request-reply  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessagingAdapter.html]
+▎ Your handler is not a message handler. It is a method that happens to be called by one.
 
-Presenter notes: The activator invokes app code independent of the messaging endpoint — a synchronous, non-remote method call, usually via a service layer. It can be hard-coded to one service or use reflection to invoke the service indicated by the message, handling all messaging details so the service doesn't know it's invoked via messaging. Can be one-way (request only) or two-way (Request-Reply). (EIP reference.)
+- **Dispatch** is hard-coded to one service, or reflective on the message type — which is what the
+  *Handler Registry* on *Translate and Dispatch* is for.
+- **One-way** (request only) or **two-way** (Request-Reply).
+- **Because nothing in the handler is messaging-aware, anything else can call it too** — a developer
+  test, an HTTP endpoint, a gRPC service. Useful, and worth calling out; but it is a *consequence* of the
+  separation, not the reason for it.
+
+#image: (s62) EIP diagram — Service Activator invoking a service for request-reply  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessagingAdapter.html — **redraw**]
+
+Presenter notes: **Reframed 2026-08-28 (Ian).** The slide used to lead on *"lets application code be
+invoked by callers other than the pump — useful for developer tests"*, which is the side-effect, not the
+pattern. The point is the **separation**: the gateway owns everything about messaging, and the handler is
+independent of it. Testability follows from that, and lands better as evidence for the separation than as
+the headline. This is another case of the load-bearing idea sitting in the presenter notes — the old notes
+already said "handling all messaging details so the service doesn't know it's invoked via messaging",
+which is the sentence that should have been on the slide.
+
+#note: **The exercises show this** (Ian). The handler signature in the exercise repos is the proof — a
+plain method over a domain type, with nothing messaging-shaped in it. Point at the actual code in §4.2's
+RMQ Quick Start rather than asserting it here; wire the specific file references in during Phase 3.
 
 ### Slide: Competing Consumers
 
