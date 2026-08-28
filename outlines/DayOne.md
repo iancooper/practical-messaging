@@ -428,28 +428,6 @@ A map of the messaging patterns we will cover across the day.
 
 #image: messaging concepts diagram — application/gateway, channel adapter, channel, endpoint, and a message with header + body
 
-#note: **Course map — the Fallacies of Distributed Computing (arrived here 2026-08-28, review item
-D1-5).** The *Fallacies* slide was cut from §1 because it restated *The Price of Distribution*, which
-makes the same argument better and with a number. Its one distinct contribution was the third column — a
-map of where the course answers each fallacy — and that is a **build-order** artefact, not an opening-ten-
-minutes artefact: it reads as a syllabus only to someone who already knows the syllabus. Fold it into
-*The Big Picture* when 4a is reframed as a build order (plan §4, row 4a).
-
-| Fallacy | What it costs you | Where we answer it |
-|---|---|---|
-| The network is reliable | Messages lost, duplicated, or delivered twice | Retries, idempotence, DLQ — *4.4 Guaranteed Delivery* |
-| Latency is zero | Calls that block; chains that compound | Asynchronous conversation — *Coupling*, *Conversations* |
-| Bandwidth is infinite | Oversized payloads, saturated links | Fat vs. skinny messages — §6 *Designing Messages* |
-| The network is secure | Blindsided by what you never modelled | **Out of scope for this course** — flag it, don't pretend |
-| Topology doesn't change | Endpoints that move; instances that come and go | Endpoints, discovery, competing consumers — *4.2*, *4.3* |
-| There is one administrator | Conflicting policies; nobody owns the contract | Documenting the contract — the *Managing Asynchronous APIs* handout |
-| Transport cost is zero | Serialisation, brokers and operations you didn't budget | Fat vs. skinny — §6 *Designing Messages*; broker choice — §4.5 *Queues and Streams* |
-| The network is homogeneous | Schema and encoding mismatch across stacks | Tolerant readers and schema formats — the *Managing Asynchronous APIs* handout |
-
-▎ Every one of these has a pattern later in the course. That is what the next two days are.
-
-Attribution: first seven, L. Peter Deutsch, 1994; the eighth added by James Gosling, ~1997.
-
 ---
 
 ---
