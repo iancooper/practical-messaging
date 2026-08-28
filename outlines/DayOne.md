@@ -13,52 +13,61 @@ Prerequisites: We use RabbitMQ and Kafka for examples. You should have Docker (o
 
 ## Distributed Systems
 
-*The problems messaging solves.*
+*What we want, and what it costs.*
 
-#note: Three movements. **A — what we actually want** (slides 1–5: the two properties, each made
-concrete). **B — what you now have to live with** (slides 6–8, the payload). **C — the price**
-(slides 9–10, which hands off to §Coupling). Cut in earlier revisions: *Product Mode* and the
-standalone *Example — Microservices* quote slide. This revision reframes the opening away from
-justifying microservices and onto the two properties messaging buys — see *Easy to Change, and
-Robust*.
+#note: **Rebuilt 2026-08-28, review items D1-1 … D1-6.** Three movements. **A — what we want** (2 slides).
+**B — what independent deployability commits you to** (3 slides). **C — the price, and the second thing
+we want** (2 slides, handing to §Coupling). The section now deliberately **stops at the problem** —
+messaging is the answer, and §Coupling → §Integration Styles → §Messaging Patterns are where it gets
+given. Ian: *we want independent deployability, but here are the problems, and then the next section is
+about messaging as the answer.*
 
-### Slide: Why Distribute?
-
-Once upon a time computer systems were stand-alone; they ran on one machine. Modern design tends to be distributed, with parts running on different computing nodes. Four forces drive this:
-
-- **Performance and Scalability** — As systems succeed we must scale them to meet demand. A distributed system lets us scale *out* by adding nodes to spread load, and scale *up* parts of the offering with more expensive hardware.
-- **Availability** — The "problem of one": a single node means failure stops the system. Redundant nodes let us keep serving — perhaps degraded — until we replace the failed node. This makes systems fault tolerant.
-- **Maintainability** — Large monoliths are hard to maintain: you must test the whole to release any part, developers can't grasp the whole, and you get the "banyan tree" anti-pattern — duplication, and, with bad coupling, a "big ball of mud". Splitting into parts creates components that can be developed, QA'd and released independently.
-- **Inherent Distribution** — Some applications are inherently distributed: business systems spanning divisions across regions, peer-to-peer content sharing, and so on.
-
-Underneath all four, two properties are what we are really buying. The next slide names them.
-
-Presenter notes: The availability claim here gets qualified on "The Price of Distribution" — redundancy
-*within* a service raises availability, but chaining services can throw that gain straight back. Don't
-resolve it yet; let anyone who spots it sit with it.
+#note: **Left this section in the rebuild.** *Why Distribute?* — folded into the opener as one line
+(D1-1: it did not earn its weight, and it buried the lead). *Fallacies of Distributed Computing* — cut;
+its one distinct contribution, the where-we-answer-it column, is now a course map on §4 *The Big Picture*
+(D1-5). The two **task-queue mechanism slides** — moved to §4.3, after *Competing Consumers*, which is
+what they are a worked example of (D1-6: task queues are an *answer*, and this section no longer gives
+answers). Earlier revisions cut *Product Mode* and the standalone *Example — Microservices* quote.
 
 ### Slide: Easy to Change, and Robust
 
-Strip away the architecture words and two properties are left:
+You will hear four reasons to distribute a system — **performance and scalability**, **availability**,
+**maintainability**, and applications that are **inherently distributed**. Strip the architecture words
+away and two properties are what you are actually buying:
 
 - **Easy to change** — ship a part without shipping the whole. *Independent deployability.*
 - **Robust** — keep working when something you depend on is not. *Guaranteed delivery.*
 
-How you get them:
-
-- **Microservices are one way to buy the first.** They are not the only way, and they are not free — the rest of this section is the bill.
-- **Task queues buy the second without microservices at all** — one team, one service, one queue. No reorganisation required.
-- Both are bought with the same mechanism: **messages**.
+Both are bought with the same mechanism: **messages**.
 
 ▎ Two properties, one mechanism. Everything in the next two days buys one of them with messages.
 
-Presenter notes: This replaces the microservices-justification framing the deck used to open with. In 2026 nobody in the room needs persuading that microservices exist; what they need is a reason to care about messaging that does not require them to reorganise their company first. Plant the two words and move on — **do not** mention Reactive yet. Day 2 pays it off: the Reactive Manifesto (2014) names the second property **Resilient**, and claims the first in its own words — reactive systems are "easier to develop and amenable to change". The delegates should meet that on Day 2 as a recognition, not a repeat.
+Presenter notes: **This is now the opening slide** (D1-1). *Why Distribute?* used to come first and spend
+a slide on the four forces before getting here; the four forces are worth ten seconds, not a slide, and
+leading with them buried the lead. Say the list, then say that all four reduce to two properties, and put
+the two words on the board — they are the spine of both days. **Do not mention Reactive.** Day 2 pays this
+off: the Reactive Manifesto (2014) names the second property **Resilient** and claims the first in its own
+words — reactive systems are "easier to develop and amenable to change". Delegates should meet that on
+Day 2 as recognition, not repetition. One force to keep in your pocket: **availability** is the one that
+gets qualified later — redundancy *within* a service raises it, chaining services throws the gain away.
+Do not resolve it here; *The Price of Distribution* settles it.
 
 ### Slide: Easy to Change — Independent Deployability
 
-**The problem.** As an organisation grows to many teams, monoliths suffer. Each team branches to avoid contention; releasing means agreeing a date and merging, which collides with other teams' schedules. Teams pile onto a release to avoid re-merging and re-testing upstream changes. A release takes a couple of weeks and distracts everyone.
+**What we want.** Ship a part without shipping the whole. One team decides its own release candidate and
+is in production in hours.
 
-**The answer.** Decomposing into team-sized microservices removes these difficulties. Each team negotiates only internally to decide a release candidate. Develop on master behind a feature switch per story to minimise integration cost and go straight to production. Delivery time becomes hours, not weeks.
+**What is in the way.** As an organisation grows to many teams, a monolith fights you. Each team branches
+to avoid contention; releasing means agreeing a date and merging, which collides with everyone else's
+schedule. Teams pile onto a release to avoid re-merging and re-testing upstream changes. A release takes a
+couple of weeks and distracts everyone.
+
+**Microservices are one example of buying it** — team-sized services, each with its own release train.
+Each team negotiates only internally; develop on master behind a feature switch per story and go straight
+to production. Delivery becomes hours, not weeks.
+
+- They are **not the only way** to get independent deployability.
+- They are **not free** — the rest of this section is the bill.
 
 ▎ "Speed wins in the marketplace" — Adrian Cockcroft, former lead architect at Netflix.
 
@@ -67,124 +76,107 @@ Presenter notes: This replaces the microservices-justification framing the deck 
 #image: timeline diagram — many teams on feature branches merging into a single monolith release over ~2 weeks
 #image: diagram — a monolith decomposed into independently released microservices (Alpha, Beta, Gamma), delivering in hours
 
-Presenter notes: Show the two diagrams as a before/after pair. On the monolith side: once teams line up they merge to master and resolve conflicts; more features → more bugs → cost and schedule overruns (assume ~30% rework); we must re-test everything because we merged potentially incompatible changes; all teams wait on any fix, even another team's. Feature switches help drop changes, but database/schema changes (a monolith has a shared schema) make this hard, and rollback forces everyone out — hence "roll forward only". On the microservice side: Continuous Delivery is table stakes for digital companies; you can't beat the competition with a slow release schedule; we build microservices once we grow beyond a single "two-pizza" team. The second callout is the load-bearing line of the movement — §Coupling calls straight back to it.
-
-### Slide: Robust — Task Queues
-
-**You do not need microservices for this one.** A single team with a single web application can have it on Monday.
-
-Offloading work from a request path — the shape of the answer, before we name any of the parts.
-
-- The web server puts the work on a queue.
-- The queue stores work until we are ready to consume it — we can throttle to prevent surges.
-- A backend application performs long-running or CPU-intensive work, freeing the web server to service new requests.
-- We scale out the backend using competing consumers so the queue does not back up.
-
-**What it buys:** the web server stays responsive when the backend is slow, overwhelmed, or down. The work is not lost — it waits.
-
-▎ One team, one service, one queue. Robustness without reorganising the company.
-
-#image: hand-drawn architecture diagram — browser/web server enqueues work onto a channel; a backend Sender/Receiver maps messages to data; databases at each end
-
-#note: This slide deliberately uses vocabulary — *channel*, *competing consumers* — that nothing has
-defined yet. It is a teaser, not a definition; say so, and promise the pattern names later
-(competing consumers is §Messaging Patterns → The Message Pump).
-
-Presenter notes: This slide used to sit after the microservice anatomy, where it read as a microservices pattern — the opposite of its point. Its job is to show messaging paying off *without* the organisational change, so that nobody in the room can file the whole course under "not for us, we're a monolith".
-
-### Slide: Task Queue — HTTP Flow
-
-How this looks over HTTP — and most delegates have not used this.
-
-- We return **202 Accepted** — we have your work request and won't lose it. It is HTTP's own way of saying *store and forward*.
-- We enqueue a work item for the request.
-- We return a **Location** header so you can monitor progress (link to the resource — 404 until created; and a link to a progress page backed by a KV store where we note progress).
-- The backend app does the work at a sustainable pace and updates the KV store as required.
-
-#image: hand-drawn diagram of the task-queue HTTP flow — client, queue channel, backend worker, and a KV/progress store
-
-Presenter notes: Ask who has returned a 202 in anger. Usually a handful of hands. This is the most immediately usable thing in the first hour of the course.
+Presenter notes: **Reframed (D1-2): the property is the point; microservices are an example of it.** The
+slide used to read "the answer: decompose into microservices", which made the section an argument for
+microservices — dated in 2026, and not this section's goal. Show the two diagrams as a before/after pair.
+On the monolith side: once teams line up they merge to master and resolve conflicts; more features → more
+bugs → cost and schedule overruns (assume ~30% rework); we must re-test everything because we merged
+potentially incompatible changes; all teams wait on any fix, even another team's. Feature switches help
+drop changes, but database/schema changes (a monolith has a shared schema) make this hard, and rollback
+forces everyone out — hence "roll forward only". On the microservice side: Continuous Delivery is table
+stakes; we build microservices once we grow beyond a single "two-pizza" team. The second callout is the
+load-bearing line of the section — §Coupling calls straight back to it.
 
 ### Slide: Microservice — Messages In, Private Data
 
-- The only way to complete tasks within a service is by sending it a message. Each service has its own accepted message types and specific data requirements for partners submitting work.
-- Encapsulated within the service is private data. Requests to the service do not describe the shape of internal data.
+Independent deployability needs a **process boundary**. The next three slides are what you have committed
+to by drawing one.
 
+- The only way to complete a task within a service is to **send it a message**. Each service has its own
+  accepted message types, and its own data requirements for partners submitting work.
+- Encapsulated within the service is **private data**. Requests to the service do not describe the shape
+  of internal data.
 
 #image: hand-drawn diagram — a microservice with private data receiving messages over a channel; database inside
+
+Presenter notes: **Regrouped (D1-4)** — this and the next two slides are the independent-deployability
+thread, and the task-queue material used to sit between them and break it. Now the thread runs
+uninterrupted: the property, then the three things the boundary commits you to.
 
 ### Slide: Microservice — No Cross-Service Transactions
 
 - Transactions (including 2PC) may occur *within* a microservice.
-- Transactions cannot occur *between* services. If you operate independently from your business partners, you don't exchange transactions with them. Cross-organizational transactions are avoided to prevent lockup of *your* database when the *other* organization makes a mistake. Without transactions, you communicate through multiple messages over time.
+- Transactions cannot occur *between* services. If you operate independently from your business partners,
+  you don't exchange transactions with them. Cross-organisational transactions are avoided to prevent
+  lockup of *your* database when the *other* organisation makes a mistake. Without transactions, you
+  communicate through multiple messages over time.
 
 ▎ No transaction spans two services. Consistency stops being something you declare and becomes something you design.
 
-
 #image: hand-drawn diagram — two microservices exchanging messages over channels, each with its own database
 
-Presenter notes: This is the load-bearing slide of the section. Everything the two days teach —
-outbox, sagas, idempotence, choreography, compensation — exists because this sentence is true. Say
-so explicitly; it gives delegates a spine to hang the rest of the course on.
+Presenter notes: This is the load-bearing slide of the section. Everything the two days teach — outbox,
+sagas, idempotence, choreography, compensation — exists because this sentence is true. Say so explicitly;
+it gives delegates a spine to hang the rest of the course on.
 
 ### Slide: Collaboration — Orchestration and Choreography
 
-- As services are independent, a collaboration comprises **orchestrations** (handlers, sagas, or workflows) *within* the services…
+- As services are independent, a collaboration comprises **orchestrations** — handlers, sagas or workflows
+  *within* the services…
 - …and the **choreography** — the flow of messages *between* services.
-
 
 #image: hand-drawn diagram — a process of tasks sending a message via a channel to a receiver task; databases at each end
 
-Presenter notes: Plant the two words now; Day 2 §Process Automation takes them apart properly.
+Presenter notes: Plant the two words now; Day 2 §Process Automation takes them apart properly, and the
+Paper Flow exercise makes delegates feel the difference before either word is defined.
+
+### Slide: Robust — Guaranteed Delivery
+
+The second property, and it is the cheaper of the two.
+
+- We want the work **not to be lost** when something we depend on is slow, overwhelmed, or down.
+- **Store and forward.** The work waits somewhere durable until whoever does it is ready. The outage
+  becomes a delay.
+- **You do not need microservices for this one.** A single team with a single web application can have it
+  on Monday — one team, one service, one queue. No reorganisation required.
+
+▎ One team, one service, one queue. Robustness without reorganising the company.
+
+Presenter notes: **Renamed from *Robust — Task Queues* (D1-3): guaranteed delivery is the point, and the
+task queue is an example of it.** The *shape* of it — enqueue, throttle, competing consumers, and the 202
+Accepted flow — moved to §4.3 (D1-6: task queues are an answer, and this section no longer gives answers).
+What has to survive here is the inoculation: this slide exists so that nobody in the room can file the
+whole course under "not for us, we're a monolith". Say the callout and move on; the mechanism is two hours
+away and they will recognise it when it arrives.
 
 ### Slide: The Price of Distribution
 
 Everything so far was the benefit. Here is the bill.
 
-- **Every call is now a network call.** It can be slow, it can fail, and it can succeed while losing the reply.
+- **Every call is now a network call.** It can be slow, it can fail, and it can succeed while losing the
+  reply.
 - **You cannot use a transaction to make two services agree.** Consistency becomes something you design.
-- **Your availability is now entangled with everyone you depend on** — and *how* it is entangled is a choice you make.
+- **Your availability is now entangled with everyone you depend on** — and *how* it is entangled is a
+  choice you make.
 
 That last one is the one people get wrong:
 
-- **Call a service and wait, and your availabilities multiply.** Four services at 99.9% leaves you at 99.6% — before anything has actually failed.
-- **Send a message and don't wait, and they don't multiply.** Guaranteed delivery means the message outlives their outage and is processed when they come back.
+- **Call a service and wait, and your availabilities multiply.** Four services at 99.9% leaves you at
+  99.6% — before anything has actually failed.
+- **Send a message and don't wait, and they don't multiply.** Guaranteed delivery means the message
+  outlives their outage and is processed when they come back.
 
 ▎ Messaging doesn't remove the outage. It converts a failure into a delay.
 
-Presenter notes: This is where the availability claim from "Why Distribute?" gets settled — anyone who
-spotted the tension gets their answer here. Redundancy *within* a service raises availability; chaining
-*temporally coupled* calls throws that gain away. Do the arithmetic on the board: 0.999⁴ = 0.996. Then
-be honest about the trade — the messaging version doesn't make the downstream outage vanish, it buys an
-availability loss back as latency variance. That is usually a trade you can accept, and it is the
-argument the whole course rests on. This is also where *robust* stops being a slogan and gets a number.
-Hands directly to §Coupling, which asks "must we both be up?".
-
-### Slide: Fallacies of Distributed Computing
-
-The classic eight — and where this course answers each.
-
-| Fallacy | What it costs you | Where we answer it |
-|---|---|---|
-| The network is reliable | Messages lost, duplicated, or delivered twice | Retries, idempotence, DLQ — *4.4 Guaranteed Delivery* |
-| Latency is zero | Calls that block; chains that compound | Asynchronous conversation — *Coupling*, *Conversations* |
-| Bandwidth is infinite | Oversized payloads, saturated links | Fat vs. skinny messages — §6 *Designing Messages*, later today |
-| The network is secure | Blindsided by what you never modelled | **Out of scope for this course** — flag it, don't pretend |
-| Topology doesn't change | Endpoints that move; instances that come and go | Endpoints, discovery, competing consumers — *4.2*, *4.3* |
-| There is one administrator | Conflicting policies; nobody owns the contract | Documenting the contract — the *Managing Asynchronous APIs* handout |
-| Transport cost is zero | Serialisation, brokers and operations you didn't budget | Fat vs. skinny — §6 *Designing Messages*; broker choice — §4.5 *Queues and Streams* |
-| The network is homogeneous | Schema and encoding mismatch across stacks | Tolerant readers and schema formats — the *Managing Asynchronous APIs* handout |
-
-▎ Every one of these has a pattern later in the course. That is what the next two days are.
-
-Presenter notes: (First seven: L. Peter Deutsch, 1994; the eighth added by James Gosling ~1997.)
-Applications written with little network error-handling stall or wait forever during outages, consuming
-resources, and may fail to retry when the network returns. Ignoring latency/packet loss invites unbounded
-traffic and dropped packets; ignoring bandwidth creates bottlenecks; complacency about security gets you
-blindsided; topology changes affect bandwidth and latency; multiple administrators create conflicting
-policies; hidden build/maintenance costs are non-negligible; assuming homogeneity reproduces the first
-three fallacies. Use the third column as a course map — it tells delegates the list is not a lament, it
-is a syllabus.
+Presenter notes: **This slide is now the glue and the close of the section (D1-5)** — it does the work
+*Fallacies of Distributed Computing* was also doing, and does it better, with a number. Anyone who spotted
+the availability tension in the opener gets their answer here: redundancy *within* a service raises
+availability; chaining *temporally coupled* calls throws that gain away. Do the arithmetic on the board:
+0.999⁴ = 0.996. Then be honest about the trade — the messaging version does not make the downstream outage
+vanish, it buys an availability loss back as latency variance. That is usually a trade you can accept, and
+it is the argument the whole course rests on. This is where *robust* stops being a slogan and gets a
+number. **End the section here**, on the problem: hands directly to §Coupling, which asks "must we both be
+up?"
 
 ## Coupling
 
@@ -369,6 +361,28 @@ A map of the messaging patterns we will cover across the day.
 
 
 #image: messaging concepts diagram — application/gateway, channel adapter, channel, endpoint, and a message with header + body
+
+#note: **Course map — the Fallacies of Distributed Computing (arrived here 2026-08-28, review item
+D1-5).** The *Fallacies* slide was cut from §1 because it restated *The Price of Distribution*, which
+makes the same argument better and with a number. Its one distinct contribution was the third column — a
+map of where the course answers each fallacy — and that is a **build-order** artefact, not an opening-ten-
+minutes artefact: it reads as a syllabus only to someone who already knows the syllabus. Fold it into
+*The Big Picture* when 4a is reframed as a build order (plan §4, row 4a).
+
+| Fallacy | What it costs you | Where we answer it |
+|---|---|---|
+| The network is reliable | Messages lost, duplicated, or delivered twice | Retries, idempotence, DLQ — *4.4 Guaranteed Delivery* |
+| Latency is zero | Calls that block; chains that compound | Asynchronous conversation — *Coupling*, *Conversations* |
+| Bandwidth is infinite | Oversized payloads, saturated links | Fat vs. skinny messages — §6 *Designing Messages* |
+| The network is secure | Blindsided by what you never modelled | **Out of scope for this course** — flag it, don't pretend |
+| Topology doesn't change | Endpoints that move; instances that come and go | Endpoints, discovery, competing consumers — *4.2*, *4.3* |
+| There is one administrator | Conflicting policies; nobody owns the contract | Documenting the contract — the *Managing Asynchronous APIs* handout |
+| Transport cost is zero | Serialisation, brokers and operations you didn't budget | Fat vs. skinny — §6 *Designing Messages*; broker choice — §4.5 *Queues and Streams* |
+| The network is homogeneous | Schema and encoding mismatch across stacks | Tolerant readers and schema formats — the *Managing Asynchronous APIs* handout |
+
+▎ Every one of these has a pattern later in the course. That is what the next two days are.
+
+Attribution: first seven, L. Peter Deutsch, 1994; the eighth added by James Gosling, ~1997.
 
 ---
 
@@ -573,6 +587,53 @@ To stop a channel backing up, consume faster than messages arrive by adding cons
 #image: (s63) EIP diagram — Message Dispatcher / competing consumers distributing numbered messages to performers  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageDispatcher.html]
 
 Presenter notes: Compare arrival rate to consumption rate (time to ack/nack). If arrival exceeds consumption and it isn't a burst, you never catch up. You may also need to process within a deadline. Solution: more consumers. The queue hands a message to only one consumer, locking it while processed, unlocking on failure, and letting waiting consumers read past locked messages. Caveat: competing consumers break in-sequence processing (lock + read-past de-orders). If order matters and arrival exceeds consumption, **partition** using consistent hashing so order is preserved within a partition and per-partition arrival ≤ single-consumer consumption. (EIP reference.)
+
+
+### Slide: Worked Example — the Task Queue
+
+The pump and competing consumers, as an application shape. **Offloading work from a request path.**
+
+- The web server puts the work on a **queue** and returns immediately.
+- The queue **stores** the work until we are ready to consume it — we can throttle to prevent surges.
+- A backend application does the long-running or CPU-intensive work, freeing the web server to service
+  new requests.
+- We **scale out** the backend with competing consumers so the queue does not back up.
+
+**What it buys:** the web server stays responsive when the backend is slow, overwhelmed, or down. The
+work is not lost — it waits.
+
+▎ One team, one service, one queue. Robustness without reorganising the company.
+
+#image: hand-drawn architecture diagram — browser/web server enqueues work onto a channel; a backend Sender/Receiver maps messages to data; databases at each end
+
+Presenter notes: **Moved here from §1 (review items D1-3 / D1-6, 2026-08-28).** §1 kept the *want* —
+*Robust — Guaranteed Delivery* — and this is the mechanism, which belongs where the parts have names.
+Everything the slide gestured at vaguely in the first ten minutes is now vocabulary they own: channel,
+pump, competing consumers. Call the callback out loud — this is the slide from the first ten minutes,
+and now they can read it. Ian's condition for keeping the task queue at all was that it earn its place in
+Messaging Patterns; this is where it does.
+
+### Slide: Task Queue — HTTP Flow
+
+How this looks over HTTP — and most delegates have not used it.
+
+- Return **202 Accepted** — we have your work request and we will not lose it. It is HTTP's own way of
+  saying *store and forward*.
+- Enqueue a work item for the request.
+- Return a **Location** header so the caller can monitor progress: a link to the resource — 404 until it
+  is created — and a link to a progress page backed by a KV store where we note progress.
+- The backend does the work at a sustainable pace and updates the KV store as it goes.
+
+#image: hand-drawn diagram of the task-queue HTTP flow — client, queue channel, backend worker, and a KV/progress store
+
+Presenter notes: **Moved here from §1 (D1-6).** Ask who has returned a 202 in anger — usually a handful of
+hands. This is one of the most immediately usable things in the course: it is guaranteed delivery with no
+new infrastructure and no reorganisation, expressed in a protocol everyone in the room already ships.
+
+#note: **Placement to settle in D1-8.** These two arrived from §1 and are parked at the end of §4.3
+because the task queue *is* the pump plus competing consumers. D1-8 reworks §4.4 around the producer /
+consumer split, and may want the 202 flow there instead — it is as much a guaranteed-delivery story as a
+pump story. Decide it there, not here.
 
 ---
 

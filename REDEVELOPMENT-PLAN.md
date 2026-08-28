@@ -15,7 +15,7 @@ Three artefacts:
 
 | artefact | source | state |
 |---|---|---|
-| **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to **95** entries |
+| **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to **94** entries |
 | **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to **91** entries |
 | **AsyncAPI handout** | QCon London 2026 deck (43 slides) | to assemble — §6 |
 | **Routing-patterns handout** | old Day 1 §4.6 + `script/Patterns/*.md` | to assemble — §10 |
@@ -68,7 +68,7 @@ Day 1 is **the message**; Day 2 is **the flow**.
 2. **Managing Asynchronous APIs became a takeaway handout**, not taught material (§6).
 3. **A paper-modelling exercise took its Day 2 slot** — found to already exist (§7).
 
-Current (after D1-9, 2026-08-28): **Day 1 = 95 entries** with two code exercises; **Day 2 = 91** with one
+Current (after D1-1 … D1-11, 2026-08-28): **Day 1 = 94 entries** with two code exercises; **Day 2 = 91** with one
 paper exercise. The two days are now close to balanced — but Process Automation is unchanged at 50, which
 is **55% of Day 2**. It is the one remaining outlier and the relief valve.
 
@@ -80,7 +80,7 @@ Domain/Summary is about what is **in** the message and how state propagates, whi
 
 | section | goal |
 |---|---|
-| Day 1 §1 Distributed Systems | *set up the problems messaging solves* — not: justify distributing. Framed as **easy to change + robust**, see below |
+| Day 1 §1 Distributed Systems | *set up the problems messaging solves* — and **stop there**. Two properties wanted (easy to change + robust), what independent deployability commits you to, and the bill. The answer is messaging, and §2 → §3 → §4 give it |
 | Day 1 §4 Messaging Patterns | a **build order**, not a catalogue — see below |
 | Day 1 §5 Conversations | *choose the right exchange pattern* — pick between In-Only / Out-Only / In-Out / Out-In and know what each commits you to in coupling terms |
 | Day 2 §1 Designing Messages | *decide what goes in a message* — choose what to put in it, and know how the receiver gets whatever you left out and what that costs in availability |
@@ -158,22 +158,22 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 
 ---
 
-## 4. Day 1 work queue — `outlines/DayOne.md`, 7 sections, 95 entries
+## 4. Day 1 work queue — `outlines/DayOne.md`, 7 sections, 94 entries
 
-> **Superseded in part by §9 (review queue, 2026-08-28).** Items D1-1 … D1-8 and D1-10 are still
-> outstanding and rework §1, §2→§3 and §4.4. **D1-9 and D1-11 are done** — see the table.
+> **Superseded in part by §9 (review queue, 2026-08-28).** **D1-1 … D1-6 and D1-9 … D1-11 are done.**
+> Outstanding: **D1-7** (§2 Coupling → §3 Integration Styles) and **D1-8** (§4.4).
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
-| 1 | Distributed Systems | 10 | ✅ reframed on *easy to change + robust*; Task Queues promoted | ☐ | ☐ |
+| 1 | Distributed Systems | **7** | ✅ D1-1…D1-6: rebuilt to stop at the problem; 10 → 7 | ☐ | ☐ |
 | 2 | Coupling | 4 | ✅ rebuilt on two axes | ☐ 1 new grid diagram | ☐ |
 | 3 | Integration Styles | 5 | ✅ split into 4 style slides + trade-offs on the grid | ☐ reuse §2 grid artwork | ☐ |
-| 4 | **Messaging Patterns** | **52** | ✅ rebuilt as a build order | ☐ 20 EIP redraws | ☐ merge scripts |
-| 4a | · The Big Picture | 1 | ☐ reframe as build order | | |
+| 4 | **Messaging Patterns** | **45** | ✅ rebuilt as a build order; −9 §4.6, +2 task queue | ☐ 12 EIP redraws | ☐ merge scripts |
+| 4a | · The Big Picture | 1 | ☐ reframe as build order — **+ fold in the Fallacies course map** (D1-5) | | |
 | 4b | · 4.1 What Is a Message? | 6 | | | |
 | 4c | · 4.2 Sending and Receiving | 7 | +RMQ Quick Start | | |
-| 4d | · 4.3 The Message Pump | 6 | | | |
-| 4e | · **4.4 Guaranteed Delivery** | **10** | **new sub-topic** | | |
+| 4d | · 4.3 The Message Pump | **8** | +*Task Queue* worked example & HTTP flow, from §1 (D1-6) | | |
+| 4e | · **4.4 Guaranteed Delivery** | **10** | new sub-topic; **☐ D1-8 — split producer / consumer** | | |
 | 4f | · 4.5 Queues and Streams | 13 | +Kafka Quick Start | | |
 | 5 | **Conversations** *(moved from Day 2)* | **15** | ✅ 25 → 15, rebuilt as a decision | ☐ 1 new grid + reuse §2 grid | ☐ |
 | 6 | **Designing Messages** *(moved from Day 2)* | **16** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
@@ -185,8 +185,8 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | — | ~~Observability~~ | 3 | ✅ **dropped**; one pointer slide in Day 2 `## Next Steps` | | |
 | — | ~~Managing Asynchronous APIs~~ | 31 | ✅ **→ handout (§6)** | | |
 
-Day 1 is **Messaging Patterns (43, 45%)**, then the two decisions — **Conversations (15)** and
-**Designing Messages (16)** — with 19 slides of framing in front and 2 of wrap-up behind.
+Day 1 is **Messaging Patterns (45, 48%)**, then the two decisions — **Conversations (15)** and
+**Designing Messages (16)** — with 16 slides of framing in front and 2 of wrap-up behind.
 
 ---
 
@@ -654,12 +654,12 @@ the end before starting any of them.
 
 | # | item | what Ian said |
 |---|---|---|
-| **D1-1** | *Why Distribute?* | Doesn't earn its weight any more. The focus is *Easy to Change and Robust* — **don't bury the lead.** |
-| **D1-2** | *Easy to Change — Independent Deployability* | Emphasise **independent deployability**; microservices are an **example** of it, not the thing itself. |
-| **D1-3** | *Robust — Task Queues* | Rename to **Guaranteed Delivery** — that is the point being made. Task queues are an example of it. |
-| **D1-4** | Three orphaned slides | *Microservice — Messages In, Private Data*, *Microservice — No Cross-Service Transactions* and *Collaboration — Orchestration and Choreography* are part of the **independent-deployability thread**, but Guaranteed Delivery now sits between them and orphans them. Regroup. |
-| **D1-5** | *Fallacies of Distributed Computing* | May just restate *The Price of Distribution* — **which may well be the better slide**, and is the glue across the cost of independent deployability. |
-| **D1-6 ⚑** | §1's shape | The question-then-answer ordering doesn't sit well with Task Queues, **which are an answer.** Phrase it as *we want independent deployability, but here are the problems*, and let the **next section be messaging as the answer.** **Task queues may go entirely** — unless they earn their place in Messaging Patterns. |
+| **D1-1** ✅ | *Why Distribute?* | Doesn't earn its weight any more. The focus is *Easy to Change and Robust* — **don't bury the lead.** |
+| **D1-2** ✅ | *Easy to Change — Independent Deployability* | Emphasise **independent deployability**; microservices are an **example** of it, not the thing itself. |
+| **D1-3** ✅ | *Robust — Task Queues* | Rename to **Guaranteed Delivery** — that is the point being made. Task queues are an example of it. |
+| **D1-4** ✅ | Three orphaned slides | *Microservice — Messages In, Private Data*, *Microservice — No Cross-Service Transactions* and *Collaboration — Orchestration and Choreography* are part of the **independent-deployability thread**, but Guaranteed Delivery now sits between them and orphans them. Regroup. |
+| **D1-5** ✅ | *Fallacies of Distributed Computing* | May just restate *The Price of Distribution* — **which may well be the better slide**, and is the glue across the cost of independent deployability. |
+| **D1-6 ⚑** ✅ | §1's shape | The question-then-answer ordering doesn't sit well with Task Queues, **which are an answer.** Phrase it as *we want independent deployability, but here are the problems*, and let the **next section be messaging as the answer.** **Task queues may go entirely** — unless they earn their place in Messaging Patterns. |
 | **D1-7** | §2 Coupling → §3 Integration Styles | Coupling and independent deployability are **linked**: a **process boundary prevents Content and Common coupling**, but we cannot avoid **the other three — Control, Stamp, Data** — in the message we send. And because we now interact *between processes*, we must trade off **temporal** coupling too. That leads into the four integration styles and how each shows up in the coupling just discussed. **Goal: explain why messaging is our preferred option (reactive)** — and that file transfer is just messaging without support for locks, ordering, etc. |
 | **D1-8** | §4.4 Guaranteed Delivery | Doesn't distinguish **producer** from **consumer** concerns. The **producer** cares about the **Outbox**, to guarantee a send. The **message pump** is where **Invalid Message, DLQ and Requeue-with-Delay** belong — they are mechanisms for handling a *failed message*. The **Inbox** is consumer side and part of the pump, but **matters more once we have the Outbox**. **Do not underestimate the pump conversation on errors**, and how it leads into DLQ / Invalid / Requeue (and Nack or Ack) — that conversation **makes parts of queue-vs-stream much easier later**. |
 | **D1-9 ⚑** ✅ | §4.6 Pipelines, and the end of Day 1 | Pipelines **may not earn its weight on Day 1**. Put **§Conversations after Queues and Streams**, and bring **Fat and Skinny Messages, Reference Data and Event Shape over from Day 2**. That better completes the picture of *how to send and receive* ahead of Day 2's switch to the higher level. |
@@ -680,6 +680,28 @@ the end before starting any of them.
 | **D2-8** | Reactive | Comes after both do-ones, **to explain how it answers the question**. |
 | **D2-9** | Pipes and Filters | Either explain it here — it helps with Process Automation — **or just drop it. Perhaps drop it for time.** **Half-settled by D1-9:** Day 1's *Pipes and Filters* slide left with §4.6 to the handout, so the only question left is whether Day 2 needs one of its own. |
 | **D2-10** | Process Automation and beyond | **Not reviewed yet.** Still to do, along with *Putting It Together* and *Next Steps*. |
+
+### ✅ D1-1 … D1-6 — done 2026-08-28
+
+Worked as one pass, because piecemeal they contradict each other: D1-6 changes the section's shape, and
+D1-3 (keep the slide, rename it) only resolves once D1-6 has said where the mechanism goes. **§1: 10 → 7
+entries. Day 1: 95 → 94.**
+
+**The section now stops at the problem.** Ian: *we want independent deployability, but here are the
+problems, and then the next section is about messaging as the answer.* So §1 gives no answers; §2 Coupling
+→ §3 Integration Styles → §4 Messaging Patterns do. Three movements: **what we want** (2), **what
+independent deployability commits you to** (3), **the price and the second want** (2).
+
+| item | what was done |
+|---|---|
+| **D1-1** | ***Why Distribute?* cut.** Its four forces are now one line on the opener — *"you will hear four reasons; strip the words away and two properties are left"*. Worth ten seconds, not a slide, and leading with them buried the lead. **The section opens on *Easy to Change, and Robust*.** The availability tension it used to set up is kept in the opener's notes and still settled on *The Price of Distribution*. |
+| **D1-2** | ***Easy to Change — Independent Deployability* reframed.** It used to read "**The answer**: decompose into microservices", which made §1 an argument *for* microservices. Now: **what we want** → **what is in the way** → **microservices are one example of buying it**, explicitly *not the only way* and *not free*. |
+| **D1-3** | ***Robust — Task Queues* → *Robust — Guaranteed Delivery*.** The property is the point; the task queue is an example. The slide keeps the *want* and the inoculation — *one team, one service, one queue; robustness without reorganising the company* — and gives up the mechanism. |
+| **D1-4** | **Thread regrouped.** *Messages In / Private Data*, *No Cross-Service Transactions* and *Orchestration and Choreography* now run uninterrupted straight after *Independent Deployability*, with a new lead-in: *independent deployability needs a process boundary; the next three slides are what you have committed to by drawing one.* The task-queue material that split them is gone. |
+| **D1-5** | ***Fallacies of Distributed Computing* cut.** It restated *The Price of Distribution*, which makes the argument better and with a number, and which is now explicitly the section's glue and close. The one thing only the Fallacies had — the **where-we-answer-it column** — survives as a **course map on §4 *The Big Picture*** (row 4a above). It is a build-order artefact, not an opening-ten-minutes one: it reads as a syllabus only to someone who already knows the syllabus. |
+| **D1-6** ⚑ | **The two task-queue mechanism slides moved to §4.3**, after *Competing Consumers* — that is what they are a worked example of. Ian's condition was that task queues go *unless they look useful when we talk about messaging patterns*; they are, and §4.3 is where the parts finally have names. Carries a `#note:`: **D1-8 may want the 202 flow in §4.4 instead** — it is as much a guaranteed-delivery story as a pump story. Decide there. |
+
+**Cut text:** `session-work/cut-section1.md`, plus git history.
 
 ### ✅ D1-9 — done 2026-08-28
 
@@ -751,9 +773,9 @@ paper worked flows, FBP-flow-for-hotel after the FBP worked example. To re-settl
 - **Total time**: two blocks will not fit in the 75 minutes budgeted for one.
 - Unchanged either way: delegates must **not** meet BPMN before the exercise.
 
-**3. D1-6 and D2-9 point the same way on Pipelines.** D1-9 drops Pipelines from Day 1; D2-9 asks whether
-Pipes and Filters is worth teaching at all before Process Automation. If both land, the pipeline material
-leaves the course — decide it once, across both days, rather than twice.
+**3. ✅ Half-settled — Pipelines.** D1-9 sent Day 1's pipeline material, *Pipes and Filters* included, to
+the routing handout (§10). Only **D2-9** remains: does Day 2 need a *Pipes and Filters* slide of its own
+before Process Automation, or does the handout cover it? Ian leans *drop it for time*.
 
 **4. D2-5 reverses the movement order committed in `f6227ee`.** The §2 rebuild put the call-and-return
 antagonist first (movement A) and paper second (B). D2-5 swaps them. The content survives; the hinge
