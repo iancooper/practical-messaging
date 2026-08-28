@@ -70,7 +70,7 @@ Day 1 is **the message**; Day 2 is **the flow**.
 2. **Managing Asynchronous APIs became a takeaway handout**, not taught material (§6).
 3. **A paper-modelling exercise took its Day 2 slot** — found to already exist (§7).
 
-Current (**all Day 1 review items done, and Day 2 down to D2-9 / D2-10**, 2026-08-28): **Day 1 = 96
+Current (**all Day 1 review items done, and Day 2 down to D2-10**, 2026-08-28): **Day 1 = 96
 entries** with two code exercises; **Day 2 = 97** with one paper exercise, now run in two blocks and a
 closing round *inside* §1.
 
@@ -205,9 +205,9 @@ Day 1 is **Messaging Patterns (46, 48%)**, then the two decisions — **Conversa
 
 ## 5. Day 2 work queue — `outlines/DayTwo.md`, 3 real sections, 97 entries
 
-> **Superseded in part by §9 (review queue, 2026-08-28).** **D2-1, D2-2 and D2-3 … D2-8 are done.**
-> Items **D2-9 and D2-10** are outstanding: whether Day 2 needs its own *Pipes and Filters*, and the
-> Process Automation review — the cut, the pizza → hotel redraw, and the Josuttis collision.
+> **Superseded in part by §9 (review queue, 2026-08-28).** **D2-1 … D2-9 are done.** Only **D2-10** is
+> outstanding: the Process Automation review — the cut, the pizza → hotel redraw, the 25 minutes it owes
+> the exercise, and the Josuttis collision.
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
@@ -699,7 +699,7 @@ Ian's step-back review of the work so far. **These are agreed items to work thro
 time — not a backlog to be cleared unilaterally.** Where an item contradicts something already built, the
 item wins and the plan section above is stale until the item is worked.
 
-**Outstanding: D2-9 and D2-10.** Everything else is ✅ and has a rationale block below.
+**Outstanding: D2-10.** Everything else is ✅ and has a rationale block below.
 
 Three of these are **structural** and have knock-ons across both days — marked **⚑**. Read *Knock-ons* at
 the end before starting any of them.
@@ -732,7 +732,7 @@ the end before starting any of them.
 | **D2-6** ✅ | *Worked Example — the Fax Workflow in FBP* | **Do not chop so much away.** We want **both** flows from paper re-expressed in FBP — Onboarding **and** Order / Placement / Confirmation. |
 | **D2-7 ⚑** ✅ | *Now Do One* (FBP) | **Do the FBP flow for the hotel here** — a second do-one. |
 | **D2-8** ✅ | Reactive | Comes after both do-ones, **to explain how it answers the question**. |
-| **D2-9** | Pipes and Filters | Either explain it here — it helps with Process Automation — **or just drop it. Perhaps drop it for time.** **Half-settled by D1-9:** Day 1's *Pipes and Filters* slide left with §4.6 to the handout, so the only question left is whether Day 2 needs one of its own. |
+| **D2-9** ✅ | Pipes and Filters | Either explain it here — it helps with Process Automation — **or just drop it. Perhaps drop it for time.** **Dropped** — Day 2 gets no slide of its own. |
 | **D2-10** | Process Automation and beyond | **Not reviewed yet.** Still to do, along with *Putting It Together* and *Next Steps*. |
 
 ### ✅ D1-1 … D1-6 — done 2026-08-28
@@ -951,6 +951,31 @@ said this on the previous slide", which stopped being true once a 45-minute exer
 **No cut text file.** Nothing was removed — the pass is a reorder, three splits and four rewritten framing
 sentences. Git history covers the before state.
 
+### ✅ D2-9 — done 2026-08-28
+
+**Dropped. Day 2 gets no *Pipes and Filters* slide, and no outline change was needed** — there was never
+one to remove. The question was only whether to add one before Process Automation. Ian: *drop it.*
+
+**Why it costs nothing.** The mechanism is already taught three times over by the time Process Automation
+opens:
+
+- **The room enacts it** in exercise block 1 — desks, trays and a document moving between them.
+- **Movement C formalises it** — *Nodes, Ports and Firing*, *Capacity, Backpressure and Node Lifetime*,
+  *Flow-Based Programming*. Buffered arcs between single-threaded black boxes **is** pipes and filters;
+  a slide naming it would re-teach what the delegates have already been given in a stronger form.
+- **The pattern ships in the routing handout** (§10), where it is the first of the eight.
+
+The name is not lost: *Data Flow Programming* already carries the line *"You already use one: the Unix
+command line. Pipes and filters."* That aside was judged sufficient and left as it stands.
+
+**Nothing downstream depends on it.** BPMN, the five workflow patterns and *Implementing Workflow
+Patterns* never use the vocabulary. The only other occurrence in Day 2 is a passing clause in the
+*Activities and Resources* definition — *"could be a framework, a bespoke state machine, or pipes and
+filters"* — which reads fine as a gesture at something already met.
+
+**Time.** Nil added, which is the point: Process Automation owes the exercise 25 minutes (D2-10) and this
+was the one item that could have made that worse.
+
 ### Knock-ons to settle before starting the ⚑ items
 
 **1. ✅ Settled — D1-9 rebalanced both days.** Day 1 = 96, Day 2 = 97 after D2-3…D2-8. Versioning did not
@@ -964,9 +989,9 @@ last slide, immediately before Process Automation. Round 3 went to block 1; **ro
 planted twice against Day 1 §1 — that slide names orchestration and choreography, round 4 makes the room
 live the difference. **The 25-minute overrun is owed by Process Automation (D2-10).**
 
-**3. ✅ Half-settled — Pipelines.** D1-9 sent Day 1's pipeline material, *Pipes and Filters* included, to
-the routing handout (§10). Only **D2-9** remains: does Day 2 need a *Pipes and Filters* slide of its own
-before Process Automation, or does the handout cover it? Ian leans *drop it for time*.
+**3. ✅ Settled — Pipelines.** D1-9 sent Day 1's pipeline material, *Pipes and Filters* included, to the
+routing handout (§10). **D2-9 settled it for Day 2 too: no slide.** Movement C already teaches the
+mechanism and the handout carries the pattern.
 
 **4. ✅ Settled — D2-5 reversed the movement order committed in `f6227ee`.** Paper leads; OO/SOA is the
 failed answer. The content survived; four framing sentences changed. *Feature Envy — You Built a
