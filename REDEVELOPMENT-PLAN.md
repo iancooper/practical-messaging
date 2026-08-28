@@ -15,9 +15,10 @@ Three artefacts:
 
 | artefact | source | state |
 |---|---|---|
-| **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to 91 entries |
-| **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to 108 entries |
+| **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to **95** entries |
+| **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to **91** entries |
 | **AsyncAPI handout** | QCon London 2026 deck (43 slides) | to assemble — §6 |
+| **Routing-patterns handout** | old Day 1 §4.6 + `script/Patterns/*.md` | to assemble — §10 |
 
 Working style: **outline in Markdown first**, then rebuild the deck from the outline. The outlines in
 `outlines/` are the working artefact — edit those, not the pptx.
@@ -67,9 +68,9 @@ Day 1 is **the message**; Day 2 is **the flow**.
 2. **Managing Asynchronous APIs became a takeaway handout**, not taught material (§6).
 3. **A paper-modelling exercise took its Day 2 slot** — found to already exist (§7).
 
-Current: **Day 1 = 91 entries** with two code exercises; **Day 2 = 108** with one paper exercise.
-Day 2 is the bigger day on slide count, but Process Automation (50, 46% of the day) is still to be cut
-— that is the relief valve.
+Current (after D1-9, 2026-08-28): **Day 1 = 95 entries** with two code exercises; **Day 2 = 91** with one
+paper exercise. The two days are now close to balanced — but Process Automation is unchanged at 50, which
+is **55% of Day 2**. It is the one remaining outlier and the relief valve.
 
 Why the split holds on content, not just counts: Conversations + Repair continues Day 1's build order
 directly — *you can send and receive reliably, now what exchange do you build with it*. Fat & Skinny +
@@ -83,7 +84,8 @@ Domain/Summary is about what is **in** the message and how state propagates, whi
 | Day 1 §4 Messaging Patterns | a **build order**, not a catalogue — see below |
 | Day 1 §5 Conversations | *choose the right exchange pattern* — pick between In-Only / Out-Only / In-Out / Out-In and know what each commits you to in coupling terms |
 | Day 2 §1 Designing Messages | *decide what goes in a message* — choose what to put in it, and know how the receiver gets whatever you left out and what that costs in availability |
-| Day 2 §2 Flow and Reactive | *stop drawing your system as call-and-return* — draw it as flow instead, and know what that buys. Also arms the Paper Flow exercise |
+| Day 1 §6 Designing Messages *(moved from Day 2)* | *decide what goes in a message* — as above; it now closes Day 1 rather than opening Day 2 |
+| Day 2 §1 Flow and Reactive | *stop drawing your system as call-and-return* — draw it as flow instead, and know what that buys. Also arms the Paper Flow exercise |
 
 ### Teaching decisions
 
@@ -109,6 +111,16 @@ Domain/Summary is about what is **in** the message and how state propagates, whi
   lifetime, put an id in the message, not the data*. On top of it, **be pragmatic**: exactly as with a
   database you may denormalise a common lookup, but it is a decision you should be able to justify, and
   you then own a stale copy and someone else's schema.
+- **Day 1 is the whole of the single message; Day 2 is the flow** (settled 2026-08-28, item D1-9). Day 1
+  now runs the build order to §4.5 Queues and Streams, then the two decisions you make with it: §5
+  **Conversations** (which exchange) and §6 **Designing Messages** (what goes in it). Day 2 opens at the
+  level of whole flows. Ian: this "better completes the picture on how to send and receive, ahead of Day
+  2's switch to the higher level".
+- **Three things were dropped to buy exercise time** (2026-08-28, Ian). **§4.6 Pipelines** → the
+  routing-patterns handout (§10), keeping only *Content Enricher*, which moved into §6.2 Reference Data as
+  the drawn form of the on-demand lookup. **Versioning** and **Observability** → one pointer slide each in
+  Day 2 `## Next Steps`. All three are things a delegate can read; none is a decision we can rehearse in
+  the room, which is what the two days are for.
 - **Deck + script are to be MERGED.** Delegates mostly read rather than watch, so `script/Patterns/*.md`
   (22 files, 4,287 words, near-1:1 with the EIP slides) becomes the slide body during Phase 3. Only
   *Translate and Dispatch* has no script. `script/RMQ/*.md` (9 files, 783 words) merges with
@@ -146,10 +158,10 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 
 ---
 
-## 4. Day 1 work queue — `outlines/DayOne.md`, 6 sections, 91 entries
+## 4. Day 1 work queue — `outlines/DayOne.md`, 7 sections, 95 entries
 
-> **Superseded in part by §9 (review queue, 2026-08-28).** Items D1-1 … D1-11 rework §1, §2→§3, §4.4,
-> §4.6 and the end of the day. Read §9 before treating any row below as current.
+> **Superseded in part by §9 (review queue, 2026-08-28).** Items D1-1 … D1-8 and D1-10 are still
+> outstanding and rework §1, §2→§3 and §4.4. **D1-9 and D1-11 are done** — see the table.
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
@@ -163,34 +175,40 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | 4d | · 4.3 The Message Pump | 6 | | | |
 | 4e | · **4.4 Guaranteed Delivery** | **10** | **new sub-topic** | | |
 | 4f | · 4.5 Queues and Streams | 13 | +Kafka Quick Start | | |
-| 4g | · 4.6 Pipelines | 9 | routing kept as content | | |
 | 5 | **Conversations** *(moved from Day 2)* | **15** | ✅ 25 → 15, rebuilt as a decision | ☐ 1 new grid + reuse §2 grid | ☐ |
-| 6 | Observability | 3 | ☐ | ☐ | ☐ |
+| 6 | **Designing Messages** *(moved from Day 2)* | **16** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
+| 6a | · 6.1 Fat and Skinny Messages | 5 | ✅ rebuilt on the lifetime rule | | |
+| 6b | · 6.2 Reference Data | 5 | +*Content Enricher*, rehomed from §4.6 | | |
+| 6c | · 6.3 Event Shape | 6 | ✅ +*Why ECST Needs Snapshots* | | |
 | 7 | Closing | 2 | ☐ | ☐ | ☐ |
-| — | ~~Managing Asynchronous APIs~~ | 31 | ✅ **→ handout**; 4 versioning slides → Day 2 | | |
+| — | ~~4.6 Pipelines~~ | 9 | ✅ **→ routing handout (§10)**; *Content Enricher* kept, → §6.2 | | |
+| — | ~~Observability~~ | 3 | ✅ **dropped**; one pointer slide in Day 2 `## Next Steps` | | |
+| — | ~~Managing Asynchronous APIs~~ | 31 | ✅ **→ handout (§6)** | | |
 
-Day 1 is **Messaging Patterns (52, 57%)** then **Conversations (15, 16%)**, with 19 slides of framing
-in front and 5 of wrap-up behind.
+Day 1 is **Messaging Patterns (43, 45%)**, then the two decisions — **Conversations (15)** and
+**Designing Messages (16)** — with 19 slides of framing in front and 2 of wrap-up behind.
 
 ---
 
-## 5. Day 2 work queue — `outlines/DayTwo.md`, 4 real sections, 108 entries
+## 5. Day 2 work queue — `outlines/DayTwo.md`, 3 real sections, 91 entries
 
-> **Superseded in part by §9 (review queue, 2026-08-28).** Items D2-1 … D2-10 move Designing Messages to
-> Day 1, make Flow and Reactive the lead, reorder its movements and split the exercise in two.
+> **Superseded in part by §9 (review queue, 2026-08-28).** **D2-1 is done** and **D2-2 followed from
+> D1-9.** Items D2-3 … D2-10 are outstanding: expand the worked flows, reorder §1's movements, split the
+> exercise in two, and review Process Automation.
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
-| 1 | **Designing Messages** | 19 | ✅ rebuilt on the lifetime rule | ☐ 2 If-Later diagrams | ☐ |
-| 1a | · Fat and Skinny Messages | 5 | goal: *decide what goes in a message* | | |
-| 1b | · Reference Data | 4 | on-demand vs. in-advance, CAP cost on-slide | | |
-| 1c | · Event Shape | 6 | +**Why ECST Needs Snapshots** (new) | | |
-| 1d | · Versioning *(moved from Day 1)* | 4 | +**What You Inlined Is What You Version** (new) | | |
-| 2 | **Flow and Reactive Programming** | **28** | ✅ 32 → 28, rebuilt as four movements | ☐ 3 new/redrawn | ☐ |
-| 2a | · A — Call and Return | 5 | goal: *stop drawing your system as call-and-return* | | |
-| 2b | · B — Paper Workflows | 6 | the exercise's **see one**; notation now taught explicitly | | |
-| 2c | · C — Dataflow and FBP | 7 | the same flows as a graph; ends on the Fax worked example | | |
-| 2d | · D — Reactive | 10 | ✅ all three Day 1 debts paid | | |
+| — | ~~Designing Messages~~ | 15 | ✅ **→ Day 1 §6** (D1-9) | | |
+| — | ~~Versioning~~ | 4 | ✅ **dropped**; one pointer slide in `## Next Steps` | | |
+| 1 | **Flow and Reactive Programming** | **28** | ✅ 32 → 28, rebuilt as four movements | ☐ 3 new/redrawn | ☐ |
+| 1a | · A — Call and Return | 5 | goal: *stop drawing your system as call-and-return* | | |
+| 1b | · B — Paper Workflows | 6 | the exercise's **see one**; notation now taught explicitly | | |
+| 1c | · C — Dataflow and FBP | 7 | the same flows as a graph; ends on the Fax worked example | | |
+| 1d | · D — Reactive | 10 | ✅ all three Day 1 debts paid | | |
+
+**It now leads the day** (D2-2), so its opener has to open Day 2. **D2-3 … D2-8 rework it** — expand the
+worked flows, reorder to Paper → OO → Dataflow, restore both flows in the FBP worked example, and split
+the exercise across it.
 
 **Section goal (agreed 2026-08-28):** *stop drawing your system as call-and-return, and start drawing it
 as flow — and know what that buys.*
@@ -245,14 +263,16 @@ supervisor/scale-out — which were never taught.
 **Open item for the Process Automation review:** the **Josuttis quote** is now a callout on §2 *SOA Is OO
 at Macro Scale* (where it is the yardstick Feature Envy fails against) **and** a standalone opening slide
 of Process Automation. One of the two has to go.
-| 3 | **Paper Flow** exercise | 9 | ✅ run-of-show settled (§7) | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
-| 4 | **Process Automation** | 50 | ☐ **needs cutting** — 45% of the day; **+ pizza → hotel redraw** | ☐ ~11 BPMN redraws | ☐ |
-| 4a | · Tentative Operations *(moved from Repair)* | 2 | ✅ bridge into Durable Execution | | |
-| 5 | Putting It Together | 6 | ☐ | ☐ | ☐ |
-| 6 | Next Steps | 5 | ☐ | ☐ | ☐ |
+| 2 | **Paper Flow** exercise | 9 | ☐ **run-of-show reopened by D2-4 / D2-7** — splits in two | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
+| 3 | **Process Automation** | 50 | ☐ **needs cutting** — 55% of the day; **+ pizza → hotel redraw** | ☐ ~11 BPMN redraws | ☐ |
+| 3a | · Tentative Operations *(moved from Repair)* | 2 | ✅ bridge into Durable Execution | | |
+| 4 | Putting It Together | 6 | ☐ | ☐ | ☐ |
+| 5 | Next Steps | **7** | ✅ +2 pointer slides (D2-1); ☐ rest unreviewed | ☐ | ☐ |
 
-**The balance problem that remains:** Process Automation at 50 entries is 46% of Day 2 and is entirely
-lecture — which is exactly what the modelling exercise should relieve.
+**The balance problem that remains, and it got worse:** D1-9 took 19 entries off Day 2 but took nothing
+off Process Automation, so it went from 46% to **55% of the day** — and it is entirely lecture, which is
+exactly what the modelling exercise should relieve. This is now the single largest outstanding item in
+the plan.
 
 ---
 
@@ -447,10 +467,13 @@ than a blank canvas.
 3. **The same grid again** with the four exchange patterns, Blocking In-Out alone in the temporally-
    coupled quadrant (Day 1 §5 *Choosing an Exchange Pattern*).
 4. **2×2 exchange-pattern grid** — who speaks first × is there a reply (Day 1 §5). New drawing.
-5. **20 EIP figure replacements** (Day 1 §4) — currently Hohpe & Woolf's own illustrations. Biggest
-   single item in the budget; decides whether the material looks like ours or assembled.
+5. **12 EIP figure replacements** (Day 1 §4) — currently Hohpe & Woolf's own illustrations. Was 20; the
+   **8 routing figures left with §4.6** to the handout (§10), and *Content Enricher* stayed and still
+   needs a redraw. Whether the handout carries its own artwork or cites the originals is a handout-build
+   decision. Still the biggest single item in the budget; decides whether the material looks like ours or
+   assembled.
 6. **2 If-Later diagrams** — versioned envelopes on a stream, and on a queue with competing consumers
-   and read-past (Day 2 §1).
+   and read-past (**now Day 1 §6.3**).
 6a. **Day 2 §2 — three items.** (a) *The Desk — In-Tray, Out-Tray, File*: a **notation key** drawn in the
    Paper Flow house style (box, two trays, file, boundary bar, red-dashed vs. solid arrows) — delegates
    draw in this notation within the hour, so it must be a legend, not a photograph. Doubles as the
@@ -639,32 +662,52 @@ the end before starting any of them.
 | **D1-6 ⚑** | §1's shape | The question-then-answer ordering doesn't sit well with Task Queues, **which are an answer.** Phrase it as *we want independent deployability, but here are the problems*, and let the **next section be messaging as the answer.** **Task queues may go entirely** — unless they earn their place in Messaging Patterns. |
 | **D1-7** | §2 Coupling → §3 Integration Styles | Coupling and independent deployability are **linked**: a **process boundary prevents Content and Common coupling**, but we cannot avoid **the other three — Control, Stamp, Data** — in the message we send. And because we now interact *between processes*, we must trade off **temporal** coupling too. That leads into the four integration styles and how each shows up in the coupling just discussed. **Goal: explain why messaging is our preferred option (reactive)** — and that file transfer is just messaging without support for locks, ordering, etc. |
 | **D1-8** | §4.4 Guaranteed Delivery | Doesn't distinguish **producer** from **consumer** concerns. The **producer** cares about the **Outbox**, to guarantee a send. The **message pump** is where **Invalid Message, DLQ and Requeue-with-Delay** belong — they are mechanisms for handling a *failed message*. The **Inbox** is consumer side and part of the pump, but **matters more once we have the Outbox**. **Do not underestimate the pump conversation on errors**, and how it leads into DLQ / Invalid / Requeue (and Nack or Ack) — that conversation **makes parts of queue-vs-stream much easier later**. |
-| **D1-9 ⚑** | §4.6 Pipelines, and the end of Day 1 | Pipelines **may not earn its weight on Day 1**. Put **§Conversations after Queues and Streams**, and bring **Fat and Skinny Messages, Reference Data and Event Shape over from Day 2**. That better completes the picture of *how to send and receive* ahead of Day 2's switch to the higher level. |
+| **D1-9 ⚑** ✅ | §4.6 Pipelines, and the end of Day 1 | Pipelines **may not earn its weight on Day 1**. Put **§Conversations after Queues and Streams**, and bring **Fat and Skinny Messages, Reference Data and Event Shape over from Day 2**. That better completes the picture of *how to send and receive* ahead of Day 2's switch to the higher level. |
 | **D1-10** | *Get It In Advance — ECST* (arrives with D1-9) | **Over-emphasises the problems.** In practice ECST is reliable and latency rarely causes actual issues, **particularly if you version the reference data**. It is **the better solution** than the synchronous lookup. Rewrite it as a recommendation, not a warning. |
-| **D1-11** | §6 Observability | Lightweight, and orphaned by losing Managing Asynchronous APIs. Resolved by **D2-1**. |
+| **D1-11** ✅ | §6 Observability | Lightweight, and orphaned by losing Managing Asynchronous APIs. **Dropped as taught material**; now one pointer slide in Day 2 `## Next Steps`. |
 
 ### Day 2
 
 | # | item | what Ian said |
 |---|---|---|
-| **D2-1** | Versioning, and a new close | Versioning is orphaned away from the Managing Async APIs material. **Add a section at the end of Day 2 signposting further material**: *Describing Endpoints — Managing Async APIs*; *Schema — Versioning and Registries*; *Observability*. |
-| **D2-2** | §2 becomes the lead | With Designing Messages moving to Day 1 (D1-9), **Flow and Reactive Programming leads Day 2.** Its opener has to open the day. |
+| **D2-1** ✅ | Versioning, and a new close | Versioning is orphaned away from the Managing Async APIs material. **Add a section at the end of Day 2 signposting further material**: *Describing Endpoints — Managing Async APIs*; *Schema — Versioning and Registries*; *Observability*. |
+| **D2-2** ✅ | §1 becomes the lead | With Designing Messages moving to Day 1 (D1-9), **Flow and Reactive Programming leads Day 2.** Its opener has to open the day. |
 | **D2-3** | *Worked Flows — Order, Placement, Confirmation* | These are the **see one** (hotel is the do one), so **we walk these flows in class**. **The slide count is too low** — expand; do not compress four flows into one slide. |
 | **D2-4 ⚑** | *Now Do One* (paper) | **Do the paper flow for the hotel here** — in the Day 2 morning, straight after the paper worked flows. |
 | **D2-5** | Movement order | Not sure about OO → Paper → Dataflow. **Go Paper Workflows → OO → Data Flow Programming**: show the paper way to understand flow (with the hotel exercise), then **ask how this looks in software**, then **point out the failure of OO to model it**, then lead into dataflow. |
 | **D2-6** | *Worked Example — the Fax Workflow in FBP* | **Do not chop so much away.** We want **both** flows from paper re-expressed in FBP — Onboarding **and** Order / Placement / Confirmation. |
 | **D2-7 ⚑** | *Now Do One* (FBP) | **Do the FBP flow for the hotel here** — a second do-one. |
 | **D2-8** | Reactive | Comes after both do-ones, **to explain how it answers the question**. |
-| **D2-9** | Pipes and Filters | Either explain it here — it helps with Process Automation — **or just drop it. Perhaps drop it for time.** |
+| **D2-9** | Pipes and Filters | Either explain it here — it helps with Process Automation — **or just drop it. Perhaps drop it for time.** **Half-settled by D1-9:** Day 1's *Pipes and Filters* slide left with §4.6 to the handout, so the only question left is whether Day 2 needs one of its own. |
 | **D2-10** | Process Automation and beyond | **Not reviewed yet.** Still to do, along with *Putting It Together* and *Next Steps*. |
+
+### ✅ D1-9 — done 2026-08-28
+
+Settled with Ian and applied. **Day 1 = 95, Day 2 = 91.**
+
+- **§4.6 Pipelines left Day 1** — 8 of its 9 entries became the **routing-patterns handout (§10)**.
+  *Content Enricher* was kept and rehomed into **§6.2 Reference Data**, where it is the drawn form of the
+  on-demand lookup, with a new callout: *the enricher does not remove the lookup, it moves it — and the
+  availability sum moves with it.*
+- **`## Conversations` now follows §4.5 Queues and Streams directly**, as Ian asked — nothing sits between
+  them any more.
+- **Designing Messages moved to Day 1 as §6**, sub-topics renumbered 6.1 / 6.2 / 6.3.
+- **Versioning (Day 2, 4) and Observability (Day 1, 3) were dropped as taught material**, replaced by two
+  pointer slides in Day 2 `## Next Steps` — *Describing and Versioning Your Messages — the Handout* and
+  *Observability*. Ian: *these are what we drop to focus on the exercises.* The group carries a `#note:`
+  saying to name the drop out loud rather than let it look like an oversight.
+- **Cross-references fixed** both ways: both day intros, the Fallacies table's three rows, the §2 Coupling
+  stamp-coupling note, and Day 2 §1's two callbacks to *Reference Data*.
+- **Cut text preserved** in `session-work/cut-{versioning,pipelines,observability}.md` as well as git.
+
+**Still outstanding on the moved material: D1-10** — the ECST rewrite. It moved unchanged and is flagged
+with a `#note:` in §6.2. Doing the move and the rewrite in one edit would have made the diff unreadable.
 
 ### Knock-ons to settle before starting the ⚑ items
 
-**1. D1-9 rebalances both days.** Day 1 gains Fat and Skinny (5) + Reference Data (4) + Event Shape (6) =
-**15 entries** and loses Pipelines (9); Day 2 loses those 15. Rough arithmetic: **Day 1 ≈ 95, Day 2 ≈ 93**
-— but Process Automation is unchanged at 50, so it goes from 46% to **~54% of Day 2**. The cut there
-becomes more urgent, not less. Open: **does `## Versioning` (4) follow the other three to Day 1**, or stay
-on Day 2 next to the D2-1 signpost section?
+**1. ✅ Settled — D1-9 rebalanced both days.** Day 1 = 95, Day 2 = 91. Versioning did not follow the other
+three; it was dropped. **The consequence stands and got worse:** Process Automation is unchanged at 50 and
+is now **55% of Day 2**. Nothing else on either day is close.
 
 **2. D2-4 + D2-7 supersede the Paper Flow run-of-show in §7.** That design was **one ~75-minute block after
 Reactive**, producing three artefacts. Ian now wants it **split in two** — paper-flow-for-hotel after the
@@ -687,3 +730,34 @@ antagonist first (movement A) and paper second (B). D2-5 swaps them. The content
 inverts — paper no longer *answers* "is there a better paradigm?", it **poses** "how does this look in
 software?", and OO/SOA becomes the failed answer rather than the opening complaint. `Feature Envy — You
 Built a Distributed Monolith` keeps its job either way.
+
+---
+
+## 10. The routing-patterns handout
+
+**Created by review item D1-9 (2026-08-28).** Day 1 §4.6 Pipelines was 9 entries, every one of them a
+Hohpe & Woolf figure slide, and 9 of the 20 EIP redraws in the Phase 2 budget. Ian: it does not earn its
+weight on Day 1. It becomes a takeaway handout instead — the same treatment as Managing Asynchronous APIs.
+
+**Contents — 8 patterns:** Pipes and Filters, Message Translator, Content Based Router, Dynamic Router,
+Recipient List, Splitter, Aggregator, Resequencer.
+
+**Not in it:** *Content Enricher*, which stayed on Day 1 in §6.2 Reference Data.
+
+**The prose already exists.** `script/Patterns/*.md` is near-1:1 with these slides and was already slated
+to become the slide body in Phase 3 — so for these eight it becomes the handout body instead. That is why
+this cut is cheap: we are not throwing the material away, we are shipping it in the form it was already
+written in.
+
+**Cut text:** `session-work/cut-pipelines.md`, plus git history.
+
+☐ **Handout work:**
+
+1. ☐ Assemble from `script/Patterns/*.md` — check which of the eight have a script file and write any that
+   do not.
+2. ☐ Decide the artwork: redraw the 8 EIP figures, or cite Hohpe & Woolf's originals with attribution. A
+   handout can legitimately cite; the deck could not, which is why they were in the redraw budget.
+3. ☐ Frame it so it reads as reference rather than as slides that got cut — a one-page index up front,
+   the same fix §6 needs.
+4. ☐ Signpost it in the deck. It is *routing*, so it belongs either with §4.5 Queues and Streams or with
+   the Day 2 `## Next Steps` group — decide when D1-8 / §4.4 is worked.

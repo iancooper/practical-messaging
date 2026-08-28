@@ -2,7 +2,7 @@
 
 A 101 guide to messaging. Ian Cooper. (X, BlueSky and Hachyderm: ICooper)
 
-Day One covers the *messaging* fundamentals: why we distribute, the coupling and integration styles that follow, and the catalogue of messaging patterns — messages, channels, endpoints, the message pump, pipelines, transformation, queues vs. streams, transactional messaging, versioning and documentation, and observability.
+Day One is **the message**, end to end. Why we distribute, the coupling and integration styles that follow, then a build order for messaging code — messages, channels and endpoints, the message pump, guaranteed delivery, and queues vs. streams. It closes on the two decisions you make with all of that: which **exchange pattern** to build, and what to put **in the message**.
 
 Prerequisites: We use RabbitMQ and Kafka for examples. You should have Docker (or an equivalent) installed — exercises ship a Docker Compose file to spin up RMQ and Kafka.
 
@@ -168,12 +168,12 @@ The classic eight — and where this course answers each.
 |---|---|---|
 | The network is reliable | Messages lost, duplicated, or delivered twice | Retries, idempotence, DLQ — *4.4 Guaranteed Delivery* |
 | Latency is zero | Calls that block; chains that compound | Asynchronous conversation — *Coupling*, *Conversations* |
-| Bandwidth is infinite | Oversized payloads, saturated links | Fat vs. skinny messages — Day 2 *Designing Messages* |
+| Bandwidth is infinite | Oversized payloads, saturated links | Fat vs. skinny messages — §6 *Designing Messages*, later today |
 | The network is secure | Blindsided by what you never modelled | **Out of scope for this course** — flag it, don't pretend |
 | Topology doesn't change | Endpoints that move; instances that come and go | Endpoints, discovery, competing consumers — *4.2*, *4.3* |
 | There is one administrator | Conflicting policies; nobody owns the contract | Documenting the contract — the *Managing Asynchronous APIs* handout |
-| Transport cost is zero | Serialisation, brokers and operations you didn't budget | Fat vs. skinny — Day 2 *Designing Messages*; broker choice — *4.5 Queues and Streams* |
-| The network is homogeneous | Schema and encoding mismatch across stacks | Tolerant readers — Day 2 *Versioning*; schema formats in the handout |
+| Transport cost is zero | Serialisation, brokers and operations you didn't budget | Fat vs. skinny — §6 *Designing Messages*; broker choice — §4.5 *Queues and Streams* |
+| The network is homogeneous | Schema and encoding mismatch across stacks | Tolerant readers and schema formats — the *Managing Asynchronous APIs* handout |
 
 ▎ Every one of these has a pattern later in the course. That is what the next two days are.
 
@@ -228,8 +228,8 @@ The contract between two parties. Highest coupling to lowest:
 Presenter notes: This is Myers' structured-design scale, adapted to services — say so, and say
 that **content coupling barely translates across a network boundary** rather than pretending it
 does. Stamp coupling is the one that recurs all course: it is the argument for skinny messages
-(Day 2 — Fat & Skinny) and for tolerant readers (Managing Asynchronous APIs). Flag it now so
-both call-backs land.
+(§6.1 Fat and Skinny, at the end of today) and for tolerant readers (the *Managing Asynchronous
+APIs* handout). Flag it now so both call-backs land.
 
 ### Slide: Axis 2 — Must We Both Be *Up*?
 
@@ -893,110 +893,6 @@ stream.** Nothing you relied on in §4.4 is native here.
 
 ---
 
-## 4.6 Pipelines
-
-*Processing a message in stages.*
-
-#note: Routing patterns stay in the deck as content, but hands-on exercise time moves to reliable
-messaging over queue and stream — we do not need delegates to *build* routers, we need them to build
-reliable consumers. Exercises to be revisited on that basis.
-
-### Slide: Pipes and Filters
-
-
-Divide the transformation of data between origin and destination into composable steps. A data **source** begins the flow, a data **sink** receives the output, and **filters** transform data as it flows.
-
-
-#image: (s65) EIP diagram — a Pipes and Filters chain (e.g. Decrypt → Authenticate → De-Dup)  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/PipesAndFilters.html]
-
-Presenter notes: Between publish and the eventual subscriber we may encrypt/decrypt, enrich, or transform. Treat the publisher as source, final consumer as sink, and intermediate read-transform-publish consumers as filters. Each filter reads from an inbound channel and publishes to an outbound one; pipes connect them, so simple, testable filters compose into complex applications. A processing pipeline works in parallel (a filter takes more work while the rest of the pipeline runs), increasing throughput — limited by the slowest stage. Parallelize a slow stage with competing consumers (simpler than multi-threading). (EIP reference.)
-
-### Slide: Message Translator
-
-
-A filter step that converts a message from one schema to another so consumers accepting a different format can receive it.
-
-
-#image: (s73) EIP diagram — Message Translator converting an incoming message to a different schema  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageTranslator.html]
-
-Presenter notes: The publisher's format may not be understood by all consumers — a versioning issue (a downstream consumer not ready for a breaking change) or schemas outside the team's control (external/legacy). Often temporary: retire the translator once the consumer accepts the publisher's schema. (EIP reference.)
-
-### Slide: Content Enricher
-
-
-A filter step that adds required data to a message the publisher didn't include.
-
-
-#image: (s74) EIP diagram — Content Enricher augmenting a message from an external resource  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DataEnricher.html]
-
-Presenter notes: E.g. a new order carries an account id, but shipping needs the customer's address from their account — the enricher listens, adds the address, and the shipping consumer then has what it needs. Especially common in microservices, where each service holds only its own data, requiring joins to data held elsewhere. (EIP reference.)
-
----
-
-### Slide: Content Based Router
-
-
-Examine message content and route onto a different channel based on data in the message (field existence, specific values, etc.).
-
-
-#image: (s66) EIP diagram — Content-Based Router directing an order to widget vs gadget inventory  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/ContentBasedRouter.html]
-
-Presenter notes: A pipeline may need to branch on content. Keep the routing function easy to maintain — the router becomes a maintenance hot-spot. Some middleware offer configurable rules engines; beware pushing too much decision-making into middleware (hard to maintain/test). (EIP reference.)
-
-### Slide: Dynamic Router
-
-
-Solves the content-based router's maintenance problem by using a rules engine whose destinations are configured at run time.
-
-
-#image: (s67) EIP diagram — Dynamic Router with a control channel and dynamic rule base  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DynamicRouter.html]
-
-Presenter notes: A **control channel** lets consumers register the rules under which they should receive messages as they start up. The router runs the rules on receipt to pick a destination. Conflicting rules → strategies like "last one wins"; routing to all valid routes is really the Recipient List. (EIP reference.)
-
-### Slide: Recipient List
-
-
-The publisher explicitly decides which branches a message takes via a list of recipients — like an email **To** list.
-
-
-#image: (s68) EIP diagram — Recipient List forwarding to recipient channels A–D  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/RecipientList.html]
-
-Presenter notes: Define a channel per recipient; the Recipient List inspects the message, determines recipients, and forwards to all their channels. Invert it (a *dynamic* recipient list) to let consumers subscribe via a control channel — this can implement Publish-Subscribe on middleware that offers only Point-to-Point, and can add control such as authorization. RabbitMQ exchanges and AWS SNS subscriptions are examples. (EIP reference.)
-
-### Slide: Splitter
-
-
-Takes one input message and breaks it into multiple output messages.
-
-
-#image: (s69) EIP diagram — Splitter breaking one order into individual order items  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/Sequencer.html]
-
-Presenter notes: Filters may correspond to parts of a message; splitting and routing parts to the right consumers can be more efficient (e.g. order line items to different consumers). Also useful for batches — splitting lets you observe progress by monitoring the number of messages still waiting, instead of "all-or-nothing". (EIP reference.)
-
-### Slide: Aggregator
-
-
-Collects and stores related messages until a complete set is received, then publishes a single distilled message.
-
-
-#image: (s70) EIP diagram — Aggregator combining related items into a single message  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/Aggregator.html]
-
-Presenter notes: The inverse of a Splitter — recombine parts (e.g. know when a split batch completes, or that some parts completed and others didn't). Depends on correlating messages (usually a correlation id in headers); knowing the batch size helps the aggregator know when it has seen everything. (EIP reference.)
-
-### Slide: Resequencer
-
-
-Uses an internal buffer to store out-of-sequence messages until a complete sequence is obtained, then publishes them in order.
-
-
-#image: (s71) EIP diagram — Resequencer reordering out-of-sequence numbered messages  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/Resequencer.html]
-
-Presenter notes: Conditional/parallel steps, retries, and competing consumers can all de-order messages. The resequencer tracks the next-expected sequence number: it checks its buffer first, else reads another message; if it's the expected one it processes it, otherwise it buffers it. Eventually a buffered message becomes next and is released. (EIP reference.)
-
----
-
----
-
 ## Conversations
 
 *From single messages to conversations — choosing an exchange pattern.*
@@ -1242,29 +1138,236 @@ Presenter notes: Third appearance of the grid — §2 introduced it, §3 plotted
 
 ---
 
-## Observability
+## Designing Messages
 
-### Slide: Observability — Overview
+*What goes in a message, and how the receiver gets the rest.*
 
-Why observability matters for asynchronous systems.
+**Section goal:** given a message to design, choose what to put in it — and know how the receiver gets
+whatever you left out, and what that costs in availability.
 
+#note: **Moved from Day 2 (2026-08-28, review item D1-9).** Ian: this "better completes the picture on
+how to send and receive, ahead of Day 2's switch to the higher level". §4 taught how to move a message
+reliably, §5 which exchange to build with it; this is the last piece — what is actually *in* it. Day 2
+then opens at the level of whole flows.
 
-#image: screenshot — the OpenTelemetry homepage with its telescope illustration
+#note: **Versioning did not come with it.** The fourth sub-topic — Postel's Law, Tolerant Reader,
+additive vs. breaking change — is **dropped as taught material**, covered by the *Managing Asynchronous
+APIs* handout and signposted by a single pointer slide in the Day 2 wrap-up. Ian: *these are what we drop
+to focus on the exercises.*
 
-### Slide: OpenTelemetry Tracing
+---
 
-Tracing a flow across asynchronous endpoints:
+## 6.1 Fat and Skinny Messages
 
-- Begin a **span** when we initiate a flow.
-- Serialize the span **context** into the message headers when we send.
-- Begin a **child span** in the receiver.
+*Normalising the message: inline it, reference it, or replicate it.*
 
-### Slide: Traces in Practice
+### Slide: What Goes in a Message?
 
-Visualising distributed traces across services.
+The decision is **per field, not per message**. For every piece of data the provider needs in order to
+act, there are three choices:
 
+- **Inline it** — put the value in the message.
+- **Reference it** — put an id in the message; the provider looks the data up.
+- **Replicate it** — the provider already holds a copy, kept fresh out-of-band.
 
-#image: screenshots — GitHub OpenTelemetry messaging-spans semantic-conventions docs
+▎ Designing a message is a normalisation problem.
+
+- A **fat** message is fully denormalised. A **skinny** message is fully normalised. Neither extreme is usually right.
+- The rest of this section is the rule that decides per field, and the price of each answer.
+
+Presenter notes: Delegates already have this mental model from database design — they have just never applied it to messages. Normalise by default; denormalise deliberately for the lookups that hurt; and own the staleness you have created. That is the whole section in three sentences.
+
+### Slide: Fat Message
+
+With a **Fat Message**, the requestor sends across all the *external* information a provider may need to perform the operation.
+
+- The requestor provides all external information the provider needs to act.
+- The resulting document message may be large (a **Claim Check** can help).
+- **Example.** *Order Fulfilment → Courier Assignment:* the request provides delivery and pickup address, size, weights, etc. of the order.
+
+**What it buys you:** the provider needs nobody else in order to act. No lookup, no cache, no second system that has to be up.
+
+### Slide: Fat Message — Transitive Dependencies
+
+A purchase-order message that inlines customer and restaurant data shows the cost.
+
+- The order data has the **lifetime of the message** — its schema changes if the purchase order changes. That is fine; it is *our* data.
+- Customer data is a **transitive dependency** — its lifetime is the Customer's. A Customer schema change may force a message change.
+- Restaurant data is likewise a transitive dependency on the Restaurant schema.
+
+▎ Inline someone else's data and you have inherited their release schedule.
+
+Presenter notes: This is the slide that motivates the rule two slides later. The message did not just get bigger — it acquired two more reasons to change, and both are owned by other teams.
+
+### Slide: Skinny Message
+
+With a **Skinny Message**, the requestor provides only information unique to the event, and assumes the provider has, or can obtain, the other information.
+
+- The resulting notification message is normally skinny.
+- **Example.** *Order Notification → Courier Assignment:* notifies that there is an order, inlining only order-unique data — not reference data like weights or addresses. Courier Assignment must source the missing information from elsewhere.
+
+**What it costs you:** the provider can no longer act alone. Something else has to supply the rest — which is the next sub-topic.
+
+### Slide: The Lifetime Rule
+
+▎ If the data does not share the message's lifetime, put an id in the message, not the data.
+
+The purchase-order message carries `CustomerId` and `RestaurantId` instead of inlined data.
+
+- Data that shares the message's lifetime → **inline it**.
+- Data with its own lifetime → **reference it** by id; assume the requestor obtains the data out-of-band.
+- These ids must be looked up with other providers (Customer, Restaurant).
+
+**Then be pragmatic.** Exactly as with a database, you may **denormalise** — inline a common lookup so you do not pay for it on every message.
+
+- Do it for the lookups that actually hurt, not by default.
+- The moment you copy someone else's data into your message you own a **stale copy**, and you have taken on their schema.
+- The rule is the default; a denormalisation is a decision you should be able to justify.
+
+Presenter notes: Just like a Db, we allow optimisation by inlining some common lookups — so "it depends", and be pragmatic, *on top of the rule*. The rule stops the choice being arbitrary; the pragmatism stops it being dogma. Ask which lookups in their own systems would justify it.
+
+---
+
+---
+
+## 6.2 Reference Data
+
+*How the provider gets what the message did not carry.*
+
+### Slide: Reference Data
+
+The requestor assumes **Provider A** has a local cache of data from **Provider B** that it can use to look up the identifiers in a skinny message.
+
+- Data that leaves Provider B via an API is **Reference Data**: immutable, versioned, stale.
+- Immutable and versioned because a copy that can change shape under its holder cannot be cached safely.
+- It can be cached locally to Provider A to avoid frequent lookups (`cache lookup()`).
+
+### Slide: Get It On Demand — REST/RPC
+
+On a cache miss, Provider A fetches the data from Provider B synchronously.
+
+- Look up missing data in the local reference-data cache (may specify identity *and* version).
+- On a miss, request from Provider B and store it in the cache (`request()` / `reply()` / `cache write()`).
+
+**What it costs you**
+
+- On a hit: **availability over consistency** — you serve possibly-stale data and stay up.
+- On a miss: **consistency over availability** — and A's uptime becomes the uptime of **A *and* B**. If B fails, A fails.
+
+▎ A cache miss is a temporal coupling you did not plan for.
+
+Presenter notes: This is the Day 1 argument arriving inside message design. The lookup is a synchronous call in the middle of a message flow, so availabilities multiply again — and only on the unlucky path, which is exactly what makes it hard to catch in testing.
+
+### Slide: Content Enricher — Someone Else Does the Lookup
+
+A **Content Enricher** is a filter step that adds required data the publisher did not include: it
+listens on the channel, fetches what is missing, and republishes the message complete.
+
+- A new order carries an `AccountId`, but shipping needs the customer's address. The enricher adds the
+  address, and the shipping consumer then has what it needs.
+- Especially common in microservices, where each service holds only its own data and something has to do
+  the join.
+
+▎ The enricher does not remove the lookup. It moves it — and the availability sum moves with it.
+
+#image: EIP diagram — Content Enricher augmenting a message from an external resource  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DataEnricher.html — **redraw**]
+
+Presenter notes: **Retained from the old §4.6 Pipelines when the rest of that sub-topic became a handout**
+(review item D1-9), because it is the drawn form of the slide before it. Make the callout the point:
+teams reach for an enricher believing it decouples them, when all it has done is put a third party in the
+chain — A now depends on the enricher *and* B. Same arithmetic, one hop further away, and now it fails
+somewhere nobody owns.
+
+### Slide: Get It In Advance — ECST (Event-Carried State Transfer)
+
+Provider B pushes state changes to A ahead of time, so A rarely needs a synchronous lookup.
+
+- The upstream provider raises a **notification** when its own entity state changes (Out-Only / pub-sub).
+- The downstream provider subscribes and writes to its local cache (`cache write()`); later requests hit the cache.
+
+**What it costs you:** **availability over consistency** — accept stale data rather than risk failure due to a partition. You are always reading a copy that is behind.
+
+Presenter notes: ECST is the answer to the previous slide's miss path — you stop having misses. The price is that you are now running a replica of someone else's data, and replicas go stale, go wrong, and need rebuilding. Say that out loud: teams adopt ECST expecting it to be free.
+
+### Slide: Reference Data — Worked Example
+
+*Order Fulfilment → Courier Assignment:* the request omits the restaurant pickup address; we assume Courier Assignment obtained it from Restaurant Information.
+
+- Look up the restaurant in the local cache by **id and version**.
+- If we have the restaurant but **not that version**, apply **backpressure** and retry the order after a delay.
+
+Presenter notes: The id-and-version lookup is the detail that makes this work. Without the version you cannot tell "I have not seen this yet" from "I have it"; with it, a missing version becomes a *wait* rather than a wrong answer. Backpressure here is the same idea they met in the reactive material.
+
+---
+
+#note: **D1-10 is outstanding on this sub-topic and was not done as part of the move.** Ian: *Get It In
+Advance — ECST* over-emphasises the problems — in practice ECST is reliable and latency rarely causes
+actual issues, particularly if you version the reference data, and it is **the better solution** than the
+synchronous lookup. Rewrite it as a recommendation, not a warning.
+
+---
+
+## 6.3 Event Shape
+
+*What shape of event lets the receiver keep a copy — and what guarantees that buys.*
+
+### Slide: Domain or Delta Event
+
+An approach to Pub-Sub where the provider communicates **granular** state changes to its requestors.
+
+- Messages are usually named as a past participle after the causing command (e.g. `BasketItemRemoved`, `BasketItemAdded`).
+- Cannot use a **Datatype Channel** — domain events for the observable must be *ordered on the same channel* and have different schemas. This burdens the requestor to multiplex handling of the events.
+
+### Slide: Summary or Snapshot Event
+
+An approach to Pub-Sub where the provider communicates a **summary** of state changes.
+
+- The message is **versioned** and contains metadata describing the cause(s) of changes; usually named after the observable (e.g. `BasketChanged`).
+- *Can* use a Datatype Channel — there is just one schema for a snapshot of the observable.
+
+### Slide: Why ECST Needs Snapshots
+
+You cannot replicate someone else's state from deltas unless you receive **every one of them, in order**.
+
+- With **Domain/Delta events**, a missed or reordered message leaves the replica permanently wrong — and nothing in the stream tells you. You must apply them all, you can only use blocking retry, and you cannot shed load.
+- With **Summary/Snapshot events**, each message is complete in itself. A missed one is repaired by the next one to arrive.
+
+▎ Choose the delta and you have chosen strict ordering. Choose the snapshot and you have bought it back.
+
+Presenter notes: This is the join between the two halves of the section. ECST is only tolerable because of the snapshot event — it is what makes the next two slides possible at all. The rule: publish complete new versions rather than deltas.
+
+### Slide: If Later, Stream
+
+**If Later** lets us use a versioned Summary Event to ignore ordering errors.
+
+- Consumer reads v1 of 12345 and handles it; reads v3 and applies it (later than v1); reads v2 and **discards** it (earlier than the already-applied v3).
+- Even on a stream, non-blocking retry or guaranteed delivery via an outbox can produce out-of-order messages; If-Later also lets us shed load.
+- We *cannot* use If-Later with a Domain Event — those must all be applied. With Domain Events we can only use a blocking retry and cannot shed load.
+
+#image: diagram — a stream of versioned message envelopes (12345 v1..v3) read by a consumer applying 'if later'
+
+Presenter notes: Publish complete new versions rather than deltas, then apply "write if later" — with v0, we can write v2 even without seeing v1, because v2 is later and either overwrites or includes v1's changes; we can then safely discard v1.
+
+### Slide: If Later, Queue
+
+If-Later also lets messages be processed out-of-order with a queue and competing consumers.
+
+- One consumer expects/writes v1 while another writes v2; **read-past** lets them proceed.
+- A queue normally processes messages (not events), so this applies only where we use a queue.
+- If a message *must* be ordered (e.g. a series of commands), use requeue-with-delay or a sequencer to re-order.
+
+#image: diagram — a queue of versioned message envelopes with two competing consumers and read-past
+
+### Slide: Public and Private Providers
+
+An approach to Pub-Sub where a **public** provider communicates with collaborators in other domains via a **Summary Event** aggregated from the domain events of **private** providers.
+
+- Private providers raise granular `event()`s.
+- The public provider republishes a versioned `summary()` with metadata describing the cause(s) of changes.
+
+Presenter notes: This is how both event shapes coexist — deltas inside a domain, where ordering is cheap and the consumers are yours; snapshots across the boundary, where neither is true. It is the same public/private split as an Open Host Service.
+
+---
 
 ---
 
