@@ -148,6 +148,9 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 
 ## 4. Day 1 work queue — `outlines/DayOne.md`, 6 sections, 91 entries
 
+> **Superseded in part by §9 (review queue, 2026-08-28).** Items D1-1 … D1-11 rework §1, §2→§3, §4.4,
+> §4.6 and the end of the day. Read §9 before treating any row below as current.
+
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
 | 1 | Distributed Systems | 10 | ✅ reframed on *easy to change + robust*; Task Queues promoted | ☐ | ☐ |
@@ -172,6 +175,9 @@ in front and 5 of wrap-up behind.
 ---
 
 ## 5. Day 2 work queue — `outlines/DayTwo.md`, 4 real sections, 108 entries
+
+> **Superseded in part by §9 (review queue, 2026-08-28).** Items D2-1 … D2-10 move Designing Messages to
+> Day 1, make Flow and Reactive the lead, reorder its movements and split the exercise in two.
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
@@ -282,6 +288,11 @@ one-page index up front so it reads as a reference rather than a talk.
 ---
 
 ## 7. Paper Flow — the Day 2 exercise
+
+> **The run-of-show below is superseded by §9 items D2-4 and D2-7**, which split the exercise into two
+> shorter blocks placed against the paper and FBP worked examples. Everything else here — the domain,
+> the notation, the see-one/do-one split, the failure cards, the materials list and the build TODO —
+> stands.
 
 **It already exists.** `exercises/Paper Flow.pptx` is tracked, 9 slides, and is **not** referenced from
 `exercises/README DAY TWO.md` — built but never wired into the running order. Extract:
@@ -603,3 +614,76 @@ contradicting the slides.
 ### 2026-08-26 — Resource matching closed
 Negative result; 6 wrong pizza-BPMN links corrected; 20 EIP figures annotated with source URLs; plan
 switched to the three-phase redevelopment above.
+
+---
+
+## 9. Agreed review queue — 2026-08-28
+
+Ian's step-back review of the work so far. **These are agreed items to work through together, one at a
+time — not a backlog to be cleared unilaterally.** Nothing below has been actioned. Where an item
+contradicts something already built, the item wins and the plan section above is stale until the item is
+worked.
+
+Three of these are **structural** and have knock-ons across both days — marked **⚑**. Read *Knock-ons* at
+the end before starting any of them.
+
+### Day 1
+
+| # | item | what Ian said |
+|---|---|---|
+| **D1-1** | *Why Distribute?* | Doesn't earn its weight any more. The focus is *Easy to Change and Robust* — **don't bury the lead.** |
+| **D1-2** | *Easy to Change — Independent Deployability* | Emphasise **independent deployability**; microservices are an **example** of it, not the thing itself. |
+| **D1-3** | *Robust — Task Queues* | Rename to **Guaranteed Delivery** — that is the point being made. Task queues are an example of it. |
+| **D1-4** | Three orphaned slides | *Microservice — Messages In, Private Data*, *Microservice — No Cross-Service Transactions* and *Collaboration — Orchestration and Choreography* are part of the **independent-deployability thread**, but Guaranteed Delivery now sits between them and orphans them. Regroup. |
+| **D1-5** | *Fallacies of Distributed Computing* | May just restate *The Price of Distribution* — **which may well be the better slide**, and is the glue across the cost of independent deployability. |
+| **D1-6 ⚑** | §1's shape | The question-then-answer ordering doesn't sit well with Task Queues, **which are an answer.** Phrase it as *we want independent deployability, but here are the problems*, and let the **next section be messaging as the answer.** **Task queues may go entirely** — unless they earn their place in Messaging Patterns. |
+| **D1-7** | §2 Coupling → §3 Integration Styles | Coupling and independent deployability are **linked**: a **process boundary prevents Content and Common coupling**, but we cannot avoid **the other three — Control, Stamp, Data** — in the message we send. And because we now interact *between processes*, we must trade off **temporal** coupling too. That leads into the four integration styles and how each shows up in the coupling just discussed. **Goal: explain why messaging is our preferred option (reactive)** — and that file transfer is just messaging without support for locks, ordering, etc. |
+| **D1-8** | §4.4 Guaranteed Delivery | Doesn't distinguish **producer** from **consumer** concerns. The **producer** cares about the **Outbox**, to guarantee a send. The **message pump** is where **Invalid Message, DLQ and Requeue-with-Delay** belong — they are mechanisms for handling a *failed message*. The **Inbox** is consumer side and part of the pump, but **matters more once we have the Outbox**. **Do not underestimate the pump conversation on errors**, and how it leads into DLQ / Invalid / Requeue (and Nack or Ack) — that conversation **makes parts of queue-vs-stream much easier later**. |
+| **D1-9 ⚑** | §4.6 Pipelines, and the end of Day 1 | Pipelines **may not earn its weight on Day 1**. Put **§Conversations after Queues and Streams**, and bring **Fat and Skinny Messages, Reference Data and Event Shape over from Day 2**. That better completes the picture of *how to send and receive* ahead of Day 2's switch to the higher level. |
+| **D1-10** | *Get It In Advance — ECST* (arrives with D1-9) | **Over-emphasises the problems.** In practice ECST is reliable and latency rarely causes actual issues, **particularly if you version the reference data**. It is **the better solution** than the synchronous lookup. Rewrite it as a recommendation, not a warning. |
+| **D1-11** | §6 Observability | Lightweight, and orphaned by losing Managing Asynchronous APIs. Resolved by **D2-1**. |
+
+### Day 2
+
+| # | item | what Ian said |
+|---|---|---|
+| **D2-1** | Versioning, and a new close | Versioning is orphaned away from the Managing Async APIs material. **Add a section at the end of Day 2 signposting further material**: *Describing Endpoints — Managing Async APIs*; *Schema — Versioning and Registries*; *Observability*. |
+| **D2-2** | §2 becomes the lead | With Designing Messages moving to Day 1 (D1-9), **Flow and Reactive Programming leads Day 2.** Its opener has to open the day. |
+| **D2-3** | *Worked Flows — Order, Placement, Confirmation* | These are the **see one** (hotel is the do one), so **we walk these flows in class**. **The slide count is too low** — expand; do not compress four flows into one slide. |
+| **D2-4 ⚑** | *Now Do One* (paper) | **Do the paper flow for the hotel here** — in the Day 2 morning, straight after the paper worked flows. |
+| **D2-5** | Movement order | Not sure about OO → Paper → Dataflow. **Go Paper Workflows → OO → Data Flow Programming**: show the paper way to understand flow (with the hotel exercise), then **ask how this looks in software**, then **point out the failure of OO to model it**, then lead into dataflow. |
+| **D2-6** | *Worked Example — the Fax Workflow in FBP* | **Do not chop so much away.** We want **both** flows from paper re-expressed in FBP — Onboarding **and** Order / Placement / Confirmation. |
+| **D2-7 ⚑** | *Now Do One* (FBP) | **Do the FBP flow for the hotel here** — a second do-one. |
+| **D2-8** | Reactive | Comes after both do-ones, **to explain how it answers the question**. |
+| **D2-9** | Pipes and Filters | Either explain it here — it helps with Process Automation — **or just drop it. Perhaps drop it for time.** |
+| **D2-10** | Process Automation and beyond | **Not reviewed yet.** Still to do, along with *Putting It Together* and *Next Steps*. |
+
+### Knock-ons to settle before starting the ⚑ items
+
+**1. D1-9 rebalances both days.** Day 1 gains Fat and Skinny (5) + Reference Data (4) + Event Shape (6) =
+**15 entries** and loses Pipelines (9); Day 2 loses those 15. Rough arithmetic: **Day 1 ≈ 95, Day 2 ≈ 93**
+— but Process Automation is unchanged at 50, so it goes from 46% to **~54% of Day 2**. The cut there
+becomes more urgent, not less. Open: **does `## Versioning` (4) follow the other three to Day 1**, or stay
+on Day 2 next to the D2-1 signpost section?
+
+**2. D2-4 + D2-7 supersede the Paper Flow run-of-show in §7.** That design was **one ~75-minute block after
+Reactive**, producing three artefacts. Ian now wants it **split in two** — paper-flow-for-hotel after the
+paper worked flows, FBP-flow-for-hotel after the FBP worked example. To re-settle when we work the item:
+
+- Where does **round 3 (break it — the error variants)** go? It is the second artefact, so probably with
+  the paper block.
+- Where does **round 4 (who is in charge — conductor vs. none)** go? It is the orchestration/choreography
+  set-up for Process Automation, so it wants to stay late — but D1-4 says *Collaboration — Orchestration
+  and Choreography* is already on Day 1, so check whether it is planted twice.
+- **Total time**: two blocks will not fit in the 75 minutes budgeted for one.
+- Unchanged either way: delegates must **not** meet BPMN before the exercise.
+
+**3. D1-6 and D2-9 point the same way on Pipelines.** D1-9 drops Pipelines from Day 1; D2-9 asks whether
+Pipes and Filters is worth teaching at all before Process Automation. If both land, the pipeline material
+leaves the course — decide it once, across both days, rather than twice.
+
+**4. D2-5 reverses the movement order committed in `f6227ee`.** The §2 rebuild put the call-and-return
+antagonist first (movement A) and paper second (B). D2-5 swaps them. The content survives; the hinge
+inverts — paper no longer *answers* "is there a better paradigm?", it **poses** "how does this look in
+software?", and OO/SOA becomes the failed answer rather than the opening complaint. `Feature Envy — You
+Built a Distributed Monolith` keeps its job either way.
