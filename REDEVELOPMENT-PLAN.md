@@ -16,7 +16,7 @@ Three artefacts:
 | artefact | source | state |
 |---|---|---|
 | **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to **96** entries |
-| **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to **91** entries |
+| **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to **97** entries |
 | **AsyncAPI handout** | QCon London 2026 deck (43 slides) | to assemble — §6 |
 | **Routing-patterns handout** | old Day 1 §4.6 + `script/Patterns/*.md` | to assemble — §10 |
 
@@ -70,17 +70,19 @@ Day 1 is **the message**; Day 2 is **the flow**.
 2. **Managing Asynchronous APIs became a takeaway handout**, not taught material (§6).
 3. **A paper-modelling exercise took its Day 2 slot** — found to already exist (§7).
 
-Current (**all Day 1 review items done**, 2026-08-28): **Day 1 = 96 entries** with two code exercises;
-**Day 2 = 91** with one paper exercise.
+Current (**all Day 1 review items done, and Day 2 down to D2-9 / D2-10**, 2026-08-28): **Day 1 = 96
+entries** with two code exercises; **Day 2 = 97** with one paper exercise, now run in two blocks and a
+closing round *inside* §1.
 
 Two balance observations, in order of urgency:
 
-1. **Process Automation is unchanged at 50 — 55% of Day 2**, and entirely lecture. Still the one big
-   outlier and the relief valve. (D2-10.)
-2. **Day 1 is now the longer day** — 96 entries *and* two code exercises, against Day 2's 91 and one paper
-   exercise. It absorbed Designing Messages (16) and grew §2 and §4.4 by one each, against real cuts in §1,
-   §4.6 and Observability. Nothing is obviously wrong with any one section, but the day should get a
-   timing pass before Phase 3.
+1. **Process Automation is unchanged at 50 — 52% of Day 2**, and entirely lecture. Still the one big
+   outlier and the relief valve — and it now owes the exercise **25 minutes** as well as the entry cut,
+   since D2-4 / D2-7 took the paper exercise from ~75 minutes to ~100. (D2-10.)
+2. **The days are now level on count** — Day 1 96, Day 2 97 — but not on shape: Day 1 has two code
+   exercises against Day 2's one paper exercise, and Day 1 absorbed Designing Messages (16). Nothing is
+   obviously wrong with any one section, but **both days want a timing pass before Phase 3**, and Day 2's
+   is blocked on D2-10.
 
 Why the split holds on content, not just counts: Conversations + Repair continues Day 1's build order
 directly — *you can send and receive reliably, now what exchange do you build with it*. Fat & Skinny +
@@ -201,30 +203,33 @@ Day 1 is **Messaging Patterns (46, 48%)**, then the two decisions — **Conversa
 
 ---
 
-## 5. Day 2 work queue — `outlines/DayTwo.md`, 3 real sections, 91 entries
+## 5. Day 2 work queue — `outlines/DayTwo.md`, 3 real sections, 97 entries
 
-> **Superseded in part by §9 (review queue, 2026-08-28).** **D2-1 is done** and **D2-2 followed from
-> D1-9.** Items D2-3 … D2-10 are outstanding: expand the worked flows, reorder §1's movements, split the
-> exercise in two, and review Process Automation.
+> **Superseded in part by §9 (review queue, 2026-08-28).** **D2-1, D2-2 and D2-3 … D2-8 are done.**
+> Items **D2-9 and D2-10** are outstanding: whether Day 2 needs its own *Pipes and Filters*, and the
+> Process Automation review — the cut, the pizza → hotel redraw, and the Josuttis collision.
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
 | — | ~~Designing Messages~~ | 15 | ✅ **→ Day 1 §6** (D1-9) | | |
 | — | ~~Versioning~~ | 4 | ✅ **dropped**; one pointer slide in `## Next Steps` | | |
-| 1 | **Flow and Reactive Programming** | **28** | ✅ 32 → 28, rebuilt as four movements | ☐ 3 new/redrawn | ☐ |
-| 1a | · A — Call and Return | 5 | goal: *stop drawing your system as call-and-return* | | |
-| 1b | · B — Paper Workflows | 6 | the exercise's **see one**; notation now taught explicitly | | |
-| 1c | · C — Dataflow and FBP | 7 | the same flows as a graph; ends on the Fax worked example | | |
-| 1d | · D — Reactive | 10 | ✅ all three Day 1 debts paid | | |
+| 1 | **Flow and Reactive Programming** | **34** | ✅ 32 → 28 → 34; movements reordered, exercise split across it (D2-3…D2-8) | ☐ 3 new/redrawn | ☐ |
+| 1a | · A — How the Office Did It | 9 | paper; the **see one**, four flows one slide each; ends in **exercise block 1** | | |
+| 1b | · B — How Would You Build That? | 4 | OO / SOA / Feature Envy — the **failed answer**, offered second | | |
+| 1c | · C — The Formalism | 10 | dataflow → FBP; both flows as graphs; ends in **exercise block 2** | | |
+| 1d | · D — The Name | 10 | ✅ all three Day 1 debts paid; closes on **round 4** into Process Automation | | |
 
-**It now leads the day** (D2-2), so its opener has to open Day 2. **D2-3 … D2-8 rework it** — expand the
-worked flows, reorder to Paper → OO → Dataflow, restore both flows in the FBP worked example, and split
-the exercise across it.
+**It now leads the day** (D2-2), so its opener has to open Day 2. **D2-3 … D2-8 reworked it** — see §9.
 
 **Section goal (agreed 2026-08-28):** *stop drawing your system as call-and-return, and start drawing it
 as flow — and know what that buys.*
 
 ### What changed in the §2 rebuild
+
+> **Partly superseded by D2-3 … D2-8 (§9).** The merges, cuts and promotions below all stand. What no
+> longer holds is the **movement order** — D2-5 inverted it again, so paper leads and OO/SOA is the failed
+> answer — and the ***see one* slide list**, which D2-3 expanded from two slides to four. Read the four
+> bullets below as the state after the §2 rebuild, not as current.
 
 **The argument order was inverted.** It ran paper → OO → dataflow → FBP → *back to OO at service scale
 (SOA)* → Reactive — making the "call and return doesn't scale" argument twice, twenty slides apart. The
@@ -243,7 +248,7 @@ everything after it is the answer:
 holding **17 unlabelled images**. Split into four real slides — *The Frame*, **· *The Desk — In-Tray,
 Out-Tray, File* (new)**, *Worked Flow — Restaurant Onboarding*, *Worked Flows — Order, Placement,
 Confirmation* — plus *How Do We Deal with Errors?* as a table mapping each paper failure to its pattern
-name. The notation (boundary bar, numbered steps, red dashed = paper, trays, files) had **never been
+name. **(D2-3 has since split the compressed slide into three, one flow each.)** The notation (boundary bar, numbered steps, red dashed = paper, trays, files) had **never been
 stated**; it is now, because delegates draw in it within the hour. The error slide deliberately uses the
 same words as the exercise's **failure cards**, so round 3 is recall, not invention.
 
@@ -274,16 +279,17 @@ supervisor/scale-out — which were never taught.
 **Open item for the Process Automation review:** the **Josuttis quote** is now a callout on §2 *SOA Is OO
 at Macro Scale* (where it is the yardstick Feature Envy fails against) **and** a standalone opening slide
 of Process Automation. One of the two has to go.
-| 2 | **Paper Flow** exercise | 9 | ☐ **run-of-show reopened by D2-4 / D2-7** — splits in two | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
+| 2 | **Paper Flow** exercise | 9 | ✅ **run-of-show resettled (D2-4 / D2-7)** — two blocks + a closing round, ~100 min; §7 rewritten | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
 | 3 | **Process Automation** | 50 | ☐ **needs cutting** — 55% of the day; **+ pizza → hotel redraw** | ☐ ~11 BPMN redraws | ☐ |
 | 3a | · Tentative Operations *(moved from Repair)* | 2 | ✅ bridge into Durable Execution | | |
 | 4 | Putting It Together | 6 | ☐ | ☐ | ☐ |
 | 5 | Next Steps | **7** | ✅ +2 pointer slides (D2-1); ☐ rest unreviewed | ☐ | ☐ |
 
-**The balance problem that remains, and it got worse:** D1-9 took 19 entries off Day 2 but took nothing
-off Process Automation, so it went from 46% to **55% of the day** — and it is entirely lecture, which is
-exactly what the modelling exercise should relieve. This is now the single largest outstanding item in
-the plan.
+**The balance problem that remains:** D1-9 took 19 entries off Day 2 but took nothing off Process
+Automation. D2-3…D2-8 then added 6 back to §1, so Process Automation is now **52% of the day** (50 of 97)
+and still entirely lecture — which is exactly what the modelling exercise should relieve. **And the
+exercise now needs ~100 minutes against 75 budgeted**, so Process Automation owes both the entry cut and
+the 25 minutes. This is the single largest outstanding item in the plan (D2-10).
 
 ---
 
@@ -320,10 +326,10 @@ one-page index up front so it reads as a reference rather than a talk.
 
 ## 7. Paper Flow — the Day 2 exercise
 
-> **The run-of-show below is superseded by §9 items D2-4 and D2-7**, which split the exercise into two
-> shorter blocks placed against the paper and FBP worked examples. Everything else here — the domain,
-> the notation, the see-one/do-one split, the failure cards, the materials list and the build TODO —
-> stands.
+> **Run-of-show resettled with Ian, 2026-08-28 (D2-4 / D2-7).** The exercise no longer runs as one block
+> after the section — it runs **inside** it, in two blocks and a closing round, hooked to the two worked
+> examples. The table below is the current design. Everything else here — the domain, the notation, the
+> see-one/do-one split, the failure cards, the materials list and the build TODO — is unchanged.
 
 **It already exists.** `exercises/Paper Flow.pptx` is tracked, 9 slides, and is **not** referenced from
 `exercises/README DAY TWO.md` — built but never wired into the running order. Extract:
@@ -374,20 +380,53 @@ missing"*, *"Make a carbon copy of the request"*, *"File the copy of the request
 receipt, retry sending fax"*. **The failure cards use that language**, not a parallel one: the carbon
 copy *is* the outbox, the resend *is* the retry.
 
-### Run-of-show — ~75 min
+### Run-of-show — ~100 min, in three placements
 
-Placed **after Reactive Programming, before Process Automation**: delegates need the FBP vocabulary for
-the third artefact, and must **not** yet have BPMN — so they invent a notation and the next section
-formalises it. Round 4 must land immediately before Process Automation or its payoff goes cold.
+**Settled with Ian, 2026-08-28.** Two ~45-minute blocks plus a ~10-minute closing round, each placed
+immediately after the material it depends on, inside `## Flow and Reactive Programming`:
+
+| block | where it sits in Day 2 §1 | min |
+|---|---|---:|
+| **1 — on paper** | end of **movement A**, after *How Do We Deal with Errors?* | ~45 |
+| **2 — as a graph** | end of **movement C**, after the three FBP worked examples | ~45 |
+| **round 4 — who is in charge?** | end of **movement D**, as the section's closing slide | ~10 |
+
+**There is no round 0 any more.** It existed to recap material delivered an hour earlier; each block's
+*see one* is now the slides immediately before it, so the recap is a pointer, not a retelling. *ACID
+takes place at a desk; BASE takes place across desks* moves into **block 1's debrief**, where the
+out-tray rule has just been enforced for forty minutes.
+
+**Block 1 — on paper (~45 min).** Hand-off slide: *Now Do One — the Hotel, on Paper*.
 
 | round | min | what happens |
 |---|---:|---|
-| **0 — See one** | 10 | Recap the desk / in-tray / out-tray notation on **Restaurant Onboarding**, its error variant, and its FBP re-expression. Land *ACID at a desk, BASE across desks*. |
 | **1 — Model it** | 20 | **One stage of the guest cycle per table** — Onboarding, Pre-Arrival, Arrival, Occupancy, Departure. Hard rule: **every hand-off goes through an out-tray and an in-tray**, no shouting across desks. That rule is what makes the fracture planes visible. |
 | **2 — Run it** | 10 | *Execute* the model with cards, one person per desk. Missing messages and unstated assumptions surface within two minutes. Fix the model in pen. |
-| **3 — Break it** | 15 | Deal 2–3 failure cards per table. Tables draw the **error variant** of their flow — the second artefact. |
-| **4 — Who is in charge?** | 10 | Re-run **with a conductor** holding a routing slip (orchestration), then **with none**, each desk acting on its in-tray (choreography). Compare: where did knowledge of the whole process live? Who had to change when a step was added? |
-| **Debrief** | 10 | Reveal the worked flow for each table's stage — four exist, **Departure does not**, so it is the collective piece. Then assemble: the hand-offs *between* tables are the largest fracture planes of all. Close on the FBP re-expression and *you have just drawn what the next section shows you in BPMN*. |
+| **3 — Break it** | 10 | Deal 2–3 failure cards per table. Tables draw the **error variant** of their flow — the second artefact. The vocabulary is *How Do We Deal with Errors?*, which they saw ten minutes ago. |
+| **Debrief** | 5 | Reveal the worked flow for each table's stage — four exist, **Departure does not**, so it is the collective piece. Land *ACID at a desk, BASE across desks*. |
+
+**Block 2 — as a graph (~45 min).** Hand-off slide: *Now Do One — the Hotel, as a Graph*.
+
+| round | min | what happens |
+|---|---:|---|
+| **5 — Re-express it** | 25 | Redraw your own flow from block 1 in FBP: information packets, nodes, ports. Where do the lookups live? Where is state stored? Which arcs must survive a crash? Same domain, new notation — that is the whole task. |
+| **6 — Join up** | 10 | Tables connect their graphs into one network, as *Worked Example — the Order Flow in FBP* does for the takeaway. |
+| **Debrief** | 10 | The hand-offs *between* tables are the largest fracture planes of all. Close on: you have drawn a distributed system, and nobody has said the word yet. |
+
+**Round 4 — who is in charge? (~10 min).** Slide: *So Who Is in Charge?*, the section's last.
+
+Re-run **your block 1 flow with a conductor** holding a routing slip (orchestration), then **with none**,
+each desk acting on its in-tray (choreography). Compare: where did knowledge of the whole process live?
+Who had to change when a step was added? It stays here, an hour after block 1, because its payoff is
+**Process Automation**, which starts on the next slide — and Day 1 §1 *Collaboration — Orchestration and
+Choreography* promised the room would feel the difference before either word was defined.
+
+**Unchanged:** delegates must **not** meet BPMN before any of this. They invent a notation; Process
+Automation formalises it.
+
+**The cost.** ~100 minutes against the ~75 budgeted. **The 25 comes out of Process Automation** (D2-10),
+which is over-long by every other measure too. Flagged rather than absorbed, because it is a real
+commitment made before that section has been reviewed.
 
 ### Failure cards
 
@@ -657,9 +696,10 @@ switched to the three-phase redevelopment above.
 ## 9. Agreed review queue — 2026-08-28
 
 Ian's step-back review of the work so far. **These are agreed items to work through together, one at a
-time — not a backlog to be cleared unilaterally.** Nothing below has been actioned. Where an item
-contradicts something already built, the item wins and the plan section above is stale until the item is
-worked.
+time — not a backlog to be cleared unilaterally.** Where an item contradicts something already built, the
+item wins and the plan section above is stale until the item is worked.
+
+**Outstanding: D2-9 and D2-10.** Everything else is ✅ and has a rationale block below.
 
 Three of these are **structural** and have knock-ons across both days — marked **⚑**. Read *Knock-ons* at
 the end before starting any of them.
@@ -686,12 +726,12 @@ the end before starting any of them.
 |---|---|---|
 | **D2-1** ✅ | Versioning, and a new close | Versioning is orphaned away from the Managing Async APIs material. **Add a section at the end of Day 2 signposting further material**: *Describing Endpoints — Managing Async APIs*; *Schema — Versioning and Registries*; *Observability*. |
 | **D2-2** ✅ | §1 becomes the lead | With Designing Messages moving to Day 1 (D1-9), **Flow and Reactive Programming leads Day 2.** Its opener has to open the day. |
-| **D2-3** | *Worked Flows — Order, Placement, Confirmation* | These are the **see one** (hotel is the do one), so **we walk these flows in class**. **The slide count is too low** — expand; do not compress four flows into one slide. |
-| **D2-4 ⚑** | *Now Do One* (paper) | **Do the paper flow for the hotel here** — in the Day 2 morning, straight after the paper worked flows. |
-| **D2-5** | Movement order | Not sure about OO → Paper → Dataflow. **Go Paper Workflows → OO → Data Flow Programming**: show the paper way to understand flow (with the hotel exercise), then **ask how this looks in software**, then **point out the failure of OO to model it**, then lead into dataflow. |
-| **D2-6** | *Worked Example — the Fax Workflow in FBP* | **Do not chop so much away.** We want **both** flows from paper re-expressed in FBP — Onboarding **and** Order / Placement / Confirmation. |
-| **D2-7 ⚑** | *Now Do One* (FBP) | **Do the FBP flow for the hotel here** — a second do-one. |
-| **D2-8** | Reactive | Comes after both do-ones, **to explain how it answers the question**. |
+| **D2-3** ✅ | *Worked Flows — Order, Placement, Confirmation* | These are the **see one** (hotel is the do one), so **we walk these flows in class**. **The slide count is too low** — expand; do not compress four flows into one slide. |
+| **D2-4 ⚑** ✅ | *Now Do One* (paper) | **Do the paper flow for the hotel here** — in the Day 2 morning, straight after the paper worked flows. |
+| **D2-5** ✅ | Movement order | Not sure about OO → Paper → Dataflow. **Go Paper Workflows → OO → Data Flow Programming**: show the paper way to understand flow (with the hotel exercise), then **ask how this looks in software**, then **point out the failure of OO to model it**, then lead into dataflow. |
+| **D2-6** ✅ | *Worked Example — the Fax Workflow in FBP* | **Do not chop so much away.** We want **both** flows from paper re-expressed in FBP — Onboarding **and** Order / Placement / Confirmation. |
+| **D2-7 ⚑** ✅ | *Now Do One* (FBP) | **Do the FBP flow for the hotel here** — a second do-one. |
+| **D2-8** ✅ | Reactive | Comes after both do-ones, **to explain how it answers the question**. |
 | **D2-9** | Pipes and Filters | Either explain it here — it helps with Process Automation — **or just drop it. Perhaps drop it for time.** **Half-settled by D1-9:** Day 1's *Pipes and Filters* slide left with §4.6 to the handout, so the only question left is whether Day 2 needs one of its own. |
 | **D2-10** | Process Automation and beyond | **Not reviewed yet.** Still to do, along with *Putting It Together* and *Next Steps*. |
 
@@ -854,33 +894,83 @@ Needs Snapshots* ("ECST is *only tolerable* because of the snapshot event" → *
 it*), and Day 2 §1 *FBP — Where Do Lookups Live?*, whose callout offered "a copy that might be wrong" and
 now gives the same verdict as §6.2: **hold the copy.**
 
+### ✅ D2-3 … D2-8 — done 2026-08-28
+
+Worked as one pass. They contradict each other piecemeal: D2-5 moves the paper block to the front, which
+changes what D2-3's worked flows are *for*; D2-4 and D2-7 put an exercise block at the end of two
+different movements, which only has a meaning once D2-5 has said which movements those are; and D2-8's
+"Reactive last" is a consequence rather than a move. **§1: 28 → 34 entries. Day 2: 91 → 97.**
+
+**The hinge inverted (D2-5).** The section used to open on OO and call-and-return, end movement A on *is
+there a better paradigm?*, and answer it with a photograph of a mail room. It now opens on the mail room.
+Paper **poses** the question — *you have drawn a flow; how would you build it?* — and OO/SOA is the
+**failed answer, offered second**. Ian: *show the paper way to understand flow (with the hotel exercise),
+then ask how this looks in software, then point out the failure of OO to model it, then lead into
+dataflow.*
+
+Almost no slide text moved. What changed is four framing sentences:
+
+- *Paper Workflows* stopped being "the answer to *is there a better paradigm?*" and became the day's
+  opening.
+- *Worked Flow — Order Confirmation* now closes the *see one* by **asking the room how they would build
+  it**, and writing their answer on a flipchart.
+- *Object-Oriented Programming* opens by **reading that flipchart back** — the room proposed this, it is
+  not being imposed on them.
+- *Feature Envy* stopped ending on an open question and now ends on the comparison: *you drew a flow with
+  no coordinator this morning, then built one with a coordinator in the middle.*
+
+**Movements renamed** to say what they do: **A — How the Office Did It**, **B — How Would You Build
+That?**, **C — The Formalism**, **D — The Name**.
+
+| item | what was done |
+|---|---|
+| **D2-3** | ***Worked Flows — Order, Placement, Confirmation* split into three.** It was one slide carrying six images and three flows; these are the exercise's *see one* and are **walked in class**. Now *Restaurant Onboarding*, *Customer Order*, *Order Placement*, *Order Confirmation* — one flow each, in the order the business runs them. The new slides earn their space rather than padding: **Customer Order** carries the **channel heterogeneity** point (phone, card machine, order pad — three media, one notation), which delegates hit immediately in the hotel; **Order Placement** is named the load-bearing flow and teaches *file it before you send it* and *write the reference number on the fax* **without naming storage or correlation**, so movement C can supply the vocabulary for something the room already saw; **Order Confirmation** lands the montage and asks the movement's question. |
+| **D2-4** ⚑ | **Exercise block 1 placed at the end of movement A** — *Now Do One — the Hotel, on Paper*, ~45 min, rounds 1–3 plus debrief. |
+| **D2-5** | **Movements reordered to A(paper) → B(OO) → C(dataflow/FBP) → D(reactive).** See above. |
+| **D2-6** | ***Worked Example — the Fax Workflow in FBP* split into three**, mirroring the paper block: *Onboarding in FBP*, *the Order Flow in FBP*, *When It Fails, and What the Arcs Really Are*. Ian: *do not chop so much away.* One slide had held both flows, the failure variant and the MoM hinge across six images. The **Onboarding** slide now states each mechanism **beside its paper equivalent** in italics — storage *is* filing it before you send it, correlation id *is* the reference number on the fax, the lookup node *is* the Catalogue Maker — and closes on *nothing here was invented; it was named*. The **Order Flow** slide's content is the **composition**: three separate sheets of paper turn out to be one network, which is the thing paper could not draw and the shape block 2's debrief reproduces. |
+| **D2-7** ⚑ | **Exercise block 2 placed at the end of movement C** — *Now Do One — the Hotel, as a Graph*, ~45 min. This was the original exercise deck's closing task (s009), which never had room. |
+| **D2-8** | **Reactive is last**, after both do-ones, and its opener says so: the room has drawn the same system four times in two notations and made it fail; movement D adds no mechanism, it supplies the name. |
+
+**The section now closes on round 4.** *Now Do One* — the old single hand-off into a 75-minute block —
+became ***So Who Is in Charge?***, which re-asks the section marker's question and answers it with people
+rather than slides: run your flow with a conductor, then with none. It is the hand-off into Process
+Automation and keeps Day 1 §1's promise that delegates would *feel* the difference before either word was
+defined. **Not a duplicate of Day 1 §1** — that slide names the two words, this makes the room live them.
+
+**The exercise design was re-settled with Ian** (§7 rewritten): **~100 minutes**, as ~45 + ~45 + ~10,
+against the ~75 budgeted. Round 3 (*break it*) went to block 1, next to the error vocabulary. **Round 0
+was deleted** — it recapped material delivered an hour earlier, and each block's *see one* is now the
+slides immediately before it. **The 25-minute overrun lands on Process Automation** (D2-10), which owes
+an entry cut anyway; flagged rather than absorbed, because it commits that section before it is reviewed.
+
+**Cross-references fixed:** the Day 2 intro paragraph (the exercise runs *inside* §1, in two blocks); the
+*Putting It Together* pointer, which named the wrong FBP slide after the split and now sits on
+*Onboarding in FBP* with an instruction to leave that diagram unannotated; and the OO slide's "they just
+said this on the previous slide", which stopped being true once a 45-minute exercise moved in between.
+
+**No cut text file.** Nothing was removed — the pass is a reorder, three splits and four rewritten framing
+sentences. Git history covers the before state.
+
 ### Knock-ons to settle before starting the ⚑ items
 
-**1. ✅ Settled — D1-9 rebalanced both days.** Day 1 = 95, Day 2 = 91. Versioning did not follow the other
-three; it was dropped. **The consequence stands and got worse:** Process Automation is unchanged at 50 and
-is now **55% of Day 2**. Nothing else on either day is close.
+**1. ✅ Settled — D1-9 rebalanced both days.** Day 1 = 96, Day 2 = 97 after D2-3…D2-8. Versioning did not
+follow the other three; it was dropped. **The consequence stands:** Process Automation is unchanged at 50
+and is **52% of Day 2**, and it now owes 25 minutes to the exercise as well. Nothing else on either day is
+close.
 
-**2. D2-4 + D2-7 supersede the Paper Flow run-of-show in §7.** That design was **one ~75-minute block after
-Reactive**, producing three artefacts. Ian now wants it **split in two** — paper-flow-for-hotel after the
-paper worked flows, FBP-flow-for-hotel after the FBP worked example. To re-settle when we work the item:
-
-- Where does **round 3 (break it — the error variants)** go? It is the second artefact, so probably with
-  the paper block.
-- Where does **round 4 (who is in charge — conductor vs. none)** go? It is the orchestration/choreography
-  set-up for Process Automation, so it wants to stay late — but D1-4 says *Collaboration — Orchestration
-  and Choreography* is already on Day 1, so check whether it is planted twice.
-- **Total time**: two blocks will not fit in the 75 minutes budgeted for one.
-- Unchanged either way: delegates must **not** meet BPMN before the exercise.
+**2. ✅ Settled — the exercise runs in three placements, ~100 min.** §7's run-of-show has been rewritten.
+Block 1 (paper, ~45) ends movement A; block 2 (FBP, ~45) ends movement C; round 4 (~10) is the section's
+last slide, immediately before Process Automation. Round 3 went to block 1; **round 0 was deleted**. Not
+planted twice against Day 1 §1 — that slide names orchestration and choreography, round 4 makes the room
+live the difference. **The 25-minute overrun is owed by Process Automation (D2-10).**
 
 **3. ✅ Half-settled — Pipelines.** D1-9 sent Day 1's pipeline material, *Pipes and Filters* included, to
 the routing handout (§10). Only **D2-9** remains: does Day 2 need a *Pipes and Filters* slide of its own
 before Process Automation, or does the handout cover it? Ian leans *drop it for time*.
 
-**4. D2-5 reverses the movement order committed in `f6227ee`.** The §2 rebuild put the call-and-return
-antagonist first (movement A) and paper second (B). D2-5 swaps them. The content survives; the hinge
-inverts — paper no longer *answers* "is there a better paradigm?", it **poses** "how does this look in
-software?", and OO/SOA becomes the failed answer rather than the opening complaint. `Feature Envy — You
-Built a Distributed Monolith` keeps its job either way.
+**4. ✅ Settled — D2-5 reversed the movement order committed in `f6227ee`.** Paper leads; OO/SOA is the
+failed answer. The content survived; four framing sentences changed. *Feature Envy — You Built a
+Distributed Monolith* kept its job, and gained a better close.
 
 ---
 

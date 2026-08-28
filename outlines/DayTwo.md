@@ -2,7 +2,7 @@
 
 A 101 guide to messaging. Ian Cooper. (X, BlueSky and Hachyderm: ICooper)
 
-Day Two moves from the single message to the **flow**. It opens on **Flow and Reactive Programming** — how paper offices ran a distributed system with no `main`, why call-and-return breaks at service scale, dataflow and flow-based programming, and reactive architectures — puts delegates through a **paper-modelling exercise**, and closes on process automation: BPMN, orchestration vs. choreography, durable execution, and workflow engines.
+Day Two moves from the single message to the **flow**. It opens on **Flow and Reactive Programming** — how paper offices ran a distributed system with no `main`, why call-and-return breaks at service scale, dataflow and flow-based programming, and reactive architectures — puts delegates through a **paper-modelling exercise in two blocks, inside that section**, and closes on process automation: BPMN, orchestration vs. choreography, durable execution, and workflow engines.
 
 *Day One now owns the whole of the single message: message-exchange patterns and fault repair in `## Conversations`, and message design — fat vs. skinny, reference data and event shape — in `## Designing Messages`. Versioning and observability are **not taught**; both are signposted in `## Next Steps`, versioning via the Managing Asynchronous APIs takeaway handout.*
 
@@ -10,20 +10,28 @@ Day Two moves from the single message to the **flow**. It opens on **Flow and Re
 
 ## Flow and Reactive Programming
 
-*The second section of Day Two. Four movements: **A — how you draw systems now** (call and return, at
-object scale and at service scale, ending in the distributed monolith). **B — how the office did it**
-(paper workflows; this is the exercise's *see one*). **C — the formalism** (dataflow, then flow-based
-programming; the same flows again as a graph). **D — the name** (Reactive, which is what you have been
-building since yesterday morning).*
+*The opening section of Day Two. Four movements: **A — how the office did it** (paper workflows: the
+frame, the desk, the worked flows and their failures — the exercise's *see one*, closing with delegates
+drawing the hotel's). **B — how would you build that?** (call and return, at object scale and at service
+scale, ending in the distributed monolith — the wrong answer, offered second). **C — the formalism**
+(dataflow, then flow-based programming; the same flows again as a graph, closing with delegates redrawing
+theirs). **D — the name** (Reactive, which is what you have been building since yesterday morning).*
 
 **Section goal:** stop drawing your system as call-and-return, and start drawing it as flow — and know
 what that buys.
 
-#note: This section is **load-bearing for the Paper Flow exercise**, which runs immediately after it.
-Movement B teaches the desk / in-tray / out-tray notation delegates will draw in, movement B's error
-slides teach the vocabulary the failure cards use, and movement C's worked example is the third
-artefact they are asked to produce. Round 0 of the exercise is a *recap* of B and C, not a first
-telling — so B and C must actually tell it.
+**The order is deliberate (D2-5).** Flow comes first, on paper, before software is mentioned at all. Only
+once delegates can draw a flow do we ask *how does this look in software?* — and call-and-return is then
+the **failed answer** to a question they already have, rather than an opening complaint about a system
+they have not yet been given an alternative to.
+
+#note: This section is **load-bearing for the Paper Flow exercise**, which no longer runs after it but
+**inside it**, in two blocks (D2-4, D2-7). Movement A teaches the desk / in-tray / out-tray notation and
+the failure vocabulary, then hands straight to **block 1** — delegates draw the hotel on paper and break
+it. Movement C teaches nodes, ports and lookups and works both flows as graphs, then hands to **block
+2** — delegates redraw their own flow as a graph. Movement D closes on **round 4** (*who is in charge?*),
+which is the hand-off into Process Automation. So each block's *see one* is the movement immediately
+before it, and there is no long recap: round 0 shrinks to a pointer at slides the room has just seen.
 
 ---
 
@@ -33,70 +41,14 @@ Section marker.
 
 ▎ Everything in this section is one question: *what is in charge?*
 
----
-
-### Slide: Object-Oriented Programming
-
-A class has a **role** with **responsibilities**; we capture responsibilities as behaviours; we
-encapsulate the data those behaviours need inside the object; roles may be inherited via dynamic
-dispatch.
-
-#image: hand-drawn OO diagram — a class with role/responsibilities, encapsulated data, inheritance via dynamic dispatch, message passing
-
-Presenter notes: Deliberately uncontroversial — everyone in the room has this. It is here to be named, because the next three slides are about what happens when you scale it up.
-
-### Slide: Call and Return, and the God Object
-
-- **Call and return.** `main` is the entry point. It invokes objects, which invoke other objects and
-  return to their caller. Control is passed down a stack and handed back.
-- **The god object.** The danger is one object — `Cart`, usually — that controls all the others. High
-  behavioural coupling: it knows the whole use case, so it changes whenever any step of the use case
-  changes.
-
-▎ Somebody has to be in charge, and in call and return it is always `main`.
-
-#image: hand-drawn call-and-return diagram — Main invoking Cart, Restaurant, Account, Menu, Payment, Order, Delivery objects
-
-Presenter notes: A system passes control between classes to meet a use case, via message passing — "call and return" from `main` on down. Hold the phrase *knowledge of the whole process lives in one place*; movement D and the exercise's round 4 both come back to it.
-
-### Slide: SOA Is OO at Macro Scale
-
-**SOA** creates OO-like components: a service has a role and responsibilities exposed as
-operations, and encapsulates the data those operations need. This is the Web Services approach — OO
-as an architectural principle.
-
-- Same idea, bigger unit: role, responsibilities, encapsulated data.
-- We are taking the view that **microservices are SOA 3.0** — most of the best practice still applies.
-
-▎ "A service should represent a self-contained functionality that corresponds to a real-world business
-activity." — Nicolai Josuttis, *SOA in Practice*
-
-#image: hand-drawn service-orientation diagram — a WSDL service with endpoint, binding, operations, input/output messages
-
-Presenter notes: SOA takes objects to a macro scale. The Josuttis quote is the standard against which the next slide fails: he says align the service with a *business activity*. The next slide shows what you get when you align it with an *entity* instead.
-
-#note: The Josuttis quote used to sit orphaned in the middle of the paper-workflow images (old s58) and
-again in Process Automation. It belongs here, where it is the yardstick for Feature Envy.
-
-### Slide: Feature Envy — You Built a Distributed Monolith
-
-- We expose significant **resources** and the operations you can perform on them — usually CRUD.
-  Entity services: `Cart`, `Restaurant`, `Account`, `Menu`, `Payment`, `Order`, `Delivery`.
-- **Feature envy.** Domain logic has to coordinate across those resources, so it ends up on the client,
-  in the API gateway, or in the `Cart` service — anywhere but in the individual services.
-- Because we made OO large, we reached for call and return via a `main` method at the API gateway.
-
-▎ The gateway is `main`. You have distributed the objects and kept the god object.
-
-#image: hand-drawn entity-services diagram — Device → API Gateway → Cart, Restaurant, Account, Menu, Payment, Order, Delivery
-
-Presenter notes: This is the slide the movement exists for. The distributed monolith is not a failure of nerve, it is what call-and-return *becomes* when you distribute it — and it gives back exactly the independent deployability Day 1 §1 called "the whole prize". End on the deck's own question: **is there a better paradigm?** Do not answer it yet — the next slide answers it with a photograph.
-
-#note: **Cut from here: *SOA — Faults Propagate*.** Day 1 §1 now owns fault propagation (availabilities
-multiply under temporal coupling) and makes the argument better. The idea is not lost — it returns in
-movement D as the thing **bulkheads** fix, which is where it does work rather than repeating Day 1.
+Presenter notes: **This opens Day Two, so it has to earn the room's attention in one line** — and the line
+is the question, not the agenda. Do not list the movements. The route is: watch an office do it with no
+one in charge, do it yourself, then discover that the way you already build software puts somebody in
+charge whether you wanted it or not.
 
 ---
+
+#group: Movement A — How the Office Did It
 
 ### Slide: Paper Workflows
 
@@ -108,7 +60,10 @@ thing, and it did it because something arrived in its in-tray.
 
 ▎ The office was a distributed system with no god object. It worked for two hundred years.
 
-Presenter notes: This is the answer to "is there a better paradigm?" — and the answer is older than the question. The rest of the movement is spent extracting the notation from it, because delegates are about to draw in it.
+Presenter notes: **The day opens here, before any software is mentioned.** This is not nostalgia and not a
+metaphor — it is a worked example of the thing the whole section is about, and delegates have to be able
+to draw in its notation within the hour. Resist any urge to say "of course, in software we…"; the movement
+ends by *asking* that, and movement B answers it badly on purpose.
 
 ### Slide: The Frame
 
@@ -156,6 +111,8 @@ Two devices worth naming, because they are patterns you already know:
 
 Presenter notes: **New slide.** The notation was previously never taught — it was demonstrated in passing across a dozen unlabelled photographs. It has to be explicit now, because delegates draw in it within the hour and the exercise's hard rule (*every hand-off through a tray*) is what makes the fracture planes visible. The out-tray-to-in-tray rule is the whole exercise in one line.
 
+#group: The Worked Flows — Just Paper Takeaway
+
 ### Slide: Worked Flow — Restaurant Onboarding
 
 **Just Paper Takeaway.** Signing up a new restaurant, as paper: the value stream first, then the flow.
@@ -167,24 +124,80 @@ Presenter notes: **New slide.** The notation was previously never taught — it 
 #image: value-stream map — restaurant onboarding  [→ resources/Restaurant Onboarding Value Stream.drawio.png]
 #image: flow diagram — restaurant onboarding  [→ resources/Restaurant Onboarding.drawio.png]
 
-Presenter notes: **This is the *see one*.** Walk it slowly — it is the diagram delegates reproduce for the hotel in round 1, and the one round 0 recaps. Point at the boundary bar and at two trays explicitly; those are the only two pieces of notation they need to start.
+Presenter notes: **This is the first of four *see one* flows, and the slowest.** It is the diagram
+delegates reproduce for the hotel in block 1, and the structural twin of Hotel Onboarding. Point at the
+boundary bar and at two trays explicitly; those are the only two pieces of notation they need to start.
+Walk the value stream first and the flow second, and say why: the value stream says *what the customer
+gets*, the flow says *who has to do what to whom*. **Ask the room where the waiting is** before you show
+the flow — the answer is always "at the boundary", which is the point.
 
-### Slide: Worked Flows — Order, Placement, Confirmation
+#note: **D2-3.** These four flows were one-and-a-bit slides — Onboarding, then *Order, Placement,
+Confirmation* compressed onto a single slide carrying six images. They are the exercise's *see one* and
+are **walked in class**, so each flow now gets its own slide, in the order the takeaway business actually
+runs them.
 
-The same notation across the rest of the takeaway domain, faster now the notation is known.
+### Slide: Worked Flow — Customer Order
 
-- **Customer Order** — the customer orders; note the order taking is phone, card machine and order pad.
-- **Order Placement** — the order reaches the restaurant.
-- **Order Confirmation** — the restaurant confirms back.
+**The customer orders.** The first flow that crosses into the customer's world, and the first with more
+than one channel in it.
+
+- The value stream for the order side of the business, end to end.
+- Order taking is **phone, card machine and order pad** — three channels, one flow, and none of them
+  is a computer.
+- The order pad is the in-tray; the pad's carbon copy is the outbox; the till roll is the file.
+
+▎ Three different media, one notation. The notation does not care what the arrow is made of.
 
 #image: value-stream map — order flow  [→ resources/Order Flow Value Stream.drawio.png]
-#image: flow diagram — customer order  [→ resources/Customer Order.drawio.png]
 #image: photo — order taking (phone / card machine / order pad)
+#image: flow diagram — customer order  [→ resources/Customer Order.drawio.png]
+
+Presenter notes: Pace picks up now the notation is known — one diagram, walked, but briskly. The useful
+observation here is the **channel heterogeneity**: a phone call is a synchronous conversation, the order
+pad is a queue, the card machine is a third-party request/response. Delegates will hit exactly this in
+the hotel — the guest phones, the booking form is paper, the card is a terminal. Name it so they are not
+surprised by it in block 1.
+
+### Slide: Worked Flow — Order Placement
+
+**The order reaches the restaurant.** This is the flow with the external participant — the restaurant is
+another organisation, on the far side of the heavy bar, reachable only by fax.
+
+- The fax is a **send with no immediate answer**. The order goes out; the desk moves on.
+- The state has to be **filed** before the fax goes, because the answer arrives minutes later and
+  possibly to a different clerk.
+- The reference number written on the fax is what matches the answer back to the file.
+
+▎ Store, send, and be able to pick it up again. Two hundred years before anyone called it a saga.
+
 #image: flow diagram — order placement  [→ resources/Order Placement.drawio.png]
+
+Presenter notes: **The load-bearing flow of the four.** Storage, correlation and hand-off across an
+organisational boundary are all here in paper form, and movement C re-expresses exactly this flow as a
+graph — so what you say here is what the FBP worked example calls storage and correlation id. Do not use
+those words yet. Say *file it before you send it* and *write the reference number on the fax*, and let
+movement C supply the vocabulary for what the room already saw.
+
+### Slide: Worked Flow — Order Confirmation
+
+**The restaurant confirms back.** The reply arrives on its own, later, with no one waiting for it.
+
+- Nobody blocked. The clerk who sent the fax did other work; the confirmation is picked up from an
+  in-tray like anything else.
+- The confirmation is matched to the filed order by its reference number, and only then does the
+  customer get told.
+- Put the four flows side by side: **no desk knows more than its own step, and there is no coordinator.**
+
+▎ Four flows, no `main`. Every desk is doing exactly one thing, because something landed in its in-tray.
+
 #image: flow diagram — order confirmation  [→ resources/Order Confirmation.drawio.png]
 #image: montage of the four flow diagrams together
 
-Presenter notes: Pace changes here — one diagram at a time but briskly. Land the montage: four flows, no central coordinator, and no desk knows more than its own step.
+Presenter notes: Land the montage — it is the close of the *see one* and the reason the four flows were
+walked separately. **Ask the room the movement's question here:** if you were asked to build this, how
+would you draw it? Take answers; they will describe an orchestrator or a set of services with a gateway
+in front. Do not correct them — write it on a flipchart and leave it up through the exercise, because that is
+movement B, and it is more powerful as their answer than as yours.
 
 ### Slide: How Do We Deal with Errors?
 
@@ -203,16 +216,116 @@ Paper had failure modes, and it had answers, and they are our answers.
 #image: flow diagram — customer order errors  [→ resources/Customer Order Errors.drawio.png]
 #image: flow diagram — order placement errors  [→ resources/Order Placement Errors.drawio.png]
 
-Presenter notes: This is the **failure vocabulary the exercise's failure cards use** — deliberately the same words, so round 3 is recall and not invention. The carbon copy *is* the outbox; the resend *is* the retry. The Fax Call Log is the good bit: a real error-status table, i.e. someone had to build observability for paper too.
+Presenter notes: This is the **failure vocabulary the exercise's failure cards use** — deliberately the same words, so round 3 is recall and not invention. The carbon copy *is* the outbox; the resend *is* the retry. The Fax Call Log is the good bit: a real error-status table, i.e. someone had to build observability for paper too. **This is the last slide before block 1**, so end on the table, not the diagrams: those five rows are what the failure cards will deal out.
 
 #note: *ACID takes place at a desk; BASE takes place across desks* is **deliberately not spent here** —
-it is the punch line of round 0 of the Paper Flow exercise. Do not use it in this section.
+it is the punch line of the Paper Flow debrief in block 1. Do not use it in this section.
 
 #note: **Cut from here: *Two Axes — Discrete/Series and Skinny/Fat*.** Day 1 §6 *What Goes in a Message?*
 and Day 1 §6.3 *Event Shape* now own that material and treat it properly; a recap in the middle of the paper build
 interrupts the argument and serves the section goal not at all.
 
+### Slide: Now Do One — the Hotel, on Paper
+
+You have seen the takeaway's four flows, and you have seen them fail.
+
+**Now draw the hotel's.**
+
+- One stage of the guest cycle per table — Onboarding, Pre-Arrival, Arrival, Occupancy, Departure.
+- **Hard rule: every hand-off goes out-tray to in-tray.** Nobody shouts across the office.
+- Then run it with cards, one person per desk. Then we break it.
+
+#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)
+
+Presenter notes: **Hand-off into Paper Flow block 1 (~45 minutes) — rounds 1, 2 and 3.** See
+REDEVELOPMENT-PLAN §7. There is no round-0 recap any more: the *see one* is the four slides they have
+just watched, so point back at *Worked Flow — Restaurant Onboarding* and start. Land *ACID takes place at
+a desk; BASE takes place across desks* in this block's debrief — it is the payoff for the hard rule.
+Delegates must **not** meet BPMN before the exercise; they are inventing a notation, and Process
+Automation formalises it at the end of the day.
+
+#note: **D2-4 ⚑.** The exercise used to be one ~75-minute block after Reactive. It is now split: this
+block is paper (rounds 1–3, ~45 min), block 2 is the FBP re-expression at the end of movement C (~45
+min), and round 4 is a ~10-minute beat at the end of movement D. Total ~100 minutes against 75 budgeted —
+the 25 comes out of Process Automation, which D2-10 cuts anyway.
+
 ---
+
+#group: Movement B — How Would You Build That?
+
+### Slide: Object-Oriented Programming
+
+You have now drawn a flow twice — once watching, once yourselves. Asked to *build* it, almost everyone
+reaches for the same tool first. It is still on the flipchart from before the exercise, so let us name it
+properly before we test it.
+
+A class has a **role** with **responsibilities**; we capture responsibilities as behaviours; we
+encapsulate the data those behaviours need inside the object; roles may be inherited via dynamic
+dispatch.
+
+#image: hand-drawn OO diagram — a class with role/responsibilities, encapsulated data, inheritance via dynamic dispatch, message passing
+
+Presenter notes: Deliberately uncontroversial — everyone in the room has this, and they proposed it themselves before the exercise. Read their flipchart back to them first. It is here to be named, because the next three slides are about what happens when you scale it up and point it at a flow. **Movement B is the wrong answer, delivered fairly**: do not sneer at it, and do not tip the ending.
+
+### Slide: Call and Return, and the God Object
+
+- **Call and return.** `main` is the entry point. It invokes objects, which invoke other objects and
+  return to their caller. Control is passed down a stack and handed back.
+- **The god object.** The danger is one object — `Cart`, usually — that controls all the others. High
+  behavioural coupling: it knows the whole use case, so it changes whenever any step of the use case
+  changes.
+
+▎ Somebody has to be in charge, and in call and return it is always `main`.
+
+#image: hand-drawn call-and-return diagram — Main invoking Cart, Restaurant, Account, Menu, Payment, Order, Delivery objects
+
+Presenter notes: A system passes control between classes to meet a use case, via message passing — "call and return" from `main` on down. **Contrast it directly with the flows they drew this morning**: no desk in the takeaway knew the whole process; `main` knows nothing else. Hold the phrase *knowledge of the whole process lives in one place*; movement D and the exercise's round 4 both come back to it.
+
+### Slide: SOA Is OO at Macro Scale
+
+**SOA** creates OO-like components: a service has a role and responsibilities exposed as
+operations, and encapsulates the data those operations need. This is the Web Services approach — OO
+as an architectural principle.
+
+- Same idea, bigger unit: role, responsibilities, encapsulated data.
+- We are taking the view that **microservices are SOA 3.0** — most of the best practice still applies.
+
+▎ "A service should represent a self-contained functionality that corresponds to a real-world business
+activity." — Nicolai Josuttis, *SOA in Practice*
+
+#image: hand-drawn service-orientation diagram — a WSDL service with endpoint, binding, operations, input/output messages
+
+Presenter notes: SOA takes objects to a macro scale. The Josuttis quote is the standard against which the next slide fails: he says align the service with a *business activity*. The next slide shows what you get when you align it with an *entity* instead. **A desk is a business activity** — the takeaway flows already satisfied Josuttis, which is worth saying out loud here rather than at the end.
+
+#note: The Josuttis quote used to sit orphaned in the middle of the paper-workflow images (old s58) and
+again in Process Automation. It belongs here, where it is the yardstick for Feature Envy.
+
+### Slide: Feature Envy — You Built a Distributed Monolith
+
+- We expose significant **resources** and the operations you can perform on them — usually CRUD.
+  Entity services: `Cart`, `Restaurant`, `Account`, `Menu`, `Payment`, `Order`, `Delivery`.
+- **Feature envy.** Domain logic has to coordinate across those resources, so it ends up on the client,
+  in the API gateway, or in the `Cart` service — anywhere but in the individual services.
+- Because we made OO large, we reached for call and return via a `main` method at the API gateway.
+
+▎ The gateway is `main`. You have distributed the objects and kept the god object.
+
+#image: hand-drawn entity-services diagram — Device → API Gateway → Cart, Restaurant, Account, Menu, Payment, Order, Delivery
+
+Presenter notes: **This is the slide the movement exists for, and it is now an answer rather than an opening complaint.** The room proposed this shape an hour ago; here is what it costs. The distributed monolith is not a failure of nerve, it is what call-and-return *becomes* when you distribute it — and it gives back exactly the independent deployability Day 1 §1 called "the whole prize". **End on the comparison, not on a question:** you drew a flow this morning with no coordinator, and then you built one with a coordinator in the middle. So what would it take to build what you actually drew? Movement C is the answer.
+
+#note: **Cut from here: *SOA — Faults Propagate*.** Day 1 §1 now owns fault propagation (availabilities
+multiply under temporal coupling) and makes the argument better. The idea is not lost — it returns in
+movement D as the thing **bulkheads** fix, which is where it does work rather than repeating Day 1.
+
+#note: **D2-5 ⚑.** This movement used to open the section, with paper as its answer. Reversed: paper now
+poses *how would you build this?* and movement B is the failed answer. The slides survive almost intact —
+only the framing sentences at the top of *Object-Oriented Programming* and the close of *Feature Envy*
+change, because the question they answer moved.
+
+---
+
+#group: Movement C — The Formalism
 
 ### Slide: Data Flow Programming
 
@@ -227,7 +340,7 @@ available — not when someone calls it.
 
 #image: hand-drawn dataflow graph — nodes/vertices connected by arcs, with operation and data annotations
 
-Presenter notes: Perhaps the oldest expression of the reactive approach, and the formal version of the paper flow they have just watched. Unlike OO — where state is co-located with behaviour in the node — data *moves between* transformations along arcs. The desk is a node; the tray is an arc.
+Presenter notes: Perhaps the oldest expression of the reactive approach, and **the formal version of the paper flow they drew themselves an hour ago** — say that in the first sentence, because it is the whole reason this movement lands where it does. Unlike OO — where state is co-located with behaviour in the node — data *moves between* transformations along arcs. **The desk is a node; the tray is an arc; the file is the node's state.** Draw that mapping on the board and leave it up for the rest of the movement.
 
 ### Slide: Nodes, Ports and Firing
 
@@ -248,6 +361,8 @@ ports.
 #image: hand-drawn diagram — a dataflow node as a black box with input/output ports (activate → process → push)
 #image: hand-drawn diagram — two nodes passing data packets between ports
 
+Presenter notes: Single-threaded-node / concurrency-from-many-nodes is the clerk rule: one clerk does one document at a time, and you get throughput by hiring clerks. Every delegate has just enacted this with cards.
+
 ### Slide: Capacity, Backpressure and Node Lifetime
 
 - **Node lifetime.** In classic dataflow a node lives from activation until it has pushed its answer.
@@ -258,7 +373,7 @@ ports.
 
 #image: hand-drawn diagram — an arc/link pipe with buffers for pipelining; push/pull, synchronous/asynchronous
 
-Presenter notes: Arcs connect nodes; buffered arcs allow asynchrony — a node can push its output onto the buffer while the downstream node is still busy, which is what enables parallelism. Throughput is then limited by the slowest node. None of this is *required* for dataflow: a synchronous, unbuffered, single-threaded pipeline is a valid dataflow program. Push is a hot source you listen to (mouse clicks); pull means nothing is generated until a sink pulls the chain. Introduce backpressure and load-shedding as the two available answers here — movement D turns them into a decision.
+Presenter notes: Arcs connect nodes; buffered arcs allow asynchrony — a node can push its output onto the buffer while the downstream node is still busy, which is what enables parallelism. Throughput is then limited by the slowest node. None of this is *required* for dataflow: a synchronous, unbuffered, single-threaded pipeline is a valid dataflow program. Push is a hot source you listen to (mouse clicks); pull means nothing is generated until a sink pulls the chain. Introduce backpressure and load-shedding as the two available answers here — movement D turns them into a decision. If a table got *"this in-tray holds only three documents"* in block 1, this is their card, named.
 
 ### Slide: Flow-Based Programming
 
@@ -278,7 +393,7 @@ always is not:
 #image: hand-drawn FBP diagram — packet lifetime and process-and-wait annotations
 #image: hand-drawn FBP diagram — multiple writers on an in-port, single writer on an out-port, multiple ports
 
-Presenter notes: Merged from three slides. The deltas from dataflow are the whole content — do not re-teach dataflow. Suspend-not-terminate is the one to dwell on: it is the message pump from Day 1 §4.3, described from the other side.
+Presenter notes: Merged from three slides. The deltas from dataflow are the whole content — do not re-teach dataflow. Suspend-not-terminate is the one to dwell on: it is the message pump from Day 1 §4.3, described from the other side — and it is the clerk who stays at the desk all day rather than being hired per document.
 
 ### Slide: FBP — Initial Information Packets
 
@@ -287,7 +402,7 @@ configuration, or a starting value. Control packets bracket a stream into groups
 
 #image: hand-drawn FBP diagram — an initial information packet (iip_in) and control-packet bracketing
 
-Presenter notes: MQTT **retained messages** are a way of emulating the IIP idea — the broker holds the last value on a topic so a late subscriber gets state immediately rather than waiting for the next publish. Same problem: how does a node that just started know anything?
+Presenter notes: MQTT **retained messages** are a way of emulating the IIP idea — the broker holds the last value on a topic so a late subscriber gets state immediately rather than waiting for the next publish. Same problem: how does a node that just started know anything? The paper answer is the standing instruction pinned above the desk.
 
 ### Slide: FBP — Where Do Lookups Live?
 
@@ -306,39 +421,119 @@ Data*.
 #image: hand-drawn FBP diagram — components A and B with lookup ports (query / pause / response) — the 'walk of shame'
 #image: hand-drawn FBP diagram — a 'Build Lookup' node listening to A, pre-caching a lookup table for B
 
-Presenter notes: Promoted out of the old *FBP — Capacity* slide, where three substantive diagrams were buried under a heading about buffers. This is the direct callback to Day 1 §6.2 *Reference Data* — on-demand versus in-advance, and the CAP cost of each. Delegates met the decision in prose at the end of Day 1 and in a picture now. **Give the same verdict** (D1-10): the Build Lookup node is the recommended shape; the lookup port is what you use when the data cannot be replicated.
+Presenter notes: Promoted out of the old *FBP — Capacity* slide, where three substantive diagrams were buried under a heading about buffers. This is the direct callback to Day 1 §6.2 *Reference Data* — on-demand versus in-advance, and the CAP cost of each. Delegates met the decision in prose at the end of Day 1 and in a picture now. **Give the same verdict** (D1-10): the Build Lookup node is the recommended shape; the lookup port is what you use when the data cannot be replicated. The paper form is the Catalogue Maker: a desk whose whole job is keeping a local copy current so nobody has to walk.
 
-### Slide: Worked Example — the Fax Workflow in FBP
+#group: The Worked Flows Again — as Graphs
 
-**The same flows you have just seen on paper, drawn as a graph.** Request/response with an external
-participant who is a fax machine.
+### Slide: Worked Example — Onboarding in FBP
+
+**The first flow you saw on paper, drawn as a graph.** Request/response with an external participant who
+is a fax machine.
 
 - **Storage.** A component takes work from the `request_details` port but cannot forward to
   `restaurant_details` without an answer from `fax_in` — so we store the workflow state, in case we
-  crash before the response arrives.
+  crash before the response arrives. *That is filing it before you send it.*
 - **Correlation.** To match the response to that saved state we send a **correlation id** on the packet
   to `fax_out`; the restaurant returns it on the packet from `fax_in`; we use it to look up the stored
-  workflow.
+  workflow. *That is the reference number written on the fax.*
 - **Lookup.** We build a store from packets raised by another component, to act as the lookup table for
-  information needed to process a request.
+  information needed to process a request. *That is the Catalogue Maker.*
 
-▎ You have now seen this workflow twice: once as paper, once as a graph. It was the same workflow both
-times.
+▎ Nothing here was invented. It was named.
 
 #image: hand-drawn FBP 'Onboard Restaurant' flow  [→ resources/flowbased_onboard_restaurant.png, resources/FBP Onboard Restaurant.drawio]
+
+Presenter notes: **Walk the paper diagram and the graph side by side if the room allows it** — the point
+of the movement is that they are the same drawing. Storage, correlation and lookup are the three things
+the paper flow already had: the file, the reference number on the fax, and the catalogue. Say each pair
+out loud; the italic lines on the slide are there so delegates can do the mapping themselves afterwards.
+**This is the diagram *Putting It Together* annotates** at the end of the day, so leave it clean here — the
+exchange-pattern labels are that section's job, not this one's.
+
+#note: **D2-6.** This was one slide carrying six images and both flows. Ian: *do not chop so much away* —
+we want **both** flows from paper re-expressed, Onboarding and the order flow, plus the failure variant.
+Now three slides, mirroring the four paper flow slides plus the paper errors slide.
+
+### Slide: Worked Example — the Order Flow in FBP
+
+**Order, placement and confirmation as one graph.** The three flows delegates saw separately on paper
+compose into a single network — which is the thing paper could not show you.
+
+- **Order Food** — the order enters the network. Ports in, packets out; nobody is called.
+- **Order Placement** — the fax hand-off across the organisational boundary, the same store-and-correlate
+  shape as onboarding.
+- **The whole network.** Put them together and the confirmation is just another packet arriving on
+  another port. There is no step at which anything is "in charge".
+
+▎ Three flows on paper. One graph. The composition was always there — paper just could not draw it.
+
 #image: hand-drawn FBP 'Order Food' flow  [→ resources/flowbased_order_food.excalidraw, resources/FBP Order Food.drawio]
-#image: hand-drawn FBP 'Order Food Errors' flow  [→ resources/flowbased_order_food_errors.png, resources/FBP Order Food Failure.drawio]
 #image: hand-drawn FBP 'Order Placement' flow  [→ resources/flowbased_order_placement.png, resources/FBP Order Placement.drawio]
 #image: hand-drawn FBP overall 'Order Flow'  [→ resources/flowbased_order_all.png]
+
+Presenter notes: The **composition** is the content here, and it is the argument for the notation: four
+separate sheets of paper turn out to be one network, because the arcs were always the same arcs. This is
+also the slide that makes block 2 tractable — delegates redraw their own stage and the tables' graphs
+then join up in the debrief exactly as these do. **Do not rush the overall diagram**; it is the one they
+are about to imitate.
+
+### Slide: Worked Example — When It Fails, and What the Arcs Really Are
+
+**The error variant, as a graph.** The same failures from *How Do We Deal with Errors?* — the request
+goes missing, no receipt comes back, the same document arrives twice — expressed in ports and packets.
+
+- Retry is a packet sent again on the same port; the correlation id is what stops it being a second
+  order.
+- The stored workflow is what makes retry safe, because the answer can arrive after a crash.
+- The failure is **local to a node**. The graph does not unwind; the packet waits.
+
+Then the last move of the movement: **make the arcs middleware and the nodes processes.**
+
+▎ An arc that survives a crash is a queue. A node that survives a crash is a service. You have just
+drawn a distributed system.
+
+#image: hand-drawn FBP 'Order Food Errors' flow  [→ resources/flowbased_order_food_errors.png, resources/FBP Order Food Failure.drawio]
 #image: hand-drawn FBP diagram — nodes as processes connected by Message-Oriented Middleware (MoM)
 
-Presenter notes: **The summit of movements B and C, and the third artefact the exercise asks for.** Note that storage, correlation and lookup are the three things the paper flow also had — the file, the reference number written on the fax, and the catalogue. Nothing new was invented; it was named. Close on the MoM diagram: make the arcs middleware and the nodes processes, and this is a distributed system — which is the hinge into Reactive. *Putting It Together* at the end of the day annotates this same example.
+Presenter notes: **The summit of movements A and C.** Two beats, and the second is the hinge into
+movement D — do not let the failure discussion eat it. The MoM diagram is where the whole section turns:
+everything delegates have drawn on paper and in graphs becomes the thing Day 1 spent a day building.
+Deliberately **do not say "Reactive"** here; movement D is the reveal.
+
+### Slide: Now Do One — the Hotel, as a Graph
+
+You have seen the takeaway flow four ways: **as paper**, **as errors on paper**, **as a graph**, and
+**as a graph that fails**.
+
+**Now draw the hotel's as a graph.**
+
+- Your own flow from this morning, re-expressed: information packets, nodes, ports.
+- Where do the lookups live? Where is state stored? Which arcs must survive a crash?
+- Then join your graph to the next table's.
+
+#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)
+
+Presenter notes: **Hand-off into Paper Flow block 2 (~45 minutes)** — the FBP re-expression, which was
+the closing task of the original exercise deck (s009) and never had room. See REDEVELOPMENT-PLAN §7.
+Delegates redraw the stage they modelled in block 1, so there is no new domain to absorb; the work is
+purely the change of notation, which is the point. The debrief joins the tables' graphs into one network,
+mirroring the *Order Flow in FBP* slide — and the hand-offs *between* tables are the largest fracture
+planes of all. Still **no BPMN**.
+
+#note: **D2-7 ⚑.** Second do-one, per Ian. It sits here rather than at the end of the section because
+its *see one* is the three slides immediately above it, and because movement D reads better as a reveal
+to a room that has just built the thing being named.
 
 ---
+
+#group: Movement D — The Name
 
 ### Slide: Reactive Architectures
 
 Section marker. Reactive derives from **reactive programming**, not from OO.
+
+Presenter notes: The room has now drawn the same system four times, in two notations, and made it fail.
+Movement D adds no new mechanism — it supplies the name, and shows that somebody published it in 2014.
 
 ### Slide: The Reactive Manifesto
 
@@ -404,7 +599,7 @@ and send an outgoing message. That is a node with ports. That is a desk with tra
 
 #image: hand-drawn message-passing diagram — a component with in-request / out-request / out-result ports (command vs event)
 
-Presenter notes: **Close the Day 1 loop explicitly** — name *Easy to Change — Independent Deployability* from Day 1 §1 out loud. The through-line to draw on the board: call and return puts knowledge of the whole use case in one place, so one place has to change every time the use case does; flow puts each step in its own component reacting to its own input, so a new step is a new subscriber. Reactive architectures derive from reactive programming, not OO — "everything flows".
+Presenter notes: **Close the Day 1 loop explicitly** — name *Easy to Change — Independent Deployability* from Day 1 §1 out loud. The through-line to draw on the board: call and return puts knowledge of the whole use case in one place, so one place has to change every time the use case does; flow puts each step in its own component reacting to its own input, so a new step is a new subscriber. Reactive architectures derive from reactive programming, not OO — "everything flows". This is also the slide that answers movement B: the distributed monolith was entity services with a gateway `main`; this is the same distribution with the god object removed.
 
 ### Slide: Partitioning and Dataflow
 
@@ -417,7 +612,7 @@ Presenter notes: **Close the Day 1 loop explicitly** — name *Easy to Change �
 
 #image: hand-drawn FBP diagram — Checkout and Take Payment components with purchase / priced / payment-due messages
 
-Presenter notes: The direct answer to movement A. Reactive inherits from dataflow: conceive the application as a graph of nodes operating on data flowing through it. It shines for data-driven applications composed from components in workflows — let components subscribe to each other's event streams and consume published facts asynchronously, on demand.
+Presenter notes: The direct answer to movement B. Reactive inherits from dataflow: conceive the application as a graph of nodes operating on data flowing through it. It shines for data-driven applications composed from components in workflows — let components subscribe to each other's event streams and consume published facts asynchronously, on demand. **Every desk in the paper office was a verb**: Take Order, Send Fax, Make Catalogue. That is why the office had no god object and the gateway does.
 
 ### Slide: Bulkheads
 
@@ -432,7 +627,7 @@ we are brittle. In an asynchronous conversation it does not: the work queues up 
 
 #image: hand-drawn FBP diagram — Take Payment crossed out; work queues up on a fault (the bulkhead)
 
-Presenter notes: This slide absorbs the cut *SOA — Faults Propagate* — the fault propagation claim is made here, where it is immediately answered, instead of standing alone. And the callout is the Day 1 §1 central argument arriving for the third time: availabilities multiply only under temporal coupling; store-and-forward breaks the chain. This requires storage and retransmission — usually Message-Oriented Middleware.
+Presenter notes: This slide absorbs the cut *SOA — Faults Propagate* — the fault propagation claim is made here, where it is immediately answered, instead of standing alone. And the callout is the Day 1 §1 central argument arriving for the third time: availabilities multiply only under temporal coupling; store-and-forward breaks the chain. This requires storage and retransmission — usually Message-Oriented Middleware. If a table drew *"the night porter is on a break"* in block 1, this is that card with a name on it.
 
 ### Slide: When the Pipe Fills — Backpressure or Load-Shedding
 
@@ -475,18 +670,37 @@ The pieces, and how they compose.
 
 Presenter notes: The circuit-breaker and scale-out diagrams used to be orphaned images under a "recap" heading and were never really taught. Give them a sentence each. Land the callout: Resilient and Elastic are not aspirations, they are the four mechanisms on this slide.
 
-### Slide: Now Do One
+### Slide: So Who Is in Charge?
 
-You have seen the takeaway flow three ways: **as paper**, **as errors on paper**, and **as a graph**.
+The section opened on one question. Here it is again, and now you can answer it — but answer it with
+people, not slides.
 
-Now draw the hotel's.
+**Take your flow from this morning and run it twice.**
 
-#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)
+- **With a conductor.** One person holds a routing slip and tells each desk when to act.
+- **With none.** Every desk acts on what is in its in-tray, and nothing else.
 
-Presenter notes: Hand-off into the **Paper Flow** exercise (~75 minutes), which runs immediately after this section — see REDEVELOPMENT-PLAN §7 for the run-of-show. Round 0 recaps Restaurant Onboarding, its error variant and its FBP re-expression, and lands *ACID at a desk, BASE across desks*. Delegates must **not** meet BPMN before the exercise: they invent a notation, and Process Automation then formalises it.
+Then: **where did knowledge of the whole process live?** And **who had to change when we added a step?**
 
-#note: Was *Exercise Material — Flow* ("Readme, slides") — a slide pointing at an exercise that was
-never wired into the running order. It is now the bridge into Paper Flow.
+▎ You have just invented orchestration and choreography. The next section gives them their names — and a
+notation.
+
+Presenter notes: **Paper Flow round 4, ~10 minutes, and the hand-off into Process Automation** — it sits
+here rather than at the end of block 2 so its payoff does not go cold across the whole of movement D. See
+REDEVELOPMENT-PLAN §7. Day 1 §1 *Collaboration — Orchestration and Choreography* planted both words and
+promised the room would *feel* the difference before either was defined; this is that promise being kept,
+so name the callback. Delegates still must **not** have met BPMN — they are about to be shown that the
+thing they just enacted has a standard notation, which only works if it is a reveal.
+
+#note: **D2-4 / D2-7 ⚑ knock-on.** Round 4 was the last round of a single block placed immediately before
+Process Automation. With the exercise split, it is the only round whose payoff is in a *later* section, so
+it stays late and becomes the section's closing beat. Round 3 (*break it*) went with block 1, where the
+error vocabulary is taught. Not a duplicate of Day 1 §1: that slide names the two words, this makes the
+room live the difference.
+
+#note: Was *Now Do One* — a single hand-off into a single ~75-minute exercise block. The exercise is now
+split across the section (D2-4, D2-7) and this slide inherited the job of closing it, and the day's first
+half, on the question the section opened with.
 
 ---
 
