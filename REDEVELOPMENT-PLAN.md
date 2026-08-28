@@ -180,7 +180,7 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | 2 | Coupling | **5** | ✅ D1-7: rebuilt on *what the boundary bought you* | ☐ 1 new grid + 1 new scale-with-boundary | ☐ |
 | 3 | Integration Styles | 5 | ✅ D1-7: each style scored on what it hands back; closes on *Why Messaging* | ☐ reuse §2 grid artwork | ☐ |
 | 4 | **Messaging Patterns** | **46** | ✅ build order; −9 §4.6, +2 task queue, +1 D1-8 | ☐ 12 EIP redraws | ☐ merge scripts |
-| 4a | · The Big Picture | 1 | ☐ reframe as build order — **+ fold in the Fallacies course map** (D1-5) | | |
+| 4a | · The Big Picture | 1 | ☐ reframe as build order | | |
 | 4b | · 4.1 What Is a Message? | 6 | | | |
 | 4c | · 4.2 Sending and Receiving | 7 | +RMQ Quick Start | | |
 | 4d | · 4.3 The Message Pump | **8** | +*Task Queue* worked example & HTTP flow, from §1 (D1-6) | | |
@@ -712,10 +712,21 @@ independent deployability commits you to** (3), **the price and the second want*
 | **D1-2** | ***Easy to Change — Independent Deployability* reframed.** It used to read "**The answer**: decompose into microservices", which made §1 an argument *for* microservices. Now: **what we want** → **what is in the way** → **microservices are one example of buying it**, explicitly *not the only way* and *not free*. |
 | **D1-3** | ***Robust — Task Queues* → *Robust — Guaranteed Delivery*.** The property is the point; the task queue is an example. The slide keeps the *want* and the inoculation — *one team, one service, one queue; robustness without reorganising the company* — and gives up the mechanism. |
 | **D1-4** | **Thread regrouped.** *Messages In / Private Data*, *No Cross-Service Transactions* and *Orchestration and Choreography* now run uninterrupted straight after *Independent Deployability*, with a new lead-in: *independent deployability needs a process boundary; the next three slides are what you have committed to by drawing one.* The task-queue material that split them is gone. |
-| **D1-5** | ***Fallacies of Distributed Computing* cut.** It restated *The Price of Distribution*, which makes the argument better and with a number, and which is now explicitly the section's glue and close. The one thing only the Fallacies had — the **where-we-answer-it column** — survives as a **course map on §4 *The Big Picture*** (row 4a above). It is a build-order artefact, not an opening-ten-minutes one: it reads as a syllabus only to someone who already knows the syllabus. |
+| **D1-5** | ***Fallacies of Distributed Computing* dropped.** It restated *The Price of Distribution*, which makes the argument better and with a number, and which is now explicitly the section's glue and close. **Dropped entirely — see the correction below.** |
 | **D1-6** ⚑ | **The two task-queue mechanism slides moved to §4.3**, after *Competing Consumers* — that is what they are a worked example of. Ian's condition was that task queues go *unless they look useful when we talk about messaging patterns*; they are, and §4.3 is where the parts finally have names. Carries a `#note:`: **D1-8 may want the 202 flow in §4.4 instead** — it is as much a guaranteed-delivery story as a pump story. Decide there. |
 
 **Cut text:** `session-work/cut-section1.md`, plus git history.
+
+**Correction (same day, Ian).** The first pass did not drop the Fallacies — it parked the whole table as a
+"course map" `#note:` on §4 *The Big Picture*. Ian caught it: *are they not dropped?* They are. Relocating
+a slide is not cutting it, and the justification for moving it defeated itself: if the table reads as a
+syllabus only to someone who already knows the syllabus, that is as true at §4a, half an hour later, as it
+was at §1. **Removed.** *The Big Picture* already carries the build-order map in its own `#note:`, in
+vocabulary delegates have met; a second competing map was not an improvement. The text lives in
+`session-work/cut-section1.md` and in git if it is ever wanted.
+
+**Standing lesson:** when an item says *cut*, the test is whether the content still appears anywhere in
+the deck — not whether it found a better home.
 
 ### ✅ D1-7 — done 2026-08-28
 
