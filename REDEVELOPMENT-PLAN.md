@@ -178,7 +178,7 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | 5 | **Conversations** *(moved from Day 2)* | **15** | ✅ 25 → 15, rebuilt as a decision | ☐ 1 new grid + reuse §2 grid | ☐ |
 | 6 | **Designing Messages** *(moved from Day 2)* | **16** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
 | 6a | · 6.1 Fat and Skinny Messages | 5 | ✅ rebuilt on the lifetime rule | | |
-| 6b | · 6.2 Reference Data | 5 | +*Content Enricher*, rehomed from §4.6 | | |
+| 6b | · 6.2 Reference Data | 5 | ✅ D1-10: ECST rewritten as **the recommendation**; +*Content Enricher* | | |
 | 6c | · 6.3 Event Shape | 6 | ✅ +*Why ECST Needs Snapshots* | | |
 | 7 | Closing | 2 | ☐ | ☐ | ☐ |
 | — | ~~4.6 Pipelines~~ | 9 | ✅ **→ routing handout (§10)**; *Content Enricher* kept, → §6.2 | | |
@@ -663,7 +663,7 @@ the end before starting any of them.
 | **D1-7** | §2 Coupling → §3 Integration Styles | Coupling and independent deployability are **linked**: a **process boundary prevents Content and Common coupling**, but we cannot avoid **the other three — Control, Stamp, Data** — in the message we send. And because we now interact *between processes*, we must trade off **temporal** coupling too. That leads into the four integration styles and how each shows up in the coupling just discussed. **Goal: explain why messaging is our preferred option (reactive)** — and that file transfer is just messaging without support for locks, ordering, etc. |
 | **D1-8** | §4.4 Guaranteed Delivery | Doesn't distinguish **producer** from **consumer** concerns. The **producer** cares about the **Outbox**, to guarantee a send. The **message pump** is where **Invalid Message, DLQ and Requeue-with-Delay** belong — they are mechanisms for handling a *failed message*. The **Inbox** is consumer side and part of the pump, but **matters more once we have the Outbox**. **Do not underestimate the pump conversation on errors**, and how it leads into DLQ / Invalid / Requeue (and Nack or Ack) — that conversation **makes parts of queue-vs-stream much easier later**. |
 | **D1-9 ⚑** ✅ | §4.6 Pipelines, and the end of Day 1 | Pipelines **may not earn its weight on Day 1**. Put **§Conversations after Queues and Streams**, and bring **Fat and Skinny Messages, Reference Data and Event Shape over from Day 2**. That better completes the picture of *how to send and receive* ahead of Day 2's switch to the higher level. |
-| **D1-10** | *Get It In Advance — ECST* (arrives with D1-9) | **Over-emphasises the problems.** In practice ECST is reliable and latency rarely causes actual issues, **particularly if you version the reference data**. It is **the better solution** than the synchronous lookup. Rewrite it as a recommendation, not a warning. |
+| **D1-10** ✅ | *Get It In Advance — ECST* (arrives with D1-9) | **Over-emphasises the problems.** In practice ECST is reliable and latency rarely causes actual issues, **particularly if you version the reference data**. It is **the better solution** than the synchronous lookup. Rewrite it as a recommendation, not a warning. |
 | **D1-11** ✅ | §6 Observability | Lightweight, and orphaned by losing Managing Asynchronous APIs. **Dropped as taught material**; now one pointer slide in Day 2 `## Next Steps`. |
 
 ### Day 2
@@ -700,8 +700,38 @@ Settled with Ian and applied. **Day 1 = 95, Day 2 = 91.**
   stamp-coupling note, and Day 2 §1's two callbacks to *Reference Data*.
 - **Cut text preserved** in `session-work/cut-{versioning,pipelines,observability}.md` as well as git.
 
-**Still outstanding on the moved material: D1-10** — the ECST rewrite. It moved unchanged and is flagged
-with a `#note:` in §6.2. Doing the move and the rewrite in one edit would have made the diff unreadable.
+**D1-10 followed immediately** — see below.
+
+### ✅ D1-10 — done 2026-08-28
+
+*Get It In Advance — ECST* (Day 1 §6.2) is now written as **the recommendation**, not a warning. Ian: in
+practice ECST is reliable, latency rarely causes actual issues, particularly if you version the reference
+data, and it is the better solution than the synchronous lookup.
+
+What the slide now says:
+
+- **The default.** No miss path, so no synchronous call in the middle of a message flow.
+- **Latency is not the problem people expect** — propagation is a broker hop, and this is *reference*
+  data, which changes rarely.
+- **Versioning is what makes it safe** — id and version, so a missing version is a **wait** rather than a
+  wrong answer. The *Reference Data — Worked Example* slide is now labelled as the **proof** of that
+  claim rather than an appendix, and gained a callout: *a missing version is a wait; a missing value would
+  have been a wrong answer.*
+- **The trade runs the other way from what delegates assume.** ECST is availability over consistency
+  *boundedly* — you can measure how far behind you are. The synchronous lookup makes the same trade on a
+  cache hit and then **reverses it on a miss**, when B is down and you are not. That is the sharpest line
+  in the sub-topic.
+- **The honest cost is operational, not correctness** — you own a subscription and must be able to
+  rebuild the replica by replaying the stream.
+- **When to still take the lookup:** the data genuinely cannot be replicated — too large, too sensitive,
+  or it must be fresh at the instant of reading (authorisation, balance). Take the coupling knowingly and
+  put a circuit breaker on it. Keeping one honest exception makes the recommendation stronger than a flat
+  rule would.
+
+**The same over-emphasis had leaked to two other slides and was corrected there too** — §6.3 *Why ECST
+Needs Snapshots* ("ECST is *only tolerable* because of the snapshot event" → *ECST **works** because of
+it*), and Day 2 §1 *FBP — Where Do Lookups Live?*, whose callout offered "a copy that might be wrong" and
+now gives the same verdict as §6.2: **hold the copy.**
 
 ### Knock-ons to settle before starting the ⚑ items
 

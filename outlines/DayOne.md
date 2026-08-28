@@ -1280,14 +1280,40 @@ somewhere nobody owns.
 
 ### Slide: Get It In Advance — ECST (Event-Carried State Transfer)
 
-Provider B pushes state changes to A ahead of time, so A rarely needs a synchronous lookup.
+Provider B **publishes** its state changes; Provider A subscribes and keeps a local copy. A never makes a
+synchronous call to read it.
 
 - The upstream provider raises a **notification** when its own entity state changes (Out-Only / pub-sub).
-- The downstream provider subscribes and writes to its local cache (`cache write()`); later requests hit the cache.
+- The downstream provider subscribes and writes to its local cache (`cache write()`); every request then
+  reads locally.
+- There is **no miss path**, so there is no synchronous call in the middle of a message flow.
 
-**What it costs you:** **availability over consistency** — accept stale data rather than risk failure due to a partition. You are always reading a copy that is behind.
+▎ This is the default. Prefer it to the synchronous lookup.
 
-Presenter notes: ECST is the answer to the previous slide's miss path — you stop having misses. The price is that you are now running a replica of someone else's data, and replicas go stale, go wrong, and need rebuilding. Say that out loud: teams adopt ECST expecting it to be free.
+**Why it holds up in practice**
+
+- **Latency is not the problem people expect it to be.** Propagation is a broker hop — you are behind by
+  milliseconds to seconds. And this is *reference* data: restaurants, customers, price lists. It changes
+  rarely, and rarely in a way the next message depends on.
+- **Versioning is what makes it safe.** Carry **id and version**. Then "I have not seen this yet" is
+  distinguishable from "I have it", and a missing version becomes a **wait** rather than a wrong answer —
+  which is the next slide.
+- **You removed the temporal coupling rather than relocating it.** A stays up when B is down. Day 1 §1's
+  argument arriving inside message design.
+
+**Be honest about the trade, and about which way it runs.** ECST is **availability over consistency**,
+deliberately and *boundedly*: you read a copy that is behind by the propagation delay, and you can measure
+that number. The synchronous lookup is not the consistent option — it makes the same trade on a cache hit,
+and then **reverses it on a miss**, when B is down and you are not.
+
+**What it actually costs:** you are running a replica, so you own a subscription and you must be able to
+**rebuild** it — replay the stream from the beginning. That is operational work, not a correctness risk.
+
+**When to still reach for the lookup:** the data genuinely cannot be replicated — too large, too
+sensitive, or it must be fresh at the instant you read it (an authorisation or a balance check). Then take
+the coupling knowingly, and put a circuit breaker on it.
+
+Presenter notes: **Reframed 2026-08-28 (review item D1-10).** The slide used to hedge — "replicas go stale, go wrong, and need rebuilding", teams adopt it "expecting it to be free". That over-states the risk. Ian's position, and it is the right one: in practice ECST is reliable, latency rarely causes an actual problem, and versioning the reference data closes the gap that remains. **Teach it as the recommendation.** The sharpest line in the room is the one about which way the trade runs — delegates arrive believing the synchronous lookup is the "correct" option and the cache is the shortcut, and it is the other way round. Ask what their p99 is on a cache miss when the upstream is degraded; nobody knows, which is the point.
 
 ### Slide: Reference Data — Worked Example
 
@@ -1296,14 +1322,17 @@ Presenter notes: ECST is the answer to the previous slide's miss path — you st
 - Look up the restaurant in the local cache by **id and version**.
 - If we have the restaurant but **not that version**, apply **backpressure** and retry the order after a delay.
 
-Presenter notes: The id-and-version lookup is the detail that makes this work. Without the version you cannot tell "I have not seen this yet" from "I have it"; with it, a missing version becomes a *wait* rather than a wrong answer. Backpressure here is the same idea they met in the reactive material.
+▎ A missing version is a wait. A missing *value* would have been a wrong answer.
+
+Presenter notes: **This slide is the proof of the previous one's claim** — it is what "particularly if you version the reference data" actually looks like. Without the version you cannot tell "I have not seen this yet" from "I have it", so staleness is invisible and you have to guess; with it, the replica knows what it does not know. Backpressure here is the same idea they meet again on Day 2 in the reactive material.
 
 ---
 
-#note: **D1-10 is outstanding on this sub-topic and was not done as part of the move.** Ian: *Get It In
-Advance — ECST* over-emphasises the problems — in practice ECST is reliable and latency rarely causes
-actual issues, particularly if you version the reference data, and it is **the better solution** than the
-synchronous lookup. Rewrite it as a recommendation, not a warning.
+#note: **D1-10 done 2026-08-28.** *Get It In Advance — ECST* is now written as the recommendation, not a
+warning, and the sub-topic has a verdict: **prefer the copy, version it, and take the synchronous lookup
+only where the data genuinely cannot be replicated.** The same over-emphasis was corrected in two other
+places it had leaked to — §6.3's *Why ECST Needs Snapshots* ("only tolerable" → the snapshot is what makes
+it work) and Day 2 §1's *FBP — Where Do Lookups Live?*.
 
 ---
 
@@ -1334,7 +1363,7 @@ You cannot replicate someone else's state from deltas unless you receive **every
 
 ▎ Choose the delta and you have chosen strict ordering. Choose the snapshot and you have bought it back.
 
-Presenter notes: This is the join between the two halves of the section. ECST is only tolerable because of the snapshot event — it is what makes the next two slides possible at all. The rule: publish complete new versions rather than deltas.
+Presenter notes: This is the join between the two halves of the section. **ECST works because of the snapshot event** — it is what makes the next two slides possible at all, and it is the reason the previous sub-topic could recommend ECST without hedging. The rule: publish complete new versions rather than deltas. (D1-10: this used to read "only tolerable", which under-sells it.)
 
 ### Slide: If Later, Stream
 

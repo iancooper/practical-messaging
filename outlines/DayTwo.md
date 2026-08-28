@@ -297,16 +297,16 @@ Data*.
 - **Ask for it.** Add a lookup port: query out, pause, response in. The component stops until the answer
   comes back — **the walk of shame**. On-demand, and now you are temporally coupled to whoever answers.
 - **Build it in advance.** A **Build Lookup** node listens to the stream that owns the data and
-  maintains a table the working component reads locally. In-advance, and now you own a stale copy.
+  maintains a table the working component reads locally. In-advance — no pause, no temporal coupling, and
+  the copy is behind by a broker hop.
 
-▎ Same decision as reference data, drawn as a graph: fetch it when you need it, or hold a copy that
-might be wrong.
+▎ Same decision as reference data, drawn as a graph — and the same answer: hold the copy.
 
 #image: hand-drawn FBP diagram — components A and B; does A need data from another node?
 #image: hand-drawn FBP diagram — components A and B with lookup ports (query / pause / response) — the 'walk of shame'
 #image: hand-drawn FBP diagram — a 'Build Lookup' node listening to A, pre-caching a lookup table for B
 
-Presenter notes: Promoted out of the old *FBP — Capacity* slide, where three substantive diagrams were buried under a heading about buffers. This is the direct callback to Day 1 §6.2 *Reference Data* — on-demand versus in-advance, and the CAP cost of each. Delegates met the decision in prose at the end of Day 1 and in a picture now.
+Presenter notes: Promoted out of the old *FBP — Capacity* slide, where three substantive diagrams were buried under a heading about buffers. This is the direct callback to Day 1 §6.2 *Reference Data* — on-demand versus in-advance, and the CAP cost of each. Delegates met the decision in prose at the end of Day 1 and in a picture now. **Give the same verdict** (D1-10): the Build Lookup node is the recommended shape; the lookup port is what you use when the data cannot be replicated.
 
 ### Slide: Worked Example — the Fax Workflow in FBP
 
