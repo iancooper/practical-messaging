@@ -70,19 +70,17 @@ Day 1 is **the message**; Day 2 is **the flow**.
 2. **Managing Asynchronous APIs became a takeaway handout**, not taught material (§6).
 3. **A paper-modelling exercise took its Day 2 slot** — found to already exist (§7).
 
-Current (**all Day 1 review items done, and Day 2 down to D2-10**, 2026-08-28): **Day 1 = 96
-entries** with two code exercises; **Day 2 = 97** with one paper exercise, now run in two blocks and a
-closing round *inside* §1.
+Current (**Phase 1 complete on both days**, 2026-08-29): **Day 1 = 96 entries** with two code
+exercises; **Day 2 = 84** with one paper exercise, run in two blocks and a closing round *inside* §1.
 
-Two balance observations, in order of urgency:
+Two balance observations:
 
-1. **Process Automation is unchanged at 50 — 52% of Day 2**, and entirely lecture. Still the one big
-   outlier and the relief valve — and it now owes the exercise **25 minutes** as well as the entry cut,
-   since D2-4 / D2-7 took the paper exercise from ~75 minutes to ~100. (D2-10.)
-2. **The days are now level on count** — Day 1 96, Day 2 97 — but not on shape: Day 1 has two code
-   exercises against Day 2's one paper exercise, and Day 1 absorbed Designing Messages (16). Nothing is
-   obviously wrong with any one section, but **both days want a timing pass before Phase 3**, and Day 2's
-   is blocked on D2-10.
+1. **Process Automation is cut, 50 → 37 — 44% of Day 2** (D2-10). It is still the largest single section
+   and still entirely lecture, but it is no longer the outlier it was, and the 13 entries removed pay the
+   **25 minutes** D2-4 / D2-7 took from it when the paper exercise went from ~75 to ~100.
+2. **Day 1 is now the longer day on count** — 96 against 84 — which is the right way round only if the
+   two code exercises are shorter than they look. **Both days want a timing pass before Phase 3**, and
+   nothing blocks it now: it is the next piece of work.
 
 Why the split holds on content, not just counts: Conversations + Repair continues Day 1's build order
 directly — *you can send and receive reliably, now what exchange do you build with it*. Fat & Skinny +
@@ -203,11 +201,11 @@ Day 1 is **Messaging Patterns (46, 48%)**, then the two decisions — **Conversa
 
 ---
 
-## 5. Day 2 work queue — `outlines/DayTwo.md`, 3 real sections, 97 entries
+## 5. Day 2 work queue — `outlines/DayTwo.md`, 3 real sections, 84 entries
 
-> **Superseded in part by §9 (review queue, 2026-08-28).** **D2-1 … D2-9 are done.** Only **D2-10** is
-> outstanding: the Process Automation review — the cut, the pizza → hotel redraw, the 25 minutes it owes
-> the exercise, and the Josuttis collision.
+> **Superseded by §9 (review queue, 2026-08-28/29). All of D2-1 … D2-10 are done.** Day 2 is **84
+> entries**: Process Automation cut 50 → 37, the pizza example redrawn to the hotel, and the Josuttis
+> collision resolved in §1's favour. Phase 1 on Day 2 is complete.
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
@@ -280,16 +278,17 @@ supervisor/scale-out — which were never taught.
 at Macro Scale* (where it is the yardstick Feature Envy fails against) **and** a standalone opening slide
 of Process Automation. One of the two has to go.
 | 2 | **Paper Flow** exercise | 9 | ✅ **run-of-show resettled (D2-4 / D2-7)** — two blocks + a closing round, ~100 min; §7 rewritten | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
-| 3 | **Process Automation** | 50 | ☐ **needs cutting** — 55% of the day; **+ pizza → hotel redraw** | ☐ ~11 BPMN redraws | ☐ |
-| 3a | · Tentative Operations *(moved from Repair)* | 2 | ✅ bridge into Durable Execution | | |
-| 4 | Putting It Together | 6 | ☐ | ☐ | ☐ |
-| 5 | Next Steps | **7** | ✅ +2 pointer slides (D2-1); ☐ rest unreviewed | ☐ | ☐ |
+| 3 | **Process Automation** | **37** | ✅ 50 → 37 (D2-10); opens on *their* model; pizza → hotel | ☐ ~12 BPMN redraws + reference card | ☐ |
+| 3a | · front half — notation to choreography | 22 | ✅ 28 → 22; legends 5→2, three *What is X?* merges | | |
+| 3b | · back half — durable execution | 15 | ✅ 22 → 15; four `(Fault)` → one table; 2 illustrations absorbed | | |
+| 4 | Putting It Together | 6 | ✅ reviewed with D2-10 — kept whole, 4 annotated flows + recap | ☐ | ☐ |
+| 5 | Next Steps | **7** | ✅ +2 pointer slides (D2-1); reviewed with D2-10 | ☐ | ☐ |
 
-**The balance problem that remains:** D1-9 took 19 entries off Day 2 but took nothing off Process
-Automation. D2-3…D2-8 then added 6 back to §1, so Process Automation is now **52% of the day** (50 of 97)
-and still entirely lecture — which is exactly what the modelling exercise should relieve. **And the
-exercise now needs ~100 minutes against 75 budgeted**, so Process Automation owes both the entry cut and
-the 25 minutes. This is the single largest outstanding item in the plan (D2-10).
+**The balance problem is closed.** D1-9 took 19 entries off Day 2 but took nothing off Process
+Automation; D2-3…D2-8 then added 6 back to §1, leaving Process Automation at **52% of the day** (50 of
+97), entirely lecture, and owing the exercise 25 minutes. **D2-10 cut it to 37 of 84 — 44%** — and the 13
+entries removed are worth roughly the 25 minutes owed. §1 is now the larger half of the day by teaching
+time, which is the right way round: it is the half with the exercise in it.
 
 ---
 
@@ -424,9 +423,9 @@ Choreography* promised the room would feel the difference before either word was
 **Unchanged:** delegates must **not** meet BPMN before any of this. They invent a notation; Process
 Automation formalises it.
 
-**The cost.** ~100 minutes against the ~75 budgeted. **The 25 comes out of Process Automation** (D2-10),
-which is over-long by every other measure too. Flagged rather than absorbed, because it is a real
-commitment made before that section has been reviewed.
+**The cost.** ~100 minutes against the ~75 budgeted. **The 25 came out of Process Automation**, which
+D2-10 cut from 50 entries to 37 — roughly the right amount of time, and it was over-long by every other
+measure too. Settled 2026-08-29.
 
 ### Failure cards
 
@@ -476,7 +475,8 @@ whether that is deliberate concurrency or a slip.
 
 ### Knock-on: Process Automation moves to the hotel
 
-**Decided 2026-08-27, deferred by Ian to the Process Automation review. Do not start it early.**
+**✅ Decided 2026-08-27, confirmed and executed 2026-08-29 as part of D2-10 (§9).** The mapping below is
+what was applied; the outline entries carry `☐ REDRAW (hotel)` markers for Phase 2.
 
 Day 2 then runs on one domain: takeaway is the *taught* example, hotel is what delegates *do*, and
 Process Automation formalises **their** model in BPMN rather than a third unrelated domain.
@@ -534,7 +534,14 @@ than a blank canvas.
 7a. **The coupling scale with a process boundary drawn across it** (Day 1 §2, D1-7) — Content and Common
    above the line and struck through as *prevented*; Control, Stamp and Data below it, live. Replaces the
    old flat tight→loose scale (s27) and is the pivot of the section. **Ian to draw**, alongside items 1–4.
-8. **~11 BPMN redraws**, pizza → hotel (Day 2 Process Automation).
+8. **~12 BPMN redraws**, pizza → hotel (Day 2 Process Automation, D2-10). Marked `☐ REDRAW (hotel)` in
+   the outline: the five workflow-pattern examples, three orchestration pools (Guest / Just Paper Hotels /
+   The Hotel), *Pools and Lanes*, the collaboration and the choreography. **Plus two new drawings** —
+   *Your Flow, in the Standard Notation* (the Pre-Arrival paper flow beside the same flow as BPMN;
+   `resources/Pre-Arrival Guest Flow.drawio` is the editable left-hand half) and a BPMN compensation-event
+   fragment for *Compensation, Four Ways*. **And one layout job:** the BPMN **delegate reference card**,
+   one A4 side carrying the task / event / gateway legends, whose three drawio sources already exist.
+   None of the pizza originals had an editable source, so nothing is lost by redrawing to the hotel.
 
 ### What sources exist
 
@@ -699,7 +706,7 @@ Ian's step-back review of the work so far. **These are agreed items to work thro
 time — not a backlog to be cleared unilaterally.** Where an item contradicts something already built, the
 item wins and the plan section above is stale until the item is worked.
 
-**Outstanding: D2-10.** Everything else is ✅ and has a rationale block below.
+**All items are ✅.** Each has a rationale block below. **Phase 1 is complete on both days.**
 
 Three of these are **structural** and have knock-ons across both days — marked **⚑**. Read *Knock-ons* at
 the end before starting any of them.
@@ -733,7 +740,7 @@ the end before starting any of them.
 | **D2-7 ⚑** ✅ | *Now Do One* (FBP) | **Do the FBP flow for the hotel here** — a second do-one. |
 | **D2-8** ✅ | Reactive | Comes after both do-ones, **to explain how it answers the question**. |
 | **D2-9** ✅ | Pipes and Filters | Either explain it here — it helps with Process Automation — **or just drop it. Perhaps drop it for time.** **Dropped** — Day 2 gets no slide of its own. |
-| **D2-10** | Process Automation and beyond | **Not reviewed yet.** Still to do, along with *Putting It Together* and *Next Steps*. |
+| **D2-10** ✅ | Process Automation and beyond | **Not reviewed yet.** Still to do, along with *Putting It Together* and *Next Steps*. **Done:** 50 → 37, opens on their own model, pizza → hotel. *Putting It Together* and *Next Steps* reviewed and kept. |
 
 ### ✅ D1-1 … D1-6 — done 2026-08-28
 
@@ -976,18 +983,107 @@ filters"* — which reads fine as a gesture at something already met.
 **Time.** Nil added, which is the point: Process Automation owes the exercise 25 minutes (D2-10) and this
 was the one item that could have made that worse.
 
+### ✅ D2-10 — done 2026-08-29
+
+**Process Automation: 50 → 37 entries. Day 2: 97 → 84.** The section was 52% of the day and entirely
+lecture; it is now 44%, and the 13 entries removed are worth roughly the **25 minutes it owed the paper
+exercise** (§7). Settled with Ian as four decisions.
+
+#### 1. The opening now keeps the promise made on the slide before it
+
+*So Who Is in Charge?* ends §1 with **round 4** — the room runs its own flow with a conductor and without
+one — and says *you have just invented orchestration and choreography; the next section gives them their
+names, and a notation.* What actually opened the section was a **Josuttis SOA quote**, then BPMN defined
+cold against a food-ordering diagram nobody had seen, then **five slides of icon legends**. That is a
+notation reference manual and a cold start, not the promise being kept.
+
+**New opening slide: *Your Flow, in the Standard Notation*.** The Pre-Arrival flow delegates drew in round
+1, beside the same flow as a BPMN collaboration, and a mapping table: desk → task in a lane; the heavy
+vertical bar → a pool boundary; a red dashed arrow between trays → a message flow; a numbered step inside
+the bar → sequence flow; the conductor's routing slip → the process and its token. **They have every
+concept and lack only the vocabulary** — so the primitives that follow arrive as *what you needed in order
+to draw that*, not as a legend to memorise.
+
+It **replaces** *What is a Microservice? (SOA 3.0)*, which settles the **Josuttis collision**: the quote
+now appears once, on §1 *SOA Is OO at Macro Scale*, where it is the yardstick *Feature Envy* fails
+against. §1 carries the service-alignment argument too, so nothing is lost.
+
+#### 2. Pizza → hotel, in full
+
+**Confirmed and executed** (decided 2026-08-27, deferred to this review — §7). Day 2 now runs on **one
+domain**: takeaway is the *taught* example, hotel is what delegates *do*, and Process Automation
+formalises **their** model rather than a third unrelated one. Pools: Customer → **Guest (Tourist)**, Pizza
+Shop → **Just Paper Hotels** (Booking Team, Fax Operator), Courier → **The Hotel** (Concierge, Front Desk).
+
+The five workflow-pattern examples were rewritten onto the booking flow — and they were already in it:
+*Take the Call → Create Booking Request* (sequence); *Take Payment* ∥ *Prepare Confirmation* (split, then
+join before the guest is told); ***Check Availability → Accept X Reject*** (exclusive choice) is literally
+step 7 of the diagram they hold; confirmation-arrives **or** guest-chases-on-a-timer (simple merge).
+*Tentative Operations* moved off a shopping basket onto the reservation, where `reserve()` / `commit()` /
+`rollback()` is the actual conversation and the hotel's timeout is the reason durable execution exists.
+Handler, state-machine and engine examples were renamed to match (`Requested → SentToHotel → Accepted →
+Paid → Confirmed`). Costs nothing extra in Phase 2: **the pizza family had no editable source either way.**
+
+#### 3. Front half, blocks A–E: 28 → 22
+
+| what | why |
+|---|---|
+| **Five legend slides → two.** *Basic Elements* + *Connecting Objects* → **BPMN — The Elements**; *Tasks* + *Events* + *Gateways* → **BPMN — Tasks, Events and Gateways**, with a callout naming the **six** primitives this deck actually uses. | Three icon legends is a lookup table, and a lookup table belongs in the delegate's hand — the same test that sent Managing Async APIs and the routing patterns to handouts. The merge also **promoted the load-bearing line**, which was buried in the two-line *Connecting Objects* slide: **sequence flow carries the token, message flow does not.** That is *ACID at a desk, BASE across desks* in BPMN's vocabulary, and it makes orchestration-vs-choreography obvious twelve slides later instead of arbitrary. ☐ **New handout: a one-A4-side BPMN reference card**, carrying the full legends. |
+| **Three *What is X?* slides merged away.** *What is Orchestration?* → *Process = Orchestration*; *What is Collaboration?* → *Collaboration and Choreography*; *What is Choreography?* → *Choreography and Conversation*. | Each restated the slide immediately before it in four or five bullets. Only three lines were worth keeping and all three were kept: *all logic is local to the orchestrator*; *both participants must run in the engine* (Day 1 §2's coupling argument at process scale); *like describing a dance — no owner, no shared state*. |
+
+**Deliberately not cut:** the five pattern slides — *Implementing Workflow Patterns* maps that exact
+vocabulary onto the three implementation styles twenty-five slides later, so it is load-bearing — and the
+three orchestration-pool slides, which Ian kept as separate diagrams.
+
+#### 4. Back half, blocks F–I: 22 → 15
+
+This is the section's payload — *where does activity state live, and who updates it* — and the four
+mechanism slides are untouched. The cut is all consolidation:
+
+| what | why |
+|---|---|
+| **Four `(Fault) …` slides → one *Compensation, Four Ways* table**, a row per mechanism: where the undo lives, what triggers it, the catch. | It was the **same idea in four costumes** — you cannot roll back, so you write an undo for every do — made four times, twenty slides apart. As a table the repetition becomes the teaching point, and **Saga** gets named once rather than four times. It also puts **business error vs. technical error** in one place, which is the distinction that stops teams retrying a declined card forty times. |
+| **Two `— Illustration` code screenshots absorbed** into *Handlers + Activity State Updates* and *State Machine + Activity State Updates*. | Each was a heading and one sentence over a screenshot of the slide before it. |
+| ***Tentative Operations* + its *Example* merged.** | Two slides for one three-line protocol; the example is now three sentences on the same slide, and rewritten to the booking. |
+| ***Embedded vs. External Workflow Engines* + *Workflow Engines — Lessons from SOA* merged.** | Two lines each, and the second was the argument the first was missing. The merged slide lands **anaemic services** — all domain logic migrating into the engine — which is the set-up for *Smart Endpoints, Dumb Pipes*. |
+
+#### 5. Putting It Together and Next Steps — reviewed, kept
+
+Both were in D2-10's scope and neither needed cutting. *Putting It Together* is six entries, four of them
+the takeaway flows annotated with exchange patterns, every image sourced from an editable `resources/`
+drawio — it is the payoff for §1's worked flows and it earns its length. One fix: its section marker said
+*"the fax/pizza workflow"*; pizza was never in it, so it now reads *the fax workflow — the takeaway
+see one*. *Next Steps* is seven entries, five of them pointer and further-reading slides, already rebuilt
+by D2-1 / D1-11.
+
+#### Correction made in the asking
+
+The question offered *"Legends 4→1"* as the mechanism for a **−6** front-half cut, but there are **five**
+legend slides, not four. The **−6 / to 22** arithmetic was honoured, so the legends went **5 → 2** rather
+than 5 → 1. Taking them to a single slide would give −7 and a 21-entry front half; it remains available.
+
+#### Left for Ian
+
+**A fourth domain is still in the section.** *Process = Orchestration*, *Tokens*, *Collaboration and
+Choreography*, *Pools and Lanes* and *Choreography and Conversation* all illustrate with the
+**shopping-basket** diagrams (`resources/Shopping Flow*.drawio`, `Shopping Choreography.drawio`) — a
+distinct domain from both takeaway and hotel. It was outside D2-10's agreed scope, so it was not touched.
+Unlike the pizza family **these have editable sources**, so relabelling them to the booking is cheap. Worth
+a decision in Phase 2.
+
+**Cut text:** `session-work/cut-process-automation.before.md`, plus git history.
+
 ### Knock-ons to settle before starting the ⚑ items
 
-**1. ✅ Settled — D1-9 rebalanced both days.** Day 1 = 96, Day 2 = 97 after D2-3…D2-8. Versioning did not
-follow the other three; it was dropped. **The consequence stands:** Process Automation is unchanged at 50
-and is **52% of Day 2**, and it now owes 25 minutes to the exercise as well. Nothing else on either day is
-close.
+**1. ✅ Settled — D1-9 rebalanced both days, and D2-10 finished the job.** Day 1 = 96, Day 2 = 97 after
+D2-3…D2-8, then **84** after D2-10 cut Process Automation 50 → 37. Versioning did not follow the other
+three; it was dropped.
 
 **2. ✅ Settled — the exercise runs in three placements, ~100 min.** §7's run-of-show has been rewritten.
 Block 1 (paper, ~45) ends movement A; block 2 (FBP, ~45) ends movement C; round 4 (~10) is the section's
 last slide, immediately before Process Automation. Round 3 went to block 1; **round 0 was deleted**. Not
 planted twice against Day 1 §1 — that slide names orchestration and choreography, round 4 makes the room
-live the difference. **The 25-minute overrun is owed by Process Automation (D2-10).**
+live the difference. **The 25-minute overrun was paid by Process Automation — D2-10 cut it 50 → 37.**
 
 **3. ✅ Settled — Pipelines.** D1-9 sent Day 1's pipeline material, *Pipes and Filters* included, to the
 routing handout (§10). **D2-9 settled it for Day 2 too: no slide.** Movement C already teaches the

@@ -298,7 +298,9 @@ activity." — Nicolai Josuttis, *SOA in Practice*
 Presenter notes: SOA takes objects to a macro scale. The Josuttis quote is the standard against which the next slide fails: he says align the service with a *business activity*. The next slide shows what you get when you align it with an *entity* instead. **A desk is a business activity** — the takeaway flows already satisfied Josuttis, which is worth saying out loud here rather than at the end.
 
 #note: The Josuttis quote used to sit orphaned in the middle of the paper-workflow images (old s58) and
-again in Process Automation. It belongs here, where it is the yardstick for Feature Envy.
+again in Process Automation. It belongs here, where it is the yardstick for Feature Envy. **Collision
+resolved by D2-10:** Process Automation's copy is gone — that slide is now *Your Flow, in the Standard
+Notation*. This is the only place the quote is read out.
 
 ### Slide: Feature Envy — You Built a Distributed Monolith
 
@@ -706,13 +708,29 @@ half, on the question the section opened with.
 
 ## Process Automation
 
-### Slide: What is a Microservice? (SOA 3.0)
+### Slide: Your Flow, in the Standard Notation
 
-"SOA is focused on business processes… a service should represent a self-contained functionality that corresponds to a real-world business activity." — Nicolai M. Josuttis, *SOA in Practice*.
+▎ You drew this an hour ago. Here it is again, in a notation the rest of the industry already reads.
 
-Presenter notes: We treat microservices as SOA 3.0, so most best practice still applies. The key is service **alignment with a business process or activity** — this workstream is about how that alignment improves productivity (not just fault-tolerance through isolation). Amplified next by the entity-service anti-pattern.
+**Pre-Arrival, as you modelled it on paper — and the same flow as BPMN.** Same three participants, same
+hand-offs, same numbered steps:
 
-#note: **Collision with §2.** The Josuttis quote is now a callout on §2 *SOA Is OO at Macro Scale*, where it is the yardstick the Feature Envy slide fails against. Decide during the Process Automation review which of the two keeps it — it should not be read out twice in one day.
+| what you drew | what it is called |
+|---|---|
+| a desk | a **task**, sitting in a **lane** |
+| the heavy vertical bar | a **pool** boundary |
+| a red dashed arrow between an out-tray and an in-tray | a **message flow** |
+| a numbered step from one desk to the next inside the bar | a **sequence flow** |
+| a folder | the state a task reads and writes |
+| the conductor holding the routing slip | the **process**, and its **token** |
+
+Nothing new happens in this section. It gives names to what the room already built.
+
+#image: ☐ NEW — side by side: the Pre-Arrival paper flow as delegates have it (`resources/Pre-Arrival Guest Flow.drawio.png`) and the same flow as a BPMN collaboration — three pools, Tourist / Just Paper Hotels (Booking Team, Fax Operator) / The Hotel (Concierge, Front Desk)
+
+Presenter notes: **This slide exists to keep the promise made on the previous one.** Delegates have just run their own flow with a conductor and without one, and were told that the next section gives those two things their names *and a notation* — so do not open on BPMN primitives, open on their own drawing. Put the paper version up alone first and ask what a stranger could not tell from it; then reveal the BPMN. **The mapping table is the teaching move: they already have every concept, they lack only the vocabulary.** The primitives on the next two slides then arrive as *what you needed in order to draw that*, rather than as a legend to be memorised. Do not read the table out — walk the diagram and point at each pair.
+
+#note: **Replaces *What is a Microservice? (SOA 3.0)* (D2-10).** That slide opened the section on a Josuttis SOA quote — a cold start straight out of round 4, and a duplicate: the same quote is a callout on §1 *SOA Is OO at Macro Scale*, where it is the yardstick *Feature Envy* fails against. **§1 keeps it**, and carries the service-alignment argument with it.
 
 ### Slide: BPMN
 
@@ -724,100 +742,98 @@ Presenter notes: We treat microservices as SOA 3.0, so most best practice still 
 
 #image: BPMN diagram — an 'Order Food' process (Enter Location, Choose Restaurant, Add Menu Choices, Checkout) ending with a message event  [→ resources/BPMN Ordering Flow.drawio.png]
 
-### Slide: BPMN — Basic Elements
+Presenter notes: Second example, and deliberately the *takeaway* domain rather than the hotel — the see-one, so the room gets the notation twice over on two flows it already knows. It is also an editable resource, which the hotel diagrams are not.
 
-A BPMN diagram consists of: **Start Event**, **End Event**, **Sequence Flow**, **Activity** (Task / Sub-process), **Event**, and **Gateway**.
+### Slide: BPMN — The Elements
+
+A BPMN diagram is six things: **Start Event**, **End Event**, **Activity** (Task or Sub-process), **Gateway**, **Event**, and the arrows that join them.
+
+There are two kinds of arrow, and the difference between them is what the rest of this section is about:
+
+- **Sequence Flow** — control moving *within* one participant. **The token follows it.**
+- **Message Flow** — a message crossing *between* participants. **No token crosses it.**
+
+▎ Sequence flow is what happens at a desk. Message flow is what happens between desks.
 
 #image: BPMN diagram — start event, task, gateway splitting to two parallel tasks, merge gateway, end event  [→ resources/BPMN Elements.drawio.png]
 
-### Slide: BPMN — Tasks
+Presenter notes: **Merged from *BPMN — Basic Elements* and *BPMN — Connecting Objects* (D2-10)** — the second was two lines and is the more important half. **The load-bearing line is the token one**, so say it out loud: it is *ACID at a desk, BASE across desks* from block 1's debrief, in BPMN's own vocabulary, and it is the distinction that makes orchestration-vs-choreography obvious twelve slides from now rather than arbitrary.
 
-A **task** is an atomic activity (cannot be broken down further):
+### Slide: BPMN — Tasks, Events and Gateways
 
-- Generic, Service (uses a service), Receive (waits for a message), Send (sends a message), User (human completion via software), Manual (human completion not via software), Business Rule (rules engine), Script (executes code).
-- Markers: Loop, Transaction.
+Three of the six have variants. They are reference, not material:
+
+- **Tasks** — atomic activities: Generic, **Service** (uses a service), **Receive** (waits for a message), **Send**, **User** (human, via software), Manual (human, not via software), Business Rule, Script. Markers: Loop, Transaction.
+- **Events** — start, end, or interrupt a flow: None, **Message**, **Time**, Signal, **Compensation**, Conditional, Escalation, Parallel, Cancel.
+- **Gateways** — branch and converge sequence flow: **Exclusive** (X, one path), Inclusive, **Parallel** (+, split/join), Complex, Event-based (an event picks the path).
+
+▎ Six of them do nearly all the work: **Service** and **Receive** tasks, **Message** and **Timer** events, **Exclusive** and **Parallel** gateways.
 
 #image: BPMN legend — task/activity icon variants (service, message, user, manual, business rule, script, loop, transaction)  [→ resources/Task Types.drawio.png]
-
-### Slide: BPMN — Events
-
-An **event** happens within a flow — starts it, ends it, or interrupts it:
-
-- None, Message, Time, Signal, Compensation, Conditional, Escalation, Parallel, Cancel.
-
 #image: BPMN legend — event-circle variants (message, timer, signal, escalation, compensation, cancel, etc.)  [→ resources/Event Types.drawio.png]
-
-### Slide: BPMN — Gateways
-
-A **gateway** controls how sequence flow branches and converges:
-
-- Exclusive (one alternative path), Inclusive (alternatives, possibly parallel), Parallel (split/join), Complex (complex expression), Event (an event picks the path).
-
 #image: BPMN legend — gateway-diamond variants (exclusive, inclusive, parallel, complex, event-based)  [→ resources/Gateway Types.drawio.png]
 
-### Slide: BPMN — Connecting Objects
+Presenter notes: **Merged from three legend slides — *Tasks*, *Events*, *Gateways* (D2-10).** **Do not read the lists.** Teach the six in the callout, which are the only ones used anywhere in this deck, and point at the reference card for the rest. Three icon legends is a lookup table, and a lookup table wants to be in the delegate's hand, not on the screen — the same test that sent Managing Asynchronous APIs and the routing patterns to handouts. The bolded entries in each list are the six.
 
-- **Sequence Flow** and **Message Flow** connect activities.
+#note: ☐ **Delegate reference card** — the three full legends on one A4 side, in the pack. Phase 3 build item; the images already exist as editable drawio, so it is a layout job, not a redraw.
 
 ### Slide: Workflow Patterns
 
 *Workflow Patterns* — van der Aalst, ter Hofstede, Kiepuszewski, Barros (2000): 5 basic + 15 advanced patterns. *Workflow Control-Flow Patterns: A Revised View* — van der Aalst, Mulyar, Russell, ter Hofstede (2007): 23 new patterns.
 
+Presenter notes: The five that follow are the ones the closing slide, *Implementing Workflow Patterns*, maps onto the three implementation styles — so the vocabulary is load-bearing, not trivia. Every one of the five is somewhere in the flow the room drew this morning; say that, and the five slides become recognition rather than definition.
+
 ### Slide: Pattern 1 — Sequence
 
-One activity follows another. BPMN: connect two tasks with a sequence-flow arrow. Easy to model and execute. Example (Customer): Browse Pizza → Add Pizza to Basket.
+One activity follows another. BPMN: connect two tasks with a sequence-flow arrow. Easy to model and execute. Example (Booking Team): Take the Call → Create Booking Request.
 
 
-#image: BPMN diagram — two user tasks: Browse Pizzas → Add Pizza to Basket
+#image: ☐ REDRAW (hotel) — BPMN diagram, two tasks in the Booking Team lane: Take the Call → Create Booking Request
 
 ### Slide: Pattern 2 — Parallel Split
 
-One path splits into two or more concurrent branches. BPMN: a **Parallel Gateway** (+) forks. Example: Assign Courier + Cook Pizza.
+One path splits into two or more concurrent branches. BPMN: a **Parallel Gateway** (+) forks. Example: once the hotel accepts, Take Payment + Prepare Booking Confirmation.
 
 
-#image: BPMN diagram — Accept Order, a parallel gateway splitting to Cook Pizza and Assign Courier
+#image: ☐ REDRAW (hotel) — BPMN diagram: Booking Accepted, a parallel gateway splitting to Take Payment and Prepare Booking Confirmation
 
 ### Slide: Pattern 3 — Synchronization (Join)
 
-Wait until multiple concurrent branches complete. BPMN: a **Parallel Gateway** joins. Example: Assign Courier + Cook Pizza.
+Wait until multiple concurrent branches complete. BPMN: a **Parallel Gateway** joins. Example: the guest is not told until payment has cleared *and* the confirmation is ready.
 
 
-#image: BPMN diagram — Cook Pizza and Assign Courier merging into a parallel join gateway
+#image: ☐ REDRAW (hotel) — BPMN diagram: Take Payment and Prepare Booking Confirmation merging into a parallel join, then Confirm to Guest
 
 ### Slide: Pattern 4 — Exclusive Choice
 
-Choose one path based on a condition. BPMN: an **Exclusive Gateway** (X) with condition expressions. Example: Check Availability → Accept Order **X** Reject Order.
+Choose one path based on a condition. BPMN: an **Exclusive Gateway** (X) with condition expressions. Example (Concierge): Check Availability → Accept Booking **X** Reject Booking.
 
 
-#image: BPMN diagram — a message start, Check Stock, exclusive gateway to Reject or Accept Order
+#image: ☐ REDRAW (hotel) — BPMN diagram: a message start, Check Availability, exclusive gateway to Reject Booking or Accept Booking
+
+Presenter notes: This one is drawn on their own paper flow already — *Respond with Booking Accept/Reject*, step 7. Point at it.
 
 ### Slide: Pattern 5 — Simple Merge
 
-Merge non-concurrent paths back into one. BPMN: a converging sequence flow — no gateway needed if no synchronization is required. Example: multiple paths lead to Eat Pizza.
+Merge non-concurrent paths back into one. BPMN: a converging sequence flow — no gateway needed if no synchronization is required. Example (Guest): the confirmation arrives, or the guest gets tired of waiting and chases; either way, Check the Booking → Pack for the Trip.
 
 
-#image: BPMN diagram — timer/message events for Pizza Received, Check Delivery Status, Eat Pizza
+#image: ☐ REDRAW (hotel) — BPMN diagram: a message event (Confirmation Received) and a timer event (Chase the Agency) both leading to Check the Booking, then Pack for the Trip
 
 ### Slide: Process = Orchestration
 
 A **Process** describes a sequence/flow of activities. In BPMN it is a graph of flow elements (a sequence flow of activities, events, gateways).
 
-A Process is an **orchestration**:
+A Process is an **orchestration** — focused on a **single participant's perspective**:
 
-- The sequence flow represents control of a process.
+- The sequence flow represents control of a process. Like writing your own script.
 - The **token** represents state for an instance.
-- Generally a process orchestration lives within an address space (not distributed) — an embedded workflow or an external process manager.
+- Control flow, state and decisions are **all local to the orchestrator**.
+- Generally a process orchestration lives within an address space (not distributed) — an embedded workflow or an external process manager, often a state machine or a workflow engine.
 
 #image: BPMN diagram — a Checkout Basket process (Create Basket, Validate Choice, Price Basket, Validate Delivery/Payment)  [→ resources/Shopping Flow As Sequence.drawio.png]
 
-### Slide: What is Orchestration?
-
-Focused on a single participant's perspective.
-
-- Like writing your own script.
-- Includes control flow, state, and decisions.
-- All logic is local to the orchestrator.
-- Often implemented via state machines or workflow engines.
+Presenter notes: **Merged with *What is Orchestration?* (D2-10)**, which restated this slide in five bullets. This is the conductor from round 4 — one person, holding the routing slip, who knows the whole process. Name the callback; the room enacted it forty minutes ago.
 
 ### Slide: Tokens
 
@@ -826,62 +842,56 @@ Focused on a single participant's perspective.
 
 #image: BPMN collaboration — Customer and Shopping pools with message flows (Begin Shopping, Basket Price, Valid Basket)  [→ resources/Shopping Flow with Pools.drawio.png]
 
-### Slide: Pizza Example — BPMN Orchestration (Customer Pool)
+### Slide: Hotel Example — BPMN Orchestration (Guest Pool)
 
-The customer journey as an orchestration.
-
-
+The guest's journey as an orchestration.
 
 
-#image: BPMN diagram — the Customer-lane pizza-ordering flow with reorder, rejection, delivery-status timer, cancellation  [no source in resources/ — the pizza BPMN family (Browse Pizzas / Cook Pizza / Assign Courier) is not in resources/; resources/Shopping Flow*.drawio is the *food-delivery* flow (Enter Location / Choose Restaurant / Add Menu Choices), a different diagram]
+#image: ☐ REDRAW (hotel) — BPMN diagram, the Tourist/Guest lane: phone the agency, wait for confirmation, chase on a timer, cancel, pay
 
 Presenter notes: In the demo we emulate this with HTTP calls (same as web/mobile). It's "in process" — we manage the token and its state through the flow. We show where we wait to receive a message. Debugging: we pause awaiting a message from another system, and can't see how the received values were set, or why we do/don't receive a message — for that we'd need the sender.
 
-### Slide: Pizza Example — BPMN Orchestration (Pizza Shop Pool)
+### Slide: Hotel Example — BPMN Orchestration (Just Paper Hotels Pool)
 
-The pizza shop as an orchestration, initiated by a message.
-
-
+The agency as an orchestration, initiated by a message. Two lanes: **Booking Team** and **Fax Operator**.
 
 
-#image: BPMN diagram — the Pizza Shop pool with Kitchen and Dispatch lanes (cooking and courier assignment)  [no source in resources/ — the pizza BPMN family (Browse Pizzas / Cook Pizza / Assign Courier) is not in resources/; resources/Shopping Flow*.drawio is the *food-delivery* flow (Enter Location / Choose Restaurant / Add Menu Choices), a different diagram]
+#image: ☐ REDRAW (hotel) — BPMN diagram, the Just Paper Hotels pool with Booking Team and Fax Operator lanes: create the booking request, fax it, receive accept/reject, take payment, confirm
 
-Presenter notes: We send messages to act (message icon) and wait to receive messages (start and end). Same debugging blind-spot — to debug the flow to the customer we'd need breakpoints in both, which is fine if we own both, but not if they belong to different teams (we'd have to deploy their code).
+Presenter notes: We send messages to act (message icon) and wait to receive messages (start and end). Same debugging blind-spot — to debug the flow to the guest we'd need breakpoints in both, which is fine if we own both, but not if they belong to different teams (we'd have to deploy their code). **This is the pool delegates modelled**, so let them tell you what belongs in each lane before you show it.
 
-### Slide: Pizza Example — BPMN Orchestration (Courier Pool)
+### Slide: Hotel Example — BPMN Orchestration (The Hotel Pool)
 
-The courier as an orchestration, initiated by a message.
-
-
+The hotel as an orchestration, initiated by a message. Lanes: **Concierge** and **Front Desk**.
 
 
-#image: BPMN diagram — the Courier lane, Check Availability gateway to Reject/Accept Job, collect and deliver  [no source in resources/ — the pizza BPMN family (Browse Pizzas / Cook Pizza / Assign Courier) is not in resources/; resources/Shopping Flow*.drawio is the *food-delivery* flow (Enter Location / Choose Restaurant / Add Menu Choices), a different diagram]
+#image: ☐ REDRAW (hotel) — BPMN diagram, The Hotel pool: take the booking request from the inbox, Check Availability gateway to Reject or Accept, respond with accept/reject
 
-Presenter notes: Same pattern — send messages to act, wait to receive. To debug the flow to the pizza shop and customer we'd need breakpoints in all of them.
+Presenter notes: Same pattern — send messages to act, wait to receive. To debug the flow across the agency and the guest we'd need breakpoints in all three. Fastest of the three slides: the shape is now familiar, which is the point of showing it a third time.
 
-### Slide: Pizza Example — Pools and Lanes
+### Slide: Hotel Example — Pools and Lanes
 
 
 
 
-#image: BPMN diagram — a large multi-lane (Customer/Kitchen/Dispatch/Courier) collaboration with cross-lane message flows  [no source in resources/ — the pizza BPMN family (Browse Pizzas / Cook Pizza / Assign Courier) is not in resources/; resources/Shopping Flow*.drawio is the *food-delivery* flow (Enter Location / Choose Restaurant / Add Menu Choices), a different diagram]
+#image: ☐ REDRAW (hotel) — BPMN diagram, the full multi-lane collaboration (Guest / Booking Team / Fax Operator / Concierge / Front Desk) with cross-lane message flows
 
-Presenter notes: Multiple pools (Pizza Shop, Courier, Customer App) with message flows (App→Shop order; Shop→Courier pickup request; Courier→Shop ready; Shop→Courier pizza ready). We want to examine the *interaction* from a neutral perspective, but modelling it as one pool with lanes doesn't work well — some tasks reference interaction (waiting for delivery, collecting money), others are oblivious to partners (baking, eating). It is not semantically correct because message events always refer to messages received from *outside*.
+Presenter notes: Multiple pools (Guest, Just Paper Hotels, The Hotel) with message flows (booking request, fax to the hotel, accept/reject back, confirmation to the guest). We want to examine the *interaction* from a neutral perspective, but modelling it as one pool with lanes doesn't work well — some tasks reference interaction (waiting for the hotel's answer, taking payment), others are oblivious to partners (checking the room list, packing). It is not semantically correct because message events always refer to messages received from *outside*. **This is the heavy vertical bar from the paper notation, drawn properly** — and the failure of one-pool-with-lanes is exactly why the bar was there.
 
 ### Slide: Collaboration and Choreography
 
-- A **Collaboration** has multiple participants.
+- A **Collaboration** has multiple participants, and is focused on **how they interact**.
 - The message exchange between participants in a collaboration is a **Choreography** — generally the flow of messages between participants; within each orchestrated process there are message events caught or raised.
 - Processes *react* to what happens in the choreography — no one owns it (it has no tokens or state of its own).
 
+Interaction can happen two ways:
+
+- **Within a workflow engine** — but this creates coupling, and both participants must run in the engine.
+- **Via an API** — from an event-driven perspective, this is the model we care about.
+
 #image: BPMN collaboration — Customer and Shopping pools with message flows  [→ resources/Shopping Flow with Pools.drawio.png]
 
-### Slide: What is Collaboration?
-
-Focused on how participants interact.
-
-- Interaction might be within a workflow engine — but this creates coupling, and both participants must run in the engine.
-- Interaction might be via an API — from an event-driven perspective, we are most interested in this model.
+Presenter notes: **Merged with *What is Collaboration?* (D2-10)**, which was four bullets restating this slide. The two interaction options are the half worth keeping — "both participants must run in the engine" is the coupling argument from Day 1 §2 arriving at process scale.
 
 ### Slide: Pools and Lanes
 
@@ -891,38 +901,31 @@ Focused on how participants interact.
 
 #image: BPMN collaboration — Customer and Shopping pools with labelled pools/lanes and message flows  [→ resources/Shopping Flow with Pools.drawio.png]
 
-### Slide: Pizza Shop Collaboration
+Presenter notes: **Black box is the load-bearing word.** The Hotel is a black box to the agency — you see the messages, never the process — which is what makes the fracture plane in block 1 a *real* boundary rather than a drawing convention.
 
-A collaboration diagram for the pizza-shop example.
+### Slide: Just Paper Hotels Collaboration
 
-#image: BPMN diagram — three pools (Customer, Pizza Shop, Courier) in a full collaboration with many message flows  [no source in resources/ — the pizza BPMN family (Browse Pizzas / Cook Pizza / Assign Courier) is not in resources/; resources/Shopping Flow*.drawio is the *food-delivery* flow (Enter Location / Choose Restaurant / Add Menu Choices), a different diagram]
+The full collaboration diagram for the hotel example.
+
+#image: ☐ REDRAW (hotel) — BPMN diagram, three pools (Guest, Just Paper Hotels, The Hotel) in a full collaboration with all message flows
 
 ### Slide: Choreography and Conversation
 
-- A **Choreography** describes a sequence/flow of activities *between* participants — a graph of flow elements (a message flow of activities, events, gateways).
+- A **Choreography** describes a sequence/flow of activities *between* participants — a graph of flow elements (a message flow of activities, events, gateways). It is focused on the interaction across participants, **like describing a dance**: no single owner of the flow, no centralized control, and no access to anyone's shared internal state. It defines **who talks to whom, in what order**.
 - A **Conversation** is a logical association of messages that can all be correlated. **Correlation Keys** associate messages in the same conversation (may be existing message data); the first task in a conversation *must* populate the conversation id.
 
 #image: BPMN diagram — a horizontal flow with Customer/Shopping lane labels per task and message events  [→ resources/Shopping Choreography.drawio.png]
 
-### Slide: What is Choreography?
+Presenter notes: **Merged with *What is Choreography?* (D2-10)** — the dance line and the no-shared-state line were the only two it added. The correlation key is not new either: it is the booking reference written on the fax so the answer can be matched to the request, and it is the same id that becomes a trace id in `## Next Steps`.
 
-Focused on interactions across multiple participants.
+### Slide: Hotel Example — BPMN Choreography
 
-- Like describing a dance — no single owner of the flow.
-- Defines who talks to whom, in what order.
-- No centralized control.
-- Cannot access shared internal data/state.
-
-### Slide: Pizza Example — BPMN Choreography
-
-The pizza-order choreography — the flow of messages between participants.
+The booking choreography — the flow of messages between participants.
 
 
+#image: ☐ REDRAW (hotel) — BPMN choreography diagram: the booking flow as message events across Guest, Just Paper Hotels and The Hotel
 
-
-#image: BPMN choreography diagram — the pizza-order flow as message events across Customer, Pizza Shop, Courier  [no source in resources/ — resources/Shopping Choreography.drawio.png is the *shopping-basket* choreography (Begin Shopping / Add Item / Basket Price), not the pizza one]
-
-Presenter notes: Even this simple interaction produces a set of messages flowing between participants. Choreography is what happens "between" — it has no explicit owner. When flow leaves your application (or workflow engine) it "goes blind": the **event horizon**. You understand your workflow — it's in your code — but debugging becomes hard because at times nothing happens that's supposed to, and you struggle to know why.
+Presenter notes: Even this simple interaction produces a set of messages flowing between participants. Choreography is what happens "between" — it has no explicit owner. When flow leaves your application (or workflow engine) it "goes blind": the **event horizon**. You understand your workflow — it's in your code — but debugging becomes hard because at times nothing happens that's supposed to, and you struggle to know why. **This is round 4 with no conductor**, drawn.
 
 ### Slide: Messaging and Eventing (Orchestration vs. Choreography)
 
@@ -954,9 +957,9 @@ A sensible balance of orchestrated bounded contexts and choreography between the
 | Perspective | One party's process | Multi-party message exchange |
 | Data Access | Internal | Shared messages |
 | Execution Tool | API calls, handlers, workflow engine | Messaging protocol |
-| Example | Pizza Shop coordinates cook + courier | Customer + Shop + Courier interact |
+| Example | The agency coordinates payment and the hotel booking | Guest + Agency + Hotel interact |
 
-Presenter notes: Implementation paths depend on model type — embedded logic (orchestration) vs. API contracts/events (choreography). Clear boundaries → better automation decisions and a clearer division between messaging and eventing.
+Presenter notes: Implementation paths depend on model type — embedded logic (orchestration) vs. API contracts/events (choreography). Clear boundaries → better automation decisions and a clearer division between messaging and eventing. **Close the first half here** on round 4's two questions — where did knowledge of the whole process live, and who had to change when a step was added — because the two columns of this table are the two answers.
 
 ---
 
@@ -968,14 +971,9 @@ A conversation that spans more than a request and a response: the requestor may 
 - On success → `commit()` → `acknowledge()` (allocate the reserved capacity).
 - On failure → `rollback()` → `freed()` (free the reserved capacity).
 
-### Slide: Tentative Operations — Example
+**The booking, exactly:** the agency asks the hotel to `reserve()` a room. The hotel holds it **with a timeout**, so it can sell the room to someone else if we go quiet. Guest pays inside the limit → `commit()` → `acknowledge()`, the room is allocated. Guest abandons, or the card is declined → `rollback()` → `freed()`.
 
-- **Basket → Warehouse:** `reserve()` stock (Fault-Replaces-Message could apply if out of stock).
-- Warehouse reserves the stock with a timeout so others can buy it if we don't.
-- If the customer pays before the limit → `commit()` → `acknowledge()` (allocate stock).
-- If the basket doesn't complete → `rollback()` → `freed()`.
-
-Presenter notes: This is the bridge into durable execution. Reserve/commit/rollback is a conversation with a *lifetime* — someone has to remember the reservation exists, honour its timeout, and drive it to commit or rollback even across a restart. That requirement is what the rest of this section is about.
+Presenter notes: **Merged from *Tentative Operations* and *Tentative Operations — Example*, and the example moved from a shopping basket to the booking (D2-10).** This is the bridge into durable execution, and the hotel makes the bridge shorter: reserve/commit/rollback is a conversation with a *lifetime* — someone has to remember the reservation exists, honour its timeout, and drive it to commit or rollback **even across a restart**. That requirement is what the rest of this section is about. Two failure cards land here — *the guest checks out early, mid-flow* and *this desk goes home; anything not written into a file is forgotten*.
 
 ### Slide: Durable Execution
 
@@ -983,7 +981,7 @@ Long-running processes must:
 
 - Survive restarts.
 - Handle retries and failures.
-- Resume after waiting (e.g. for payment or a courier).
+- Resume after waiting (e.g. for payment or the hotel's answer).
 
 Durable execution = we **persist activity state** to indicate which steps are complete, when we're awaiting an event, etc.
 
@@ -991,17 +989,19 @@ Durable execution = we **persist activity state** to indicate which steps are co
 
 Broadly, a software component manages **activities** and **resources** (Pat Helland).
 
-- **Resources:** domain concepts we manage — restaurants, couriers, customers.
+- **Resources:** domain concepts we manage — hotels, rooms, guests.
 - **Activities:** one or more sequences for our interaction with resources.
 - As the token moves through the sequence we update resources *and* the activity (to indicate progress).
 - The implementation question: **where does activity state live, and who updates it?**
 
+Presenter notes: **That last line is the question the next five slides answer**, and it is the most directly useful material on either day — four mechanisms, in ascending order of how much machinery you take on. Put it on the board and leave it there.
+
 ### Slide: Activities and Resources — Worked Example
 
-- **Cashier → Pricer:** `get pricing details()` → `item price()` (waiting for response).
-- **Cashier → Payment Provider:** `take payment()` → `payment taken()` (waiting for response).
+- **Booking Team → Hotel:** `reserve()` a room → `reservation()` (waiting for response).
+- **Booking Team → Payment Provider:** `take payment()` → `payment taken()` (waiting for response).
 - **Activity** (usually a service task) — glue code that calls domain logic internally or messages another app; could be a framework, a bespoke state machine, or pipes and filters.
-- **Resources** — code/data managing shared items coordinated across activities (inventory widgets, truck space) — our domain model.
+- **Resources** — code/data managing shared items coordinated across activities (room inventory, rate plans) — our domain model.
 - Our workflow stores the token state (where are we in the flow?), and there is a choreography — the messages we exchange with other participants running their own flows.
 
 Presenter notes: Per Helland — each entity must remember state about its partners on a partner-by-partner basis; call this an **activity**. An entity may have many activities if it interacts with many partners.
@@ -1015,25 +1015,9 @@ Handlers process events (change resources) and update activity state.
 - Becomes complex with split/join/choice/merge (not a sequence), and with retry / circuit breakers / compensation.
 - Relies on **guaranteed delivery** (store work for retry unless ack'd) and **Transactional Messaging (Outbox)**.
 
-Presenter notes: Baseline automation. E.g. an `OrderReceivedHandler` looks up the order and sets state = Preparing. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers.
-
-### Slide: Handlers — Illustration
-
-A diagram of the handler-based approach.
-
-
 #image: C# code screenshot — an async order handler using a transaction, postbox and the outbox pattern
 
-### Slide: (Fault) Handlers + Activity State Updates
-
-How do we handle **compensation** flows with handlers?
-
-- **Fault Message:** for reliable In-Only, a dedicated fault channel is required (used only for compensation); for In-Out, the response-channel message should indicate fault, not success.
-- May retry the handler, and only after X failures run the fallback.
-- On fault, run a "fallback handler" that initiates compensating action — reverse actions so far; write an "undo" for each "do".
-- A straightforward approach: send a fault message back upstream and undo on receipt.
-
-Presenter notes: The **Saga** pattern — long-running transactions in distributed systems; when you can't roll back, you undo. Name from a 1980s paper on long-lived DB transactions. BPMN supports this via compensation events linking tasks with undo tasks; a workflow engine executes the necessary undo actions. (Ruecker, *Practical Process Automation*.)
+Presenter notes: Baseline automation. E.g. a `BookingRequestedHandler` looks up the booking and sets state = AwaitingHotel. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers. **The code screenshot was its own slide (*Handlers — Illustration*) and is now this slide's picture (D2-10)** — walk the transaction and the postbox on it, because the outbox is Day 1 §4.4 arriving with a job to do.
 
 ### Slide: State Machine + Activity State Updates
 
@@ -1044,26 +1028,9 @@ When handler interaction becomes complex, make the activity **explicit**.
 - The handler loads the state machine for the conversation id, triggers the transition denoted by the message, and runs the associated code.
 - Save the new state and ack the message.
 
-Presenter notes: States e.g. Received → Preparing → Ready → OutForDelivery → Delivered; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless); durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic.
-
-### Slide: State Machine — Illustration
-
-A diagram of the state-machine approach.
-
-
 #image: C# code screenshot — an OrderStateMachine (MassTransit) with Initially/During states and transitions
 
-### Slide: (Fault) State Machine + Activity State Updates
-
-How do we handle compensation with a state machine?
-
-- The "saga" pattern in messaging frameworks is typically a state machine — it guarantees that on a fault, the machine transitions back to "safe".
-- Implementations run all fault transitions to safe *before* acking the fault message.
-- May retry the transition, and only after X failures run compensation.
-- On fault, transition to a faulted state and initiate a compensating flow to "safe" (reverse actions; write an "undo" for each "do").
-- Requires **durable execution** — if we fault partway, on restart we resume.
-
-Presenter notes: As above — the Saga undoes rather than rolls back; BPMN compensation events link tasks with undo tasks. (Ruecker, *Practical Process Automation*.)
+Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic. **The code screenshot was its own slide (*State Machine — Illustration*) and is now this slide's picture (D2-10).**
 
 ### Slide: Routing Slip + Activity State Updates
 
@@ -1074,13 +1041,7 @@ To **distribute** steps in the sequence, transport the activity state *in the me
 - Complex if "next" is dynamic routing (the code must understand how to execute).
 - Complex because you distribute the steps — hard to observe (OpenTelemetry).
 
-### Slide: (Fault) Routing Slip + Activity State Updates
-
-How do we handle compensation with a routing slip?
-
-- "Next" is now the *fault* next from this step — what we need to reverse.
-- Context is "faulted".
-- The handler updates state when work is done, forwards according to the slip, then acks.
+Presenter notes: **This is literally the conductor's routing slip from round 4** — the one artefact the room has already held in its hands. Say so; it is the cheapest explanation in the section.
 
 ### Slide: Workflow Engines + Activity State Updates
 
@@ -1091,29 +1052,40 @@ When we want more than state transitions (split, join, merge, choice), use a **w
 - A **job scheduler** provides durable execution; typically any instance can resume a paused job (distributed).
 - A step may wait for an event or timer to resume — the handler equivalent, or triggered by the handler calling the engine.
 
-Presenter notes: External orchestrators — Temporal, Camunda, Azure Logic Apps, AWS Step Functions. Support wait states (await PizzaReady), parallel branches, timeouts, retries, visual modeling. Durable by design (execution state + workflow history stored); suited to complex, distributed systems. Example steps: StartCookingPizza → WaitForPizzaReady → DispatchCourier → WaitForPickup → MarkAsDelivered.
+Presenter notes: External orchestrators — Temporal, Camunda, Azure Logic Apps, AWS Step Functions. Support wait states (await BookingAccepted), parallel branches, timeouts, retries, visual modeling. Durable by design (execution state + workflow history stored); suited to complex, distributed systems. Example steps: PlaceBookingWithHotel → WaitForHotelResponse → TakePayment → WaitForPaymentCleared → ConfirmToGuest — which is the BPMN from the front of this section, now executable.
 
-### Slide: (Fault) Workflow Engines + Activity State Updates
+### Slide: Compensation, Four Ways
 
-How do we handle compensation with a workflow engine?
+You cannot roll back across desks. So for every "do", you write an "undo" — and the four mechanisms differ only in **where the undo lives**.
 
-- Is the error a **business** error or a **technical** error?
-- A **retry** frequently handles technical faults. If retry fails and a catch is present, a fallback runs; with no catch, the workflow rolls back to the last wait state or terminates.
-- A known **business** error (e.g. card declined) is usually modelled explicitly as a branch via a gateway.
+| mechanism | where the undo lives | what triggers it | the catch |
+|---|---|---|---|
+| **Handlers** | a fallback handler per step | a **fault message** — In-Only needs a dedicated fault channel used only for compensation; In-Out marks the response as a fault, not a success | retry first, compensate only after X failures; the undo logic scatters exactly like the do logic |
+| **State Machine** | a transition to a faulted state, then a compensating flow back to *safe* | the same fault message, but it drives a transition | run **all** fault transitions to safe *before* acking the fault message; needs durable execution, so a restart mid-fault resumes |
+| **Routing Slip** | the slip's **fault next** — the reverse of the step just completed | context on the envelope flips to "faulted" and the slip runs backwards | the slip must carry the undo route as well as the do route |
+| **Workflow Engine** | a **compensation event** linked to the task | retry handles technical faults; a *business* error (card declined) is a modelled branch on a gateway | with no catch, the workflow rolls back to the last wait state or terminates |
 
-### Slide: Embedded vs. External Workflow Engines
+▎ This is the **Saga**. Four costumes, one idea.
+
+#image: ☐ NEW — BPMN fragment: a task with an attached compensation event linked to its undo task
+
+Presenter notes: **Replaces four `(Fault) …` slides — one per mechanism (D2-10).** They made the same argument four times twenty slides apart; as a table the repetition becomes the point. The name comes from a 1980s paper on long-lived database transactions, and messaging frameworks that say "saga" almost always mean the state-machine row. **The distinction to land is business error vs. technical error** — retry is for technical, a gateway branch is for business, and confusing the two is how teams end up retrying a declined card forty times. (Ruecker, *Practical Process Automation*.) On the hotel: the undo for *reserve a room* is *release the room*; the undo for *take payment* is *refund*. Ask the room which of the four they would use, and why.
+
+### Slide: Workflow Engines — Embedded, External, and the Lessons from SOA
 
 Weighing engines embedded in a service against external orchestrators.
 
-### Slide: Workflow Engines — Lessons from SOA
+- **External orchestration is not an anti-pattern**, but it requires care.
+- Keep core domain logic **inside** services; let the engine coordinate *outcomes*, not fine-grained steps.
+- Consider choreography, or a local embedded orchestration, where autonomy matters more than visibility.
 
-Presenter notes: External orchestration is not an anti-pattern, but requires care. Keep core domain logic inside services; let the workflow engine coordinate *outcomes*, not fine-grained steps; consider choreography or local orchestration for autonomy.
+Presenter notes: **Merged from *Embedded vs. External Workflow Engines* and *Workflow Engines — Lessons from SOA* (D2-10)** — two lines each, and the second was the argument the first was missing. The failure mode is **anaemic services**: all domain logic migrates into the engine and the services become passive executors of workflow directives. That is the ESB, rebuilt, and it sets up the next slide.
 
 ### Slide: Smart Endpoints, Dumb Pipes
 
 ESB products often include sophisticated routing, choreography, transformation, and business rules. The microservice community favours the alternative: **smart endpoints and dumb pipes**. (martinfowler.com/articles/microservices.html)
 
-Presenter notes: Microservices promote smart services and minimal messaging infrastructure. External workflow engines risk **anaemic services** — all domain logic moves out, and services become passive executors of workflow directives.
+Presenter notes: Microservices promote smart services and minimal messaging infrastructure. This is the closing argument of the section, and it is Day 1 §2's coupling argument at process scale: put the process in the pipe and every participant is coupled to the pipe.
 
 ### Slide: Implementing Workflow Patterns
 
@@ -1128,13 +1100,15 @@ How the basic patterns map onto the three implementation styles:
 | Exclusive Choice | Conditional in handler | State transition on input | Conditional branching |
 | Simple Merge | Trigger single follow-up | Re-entrant transition or rehydration | Multiple incoming flows, OR gateway |
 
+Presenter notes: The rows are the five patterns from the front of the section plus compensation — so this table closes a loop opened twenty-five slides ago, and the two ⚠️ cells are the whole argument for when to stop hand-rolling and pick up an engine.
+
 ---
 
 ## Putting It Together
 
 ### Slide: Putting It Together
 
-Section marker: revisiting the fax/pizza workflow through the lens of the patterns, annotating each interaction with its messaging/eventing exchange pattern.
+Section marker: revisiting the fax workflow — the takeaway *see one* — through the lens of the patterns, annotating each interaction with its messaging/eventing exchange pattern.
 
 ### Slide: Fax Workflow — Annotated (Storage & Correlation)
 
