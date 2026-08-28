@@ -180,53 +180,83 @@ up?"
 
 ## Coupling
 
-*What architectural risks do we face from interoperability?*
+*What the process boundary bought you, and what you can still give back.*
+
+#note: **Rebuilt 2026-08-28, review item D1-7.** Ian: *coupling and independent deployability are linked
+— in essence we prevent Content and Common coupling by providing a process boundary, but cannot avoid the
+other three in the message we send. Because we must now interact between processes we have to trade off
+temporal coupling too. That leads into the four integration styles, and how they show up on the coupling
+we have just discussed.* The old *Axis 1* slide presented all five levels as one flat tight→loose scale,
+which hid that split. It is now two slides: **what the boundary already prevented**, and **what is left
+for you to choose in the message**.
 
 ### Slide: Coupling — Why It Matters
 
-We have just argued that we split the monolith so teams can move independently. **Coupling is
-what takes that back.** It decides two things we care about:
+We have just argued that we split the monolith so teams can move independently. **Coupling is what takes
+that back.** It decides two things we care about:
 
 - **Can we deploy independently?** — or does my release require your release?
 - **When a change lands, how far does it spread?** — who else has to be touched, tested, redeployed?
 
-Coupling here is not a code-tidiness concern. It is a *delivery* and *availability* concern.
+Coupling here is not a code-tidiness concern. It is a **delivery** and **availability** concern.
 
 ▎ Coupling is the tax you pay on every change, forever.
 
-Presenter notes: Deliberate call-back to "Monoliths Do Not Scale To Many Teams". The point of
-distributing was independent deployability; every kind of coupling that follows is a way of
-losing it. Ask the room: when you last shipped a change, how many other teams did you have to
-talk to? That number is the coupling.
+Presenter notes: Deliberate call-back to §1 *Easy to Change — Independent Deployability* and its callout,
+*independent deployability is the whole prize; everything from here on is about not giving it back*. This
+section is the "giving it back" part, and the two questions above are the two ways you do it. Ask the
+room: when you last shipped a change, how many other teams did you have to talk to? That number is the
+coupling.
 
-### Slide: Axis 1 — What Are We Coupled *About*?
+### Slide: What the Process Boundary Already Bought You
 
-The contract between two parties. Highest coupling to lowest:
+The classic coupling scale runs Content → Common → Control → Stamp → Data, tightest first. **Drawing a
+process boundary takes the top two off the table.**
 
-- **Content** — one party reaches into the other's internals. Across a network this shows up as
-  depending on undocumented behaviour, a private endpoint, or someone else's table.
-- **Common** — both share the same mutable store. Uncontrolled propagation of change; nobody
-  owns the schema.
-- **Control** — one party tells the other *what to do* rather than *what happened*. A
-  what-to-do flag in the payload.
-- **Stamp** — we share a composite structure and each use only part of it. A change to a field
+- **Content** — one party reaches into the other's internals. Across a network this can only survive as a
+  degenerate form: depending on undocumented behaviour, a private endpoint, someone else's table. There
+  is no pointer into another process's memory.
+- **Common** — both parties share the same mutable store. Uncontrolled propagation of change; nobody owns
+  the schema. Separate processes with **private data** do not have one.
+
+That is not an accident — it is what §1's *Messages In, Private Data* and *No Cross-Service Transactions*
+were describing. The boundary is the mechanism; this is the payoff.
+
+▎ The two worst kinds of coupling are the two you cannot have any more. That is what you bought.
+
+#image: NEW — the Myers coupling scale (Content, Common, Control, Stamp, Data) with a process boundary drawn across it: Content and Common above the line, struck through as *prevented*; Control, Stamp and Data below it, live  [replaces (s27) hand-drawn coupling scale]
+
+Presenter notes: **New slide (D1-7).** This is the pivot of the section and it is good news, so deliver it
+as good news — delegates have just been told the bill for distribution, and this is the first thing they
+get back. Say plainly that **content coupling barely translates across a network boundary** rather than
+pretending the scale ports over unchanged; the honest version is more persuasive. The scale is Myers'
+structured-design scale, adapted to services — say so.
+
+### Slide: What's Left Is in the Message
+
+You cannot avoid the other three. Every message you send picks one, whether or not you meant to.
+
+- **Control** — you tell the other party *what to do* rather than *what happened*. A what-to-do flag in
+  the payload. The receiver's behaviour is now your business.
+- **Stamp** — you share a composite structure and each of you uses only part of it. A change to a field
   you never read can still break you.
-- **Data** — we share only the elementary values we each actually need.
+- **Data** — you share only the elementary values you each actually need.
 
 ▎ Stamp coupling is the one you will meet every day.
 
-#image: (s27) hand-drawn coupling scale from tight to loose — Content, Common, Control, Stamp, Data (data circled)
+▎ The boundary chose the first two for you. The message is where you choose the third.
 
-Presenter notes: This is Myers' structured-design scale, adapted to services — say so, and say
-that **content coupling barely translates across a network boundary** rather than pretending it
-does. Stamp coupling is the one that recurs all course: it is the argument for skinny messages
-(§6.1 Fat and Skinny, at the end of today) and for tolerant readers (the *Managing Asynchronous
-APIs* handout). Flag it now so both call-backs land.
+Presenter notes: **This is the slide the rest of the course keeps coming back to.** Stamp coupling recurs
+everywhere: it is the argument for skinny messages (§6.1 Fat and Skinny, at the end of today) and for
+tolerant readers (the *Managing Asynchronous APIs* handout). Flag it now so both call-backs land. The
+second callout is the one to write on the board — it is why §6 *Designing Messages* exists at all, and it
+is why *Messaging* wins the comparison two slides from now.
 
-### Slide: Axis 2 — Must We Both Be *Up*?
+### Slide: Must We Both Be Up?
 
-If both parties must be present for the communication to succeed, they are **temporally
-coupled**: the availability of one becomes the availability of the other.
+There is a second axis, and interacting **between processes** is what forces it on you. If both parties
+must be present for the communication to succeed, they are **temporally coupled**: the availability of one
+becomes the availability of the other.
 
 | | **Synchronous conversation** | **Asynchronous conversation** |
 |---|---|---|
@@ -238,19 +268,20 @@ coupled**: the availability of one becomes the availability of the other.
 
 ▎ If my availability depends on yours, I have bought your outages.
 
-Presenter notes: The arithmetic was done on "The Price of Distribution" (0.999⁴ = 0.996) — don't
-repeat it, *name* it. What that slide showed as an availability problem is now revealed to be one
-specific coupling: temporal. This is the axis that multiplies your outages, and breaking it is what
-guaranteed delivery buys you.
+Presenter notes: The arithmetic was done on §1 *The Price of Distribution* (0.999⁴ = 0.996) — don't repeat
+it, **name** it. What that slide showed as an availability problem is now revealed to be one specific
+coupling: temporal. This is the axis that multiplies your outages, and breaking it is what guaranteed
+delivery buys you. Note the asymmetry with the previous slide: the "about" axis you choose per message;
+this one you choose per **style of integration**, which is the next section.
 
 #note: If this table is too dense on the rebuild, split it back into the original two slides
-(Synchronous Conversation / Asynchronous Conversation) and keep this slide for the definition
-alone. The contrast is worth one slide if it fits.
+(Synchronous Conversation / Asynchronous Conversation) and keep this slide for the definition alone. The
+contrast is worth one slide if it fits.
 
 ### Slide: Two Axes, Not One Scale
 
-"Loose coupling" is not a single dial. What we are coupled *about* and whether we must both be
-*up* move independently:
+"Loose coupling" is not a single dial. What we are coupled *about* and whether we must both be *up* move
+independently:
 
 - **gRPC with a flat DTO** — data coupled, but temporally coupled.
 - **A command message with a what-to-do flag** — control coupled, but temporally decoupled.
@@ -259,26 +290,37 @@ alone. The contrast is worth one slide if it fits.
 
 ▎ "Loosely coupled" is a question with two answers.
 
-#image: NEW — a two-axis grid: *what are we coupled about?* (Content→Data) against *must we both
-be up?* (temporally coupled ↔ decoupled), with the four examples above plotted on it
+#image: NEW — a two-axis grid: *what are we coupled about?* (Content→Data) against *must we both be up?* (temporally coupled ↔ decoupled), with the four examples above plotted on it
 
-Presenter notes: This is the slide the next section pays off — Integration Styles plots File
-Transfer, Shared Database, RPC and Messaging onto exactly this grid. It also explains why RPC's
-verdict needs two words ("control **and** temporal") where the others need one.
+Presenter notes: This is the slide the next section pays off — Integration Styles plots File Transfer,
+Shared Database, RPC and Messaging onto exactly this grid. It also explains why RPC's verdict needs two
+words ("control **and** temporal") where the others need one. Note that the shared-database example sits
+in the *prevented* half of the previous slide: you can only get there by choosing to, which is the point
+the next section makes about it.
+
+---
 
 ## Integration Styles
 
-*How do we communicate between microservices?*
+*Four ways to communicate between processes — and what each one gives back.*
 
-*The four integration styles, after Hohpe & Woolf. Each slide pairs the style with the
-conversation it implies and the coupling it buys.*
+#note: **Reframed 2026-08-28, review item D1-7.** Each style is now scored against §Coupling's finding:
+**what did the process boundary buy you, and does this style hand any of it back?** Ian's goal for the
+section: *explain why messaging is our preferred option — and file transfer is just messaging without the
+support for locks, ordering, and so on.* The four styles are after Hohpe & Woolf.
+
+#note: **Do not say "Reactive."** The preference argued here is paid off on Day 2, and it has to land
+there as recognition. Argue it on coupling alone.
 
 ### Slide: File Transfer
 
-One application writes a file; another reads it later. The file is the contract.
+One application writes a file; another reads it later. **The file is the contract.**
 
-- **Asynchronous conversation**
-- **Data coupling**
+- **Asynchronous conversation** — nobody has to be up at the same time.
+- **Data coupling** — if you keep the file format elementary.
+
+**And the file is a message.** A batch of them, in a channel that happens to be a filesystem. Hold that
+thought — the last slide of this section is about everything you did *not* get with it.
 
 #image: (s32) File Transfer integration diagram — producer writes a file, consumer reads it
 
@@ -286,62 +328,86 @@ One application writes a file; another reads it later. The file is the contract.
 
 Both applications read and write the same schema, typically through an ORM.
 
-- **Asynchronous conversation**
-- **Common coupling**
+- **Asynchronous conversation** — the writer and the reader need never be present at the same time.
+- **Common coupling** — and that is the problem.
+
+▎ This is the one style that hands back what the boundary bought you.
+
+**Nobody owns the schema.** A change propagates to every reader whether they wanted it or not, and you
+are back to agreeing release dates — which is where §1 started.
 
 #image: (s33) Shared Database integration diagram — producer and consumer share a database via an ORM
+
+Presenter notes: The sharpest verdict in the section, and it is worth being blunt: a shared database is
+not a shortcut past the boundary, it is a decision to un-draw it. Note it is **not** temporally coupled —
+its problem is the shared mutable schema, not availability. That is exactly why one axis was never enough.
 
 ### Slide: Remote Procedure Call
 
 One application invokes an operation on another and waits for the result.
 
-- **Synchronous conversation**
-- **Control coupling** + **Temporal coupling**
+- **Synchronous conversation** — both parties must be up.
+- **Control coupling** *and* **temporal coupling**.
+
+▎ The only style that loses on both axes at once.
 
 #image: (s34) Remote Procedure Call diagram — client stub to server proxy, request/response
+
+Presenter notes: You are telling the other party *what to do* — control coupling — and waiting while it
+does it, which is where §1's arithmetic bites: 0.999⁴ = 0.996. Be fair to it: RPC is the right answer when
+you genuinely need the reply before you can continue, and Day 1 §5 *Conversations* has a whole slide on
+Blocking In-Out. It is the default that is wrong, not the pattern.
 
 ### Slide: Messaging
 
 One application writes a message to a channel; another consumes it.
 
-- **Asynchronous conversation**
-- **Data coupling**
+- **Asynchronous conversation** — store and forward; the outage becomes a delay.
+- **Coupled about… whatever you put in the message.** A command is control coupled. A whole-entity event
+  is stamp coupled. A message carrying only what the receiver needs is data coupled.
+
+▎ Messaging is the only style where the coupling is a decision, not a property of the style.
 
 #image: (s35) Messaging integration diagram — producer writes a message to a channel, consumer reads it
 
-### Slide: Integration Styles — Coupling Trade-offs
+Presenter notes: **The verdict cell used to read "data coupling", which was wrong and contradicted
+§Coupling's own examples** — that section plots a command message as control coupled and a whole-entity
+event as stamp coupled. Fixing it is what makes the argument: the other three styles fix your position on
+the "about" axis; messaging leaves it open. That is not a hedge, it is the reason the rest of the course
+exists — §5 *Conversations* is the temporal decision and §6 *Designing Messages* is the "about" decision,
+and you only get to make either one here.
 
-The four styles plotted on the grid from the previous section:
+### Slide: Why Messaging
 
-| Style | Coupled *about* | Must we both be *up*? |
-|---|---|---|
-| File Transfer | Data | No |
-| Shared Database | Common | No |
-| Remote Procedure Call | Control | **Yes** |
-| Messaging | Data | No |
+The four styles on the grid from §Coupling:
 
-Two outliers — and each is an outlier on a *different* axis:
+| Style | Coupled *about* | Must we both be *up*? | What it hands back |
+|---|---|---|---|
+| File Transfer | Data | No | Nothing — but you get nothing either |
+| Shared Database | **Common** | No | The boundary itself |
+| Remote Procedure Call | **Control** | **Yes** | Independent availability |
+| Messaging | **Your choice** | No | Nothing |
 
-- **RPC is the only style that needs us both up.** That is the temporal axis, on its own.
-- **Shared Database is the only style that couples us on common mutable state.** That is the
-  "about" axis, on its own.
-- **File Transfer and Messaging land in the same cell.** Coupling does not separate them —
-  timeliness and granularity do.
+**File Transfer and Messaging land in the same cell.** Coupling does not separate them — so what does?
 
-▎ Only one of the four buys you an outage you didn't have.
+▎ File transfer is messaging with everything useful left as an exercise.
 
-#image: NEW — the two-axis grid from §Coupling, with the four integration styles plotted on it
-(reuse the same grid artwork so the call-back is visual, not just verbal)
+- **Ordering** — a directory has none. You write it yourself, or you get whatever the filesystem lists.
+- **Locking and competing consumers** — two readers on one directory will fight. A broker makes that a
+  configuration option.
+- **Delivery guarantees** — did the reader finish? Did it crash halfway? Nothing in the file says.
+- **Granularity and timeliness** — a file is a batch, and a batch arrives when the batch is ready.
 
-Presenter notes: This is why the previous section needed two axes rather than one scale — on a
-single tight→loose dial, RPC and Shared Database would be neighbours, and the reason we reach for
-messaging would be invisible. Note that Shared Database is *not* temporally coupled: the writer and
-the reader need never be present at the same time. Its problem is the shared mutable schema, not
-availability. Then set up the obvious question for the rest of the day: if File Transfer and
-Messaging are equally loosely coupled, why build the whole course on messaging? Answer: timeliness
-and granularity — which is where we go next.
+▎ Only one style keeps everything the process boundary bought you, and lets you choose the rest.
 
----
+#image: NEW — the two-axis grid from §Coupling, with the four integration styles plotted on it (reuse the same grid artwork so the call-back is visual, not just verbal)
+
+Presenter notes: **This is the section's goal slide (D1-7): it has to end on *why messaging*.** It used to
+end on an open question — "if File Transfer and Messaging are equally loosely coupled, why build the whole
+course on messaging?" — and leave the answer for later. Answer it here. Ian's framing is the one to use:
+**file transfer is just messaging, without the support for locks, ordering and the rest**; everything the
+broker does for you is something you would otherwise write. And the last callout is the whole argument of
+the day in one line. **Do not name Reactive** — Day 2 needs it fresh.
 
 ## Messaging Patterns
 
@@ -626,14 +692,19 @@ How this looks over HTTP — and most delegates have not used it.
 
 #image: hand-drawn diagram of the task-queue HTTP flow — client, queue channel, backend worker, and a KV/progress store
 
-Presenter notes: **Moved here from §1 (D1-6).** Ask who has returned a 202 in anger — usually a handful of
-hands. This is one of the most immediately usable things in the course: it is guaranteed delivery with no
-new infrastructure and no reorganisation, expressed in a protocol everyone in the room already ships.
+▎ 202 says *we have your work and we will not lose it*. §4.4 is how you keep that promise.
 
-#note: **Placement to settle in D1-8.** These two arrived from §1 and are parked at the end of §4.3
-because the task queue *is* the pump plus competing consumers. D1-8 reworks §4.4 around the producer /
-consumer split, and may want the 202 flow there instead — it is as much a guaranteed-delivery story as a
-pump story. Decide it there, not here.
+Presenter notes: **Moved here from §1 (D1-6).** Ask who has returned a 202 in anger — usually a handful of
+hands. This is one of the most immediately usable things in the course: guaranteed delivery with no new
+infrastructure and no reorganisation, expressed in a protocol everyone in the room already ships. The
+callout is the set-up for §4.4 — the web server has *promised* not to lose the work, and the very next
+sub-topic is the fact that nothing so far actually guarantees it (D1-8).
+
+#note: **Settled in D1-8 (2026-08-28): both stay here.** The question was whether *Task Queue — HTTP
+Flow* belonged in §4.4 instead, since 202 Accepted is a delivery promise. It does not: the two slides are
+a pair — the architecture and its HTTP face — and splitting them across sub-topics would cost more than
+the filing gains. Instead the HTTP slide now points forward at §4.4, which is where the promise gets
+kept.
 
 ---
 
@@ -642,6 +713,13 @@ pump story. Decide it there, not here.
 ## 4.4 Guaranteed Delivery
 
 *How do I stop losing messages — on the way out, and on the way in?*
+
+#note: **Restructured 2026-08-28, review item D1-8.** Ian: *we don't really distinguish well here between
+producer and consumer concerns.* Now in three groups. **Producer — did it get out?** dual write → Outbox →
+CDC → state change capture. **Consumer — the pump, and what it does with a message it cannot ack:**
+invalid, requeue-with-delay, dead letter, and then the Inbox. **Then the bill:** what your broker actually
+gives you natively. The Inbox moved out of the producer group; a new slide, *When the Handler Fails — Ack
+and Nack*, opens the consumer group and turns the three error channels into answers to three questions.
 
 ### Slide: Guaranteed Delivery
 
@@ -661,6 +739,10 @@ Presenter notes: Set the expectation that these are *broker* capabilities before
 features — the last slide of this sub-section comes back to what is native versus what your framework
 is quietly reimplementing for you. Delegates who have only used HTTP tend to assume the library is
 telling them the truth.
+
+---
+
+#group: The producer side — did the message actually get out?
 
 ### Slide: The Dual-Write Problem
 
@@ -693,25 +775,11 @@ But look at what we just bought:
 
 #image: hand-drawn Outbox diagram — Entity and Outbox written in one DB transaction boundary, then relayed to a channel  [→ resources/Transactional With Outbox.png]
 
-Presenter notes: Do not let this land as a footnote — it is the question the next slide exists to
-answer. Ask the room what they would do about it before showing them. People from an HTTP background
+Presenter notes: Do not let this land as a footnote — it is the question the **Inbox** exists to answer,
+and the Inbox is now four slides away, in the consumer group (D1-8). Leave the duplicate hanging
+deliberately: ask the room what they would do about it, take answers, and tell them you will come back to
+it when we are on the consumer side, because that is where it gets fixed. People from an HTTP background
 often assume the framework has already solved it.
-
-### Slide: Inbox (Idempotency)
-
-The answer to the duplicates the Outbox just guaranteed.
-
-If the message isn't idempotent (not side-effect free), use an **Inbox** to record messages *seen*
-(working on) and *processed* (may fail).
-
-- Producer-side reliability creates a consumer-side obligation — the two halves are one design.
-- If the handler *is* naturally idempotent, you do not need an Inbox. Most aren't.
-
-#image: hand-drawn Outbox→Inbox diagram — sender Outbox to channel to receiver Entity/Inbox for de-duplication  [→ resources/Inbox.png]
-
-Presenter notes: Worth being explicit that the Inbox is consumer-side machinery answering a
-producer-side consequence — that is why it sits here rather than with the consumer patterns. Exactly
-once delivery does not exist; exactly once *processing* is what the Outbox/Inbox pair gives you.
 
 ### Slide: Log Tailing (Change Data Capture)
 
@@ -751,17 +819,44 @@ cope with **eventual consistency**, which isn't always simple.
 
 #image: hand-drawn diagram — receiver side: a message from the channel written to an Entity in the database  [→ resources/State Change Capture.png]
 
-### Slide: Dead Letter Channel
+---
 
-What does the middleware do with a message it cannot deliver to the intended channel? It may move it to
-a **Dead Letter Channel** for later operator review, often after retrying delivery a number of times.
+#group: The consumer side — the pump, and the message it cannot ack
 
-**Needs from the broker:** somewhere to put the undeliverable message, and a rule for when to give up.
+### Slide: When the Handler Fails — Ack and Nack
 
-#image: (s52) EIP diagram — Dead Letter Channel, an undeliverable message rerouted to a dead-letter channel  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DeadLetterChannel.html]
+The pump reads a message and calls your handler. **The handler throws.** Now what?
 
-Presenter notes: Implementations vary (point-to-point or pub-sub). Note the common confusion between a
-Dead Letter Channel and an Invalid Message Channel — discussed next. (EIP reference.)
+The pump has exactly one lever: **acknowledge** the message, or don't.
+
+- **Ack** — I am done with this. The broker may forget it.
+- **Nack** — I am not done. The broker keeps it, and will hand it to someone again.
+
+Ack too early and a crash loses the message. Ack too late and a crash reprocesses it. **There is no third
+option** — which is why at-least-once stops being a slogan on the consumer side.
+
+But *not acking* is not a strategy, it is a question. Three of them, in order:
+
+1. **Is this message ever going to work?** No — malformed, wrong schema, wrong channel. → **Invalid
+   Message Channel**
+2. **Might it work later?** Yes — the database is failing over, the downstream is restarting. →
+   **Requeue with Delay**
+3. **Have we tried enough?** → **Dead Letter Channel**, and a human looks at it.
+
+▎ A message that is only ever nacked blocks the queue forever. All three of these exist so that cannot happen.
+
+#note: **Forward reference — say it out loud.** Every mechanism on the next three slides needs
+**per-message acknowledgement**. A stream does not have one. §4.5 pays this off, and *What Your Broker
+Actually Gives You* two slides later makes it concrete.
+
+Presenter notes: **New slide (D1-8).** Ian: *do not underestimate the pump conversation on errors, and how
+that leads into DLQ, Invalid, Requeue — and Nack or Ack. That conversation makes parts of queue vs. stream
+much easier later.* This slide is that conversation, and it turns the next three from a list of patterns
+into the answers to three questions. Run it as a discussion before showing the answers: ask what their
+consumer does today when the handler throws. The usual answers are "it logs and moves on" (silent data
+loss) or "it retries forever" (the poison pill). Both are on this slide as the thing the three mechanisms
+prevent. This is also the natural place to define *poison message*.
+
 
 ### Slide: Invalid Message Channel
 
@@ -798,6 +893,45 @@ message back for a period.
 #note: This is a *queue* capability, taught before we have formally drawn the queue/stream distinction.
 That is deliberate — §4.5 then gets the reveal that streams have none of this. Say "queue" here and
 promise the comparison.
+
+### Slide: Dead Letter Channel
+
+What does the middleware do with a message it cannot deliver to the intended channel? It may move it to
+a **Dead Letter Channel** for later operator review, often after retrying delivery a number of times.
+
+**Needs from the broker:** somewhere to put the undeliverable message, and a rule for when to give up.
+
+#image: (s52) EIP diagram — Dead Letter Channel, an undeliverable message rerouted to a dead-letter channel  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DeadLetterChannel.html]
+
+Presenter notes: Implementations vary (point-to-point or pub-sub). **This is the terminal state** — the
+place a message goes when *Requeue with Delay* has run out of attempts, which is why it now follows rather
+than precedes it (D1-8). Note the common confusion with the **Invalid Message Channel**, two slides back:
+Dead Letter = could not be delivered, or we gave up; Invalid Message = delivered but not understood. Some
+middleware (RabbitMQ) conflates the terms and calls rejected messages "dead letter". (EIP reference.)
+
+### Slide: Inbox (Idempotency)
+
+**The fourth question the pump has to answer: have I seen this one before?**
+
+The Outbox bought at-least-once, so duplicates are not a risk — they are a certainty. This is where you
+pay for it.
+
+If the message isn't idempotent (not side-effect free), use an **Inbox** to record messages *seen*
+(working on) and *processed* (may fail).
+
+- Producer-side reliability creates a consumer-side obligation — the two halves are one design.
+- If the handler *is* naturally idempotent, you do not need an Inbox. Most aren't.
+
+#image: hand-drawn Outbox→Inbox diagram — sender Outbox to channel to receiver Entity/Inbox for de-duplication  [→ resources/Inbox.png]
+
+Presenter notes: **Moved into the consumer half (D1-8).** It used to sit immediately after the Outbox, in
+the producer group, with a note explaining why it was out of place — Ian: *the Inbox is consumer side, and
+part of the pump, but it matters more once we have the Outbox.* Both halves of that are true, so it goes
+here and keeps the callback: this is consumer-side machinery answering a producer-side consequence.
+Exactly-once **delivery** does not exist; exactly-once **processing** is what the Outbox/Inbox pair gives
+you. It is the last of the four things the pump does with a message it cannot simply ack.
+
+---
 
 ### Slide: What Your Broker Actually Gives You
 

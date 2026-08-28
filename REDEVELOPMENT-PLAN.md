@@ -15,7 +15,7 @@ Three artefacts:
 
 | artefact | source | state |
 |---|---|---|
-| **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to **94** entries |
+| **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to **96** entries |
 | **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to **91** entries |
 | **AsyncAPI handout** | QCon London 2026 deck (43 slides) | to assemble — §6 |
 | **Routing-patterns handout** | old Day 1 §4.6 + `script/Patterns/*.md` | to assemble — §10 |
@@ -35,6 +35,8 @@ is planned here.
 - `Presenter notes:` label = speaker notes carried over from the deck
 - `#image: <description>  [<source annotation>]` = the slide was mainly an image
 - `#note: ...` = a non-image annotation
+- `#group: <title>` = a group divider *within* a sub-topic — a run of slides that belong together. Not a
+  slide, so it is not counted; `###` stays reserved for entries. First used in Day 1 §4.4 (D1-8).
 
 ---
 
@@ -68,9 +70,17 @@ Day 1 is **the message**; Day 2 is **the flow**.
 2. **Managing Asynchronous APIs became a takeaway handout**, not taught material (§6).
 3. **A paper-modelling exercise took its Day 2 slot** — found to already exist (§7).
 
-Current (after D1-1 … D1-11, 2026-08-28): **Day 1 = 94 entries** with two code exercises; **Day 2 = 91** with one
-paper exercise. The two days are now close to balanced — but Process Automation is unchanged at 50, which
-is **55% of Day 2**. It is the one remaining outlier and the relief valve.
+Current (**all Day 1 review items done**, 2026-08-28): **Day 1 = 96 entries** with two code exercises;
+**Day 2 = 91** with one paper exercise.
+
+Two balance observations, in order of urgency:
+
+1. **Process Automation is unchanged at 50 — 55% of Day 2**, and entirely lecture. Still the one big
+   outlier and the relief valve. (D2-10.)
+2. **Day 1 is now the longer day** — 96 entries *and* two code exercises, against Day 2's 91 and one paper
+   exercise. It absorbed Designing Messages (16) and grew §2 and §4.4 by one each, against real cuts in §1,
+   §4.6 and Observability. Nothing is obviously wrong with any one section, but the day should get a
+   timing pass before Phase 3.
 
 Why the split holds on content, not just counts: Conversations + Repair continues Day 1's build order
 directly — *you can send and receive reliably, now what exchange do you build with it*. Fat & Skinny +
@@ -81,6 +91,7 @@ Domain/Summary is about what is **in** the message and how state propagates, whi
 | section | goal |
 |---|---|
 | Day 1 §1 Distributed Systems | *set up the problems messaging solves* — and **stop there**. Two properties wanted (easy to change + robust), what independent deployability commits you to, and the bill. The answer is messaging, and §2 → §3 → §4 give it |
+| Day 1 §2 Coupling → §3 Integration Styles | *why messaging is our preferred option* — the process boundary prevents Content and Common; the message chooses among Control / Stamp / Data; and being between processes forces the temporal trade. The four styles are then scored on what each hands back |
 | Day 1 §4 Messaging Patterns | a **build order**, not a catalogue — see below |
 | Day 1 §5 Conversations | *choose the right exchange pattern* — pick between In-Only / Out-Only / In-Out / Out-In and know what each commits you to in coupling terms |
 | Day 2 §1 Designing Messages | *decide what goes in a message* — choose what to put in it, and know how the receiver gets whatever you left out and what that costs in availability |
@@ -158,22 +169,22 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 
 ---
 
-## 4. Day 1 work queue — `outlines/DayOne.md`, 7 sections, 94 entries
+## 4. Day 1 work queue — `outlines/DayOne.md`, 7 sections, 96 entries
 
-> **Superseded in part by §9 (review queue, 2026-08-28).** **D1-1 … D1-6 and D1-9 … D1-11 are done.**
-> Outstanding: **D1-7** (§2 Coupling → §3 Integration Styles) and **D1-8** (§4.4).
+> **§9 (review queue, 2026-08-28) is fully applied to Day 1 — D1-1 … D1-11 are all done.** The rows below
+> are current. Everything still outstanding in §9 is on Day 2.
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
 | 1 | Distributed Systems | **7** | ✅ D1-1…D1-6: rebuilt to stop at the problem; 10 → 7 | ☐ | ☐ |
-| 2 | Coupling | 4 | ✅ rebuilt on two axes | ☐ 1 new grid diagram | ☐ |
-| 3 | Integration Styles | 5 | ✅ split into 4 style slides + trade-offs on the grid | ☐ reuse §2 grid artwork | ☐ |
-| 4 | **Messaging Patterns** | **45** | ✅ rebuilt as a build order; −9 §4.6, +2 task queue | ☐ 12 EIP redraws | ☐ merge scripts |
+| 2 | Coupling | **5** | ✅ D1-7: rebuilt on *what the boundary bought you* | ☐ 1 new grid + 1 new scale-with-boundary | ☐ |
+| 3 | Integration Styles | 5 | ✅ D1-7: each style scored on what it hands back; closes on *Why Messaging* | ☐ reuse §2 grid artwork | ☐ |
+| 4 | **Messaging Patterns** | **46** | ✅ build order; −9 §4.6, +2 task queue, +1 D1-8 | ☐ 12 EIP redraws | ☐ merge scripts |
 | 4a | · The Big Picture | 1 | ☐ reframe as build order — **+ fold in the Fallacies course map** (D1-5) | | |
 | 4b | · 4.1 What Is a Message? | 6 | | | |
 | 4c | · 4.2 Sending and Receiving | 7 | +RMQ Quick Start | | |
 | 4d | · 4.3 The Message Pump | **8** | +*Task Queue* worked example & HTTP flow, from §1 (D1-6) | | |
-| 4e | · **4.4 Guaranteed Delivery** | **10** | new sub-topic; **☐ D1-8 — split producer / consumer** | | |
+| 4e | · **4.4 Guaranteed Delivery** | **11** | ✅ D1-8: producer / consumer / broker, +*Ack and Nack* | | |
 | 4f | · 4.5 Queues and Streams | 13 | +Kafka Quick Start | | |
 | 5 | **Conversations** *(moved from Day 2)* | **15** | ✅ 25 → 15, rebuilt as a decision | ☐ 1 new grid + reuse §2 grid | ☐ |
 | 6 | **Designing Messages** *(moved from Day 2)* | **16** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
@@ -185,8 +196,8 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | — | ~~Observability~~ | 3 | ✅ **dropped**; one pointer slide in Day 2 `## Next Steps` | | |
 | — | ~~Managing Asynchronous APIs~~ | 31 | ✅ **→ handout (§6)** | | |
 
-Day 1 is **Messaging Patterns (45, 48%)**, then the two decisions — **Conversations (15)** and
-**Designing Messages (16)** — with 16 slides of framing in front and 2 of wrap-up behind.
+Day 1 is **Messaging Patterns (46, 48%)**, then the two decisions — **Conversations (15)** and
+**Designing Messages (16)** — with 17 slides of framing in front and 2 of wrap-up behind.
 
 ---
 
@@ -481,6 +492,9 @@ than a blank canvas.
    no image in the deck today. (c) The *Worked Flows* **montage** of the four takeaway flow diagrams;
    sources all exist in `resources/`, so this is composition, not drawing.
 7. **`resources/Departure.drawio`** and the *Guest Cycle* replacement (Day 2 Paper Flow).
+7a. **The coupling scale with a process boundary drawn across it** (Day 1 §2, D1-7) — Content and Common
+   above the line and struck through as *prevented*; Control, Stamp and Data below it, live. Replaces the
+   old flat tight→loose scale (s27) and is the pivot of the section. **Ian to draw**, alongside items 1–4.
 8. **~11 BPMN redraws**, pizza → hotel (Day 2 Process Automation).
 
 ### What sources exist
@@ -660,8 +674,8 @@ the end before starting any of them.
 | **D1-4** ✅ | Three orphaned slides | *Microservice — Messages In, Private Data*, *Microservice — No Cross-Service Transactions* and *Collaboration — Orchestration and Choreography* are part of the **independent-deployability thread**, but Guaranteed Delivery now sits between them and orphans them. Regroup. |
 | **D1-5** ✅ | *Fallacies of Distributed Computing* | May just restate *The Price of Distribution* — **which may well be the better slide**, and is the glue across the cost of independent deployability. |
 | **D1-6 ⚑** ✅ | §1's shape | The question-then-answer ordering doesn't sit well with Task Queues, **which are an answer.** Phrase it as *we want independent deployability, but here are the problems*, and let the **next section be messaging as the answer.** **Task queues may go entirely** — unless they earn their place in Messaging Patterns. |
-| **D1-7** | §2 Coupling → §3 Integration Styles | Coupling and independent deployability are **linked**: a **process boundary prevents Content and Common coupling**, but we cannot avoid **the other three — Control, Stamp, Data** — in the message we send. And because we now interact *between processes*, we must trade off **temporal** coupling too. That leads into the four integration styles and how each shows up in the coupling just discussed. **Goal: explain why messaging is our preferred option (reactive)** — and that file transfer is just messaging without support for locks, ordering, etc. |
-| **D1-8** | §4.4 Guaranteed Delivery | Doesn't distinguish **producer** from **consumer** concerns. The **producer** cares about the **Outbox**, to guarantee a send. The **message pump** is where **Invalid Message, DLQ and Requeue-with-Delay** belong — they are mechanisms for handling a *failed message*. The **Inbox** is consumer side and part of the pump, but **matters more once we have the Outbox**. **Do not underestimate the pump conversation on errors**, and how it leads into DLQ / Invalid / Requeue (and Nack or Ack) — that conversation **makes parts of queue-vs-stream much easier later**. |
+| **D1-7** ✅ | §2 Coupling → §3 Integration Styles | Coupling and independent deployability are **linked**: a **process boundary prevents Content and Common coupling**, but we cannot avoid **the other three — Control, Stamp, Data** — in the message we send. And because we now interact *between processes*, we must trade off **temporal** coupling too. That leads into the four integration styles and how each shows up in the coupling just discussed. **Goal: explain why messaging is our preferred option (reactive)** — and that file transfer is just messaging without support for locks, ordering, etc. |
+| **D1-8** ✅ | §4.4 Guaranteed Delivery | Doesn't distinguish **producer** from **consumer** concerns. The **producer** cares about the **Outbox**, to guarantee a send. The **message pump** is where **Invalid Message, DLQ and Requeue-with-Delay** belong — they are mechanisms for handling a *failed message*. The **Inbox** is consumer side and part of the pump, but **matters more once we have the Outbox**. **Do not underestimate the pump conversation on errors**, and how it leads into DLQ / Invalid / Requeue (and Nack or Ack) — that conversation **makes parts of queue-vs-stream much easier later**. |
 | **D1-9 ⚑** ✅ | §4.6 Pipelines, and the end of Day 1 | Pipelines **may not earn its weight on Day 1**. Put **§Conversations after Queues and Streams**, and bring **Fat and Skinny Messages, Reference Data and Event Shape over from Day 2**. That better completes the picture of *how to send and receive* ahead of Day 2's switch to the higher level. |
 | **D1-10** ✅ | *Get It In Advance — ECST* (arrives with D1-9) | **Over-emphasises the problems.** In practice ECST is reliable and latency rarely causes actual issues, **particularly if you version the reference data**. It is **the better solution** than the synchronous lookup. Rewrite it as a recommendation, not a warning. |
 | **D1-11** ✅ | §6 Observability | Lightweight, and orphaned by losing Managing Asynchronous APIs. **Dropped as taught material**; now one pointer slide in Day 2 `## Next Steps`. |
@@ -702,6 +716,80 @@ independent deployability commits you to** (3), **the price and the second want*
 | **D1-6** ⚑ | **The two task-queue mechanism slides moved to §4.3**, after *Competing Consumers* — that is what they are a worked example of. Ian's condition was that task queues go *unless they look useful when we talk about messaging patterns*; they are, and §4.3 is where the parts finally have names. Carries a `#note:`: **D1-8 may want the 202 flow in §4.4 instead** — it is as much a guaranteed-delivery story as a pump story. Decide there. |
 
 **Cut text:** `session-work/cut-section1.md`, plus git history.
+
+### ✅ D1-7 — done 2026-08-28
+
+**§2 Coupling: 4 → 5. §3 Integration Styles: 5, rewritten.** The two now run as one argument, which is
+what Ian asked for: *coupling and independent deployability are linked… that leads into the four
+integration types, and how they show up on the coupling we have just discussed.*
+
+**The load-bearing change is in §2.** *Axis 1* presented all five levels as a flat tight→loose scale,
+which hid the thing that matters. It is now two slides:
+
+- ***What the Process Boundary Already Bought You*** — **Content and Common are off the table.** There is
+  no pointer into another process's memory, and separate processes with private data have no shared
+  mutable store. This is the direct payoff of §1's *Messages In, Private Data* and *No Cross-Service
+  Transactions* — the boundary is the mechanism, this is the return. Delivered as **good news**, right
+  after §1's bill.
+- ***What's Left Is in the Message*** — **Control, Stamp, Data: you cannot avoid picking one.** Callout:
+  *the boundary chose the first two for you; the message is where you choose the third.* That is why §6
+  *Designing Messages* exists.
+- *Must We Both Be Up?* now says explicitly that interacting **between processes** is what forces the
+  temporal axis on you.
+
+**§3 now scores each style on what it hands back.** *Shared Database* gets the sharpest verdict —
+**"the one style that hands back what the boundary bought you"**; it is a decision to un-draw the
+boundary, not a shortcut past it. *RPC* is "the only style that loses on both axes at once", with a fair
+word for when it is right.
+
+**A real error was fixed on the *Messaging* slide.** It said "data coupling", which contradicted §2's own
+examples — §2 plots a command message as *control* coupled and a whole-entity event as *stamp* coupled.
+Corrected, and the correction turns out to be the argument: **messaging is the only style where the
+coupling is a decision, not a property of the style.** The other three fix your position on the "about"
+axis; messaging leaves it open, which is why §5 and §6 can exist at all.
+
+**The section now ends on the goal.** The close was an open question — *if File Transfer and Messaging are
+equally loosely coupled, why build the course on messaging?* — deferred to later. It is now answered on
+the slide, in Ian's words: **file transfer is messaging with everything useful left as an exercise** —
+ordering, locking and competing consumers, delivery guarantees, granularity and timeliness. Closing
+callout: *only one style keeps everything the process boundary bought you, and lets you choose the rest.*
+Both `#note:`s carry the reminder **not to say "Reactive"** — Day 2 needs it fresh.
+
+**Cut text:** `session-work/cut-coupling-integration.md`.
+
+### ✅ D1-8 — done 2026-08-28
+
+**§4.4: 10 → 11 entries, in three groups.** Ian: *we don't really distinguish well here between producer
+and consumer concerns.*
+
+- **Producer — did the message actually get out?** Dual write → Outbox → Log Tailing (CDC) → State Change
+  Capture.
+- **Consumer — the pump, and the message it cannot ack.** *When the Handler Fails — Ack and Nack* (new) →
+  Invalid Message → Requeue with Delay → Dead Letter → **Inbox**.
+- **Then the bill:** *What Your Broker Actually Gives You*.
+
+**The new slide is the one Ian asked for.** *Do not underestimate the pump conversation on errors, and how
+that leads into DLQ, Invalid, Requeue — and Nack or Ack.* It gives the pump one lever (ack or don't), says
+plainly that **there is no third option**, and turns the next three slides from a list of patterns into
+answers to three questions: *is this ever going to work?* → Invalid; *might it work later?* → Requeue with
+Delay; *have we tried enough?* → Dead Letter. It also plants the queue-vs-stream reveal explicitly —
+**every mechanism on the next three slides needs per-message acknowledgement, and a stream has none** —
+which is Ian's *that conversation makes parts of queue vs. stream much easier later*.
+
+**Two moves that fixed broken order.** The **Inbox** left the producer group for the consumer group; it
+had been sitting there with a presenter note explaining why it was out of place. **Dead Letter** now
+*follows* Requeue with Delay rather than preceding it, so that Requeue's own "after a number of re-queues,
+move to a dead-letter channel" is a forward reference instead of a backward one, and DLQ reads as the
+terminal state it is. The Outbox's dangling duplicate is now deliberately left hanging — take answers from
+the room, and pay it off on the consumer side.
+
+**Parked question resolved: both task-queue slides stay in §4.3.** They are a pair — the architecture and
+its HTTP face — and splitting them across sub-topics costs more than the filing gains. *Task Queue — HTTP
+Flow* instead gained a callout pointing forward: **202 says we have your work and will not lose it; §4.4
+is how you keep that promise.**
+
+**New outline convention:** `#group: <title>` marks a run of slides inside a sub-topic. Not an entry, so
+not counted; `###` stays reserved for slides. Documented in §1.
 
 ### ✅ D1-9 — done 2026-08-28
 
