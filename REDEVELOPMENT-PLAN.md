@@ -77,7 +77,9 @@ exercises; **Day 2 = 84** with one paper exercise, run in two blocks and a closi
 suggested. Day 2, the day we spent D2-10 cutting, **fits with room to spare**. **Day 1 was over by ~53
 minutes** — because D1-9 moved *Designing Messages* (16 entries) onto it and nothing came off to pay for
 it. **T-0 took 19 of those minutes** by moving Day 1's *why* preamble to Day 2, and **T-1 another 5**; Day 1
-is now **419 of 390** and Day 2 **354 of 390**. The remaining ~29 minutes are §11's T-2 … T-5.
+is now **419 of 390** and Day 2 **354 of 390** — **773 of 780 across the pair**. Ian then **closed the
+pass** (§11): Day 1 running over into the top of Day 2 is how the course already runs, and Day 2's slack
+is where it lands. T-2 … T-5 are **parked, not cancelled**.
 
 Why the split holds on content, not just counts: Conversations + Repair continues Day 1's build order
 directly — *you can send and receive reliably, now what exchange do you build with it*. Fat & Skinny +
@@ -1125,7 +1127,7 @@ written in.
 
 ---
 
-## 11. The timing pass — done 2026-09-01
+## 11. The timing pass — done and closed 2026-09-01
 
 **The first time either day has been timed.** Flagged in §3 since 2026-08-27 and blocked on D2-10 until
 Phase 1 closed.
@@ -1272,10 +1274,34 @@ tables recovers less time than consolidating into prose**, which is worth rememb
 
 **Cut text:** `session-work/cut-conversations-fault-slides.md`, plus git history.
 
-### ☐ Still to find on Day 1 — ~29 min
+### ⏸ T-2 … T-5 — parked 2026-09-01, and why
 
-T-0 took the structural half. The rest is consolidation, and these were profiled during the timing pass.
-**Work one at a time, as with §9.**
+**Ian closed the timing pass here.** T-0 and T-1 are done; the remaining ~29 minutes are **not** to be
+cut. His reasoning, and it holds:
+
+> *We sometimes run over on the first day and then complete the material at the top of Day Two.
+> Organizationally, keeping the two decks lets us psychologically switch on Day Two. We may find that
+> later steps help us refine the exact timings anyway.*
+
+**The arithmetic supports it rather than merely tolerating it.** Day 1 is over by 29 and Day 2 is under by
+36 — so **the pair is 773 of 780 minutes**, seven to spare. The spill-over is not a fudge covering a deck
+that does not fit; it is a deck that fits across the pair, with the slack sitting on the day that can
+absorb it. **Day 2 must keep that slack**: it is now a designed relief valve, not spare capacity to spend.
+Anything added to Day 2 spends Day 1's overrun.
+
+**Two decks stay two decks.** Merging them would recover the boundary as usable time, and is explicitly
+rejected: the break between decks is what lets the room psychologically switch on Day Two.
+
+**Timings get refined by Phase 3, not by more cutting.** The model counts *outline entries*, and a
+consolidated entry may become more than one slide when the deck is rebuilt. Phase 3 produces real slide
+counts, which is a better basis than anything available now — and by then the two Day 1 code blocks may
+have been measured, which matters more than all of T-2 … T-5 put together (they are 41% of Day 1 and have
+never been timed).
+
+**The items below are kept, not cancelled.** If Phase 3 shows Day 1 worse than the model says, this is
+where to start — and T-1 showed the estimates are optimistic, because consolidating into a **table**
+recovers less than consolidating into prose (the model rates a table 3.5 against a standard slide's 2.5).
+Sizes below are therefore an upper bound.
 
 | # | section | candidate | ~min |
 |---|---|---|---:|
@@ -1285,5 +1311,6 @@ T-0 took the structural half. The rest is consolidation, and these were profiled
 | **T-4** | Conversations | **Two framing tables, one job?** *Messaging or Eventing?* and *Command or Query?* both classify the same exchange before it is chosen. Merge only if they genuinely overlap. | ~4 |
 | **T-5** | 4.4 Guaranteed Delivery (38 / 11) | **Lowest priority — D1-8 is recent and Ian was emphatic about the pump/error conversation.** Only obvious candidate: *State Change Capture* (270 chars) folding into *Log Tailing*. | ~3 |
 
-**Re-run `python3 session-work/timing.py` after every item** — it reads the outlines directly, so the
-budget line is always current.
+**Re-run `python3 session-work/timing.py`** if any of these is ever worked, or after any change that adds
+material — it reads the outlines directly, so the budget line is always current. **Watch the pair total,
+not the single day**: 780 minutes is the real budget.
