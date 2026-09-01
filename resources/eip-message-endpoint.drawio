@@ -16,13 +16,13 @@
         <mxCell id="n4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;fontSize=15;html=1;shape=tube;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
           <mxGeometry x="370" y="122" width="84" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="t4434751808" value="channel" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t4423441600" value="channel" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="352" y="154" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t4434751680" value="the endpoint is where messaging stops and the domain begins" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="175" y="32" width="120" height="20" as="geometry" />
+        <mxCell id="t4423441664" value="the endpoint is where the application&#10;interoperates with others via messaging" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="175" y="30" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t4434752384" value="it makes the message and sends it -- and on the way back,&#10;takes the contents out and hands them over" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t4423441792" value="it makes the message and sends it -- and on the way back,&#10;takes the contents out and hands them over" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="218" y="214" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n2" target="n3">

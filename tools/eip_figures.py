@@ -102,8 +102,8 @@ def message_endpoint():
     d.arrow(app, end, sides=("r", "l"))
     d.arrow(end, pipe, sides=("r", "l"))
     d.note(412, 166, "channel", MUTED, 14)
-    d.note(235, 44, "the endpoint is where messaging stops and the domain begins",
-           ANNOTATION, 17)
+    d.note(235, 42, "the endpoint is where the application\n"
+                    "interoperates with others via messaging", ANNOTATION, 17)
     d.note(278, 226, "it makes the message and sends it -- and on the way back,\n"
                      "takes the contents out and hands them over", MUTED, 14)
     return d
