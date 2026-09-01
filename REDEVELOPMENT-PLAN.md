@@ -1378,67 +1378,39 @@ instruction; §9 and §11 are where the *why* for every change already lives.
 
 ## 13. Visual style — settled 2026-09-01
 
-**Direction C, "Field Guide".** Chosen from three directions shown side by side on the same slide
-(*Messages In, Private Data, No Shared Transaction*). **A serious typographic frame with the hand-drawn
-work living inside it.** Structure, hierarchy and print quality from the technical-manual register; the
-diagrams stay hand-drawn, because delegates reproduce the in-tray / out-tray notation with a pen in the
-Paper Flow exercise and the drawings have to look like something a person could draw.
+> **`styles.md` (tracked, repo root) is the authoritative spec.** This section records *why* the direction
+> was chosen and what it changes; **it must not restate the spec** — same rule as PROMPT.md and this plan.
 
-### Why the old deck was failing — measured, not impression
+**Direction C, "Field Guide"** — a serious typographic frame with the hand-drawn work living inside it.
+Chosen from three directions rendered side by side on the same real slide
+(https://claude.ai/code/artifact/45339596-b57a-4132-9e3e-121599954c61).
 
-Read from both `.pptx` files:
+**Why not the other two.** **A, Workshop** commits to the whiteboard entirely, but a hand face carrying
+body copy is precisely what made the old deck read as personal. **B, Technical Manual** buys authority and
+prints beautifully, but fights the paper-flow notation, which is hand-drawn *by design*. **C is the only
+one that does not force a choice between authority and the notation the Paper Flow exercise depends on.**
+
+**The hand-drawn quality was never the fault.** Delegates reproduce the in-tray / out-tray notation with a
+pen, so the drawings have to look like something a person could draw. What was actually failing, measured
+from both `.pptx` files rather than from impression:
 
 | finding | detail |
 |---|---|
-| **4:3** | Both decks are 10 × 7.5in. Letterboxed on every modern screen. |
-| **Chalkboard everywhere** | 908 runs on Day 2, 398 on Day 1 — a macOS system handwriting face carrying every heading *and* every body line. The single biggest "personal deck" signal. |
-| **8pt body** | 227 runs at 8pt on Day 1, 12pt next most common. Unreadable four rows back. |
+| **4:3** | Both decks 10 × 7.5in — letterboxed on every modern screen |
+| **Chalkboard everywhere** | 908 runs on Day 2, 398 on Day 1, carrying every heading *and* every body line |
+| **8pt body** | 227 runs at 8pt on Day 1, 12pt next most common |
 
-**The hand-drawn quality was never the fault.** It is an asset the Paper Flow exercise depends on.
+**Decisions taken, all recorded in `styles.md`:** 16:9; IBM Plex Serif / Sans / Mono with Caveat for
+callouts and diagram labels **only, never body copy**; an 18pt body floor with 16pt permitted for
+sub-items; and a palette taken from the Paper Flow notation rather than invented — annotation red is the
+dashed arrows, carbon blue is the carbon copy, which **is** the outbox pattern the course teaches.
 
-### The spec
+**Font licensing is closed.** IBM Plex and Caveat are both SIL OFL 1.1 — commercial training use,
+PowerPoint embedding and printed handouts all permitted. Flagged as a risk at decision time.
 
-**Aspect ratio: 16:9** — 13.333 × 7.5in. Reflows every slide in Phase 3.
+**Consequence for Phase 2.** Format is `.drawio` XML, start point is the 12 EIP replacements (both settled
+with Ian). `tools/diagram.py` emits the `.drawio` source and a `.png` preview from one definition, because
+there is no drawio CLI here and hand-maintained previews would drift. See `tools/README.md`.
 
-**Typefaces** — all **SIL Open Font License 1.1**, so commercial training use, PowerPoint embedding and
-printed handouts are all permitted. *The licensing risk flagged at decision time is closed.*
-
-| role | face | notes |
-|---|---|---|
-| Display / slide titles | **IBM Plex Serif** | 600 weight, −0.01em tracking |
-| Body | **IBM Plex Sans** | |
-| Labels, kickers, specs, code | **IBM Plex Mono** | ☐ *In the approved sample but not in Ian's wording — veto if unwanted.* Code was Consolas (225 runs); Plex Mono replaces it. |
-| Callouts (`▎`) and diagram labels **only** | **Caveat** | **Never body copy.** This is the discipline that separates C from the old deck. |
-
-**Type sizes.** **18pt is the floor for body**; **16pt is permitted for sub-items only** (settled with Ian).
-Nothing below 16pt. Expect this to force content off crowded slides — that is intended, and it will find
-slides doing too much.
-
-**Palette — taken from the Paper Flow notation, not invented.** This is why it will not fight the ~40
-existing editable `resources/*.drawio` diagrams.
-
-| token | hex | where it already exists in the course |
-|---|---|---|
-| `ink` | `#181B1F` | everything a clerk writes by hand |
-| `paper` | `#FDFCFA` | the slide ground |
-| `carbon` | `#1D4E6B` | the carbon copy — which **is** the outbox pattern we teach |
-| `annotation` | `#C0453B` | the red dashed arrows: paper moving between trays |
-| `manila` | `#F3EFE6` | the file, the folder, the desk — and the diagram panel |
-| `rule` | `#E0D9C8` | |
-
-**Layout.** Text left, **diagrams in a fixed manila panel on the right** — roughly 1.15 : 0.85 — so every
-diagram has a consistent home instead of floating in whitespace. Kicker (section name) above the title.
-
-### What this settles for Phase 2
-
-- **Format: `.drawio` XML** (settled with Ian), matching the ~40 editable sources already in `resources/`.
-  No local `drawio` CLI exists, so PNG export happens on Ian's machine or in Phase 3.
-- **Start point: the 12 EIP replacements** (§8 item 5, settled with Ian). All 12 are located in
-  `outlines/DayOne.md` and currently carry `[external]` annotations with canonical URLs: Point-to-Point,
-  Publish-Subscribe, Datatype Channel, Message Endpoint, Messaging Gateway, Polling Consumer,
-  Event-Driven Consumer, Service Activator, Message Dispatcher, Invalid Message Channel, Dead Letter
-  Channel, Content Enricher.
-- **Diagrams are drawn in the hand-drawn register** — `sketch=1` in drawio, Caveat labels, ink stroke,
-  carbon for flow arrows, annotation red reserved for the thing the slide is actually about.
-
-**Reference:** the three directions, rendered — https://claude.ai/code/artifact/45339596-b57a-4132-9e3e-121599954c61
+**The 18pt floor is a content decision as much as a design one** — expect it to force material off crowded
+slides, and treat that as the floor doing its job rather than as a problem to route around.
