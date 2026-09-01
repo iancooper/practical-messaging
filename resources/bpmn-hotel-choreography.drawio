@@ -1,0 +1,61 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Hotel Example — BPMN Choreography">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="820" pageHeight="286" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c1b0" value="Guest" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#FDFCFA;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="60" y="110" width="168" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c1b1" value="Booking Request" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#FDFCFA;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="60" y="136" width="168" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c1b2" value="Just Paper Hotels" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#F3EFE6;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="60" y="180" width="168" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c2b0" value="Just Paper Hotels" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#FDFCFA;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="248" y="110" width="168" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c2b1" value="Fax the Booking" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#FDFCFA;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="248" y="136" width="168" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c2b2" value="The Hotel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#F3EFE6;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="248" y="180" width="168" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c3b0" value="The Hotel" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#FDFCFA;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="436" y="110" width="168" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c3b1" value="Accept / Reject" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#FDFCFA;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="436" y="136" width="168" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c3b2" value="Just Paper Hotels" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#F3EFE6;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="436" y="180" width="168" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c4b0" value="Just Paper Hotels" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#FDFCFA;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="624" y="110" width="168" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c4b1" value="Booking Confirmed" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#FDFCFA;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="624" y="136" width="168" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="c4b2" value="Guest" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;fillColor=#F3EFE6;strokeWidth=1.4;" vertex="1" parent="1">
+          <mxGeometry x="624" y="180" width="168" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="no owner, no token, no shared state — only the order of the messages" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="350" y="46" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="the unshaded band is who speaks first. Past here the flow goes blind — the event horizon." style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="350" y="244" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="c1" target="c2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="c2" target="c3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="c3" target="c4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

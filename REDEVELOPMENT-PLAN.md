@@ -536,14 +536,22 @@ than a blank canvas.
 7a. **The coupling scale with a process boundary drawn across it** (Day 1 §2, D1-7) — Content and Common
    above the line and struck through as *prevented*; Control, Stamp and Data below it, live. Replaces the
    old flat tight→loose scale (s27) and is the pivot of the section. **Ian to draw**, alongside items 1–4.
-8. **~12 BPMN redraws**, pizza → hotel (Day 2 Process Automation, D2-10). Marked `☐ REDRAW (hotel)` in
-   the outline: the five workflow-pattern examples, three orchestration pools (Guest / Just Paper Hotels /
-   The Hotel), *Pools and Lanes*, the collaboration and the choreography. **Plus two new drawings** —
-   *Your Flow, in the Standard Notation* (the Pre-Arrival paper flow beside the same flow as BPMN;
-   `resources/Pre-Arrival Guest Flow.drawio` is the editable left-hand half) and a BPMN compensation-event
-   fragment for *Compensation, Four Ways*. **And one layout job:** the BPMN **delegate reference card**,
-   one A4 side carrying the task / event / gateway legends, whose three drawio sources already exist.
-   None of the pizza originals had an editable source, so nothing is lost by redrawing to the hotel.
+8. **✅ 11 BPMN hotel redraws + the compensation fragment — built 2026-09-01.** `tools/bpmn_hotel.py`
+   holds all 12; regenerate with `python3 tools/bpmn_hotel.py`. Covers the five workflow-pattern examples,
+   the three orchestration pools (Guest / Just Paper Hotels / The Hotel), *Pools and Lanes*, the
+   collaboration, the choreography and the compensation fragment. Step names were taken from the
+   delegates' own `resources/Pre-Arrival Guest Flow.drawio`, so the BPMN says back to the room what it
+   wrote on paper. None of the pizza originals had an editable source, so nothing was lost.
+
+   **⚑ Still open — the side-by-side** (`Your Flow, in the Standard Notation`, the one remaining `☐` on
+   Day 2). It needs the Pre-Arrival paper flow as an image beside the BPMN, and **there is no rendered
+   PNG of it** — only `resources/Pre-Arrival Guest Flow.drawio`, which cannot be rendered here (no drawio
+   CLI). It unblocks either by Ian exporting that one file from draw.io, or by drawing the paper-flow
+   notation ourselves, which is **item 6a(a) anyway** — so 6a(a) should come first and this follows it.
+
+   **☐ And one layout job:** the BPMN **delegate reference card**, one A4 side carrying the task / event /
+   gateway legends, whose three drawio sources already exist. Its own outline note calls it a Phase 3
+   item, so it stays there.
 
 ### What sources exist
 
@@ -573,12 +581,14 @@ than a blank canvas.
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
 | `outlines/DayOne.md` | **49** | 19 | 0 | 4 | **26** |
-| `outlines/DayTwo.md` | **89** | 34 | 0 | 13 | **42** |
+| `outlines/DayTwo.md` | **89** | 46 | 0 | 1 | **42** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
 why Day 1's `[→ resources/…]` column moved 7 → 19 and `[external]` is 0. Day 2's six `[no source …]`
-markers are gone — D2-10 replaced the pizza family with `☐ REDRAW (hotel)`.
+markers are gone — D2-10 replaced the pizza family with `☐ REDRAW (hotel)`, and **those 12 are now
+built** (item 8), which is why Day 2's linked column moved 34 → 46 and its pending column 13 → 1. The one
+left is the side-by-side, blocked on rendering the paper flow.
 
 **The 68 unannotated lines are the hidden bulk of Phase 2**, and they are larger than the redraw list.
 They are photos, logos, book covers, screenshots and hand-drawn diagrams whose masters are the extracted
@@ -590,16 +600,29 @@ mapping does not align automatically, because consolidated entries break the 1:1
 2, 3 and 4 below were open questions; the answers held for the 12 EIP figures and should hold for the rest.
 
 1. **Division of labour.** Items 1–4 and 7a stay *Ian to draw* — the conceptual grids and the coupling
-   scale, which are arguments rather than illustrations. **Item 5 is done.** Items 6, 6a and 8 remain
-   unassigned (2 If-Later diagrams, Day 2 §2's three, ~12 BPMN hotel redraws + 2 new + the reference card).
+   scale, which are arguments rather than illustrations. **Items 5 and 8 are done.** Items 6 and 6a remain
+   unassigned (2 If-Later diagrams, Day 2 §2's three) — and **6a(a), the paper-flow notation key, is now on
+   the critical path**, because the last Day 2 marker depends on it.
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.
 3. **Where output lives — settled.** `resources/eip-<name>.drawio` + `.png`, linked into the outline as
    `[→ resources/<name>.png]`.
 4. **Order — settled.** Day 1 §4's 12 EIP replacements went first, as the biggest single item and the one
-   that decides whether the material looks like ours. Next: the 14 `☐` markers on Day 2, then the
-   If-Later pair and Day 2 §2, then the 68 unannotated lines section by section.
+   that decides whether the material looks like ours; the Day 2 BPMN family followed. Next: **6a(a), the
+   paper-flow notation key**, which unblocks the side-by-side, then the rest of 6a, the If-Later pair, and
+   the 68 unannotated lines section by section.
+
+5. **Two registers, settled by the content.** Phase 2 artwork is hand-drawn (`sketch=1`, Caveat labels)
+   **except BPMN**, which is straight-stroked with Plex Sans labels. The reason is in the section itself:
+   *Your Flow, in the Standard Notation* puts the delegates' hand-drawn paper flow beside the same flow in
+   BPMN, and a hand-drawn BPMN collapses that contrast. BPMN keeps the Field Guide palette, so the section
+   still belongs to the deck, and Caveat then reads as **our annotation on top of a standard diagram**.
+
+   **Knock-on, not yet done:** the six BPMN diagrams already in `resources/` (`BPMN Elements`,
+   `BPMN Ordering Flow`, `Shopping Flow As Sequence`, `Shopping Flow with Pools`, `Shopping Choreography`
+   and the three legend sheets) are plain black-on-white draw.io. They are editable, so bringing them onto
+   the palette is a restyle, not a redraw — but until it happens the section mixes two BPMN looks.
 
 ---
 

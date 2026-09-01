@@ -120,10 +120,15 @@ class _Outliner:
 class Diagram:
     """A small declarative diagram. Coordinates are in diagram units (~px)."""
 
-    def __init__(self, title, w=260, h=170, panel=False):
+    def __init__(self, title, w=260, h=170, panel=False, sketch=True, font=None):
+        """sketch=False draws straight strokes -- for a formal notation like BPMN,
+        where a wobble would fight the point that this is the standard the industry
+        reads. font sets the label face: HAND for our own figures, PLAIN for BPMN."""
         self.title = title
         self.w, self.h = w, h
         self.panel = panel          # draw the manila panel behind it
+        self.sketch = sketch
+        self.font = font or HAND
         self.groups = []            # containers, drawn behind everything
         self.nodes = []             # dicts with kind/geometry/label
         self.edges = []
@@ -154,6 +159,109 @@ class Diagram:
                     label=label, accent=accent, size=size, label_pos="center")
         self.nodes.append(node)
         return node
+
+    BAND = 26          # width of a pool's vertical title band
+
+    @staticmethod
+    def _symbol(out, cx, cy, kind, col, filled=False):
+        """The glyph inside an event circle. Filled means a throwing event."""
+        fill = col if filled else "none"
+        stroke = PAPER if filled else col
+        if kind == "message":
+            w, h = 17, 12
+            x, y = cx - w / 2, cy - h / 2
+            out.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}" '
+                       f'stroke="{col}" stroke-width="1.3"/>')
+            out.append(f'<path d="M{x},{y} L{cx},{y+h*0.62} L{x+w},{y}" fill="none" '
+                       f'stroke="{stroke}" stroke-width="1.3"/>')
+        elif kind == "timer":
+            out.append(f'<circle cx="{cx}" cy="{cy}" r="8" fill="none" stroke="{col}" '
+                       f'stroke-width="1.3"/>')
+            out.append(f'<path d="M{cx},{cy-5.5} v5.5 h4" fill="none" stroke="{col}" '
+                       f'stroke-width="1.3"/>')
+        elif kind == "compensation":
+            out.append(f'<path d="M{cx-1},{cy-6} L{cx-1},{cy+6} L{cx-8},{cy} z '
+                       f'M{cx+8},{cy-6} L{cx+8},{cy+6} L{cx+1},{cy} z" '
+                       f'fill="{fill if filled else "none"}" stroke="{col}" '
+                       f'stroke-width="1.3" stroke-linejoin="round"/>')
+
+    @staticmethod
+    def _marker(out, x, y, kind, col):
+        """The task-type icon in a task's top-left corner."""
+        if kind in ("send", "receive"):
+            w, h = 14, 10
+            out.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" '
+                       f'fill="{col if kind == "send" else PAPER}" stroke="{col}" '
+                       f'stroke-width="1.2"/>')
+            out.append(f'<path d="M{x},{y} L{x+w/2},{y+h*0.62} L{x+w},{y}" fill="none" '
+                       f'stroke="{PAPER if kind == "send" else col}" stroke-width="1.2"/>')
+        elif kind == "user":
+            out.append(f'<circle cx="{x+6.5}" cy="{y+3.6}" r="3.2" fill="none" '
+                       f'stroke="{col}" stroke-width="1.2"/>')
+            out.append(f'<path d="M{x+1},{y+12} a5.5,5.5 0 0 1 11,0" fill="none" '
+                       f'stroke="{col}" stroke-width="1.2"/>')
+        elif kind == "service":
+            out.append(f'<circle cx="{x+6.5}" cy="{y+6.5}" r="5.4" fill="none" '
+                       f'stroke="{col}" stroke-width="1.2"/>')
+            out.append(f'<circle cx="{x+6.5}" cy="{y+6.5}" r="2" fill="none" '
+                       f'stroke="{col}" stroke-width="1.2"/>')
+
+    # -- BPMN --
+    def pool(self, x, y, w, h, label, lanes=None, accent=False):
+        """A participant. `lanes` is a list of (height, label) drawn as bands inside
+        it -- BPMN lanes, which is what the paper exercise's desks become."""
+        self._n += 1
+        node = dict(id=f"p{self._n}", kind="pool", x=x, y=y, w=w, h=h, label=label,
+                    accent=accent, lanes=list(lanes or []), size=13)
+        self.groups.append(node)
+        return node
+
+    def choreo(self, x, y, w, h, label, initiator, recipient, accent=False,
+               band=26, size=13):
+        """A BPMN choreography task. No pool owns it -- which is the point of the
+        slide it is drawn for."""
+        self._n += 1
+        node = dict(id=f"c{self._n}", kind="choreo", x=x, y=y, w=w, h=h, label=label,
+                    initiator=initiator, recipient=recipient, accent=accent,
+                    band=band, size=size, label_pos="center")
+        self.nodes.append(node)
+        return node
+
+    def event(self, x, y, kind="start", symbol=None, label="", accent=False, r=17):
+        """kind: start | intermediate | end.  symbol: message | timer | compensation."""
+        self._n += 1
+        node = dict(id=f"e{self._n}", kind="event", x=x - r, y=y - r, w=2 * r, h=2 * r,
+                    ekind=kind, symbol=symbol, label=label or "", accent=accent, size=13,
+                    label_pos="below")
+        self.nodes.append(node)
+        return node
+
+    def gateway(self, x, y, kind="exclusive", label="", accent=False, r=21):
+        """kind: exclusive (X, one path) | parallel (+, split or join)."""
+        self._n += 1
+        node = dict(id=f"g{self._n}", kind="gateway", x=x - r, y=y - r, w=2 * r, h=2 * r,
+                    gkind=kind, label=label or "", accent=accent, size=13,
+                    label_pos="below")
+        self.nodes.append(node)
+        return node
+
+    def task(self, x, y, w, h, label, marker=None, accent=False, size=13):
+        """marker: send | receive | service | user -- the icon in the task's top-left."""
+        self._n += 1
+        node = dict(id=f"t{self._n}", kind="task", x=x, y=y, w=w, h=h, label=label or "",
+                    marker=marker, accent=accent, size=size, label_pos="center")
+        self.nodes.append(node)
+        return node
+
+    def flow(self, src, dst, label="", message=False, accent=False, via=None,
+             sides=None, lx=0, ly=0):
+        """A BPMN connector. Sequence flow is solid and carries the token; message
+        flow is dashed and does not. That distinction is the section's whole point,
+        so they are drawn as different things, not as one arrow with a flag."""
+        ss, ds = (sides or (None, None))
+        self.edges.append(dict(src=src, dst=dst, label=label, accent=accent,
+                               dashed=message, via=list(via or []), ssid=ss, dsid=ds,
+                               lx=lx, ly=ly, muted=False, bpmn=True, message=message))
 
     def cylinder(self, x, y, w, h, label="", accent=False):
         self._n += 1
@@ -262,13 +370,48 @@ class Diagram:
             f'<marker id="arM" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">'
             f'<path d="M0,0 L6,3 L0,6" fill="none" stroke="{MUTED}" stroke-width="1.3" '
             f'stroke-linecap="round"/></marker>'
+            # BPMN: sequence flow takes a solid head, message flow a hollow one, and
+            # message flow starts from a small open circle. That is the notation, not
+            # decoration -- it is how you tell a token from a message on the page.
+            f'<marker id="seq" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">'
+            f'<path d="M0,0 L7,3 L0,6 z" fill="{INK}"/></marker>'
+            f'<marker id="seqR" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">'
+            f'<path d="M0,0 L7,3 L0,6 z" fill="{ANNOTATION}"/></marker>'
+            f'<marker id="mfe" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto">'
+            f'<path d="M0.5,0.5 L7,3 L0.5,5.5 z" fill="{PAPER}" stroke="{CARBON}" '
+            f'stroke-width="1"/></marker>'
+            f'<marker id="mfeR" markerWidth="9" markerHeight="9" refX="7.5" refY="3" orient="auto">'
+            f'<path d="M0.5,0.5 L7,3 L0.5,5.5 z" fill="{PAPER}" stroke="{ANNOTATION}" '
+            f'stroke-width="1"/></marker>'
+            f'<marker id="mfs" markerWidth="8" markerHeight="8" refX="3.4" refY="3" orient="auto">'
+            f'<circle cx="3.4" cy="3" r="2.4" fill="{PAPER}" stroke="{CARBON}" '
+            f'stroke-width="1"/></marker>'
+            f'<marker id="mfsR" markerWidth="8" markerHeight="8" refX="3.4" refY="3" orient="auto">'
+            f'<circle cx="3.4" cy="3" r="2.4" fill="{PAPER}" stroke="{ANNOTATION}" '
+            f'stroke-width="1"/></marker>'
             '</defs>')
         o.append(f'<rect width="{W}" height="{H}" fill="{MANILA if self.panel else PAPER}"/>')
 
+        wob = ' filter="url(#wob)"' if self.sketch else ""
         # containers first, so everything else sits inside them
-        o.append('<g filter="url(#wob)" fill="none" stroke-linecap="round" '
+        o.append(f'<g{wob} fill="none" stroke-linecap="round" '
                  'stroke-linejoin="round">')
         for g in self.groups:
+            if g["kind"] == "pool":
+                c = ANNOTATION if g.get("accent") else INK
+                x, y, w, h = g["x"], g["y"], g["w"], g["h"]
+                o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" '
+                         f'stroke="{c}" stroke-width="1.6"/>')
+                o.append(f'<path d="M{x+self.BAND},{y} v{h}" stroke="{c}" stroke-width="1.6"/>')
+                ly = y
+                for lh, _ in g["lanes"][:-1]:
+                    ly += lh
+                    o.append(f'<path d="M{x+self.BAND},{ly} h{w-self.BAND}" '
+                             f'stroke="{INK}" stroke-width="1.2"/>')
+                if g["lanes"]:
+                    o.append(f'<path d="M{x+self.BAND*2},{y} v{h}" stroke="{INK}" '
+                             f'stroke-width="1.2"/>')
+                continue
             c = ANNOTATION if g.get("accent") else MUTED
             dash = ' stroke-dasharray="6 5"' if g.get("dashed") else ""
             o.append(f'<rect x="{g["x"]}" y="{g["y"]}" width="{g["w"]}" height="{g["h"]}" '
@@ -276,7 +419,7 @@ class Diagram:
         o.append('</g>')
 
         # shapes, wobbled together so the hand is consistent
-        o.append(f'<g filter="url(#wob)" fill="none" stroke-linecap="round" stroke-linejoin="round">')
+        o.append(f'<g{wob} fill="none" stroke-linecap="round" stroke-linejoin="round">')
         for n in self.nodes:
             c = ANNOTATION if n.get("accent") else INK
             if n["kind"] == "box":
@@ -289,6 +432,50 @@ class Diagram:
                          f'stroke="{c}" stroke-width="1.7"/>')
                 o.append(f'<path d="M{x},{y+ry} v{h-2*ry} a{rx},{ry} 0 0 0 {w},0 v{-(h-2*ry)}" '
                          f'stroke="{c}" stroke-width="1.7"/>')
+            elif n["kind"] == "choreo":
+                x, y, w, h, b = n["x"], n["y"], n["w"], n["h"], n["band"]
+                o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="7" '
+                         f'fill="{PAPER}" stroke="{c}" stroke-width="1.6"/>')
+                o.append(f'<path d="M{x},{y+b} h{w} M{x},{y+h-b} h{w}" stroke="{c}" '
+                         f'stroke-width="1.2"/>')
+                # the recipient band is filled; the initiator's is not
+                o.append(f'<rect x="{x+1}" y="{y+h-b}" width="{w-2}" height="{b-1}" '
+                         f'fill="{MANILA}" stroke="none"/>')
+                o.append(f'<path d="M{x},{y+h-b} h{w}" stroke="{c}" stroke-width="1.2"/>')
+            elif n["kind"] == "task":
+                o.append(f'<rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
+                         f'height="{n["h"]}" rx="7" fill="{PAPER}" stroke="{c}" '
+                         f'stroke-width="1.6"/>')
+                if n.get("marker") == "compensate":
+                    self._symbol(o, n["x"] + n["w"] / 2, n["y"] + n["h"] - 12,
+                                 "compensation", c)
+                elif n.get("marker"):
+                    self._marker(o, n["x"] + 7, n["y"] + 7, n["marker"], c)
+            elif n["kind"] == "event":
+                cx, cy = n["x"] + n["w"] / 2, n["y"] + n["h"] / 2
+                r = n["w"] / 2
+                sw = {"start": 1.5, "intermediate": 1.5, "end": 3.4}[n["ekind"]]
+                o.append(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{PAPER}" '
+                         f'stroke="{c}" stroke-width="{sw}"/>')
+                if n["ekind"] == "intermediate":
+                    o.append(f'<circle cx="{cx}" cy="{cy}" r="{r-3.4}" fill="none" '
+                             f'stroke="{c}" stroke-width="1.5"/>')
+                if n.get("symbol"):
+                    self._symbol(o, cx, cy, n["symbol"], c,
+                                 filled=(n["ekind"] == "end"))
+            elif n["kind"] == "gateway":
+                cx, cy = n["x"] + n["w"] / 2, n["y"] + n["h"] / 2
+                r = n["w"] / 2
+                o.append(f'<path d="M{cx},{cy-r} L{cx+r},{cy} L{cx},{cy+r} L{cx-r},{cy} z" '
+                         f'fill="{PAPER}" stroke="{c}" stroke-width="1.6"/>')
+                k = r * 0.34
+                if n["gkind"] == "parallel":
+                    o.append(f'<path d="M{cx-k},{cy} h{2*k} M{cx},{cy-k} v{2*k}" '
+                             f'stroke="{c}" stroke-width="2"/>')
+                else:
+                    o.append(f'<path d="M{cx-k},{cy-k} L{cx+k},{cy+k} '
+                             f'M{cx+k},{cy-k} L{cx-k},{cy+k}" stroke="{c}" '
+                             f'stroke-width="2"/>')
             elif n["kind"] == "msg":
                 x, y, w, h = n["x"], n["y"], n["w"], n["h"]
                 o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="1.5" '
@@ -304,6 +491,19 @@ class Diagram:
             pts = self._points(e)
             col = MUTED if (e.get("plain") or e.get("muted")) else (
                 ANNOTATION if e["accent"] else CARBON)
+            if e.get("bpmn"):
+                r = "R" if e["accent"] else ""
+                if e.get("message"):
+                    col = ANNOTATION if e["accent"] else CARBON
+                    dash = ' stroke-dasharray="6 5"'
+                    mark = f' marker-start="url(#mfs{r})" marker-end="url(#mfe{r})"'
+                else:
+                    col = ANNOTATION if e["accent"] else INK
+                    dash = ""
+                    mark = f' marker-end="url(#seq{r})"'
+                d = "M" + " L".join(f"{x},{y}" for x, y in pts)
+                o.append(f'<path d="{d}" stroke="{col}" stroke-width="1.5"{dash}{mark}/>')
+                continue
             dash = ' stroke-dasharray="3 4"' if e["dashed"] else ""
             mark = "" if e.get("plain") else (
                 ' marker-end="url(#arR)"' if e["accent"] else
@@ -316,7 +516,20 @@ class Diagram:
         for g in self.groups:
             if not g["label"]:
                 continue
-            col = ANNOTATION if g.get("accent") else MUTED
+            col = ANNOTATION if g.get("accent") else (
+                INK if g["kind"] == "pool" else MUTED)
+            if g["kind"] == "pool":
+                # the band label runs up the side, as BPMN draws a participant
+                cy = g["y"] + g["h"] / 2
+                self._rot(o, g["label"], g["x"] + self.BAND / 2 + 5, cy,
+                          g.get("size", 13), col, self.font, fit=g["h"])
+                ly = g["y"]
+                for lh, name in g["lanes"]:
+                    if name:
+                        self._rot(o, name, g["x"] + self.BAND * 1.5 + 5, ly + lh / 2,
+                                  g.get("size", 13) - 1, INK, self.font, fit=lh)
+                    ly += lh
+                continue
             self._text(o, g["label"], g["x"] + 10, g["y"] + g.get("size", 14) + 2,
                        g.get("size", 14), col, "start")
         for n in self.nodes:
@@ -325,25 +538,63 @@ class Diagram:
             if n["kind"] == "note":
                 self._text(o, n["label"], n["x"], n["y"], n.get("size", 14),
                            n.get("color", MUTED), n.get("anchor", "middle"))
+            elif n["kind"] == "choreo":
+                size, col = n.get("size", 13), ANNOTATION if n.get("accent") else INK
+                cx, b = n["x"] + n["w"] / 2, n["band"]
+                self._text(o, n["initiator"], cx, n["y"] + b - 8, size - 1, col,
+                           "middle", self.font)
+                self._text(o, n["label"], cx, n["y"] + n["h"] / 2 + size / 3, size,
+                           col, "middle", self.font)
+                self._text(o, n["recipient"], cx, n["y"] + n["h"] - 8, size - 1, col,
+                           "middle", self.font)
             else:
                 size = n.get("size", 15)
                 col = ANNOTATION if n.get("accent") else INK
                 cx = n["x"] + n["w"] / 2
+                face = self.font if n["kind"] in ("task", "event", "gateway") else self.font
                 if n.get("label_pos") == "top":
                     cy = n["y"] + size + 2
+                elif n.get("label_pos") == "below":
+                    cy = n["y"] + n["h"] + size + 3      # events and gateways label under
                 else:
                     cy = n["y"] + n["h"] / 2 + size / 3
-                self._text(o, n["label"], cx, cy, size, col, "middle")
+                    if n.get("marker") and n["marker"] != "compensate":
+                        cy += 7
+                self._text(o, n["label"], cx, cy, size, col, "middle", face)
         for e in self.edges:
             if not e["label"]:
                 continue
             mx, my = self._mid(self._points(e))
+            if e.get("bpmn"):
+                col = ANNOTATION if e["accent"] else (
+                    CARBON if e.get("message") else MUTED)
+                self._text(o, e["label"], mx + e.get("lx", 0), my - 6 + e.get("ly", 0),
+                           12, col, "middle", self.font)
+                continue
             col = MUTED if e.get("muted") else (ANNOTATION if e["accent"] else CARBON)
             self._text(o, e["label"], mx + e.get("lx", 0), my - 7 + e.get("ly", 0),
                        15, col, "middle")
 
         o.append('</svg>')
         return "\n".join(o)
+
+    @classmethod
+    def _rot(cls, out, text, x, y, size, color, family, fit=None):
+        """Vertical text for a pool or lane band. `fit` is the height available:
+        a lane label longer than its lane silently overflows into the next one,
+        which is how the first pass of the collaboration diagrams broke."""
+        if fit:
+            try:
+                _, adv = _Outliner.outline(text, family, size, 0, 0, "middle",
+                                           weight=490 if family == PLAIN else None)
+                if adv > fit - 8:
+                    size = max(9, size * (fit - 8) / adv)
+            except Exception:
+                pass
+        buf = []
+        cls._text(buf, text, 0, 0, size, color, "middle", family)
+        out.append(f'<g transform="translate({x},{y}) rotate(-90)">' +
+                   "".join(buf) + "</g>")
 
     @classmethod
     def _text(cls, out, text, x, y, size, color, anchor, family=HAND):
@@ -356,7 +607,7 @@ class Diagram:
             return
         try:
             d, _ = _Outliner.outline(text, family, size, x, y, anchor,
-                                     weight=600 if family == PLAIN else None)
+                                     weight=490 if family == PLAIN else None)
             if d:
                 out.append(f'<path d="{d}" fill="{color}"/>')
                 return
@@ -376,13 +627,33 @@ class Diagram:
         root = ET.SubElement(model, "root")
         ET.SubElement(root, "mxCell", id="0")
         ET.SubElement(root, "mxCell", id="1", parent="0")
+        note_no = 0
 
         base = (f"sketch=1;hachureGap=4;jiggle=2;curveFitting=1;"
-                f"fontFamily={HAND};fontSize=15;html=1;")
+                f"fontFamily={self.font};html=1;")
 
         # containers first so they land behind, and so a reader can drag the whole
         # group in draw.io without the members jumping out of it
         for g in self.groups:
+            if g["kind"] == "pool":
+                col = ANNOTATION if g.get("accent") else INK
+                pstyle = (f"swimlane;html=1;horizontal=0;startSize={self.BAND};"
+                          f"fillColor=none;strokeColor={col};fontColor={col};"
+                          f"fontFamily={self.font};fontSize={g.get('size',13)};"
+                          f"swimlaneFillColor=none;")
+                cell = ET.SubElement(root, "mxCell", id=g["id"], value=g["label"],
+                                     style=pstyle, vertex="1", parent="1")
+                ET.SubElement(cell, "mxGeometry", x=str(g["x"]), y=str(g["y"]),
+                              width=str(g["w"]), height=str(g["h"])).set("as", "geometry")
+                oy = 0
+                for i, (lh, name) in enumerate(g["lanes"]):
+                    lc = ET.SubElement(root, "mxCell", id=f"{g['id']}l{i}", value=name,
+                                       style=pstyle, vertex="1", parent=g["id"])
+                    ET.SubElement(lc, "mxGeometry", x=str(self.BAND), y=str(oy),
+                                  width=str(g["w"] - self.BAND),
+                                  height=str(lh)).set("as", "geometry")
+                    oy += lh
+                continue
             col = ANNOTATION if g.get("accent") else MUTED
             style = (base + "rounded=1;arcSize=8;verticalAlign=top;align=left;"
                      "spacingLeft=8;spacingTop=2;fillColor=none;"
@@ -399,12 +670,16 @@ class Diagram:
             if n["kind"] == "note":
                 style = (f"text;html=1;align=center;fontFamily={HAND};"
                          f"fontSize={n.get('size',14)};fontColor={n.get('color',MUTED)};")
-                cell = ET.SubElement(root, "mxCell", id=f"t{id(n)}", value=n["label"],
+                note_no += 1
+                cell = ET.SubElement(root, "mxCell", id=f"t{note_no}", value=n["label"],
                                      style=style, vertex="1", parent="1")
                 ET.SubElement(cell, "mxGeometry", x=str(n["x"] - 60), y=str(n["y"] - 12),
                               width="120", height="20").set("as", "geometry")
                 continue
             stroke = ANNOTATION if n.get("accent") else INK
+            if n["kind"] in ("event", "gateway", "task", "choreo"):
+                self._drawio_bpmn(root, n, stroke)
+                continue
             shape = {"box": "rounded=1;arcSize=12;",
                      "cyl": "shape=cylinder3;boundedLbl=1;backgroundOutline=1;",
                      "pipe": "shape=tube;",
@@ -428,7 +703,16 @@ class Diagram:
             style = (f"sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;"
                      f"strokeColor={col};strokeWidth=1.8;fontFamily={HAND};fontSize=15;"
                      f"fontColor={col};html=1;")
-            if e["dashed"]:
+            if e.get("bpmn"):
+                col = ANNOTATION if e["accent"] else (
+                    CARBON if e.get("message") else INK)
+                style = (f"edgeStyle=none;rounded=0;html=1;"
+                         f"strokeColor={col};strokeWidth=1.5;fontColor={col};"
+                         f"fontFamily={self.font};fontSize=12;")
+                style += ("dashed=1;dashPattern=6 5;startArrow=oval;startFill=0;"
+                          "endArrow=open;endFill=0;" if e.get("message")
+                          else "endArrow=block;endFill=1;")
+            if e["dashed"] and not e.get("bpmn"):
                 style += "dashed=1;"
             if e.get("plain"):
                 style += "endArrow=none;"
@@ -457,6 +741,66 @@ class Diagram:
 
         ET.indent(mx, space="  ")
         return ET.tostring(mx, encoding="unicode")
+
+    # ---- draw.io BPMN ----
+    # These style strings come from draw.io's own BPMN 2.0 shape library. There is no
+    # drawio CLI on this machine, so they were authored without being opened -- the PNG
+    # preview is rendered from our own SVG and does NOT check them. If a .drawio ever
+    # opens with the wrong glyph in a circle or a diamond, this is where to look.
+    _EVENT_OUTLINE = {"start": "standard", "intermediate": "eventInt", "end": "end"}
+    _GW_SYMBOL = {"exclusive": "exclusiveGw", "parallel": "parallelGw"}
+
+    def _drawio_bpmn(self, root, n, stroke):
+        common = (f"html=1;fillColor={PAPER};strokeColor={stroke};fontColor={stroke};"
+                  f"fontFamily={self.font};fontSize={n.get('size',13)};")
+        if n["kind"] == "choreo":
+            b = n["band"]
+            for i, (val, yy, hh, fill) in enumerate((
+                    (n["initiator"], n["y"], b, PAPER),
+                    (n["label"], n["y"] + b, n["h"] - 2 * b, PAPER),
+                    (n["recipient"], n["y"] + n["h"] - b, b, MANILA))):
+                cell = ET.SubElement(root, "mxCell", id=f"{n['id']}b{i}", value=val,
+                                     style=(f"rounded=0;whiteSpace=wrap;{common}"
+                                            f"fillColor={fill};strokeWidth=1.4;"),
+                                     vertex="1", parent="1")
+                ET.SubElement(cell, "mxGeometry", x=str(n["x"]), y=str(yy),
+                              width=str(n["w"]),
+                              height=str(hh)).set("as", "geometry")
+            return
+        if n["kind"] == "task":
+            style = f"rounded=1;arcSize=14;whiteSpace=wrap;{common}strokeWidth=1.6;"
+        elif n["kind"] == "event":
+            style = ("shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;"
+                     "verticalLabelPosition=bottom;verticalAlign=top;align=center;"
+                     "labelBackgroundColor=none;outlineConnect=0;"
+                     f"outline={self._EVENT_OUTLINE[n['ekind']]};"
+                     f"symbol={n.get('symbol') or 'general'};{common}")
+        else:
+            style = ("shape=mxgraph.bpmn.shape;perimeter=rhombusPerimeter;"
+                     "verticalLabelPosition=bottom;verticalAlign=top;align=center;"
+                     "labelBackgroundColor=none;outlineConnect=0;background=gateway;"
+                     f"outline=none;symbol={self._GW_SYMBOL[n['gkind']]};{common}")
+        cell = ET.SubElement(root, "mxCell", id=n["id"], value=n["label"],
+                             style=style, vertex="1", parent="1")
+        ET.SubElement(cell, "mxGeometry", x=str(n["x"]), y=str(n["y"]),
+                      width=str(n["w"]), height=str(n["h"])).set("as", "geometry")
+        # the task-type icon rides as its own small cell -- shape=message is a core
+        # draw.io shape, so it is certain to open, unlike a task-marker style string
+        if n["kind"] == "task" and n.get("marker") in ("send", "receive"):
+            fill = stroke if n["marker"] == "send" else PAPER
+            ic = ET.SubElement(root, "mxCell", id=f"{n['id']}i",
+                               style=f"shape=message;html=1;fillColor={fill};"
+                                     f"strokeColor={stroke};",
+                               vertex="1", parent="1")
+            ET.SubElement(ic, "mxGeometry", x=str(n["x"] + 7), y=str(n["y"] + 7),
+                          width="14", height="10").set("as", "geometry")
+        elif n["kind"] == "task" and n.get("marker") == "user":
+            ic = ET.SubElement(root, "mxCell", id=f"{n['id']}i",
+                               style=f"shape=actor;html=1;fillColor=none;"
+                                     f"strokeColor={stroke};",
+                               vertex="1", parent="1")
+            ET.SubElement(ic, "mxGeometry", x=str(n["x"] + 7), y=str(n["y"] + 6),
+                          width="12", height="13").set("as", "geometry")
 
     # ---- output ----
     def save(self, basename, scale=3):

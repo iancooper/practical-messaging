@@ -1,0 +1,28 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Pattern 1 — Sequence">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="500" pageHeight="150" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1" value="Booking Team" style="swimlane;html=1;horizontal=0;startSize=26;fillColor=none;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;swimlaneFillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="18" y="26" width="464" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="Take the Call" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="76" y="44" width="150" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t2i" style="shape=actor;html=1;fillColor=none;strokeColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="83" y="50" width="12" height="13" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="Create Booking&#10;Request" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="286" y="44" width="168" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="one activity follows another — a sequence flow, and the token moves with it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="190" y="126" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t2" target="t3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

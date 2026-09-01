@@ -799,28 +799,28 @@ Presenter notes: The five that follow are the ones the closing slide, *Implement
 One activity follows another. BPMN: connect two tasks with a sequence-flow arrow. Easy to model and execute. Example (Booking Team): Take the Call → Create Booking Request.
 
 
-#image: ☐ REDRAW (hotel) — BPMN diagram, two tasks in the Booking Team lane: Take the Call → Create Booking Request
+#image: BPMN diagram, two tasks in the Booking Team lane: Take the Call → Create Booking Request  [→ resources/bpmn-hotel-p1-sequence.png]
 
 ### Slide: Pattern 2 — Parallel Split
 
 One path splits into two or more concurrent branches. BPMN: a **Parallel Gateway** (+) forks. Example: once the hotel accepts, Take Payment + Prepare Booking Confirmation.
 
 
-#image: ☐ REDRAW (hotel) — BPMN diagram: Booking Accepted, a parallel gateway splitting to Take Payment and Prepare Booking Confirmation
+#image: BPMN diagram: Booking Accepted, a parallel gateway splitting to Take Payment and Prepare Booking Confirmation  [→ resources/bpmn-hotel-p2-parallel-split.png]
 
 ### Slide: Pattern 3 — Synchronization (Join)
 
 Wait until multiple concurrent branches complete. BPMN: a **Parallel Gateway** joins. Example: the guest is not told until payment has cleared *and* the confirmation is ready.
 
 
-#image: ☐ REDRAW (hotel) — BPMN diagram: Take Payment and Prepare Booking Confirmation merging into a parallel join, then Confirm to Guest
+#image: BPMN diagram: Take Payment and Prepare Booking Confirmation merging into a parallel join, then Confirm to Guest  [→ resources/bpmn-hotel-p3-join.png]
 
 ### Slide: Pattern 4 — Exclusive Choice
 
 Choose one path based on a condition. BPMN: an **Exclusive Gateway** (X) with condition expressions. Example (Concierge): Check Availability → Accept Booking **X** Reject Booking.
 
 
-#image: ☐ REDRAW (hotel) — BPMN diagram: a message start, Check Availability, exclusive gateway to Reject Booking or Accept Booking
+#image: BPMN diagram: a message start, Check Availability, exclusive gateway to Accept Booking or Reject Booking  [→ resources/bpmn-hotel-p4-exclusive-choice.png]
 
 Presenter notes: This one is drawn on their own paper flow already — *Respond with Booking Accept/Reject*, step 7. Point at it.
 
@@ -829,7 +829,7 @@ Presenter notes: This one is drawn on their own paper flow already — *Respond 
 Merge non-concurrent paths back into one. BPMN: a converging sequence flow — no gateway needed if no synchronization is required. Example (Guest): the confirmation arrives, or the guest gets tired of waiting and chases; either way, Check the Booking → Pack for the Trip.
 
 
-#image: ☐ REDRAW (hotel) — BPMN diagram: a message event (Confirmation Received) and a timer event (Chase the Agency) both leading to Check the Booking, then Pack for the Trip
+#image: BPMN diagram: a message event (Confirmation Received) and a timer event (Chase the Agency) converging on Check the Booking with no gateway, then Pack for the Trip  [→ resources/bpmn-hotel-p5-simple-merge.png]
 
 ### Slide: Process = Orchestration
 
@@ -858,7 +858,7 @@ Presenter notes: This is the conductor from round 4 — one person, holding the 
 The guest's journey as an orchestration.
 
 
-#image: ☐ REDRAW (hotel) — BPMN diagram, the Tourist/Guest lane: phone the agency, wait for confirmation, chase on a timer, cancel, pay
+#image: BPMN diagram, the Guest pool: phone the agency, wait for the confirmation, chase on a timer, then pay — or book elsewhere  [→ resources/bpmn-hotel-guest-pool.png]
 
 Presenter notes: In the demo we emulate this with HTTP calls (same as web/mobile). It's "in process" — we manage the token and its state through the flow. We show where we wait to receive a message. Debugging: we pause awaiting a message from another system, and can't see how the received values were set, or why we do/don't receive a message — for that we'd need the sender.
 
@@ -867,7 +867,7 @@ Presenter notes: In the demo we emulate this with HTTP calls (same as web/mobile
 The agency as an orchestration, initiated by a message. Two lanes: **Booking Team** and **Fax Operator**.
 
 
-#image: ☐ REDRAW (hotel) — BPMN diagram, the Just Paper Hotels pool with Booking Team and Fax Operator lanes: create the booking request, fax it, receive accept/reject, take payment, confirm
+#image: BPMN diagram, the Just Paper Hotels pool with Booking Team and Fax Operator lanes: create the booking request, fax it, receive accept/reject, take payment, confirm  [→ resources/bpmn-hotel-agency-pool.png]
 
 Presenter notes: We send messages to act (message icon) and wait to receive messages (start and end). Same debugging blind-spot — to debug the flow to the guest we'd need breakpoints in both, which is fine if we own both, but not if they belong to different teams (we'd have to deploy their code). **This is the pool delegates modelled**, so let them tell you what belongs in each lane before you show it.
 
@@ -876,13 +876,13 @@ Presenter notes: We send messages to act (message icon) and wait to receive mess
 The hotel as an orchestration, initiated by a message. Lanes: **Concierge** and **Front Desk**.
 
 
-#image: ☐ REDRAW (hotel) — BPMN diagram, The Hotel pool: take the booking request from the inbox, Check Availability gateway to Reject or Accept, respond with accept/reject
+#image: BPMN diagram, The Hotel pool with Concierge and Front Desk lanes: take the booking request from the inbox, Check Availability, exclusive gateway to Accept or Reject  [→ resources/bpmn-hotel-hotel-pool.png]
 
 Presenter notes: Same pattern — send messages to act, wait to receive. To debug the flow across the agency and the guest we'd need breakpoints in all three. Fastest of the three slides: the shape is now familiar, which is the point of showing it a third time.
 
 ### Slide: Hotel Example — Pools and Lanes
 
-#image: ☐ REDRAW (hotel) — BPMN diagram, the full multi-lane collaboration (Guest / Booking Team / Fax Operator / Concierge / Front Desk) with cross-lane message flows
+#image: BPMN diagram, one pool with five lanes (Guest / Booking Team / Fax Operator / Concierge / Front Desk) — the construction that does not work, everything sequence flow and nothing crossing a boundary  [→ resources/bpmn-hotel-pools-and-lanes.png]
 
 Presenter notes: Multiple pools (Guest, Just Paper Hotels, The Hotel) with message flows (booking request, fax to the hotel, accept/reject back, confirmation to the guest). We want to examine the *interaction* from a neutral perspective, but modelling it as one pool with lanes doesn't work well — some tasks reference interaction (waiting for the hotel's answer, taking payment), others are oblivious to partners (checking the room list, packing). It is not semantically correct because message events always refer to messages received from *outside*. **This is the heavy vertical bar from the paper notation, drawn properly** — and the failure of one-pool-with-lanes is exactly why the bar was there.
 
@@ -915,7 +915,7 @@ Presenter notes: **Black box is the load-bearing word.** The Hotel is a black bo
 
 The full collaboration diagram for the hotel example.
 
-#image: ☐ REDRAW (hotel) — BPMN diagram, three pools (Guest, Just Paper Hotels, The Hotel) in a full collaboration with all message flows
+#image: BPMN diagram, three pools (Guest, Just Paper Hotels, The Hotel) in a full collaboration with all message flows  [→ resources/bpmn-hotel-collaboration.png]
 
 ### Slide: Choreography and Conversation
 
@@ -931,7 +931,7 @@ Presenter notes: **The dance and the no-shared-state line are what to land here.
 The booking choreography — the flow of messages between participants.
 
 
-#image: ☐ REDRAW (hotel) — BPMN choreography diagram: the booking flow as message events across Guest, Just Paper Hotels and The Hotel
+#image: BPMN choreography diagram: four choreography tasks across Guest, Just Paper Hotels and The Hotel, each banded with who speaks and who is spoken to  [→ resources/bpmn-hotel-choreography.png]
 
 Presenter notes: Even this simple interaction produces a set of messages flowing between participants. Choreography is what happens "between" — it has no explicit owner. When flow leaves your application (or workflow engine) it "goes blind": the **event horizon**. You understand your workflow — it's in your code — but debugging becomes hard because at times nothing happens that's supposed to, and you struggle to know why. **This is round 4 with no conductor**, drawn.
 
@@ -1075,7 +1075,7 @@ You cannot roll back across desks. So for every "do", you write an "undo" — an
 
 ▎ This is the **Saga**. Four costumes, one idea.
 
-#image: ☐ NEW — BPMN fragment: a task with an attached compensation event linked to its undo task
+#image: BPMN fragment: Take Payment with an attached compensation event, associated to Refund the Card  [→ resources/bpmn-compensation-fragment.png]
 
 Presenter notes: **One argument, four costumes — as a table the repetition becomes the point.** The Saga name comes from a 1980s paper on long-lived database transactions, and messaging frameworks that say "saga" almost always mean the state-machine row. **The distinction to land is business error vs. technical error** — retry is for technical, a gateway branch is for business, and confusing the two is how teams end up retrying a declined card forty times. (Ruecker, *Practical Process Automation*.) On the hotel: the undo for *reserve a room* is *release the room*; the undo for *take payment* is *refund*. Ask the room which of the four they would use, and why.
 
