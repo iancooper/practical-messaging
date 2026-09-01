@@ -296,6 +296,48 @@ def compensation_fragment():
     return d
 
 
+# ---- the side-by-side that opens the section ---------------------------------
+
+@figure("bpmn-your-flow-side-by-side")
+def your_flow_side_by_side():
+    """The delegates' own Pre-Arrival flow beside the same flow as BPMN.
+
+    This is the only figure in Phase 2 that embeds an existing artefact rather than
+    drawing it: the left half has to be the thing the room actually made, or the
+    slide's promise -- you drew this an hour ago -- is not kept. The BPMN half is a
+    compact recomposition of the collaboration figure, sized to sit beside a portrait
+    image without either half shrinking to nothing.
+    """
+    d = D("Your Flow, in the Standard Notation", 1240, 600)
+    d.image(30, 66, 398, 480, os.path.join(OUT, "Pre-Arrival Guest Flow.png"))
+
+    d.pool(470, 96, 740, 92, "Guest")
+    d.pool(470, 226, 740, 160,
+           "Just Paper Hotels", lanes=[(80, "Booking Team"), (80, "Fax Operator")])
+    d.pool(470, 424, 740, 92, "The Hotel")
+
+    g1 = d.task(560, 120, 130, 44, "Phone the Agency", marker="send", size=11)
+    g2 = d.task(886, 120, 138, 44, "Pay for the Booking", size=11)
+    a1 = d.task(560, 244, 130, 44, "Create Booking\nRequest", size=10)
+    a2 = d.task(886, 244, 138, 44, "Confirm to Guest", marker="send", size=11)
+    a3 = d.task(720, 324, 130, 44, "Fax the Hotel", marker="send", size=11)
+    h1 = d.task(720, 448, 130, 44, "Check Availability", size=11)
+    h2 = d.task(890, 448, 130, 44, "Accept / Reject", marker="send", size=11)
+
+    d.flow(g1, a1, message=True, sides=("b", "t"))
+    d.flow(a1, a3, via=[(625, 346)], sides=("b", "l"))
+    d.flow(a3, h1, message=True, sides=("b", "t"))
+    d.flow(h1, h2, sides=("r", "l"))
+    d.flow(h2, a2, message=True, sides=("t", "b"))
+    d.flow(a2, g2, message=True, sides=("t", "b"))
+
+    d.note(620, 40, "you already had every concept — this is only the vocabulary",
+           ANNOTATION, 18)
+    d.note(229, 574, "the desk, the tray, the heavy bar", MUTED, 14)
+    d.note(840, 574, "the task, the message flow, the pool", MUTED, 14)
+    return d
+
+
 def main(argv):
     if "--list" in argv:
         for n in FIGURES:

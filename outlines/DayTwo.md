@@ -739,7 +739,7 @@ hand-offs, same numbered steps:
 
 Nothing new happens in this section. It gives names to what the room already built.
 
-#image: ☐ NEW — side by side: the Pre-Arrival paper flow as delegates have it (`resources/Pre-Arrival Guest Flow.drawio.png`) and the same flow as a BPMN collaboration — three pools, Tourist / Just Paper Hotels (Booking Team, Fax Operator) / The Hotel (Concierge, Front Desk)
+#image: side by side: the Pre-Arrival paper flow as delegates have it, and the same flow as a BPMN collaboration — three pools, Guest / Just Paper Hotels (Booking Team, Fax Operator) / The Hotel  [→ resources/bpmn-your-flow-side-by-side.png]
 
 Presenter notes: **This slide exists to keep the promise made on the previous one.** Delegates have just run their own flow with a conductor and without one, and were told that the next section gives those two things their names *and a notation* — so do not open on BPMN primitives, open on their own drawing. Put the paper version up alone first and ask what a stranger could not tell from it; then reveal the BPMN. **The mapping table is the teaching move: they already have every concept, they lack only the vocabulary.** The primitives on the next two slides then arrive as *what you needed in order to draw that*, rather than as a legend to be memorised. Do not read the table out — walk the diagram and point at each pair.
 

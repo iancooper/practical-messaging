@@ -536,18 +536,28 @@ than a blank canvas.
 7a. **The coupling scale with a process boundary drawn across it** (Day 1 §2, D1-7) — Content and Common
    above the line and struck through as *prevented*; Control, Stamp and Data below it, live. Replaces the
    old flat tight→loose scale (s27) and is the pivot of the section. **Ian to draw**, alongside items 1–4.
-8. **✅ 11 BPMN hotel redraws + the compensation fragment — built 2026-09-01.** `tools/bpmn_hotel.py`
-   holds all 12; regenerate with `python3 tools/bpmn_hotel.py`. Covers the five workflow-pattern examples,
+8. **✅ All 13 BPMN drawings — built 2026-09-01.** `tools/bpmn_hotel.py` holds them; regenerate with
+   `python3 tools/bpmn_hotel.py`. Covers the five workflow-pattern examples,
    the three orchestration pools (Guest / Just Paper Hotels / The Hotel), *Pools and Lanes*, the
    collaboration, the choreography and the compensation fragment. Step names were taken from the
    delegates' own `resources/Pre-Arrival Guest Flow.drawio`, so the BPMN says back to the room what it
    wrote on paper. None of the pizza originals had an editable source, so nothing was lost.
 
-   **⚑ Still open — the side-by-side** (`Your Flow, in the Standard Notation`, the one remaining `☐` on
-   Day 2). It needs the Pre-Arrival paper flow as an image beside the BPMN, and **there is no rendered
-   PNG of it** — only `resources/Pre-Arrival Guest Flow.drawio`, which cannot be rendered here (no drawio
-   CLI). It unblocks either by Ian exporting that one file from draw.io, or by drawing the paper-flow
-   notation ourselves, which is **item 6a(a) anyway** — so 6a(a) should come first and this follows it.
+   **✅ Including the side-by-side** (*Your Flow, in the Standard Notation*), which embeds the delegates'
+   own `resources/Pre-Arrival Guest Flow.png` beside a compact BPMN collaboration. It is the only Phase 2
+   figure that embeds an existing artefact rather than drawing it, and it has to be: the slide's promise
+   is *you drew this an hour ago*, so the left half must be the thing the room actually made. The image is
+   embedded as a data URI in both outputs, so neither file depends on the original staying put.
+
+   **Filename trap, cost an hour.** This figure was first recorded as blocked because no
+   `Pre-Arrival Guest Flow.drawio.png` exists — the convention most of `resources/` uses. The render is at
+   **`Pre-Arrival Guest Flow.png`**, the bare form. `resources/` uses both conventions; check for both
+   before concluding a source is missing.
+
+   **⚑ Watch at rehearsal:** in the composite the paper half is ~4.3in wide on a 16:9 slide, so its
+   labels are small. The presenter note already says to show the paper version **alone first**, then
+   reveal the BPMN — so the composite is the recognition moment, not the reading one. If it does not carry
+   the room, the fix is to split it across two slides rather than to enlarge it.
 
    **☐ And one layout job:** the BPMN **delegate reference card**, one A4 side carrying the task / event /
    gateway legends, whose three drawio sources already exist. Its own outline note calls it a Phase 3
@@ -581,14 +591,14 @@ than a blank canvas.
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
 | `outlines/DayOne.md` | **49** | 19 | 0 | 4 | **26** |
-| `outlines/DayTwo.md` | **89** | 46 | 0 | 1 | **42** |
+| `outlines/DayTwo.md` | **89** | 47 | 0 | 0 | **42** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
 why Day 1's `[→ resources/…]` column moved 7 → 19 and `[external]` is 0. Day 2's six `[no source …]`
 markers are gone — D2-10 replaced the pizza family with `☐ REDRAW (hotel)`, and **those 12 are now
-built** (item 8), which is why Day 2's linked column moved 34 → 46 and its pending column 13 → 1. The one
-left is the side-by-side, blocked on rendering the paper flow.
+built** (item 8), which is why Day 2's linked column moved 34 → 47 and its pending column 13 → **0**.
+The only `☐` left anywhere on Day 2 is the reference card, and that is a `#note:`, not an image.
 
 **The 68 unannotated lines are the hidden bulk of Phase 2**, and they are larger than the redraw list.
 They are photos, logos, book covers, screenshots and hand-drawn diagrams whose masters are the extracted
@@ -601,17 +611,17 @@ mapping does not align automatically, because consolidated entries break the 1:1
 
 1. **Division of labour.** Items 1–4 and 7a stay *Ian to draw* — the conceptual grids and the coupling
    scale, which are arguments rather than illustrations. **Items 5 and 8 are done.** Items 6 and 6a remain
-   unassigned (2 If-Later diagrams, Day 2 §2's three) — and **6a(a), the paper-flow notation key, is now on
-   the critical path**, because the last Day 2 marker depends on it.
+   unassigned (2 If-Later diagrams, Day 2 §2's three).
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.
 3. **Where output lives — settled.** `resources/eip-<name>.drawio` + `.png`, linked into the outline as
    `[→ resources/<name>.png]`.
 4. **Order — settled.** Day 1 §4's 12 EIP replacements went first, as the biggest single item and the one
-   that decides whether the material looks like ours; the Day 2 BPMN family followed. Next: **6a(a), the
-   paper-flow notation key**, which unblocks the side-by-side, then the rest of 6a, the If-Later pair, and
-   the 68 unannotated lines section by section.
+   that decides whether the material looks like ours; the Day 2 BPMN family followed, and **Day 2 now has
+   no pending `#image:` markers at all**. Next: item 6a (the paper-flow notation key, the order-wheel
+   photograph, the Worked Flows montage), then the If-Later pair, then the 68 unannotated lines per
+   section.
 
 5. **Two registers, settled by the content.** Phase 2 artwork is hand-drawn (`sketch=1`, Caveat labels)
    **except BPMN**, which is straight-stroked with Plex Sans labels. The reason is in the section itself:

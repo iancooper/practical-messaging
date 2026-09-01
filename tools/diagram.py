@@ -163,6 +163,14 @@ class Diagram:
     BAND = 26          # width of a pool's vertical title band
 
     @staticmethod
+    def _data_uri(path):
+        ext = os.path.splitext(path)[1].lower().lstrip(".")
+        mime = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg",
+                "gif": "image/gif"}.get(ext, "image/png")
+        with open(path, "rb") as fh:
+            return f"data:{mime};base64," + base64.b64encode(fh.read()).decode()
+
+    @staticmethod
     def _symbol(out, cx, cy, kind, col, filled=False):
         """The glyph inside an event circle. Filled means a throwing event."""
         fill = col if filled else "none"
@@ -278,6 +286,16 @@ class Diagram:
         self.nodes.append(node)
         return node
 
+    def image(self, x, y, w, h, path):
+        """Place an existing raster inside a drawing -- for the one figure that has to
+        show a delegate's own artefact beside ours. It is embedded as a data URI in
+        both outputs, so neither file depends on the original staying put."""
+        self._n += 1
+        node = dict(id=f"i{self._n}", kind="image", x=x, y=y, w=w, h=h, label="",
+                    path=os.path.abspath(path))
+        self.groups.append(node)          # behind everything we draw ourselves
+        return node
+
     def note(self, x, y, text, color=MUTED, size=14, anchor="middle"):
         self.nodes.append(dict(id=None, kind="note", x=x, y=y, label=text,
                                color=color, size=size, anchor=anchor))
@@ -354,8 +372,9 @@ class Diagram:
     def to_svg(self):
         W, H = self.w, self.h
         o = []
-        o.append(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
-                 f'viewBox="0 0 {W} {H}">')
+        o.append(f'<svg xmlns="http://www.w3.org/2000/svg" '
+                 f'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                 f'width="{W}" height="{H}" viewBox="0 0 {W} {H}">')
         o.append(
             '<defs>'
             '<filter id="wob" x="-5%" y="-5%" width="110%" height="110%">'
@@ -397,6 +416,11 @@ class Diagram:
         o.append(f'<g{wob} fill="none" stroke-linecap="round" '
                  'stroke-linejoin="round">')
         for g in self.groups:
+            if g["kind"] == "image":
+                o.append(f'<image x="{g["x"]}" y="{g["y"]}" width="{g["w"]}" '
+                         f'height="{g["h"]}" preserveAspectRatio="xMidYMid meet" '
+                         f'xlink:href="{self._data_uri(g["path"])}"/>')
+                continue
             if g["kind"] == "pool":
                 c = ANNOTATION if g.get("accent") else INK
                 x, y, w, h = g["x"], g["y"], g["w"], g["h"]
@@ -514,7 +538,7 @@ class Diagram:
 
         # text, outlined -- deliberately NOT wobbled, so labels stay legible
         for g in self.groups:
-            if not g["label"]:
+            if not g["label"] or g["kind"] == "image":
                 continue
             col = ANNOTATION if g.get("accent") else (
                 INK if g["kind"] == "pool" else MUTED)
@@ -635,6 +659,16 @@ class Diagram:
         # containers first so they land behind, and so a reader can drag the whole
         # group in draw.io without the members jumping out of it
         for g in self.groups:
+            if g["kind"] == "image":
+                cell = ET.SubElement(root, "mxCell", id=g["id"], value="",
+                                     style=("shape=image;html=1;imageAspect=1;"
+                                            "aspect=fixed;"
+                                            f"image={self._data_uri(g['path'])};"),
+                                     vertex="1", parent="1")
+                ET.SubElement(cell, "mxGeometry", x=str(g["x"]), y=str(g["y"]),
+                              width=str(g["w"]),
+                              height=str(g["h"])).set("as", "geometry")
+                continue
             if g["kind"] == "pool":
                 col = ANNOTATION if g.get("accent") else INK
                 pstyle = (f"swimlane;html=1;horizontal=0;startSize={self.BAND};"
