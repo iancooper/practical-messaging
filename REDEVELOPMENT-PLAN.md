@@ -1127,6 +1127,40 @@ written in.
 
 ---
 
+## 12. Outline hygiene — cleaned 2026-09-01
+
+**The outlines are build inputs, not a change log.** Before Phase 3 they carried the redevelopment's own
+working state: 23 provenance `#note:` blocks and 25 presenter notes citing review-item codes, dates,
+*"merged from"*, *"moved here from"*, *"used to read"*, and attributions.
+
+**The reason to remove it is not tidiness.** Presenter notes become the **speaker notes in the generated
+deck** — so *"Merged from three slides (D2-10)"* would have shipped to whoever presents the course.
+
+### The rule
+
+**Strip everything backward-looking. Keep everything forward-looking.**
+
+| removed | kept |
+|---|---|
+| why a slide changed, when, and which review item did it | the 20 pending `☐` build markers |
+| *"used to read…"*, *"was one slide carrying six images"* | 12 live `#note:` blocks — quick-start placement, *do not say "Reactive"*, the delegate reference card, *"split this table back if it is too dense"* |
+| `**Cut text:** session-work/…` pointers | every word of delivery guidance, including the *reasons* a slide is taught a particular way |
+| attributions (*"Ian:"*, *"(Ian)"*) | the substance of what was decided, rewritten as instruction rather than history |
+
+Where a provenance clause carried teaching content, the content was **rewritten as instruction**, not
+deleted — *"Reframed 2026-08-28 (review item D1-10). The slide used to hedge…"* became *"Teach this as the
+recommendation, not a warning… do not hedge it with 'replicas go stale', that over-states the risk."*
+
+**Verified:** entry counts and timings identical before and after — 88 / 86 entries, 419 / 354 min — so
+only metadata was removed.
+
+### Keep it this way
+
+**Rationale belongs here and in commit messages, never in the outline.** This section is the standing
+instruction; §9 and §11 are where the *why* for every change already lives.
+
+---
+
 ## 11. The timing pass — done and closed 2026-09-01
 
 **The first time either day has been timed.** Flagged in §3 since 2026-08-27 and blocked on D2-10 until

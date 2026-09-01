@@ -2,7 +2,7 @@
 
 A 101 guide to messaging. Ian Cooper. (X, BlueSky and Hachyderm: ICooper)
 
-Day One is **the message**, end to end. Why we distribute, the coupling and integration styles that follow, then a build order for messaging code — messages, channels and endpoints, the message pump, guaranteed delivery, and queues vs. streams. It closes on the two decisions you make with all of that: which **exchange pattern** to build, and what to put **in the message**.
+Day One is **the message**, end to end. It opens on the process boundary and what drawing one commits you to, then the coupling and integration styles that follow from it, then a build order for messaging code — messages, channels and endpoints, the message pump, guaranteed delivery, and queues vs. streams. It closes on the two decisions you make with all of that: which **exchange pattern** to build, and what to put **in the message**.
 
 Prerequisites: We use RabbitMQ and Kafka for examples. You should have Docker (or an equivalent) installed — exercises ship a Docker Compose file to spin up RMQ and Kafka.
 
@@ -14,21 +14,6 @@ Prerequisites: We use RabbitMQ and Kafka for examples. You should have Docker (o
 ## The Process Boundary
 
 *What sending messages between processes commits you to. Two slides, and then straight into coupling.*
-
-#note: **Rebuilt 2026-09-01, timing pass (plan §11).** Was `## Distributed Systems`, 7 entries / ~22 min.
-Ian: *lose much of the initial preamble around distributed systems — go straight into integration styles
-and then messaging mechanics, and move any discussion of why into Day 2 as a precursor to how we design
-event-driven architecture.* And: *it dated from an era when microservices was an important conversation,
-and that's not so true now.* The four **why** slides — *Easy to Change, and Robust*, *Easy to Change —
-Independent Deployability*, *Collaboration — Orchestration and Choreography* and *The Price of
-Distribution* — left; what survives of them opens **Day 2** (`## Why Event-Driven?`). The **microservices
-argument was dropped rather than moved**, and *Orchestration and Choreography* with it: Day 2's round 4
-makes the room live that distinction and Process Automation names it, so planting the words a day early no
-longer earns a slide. The three that stayed are here, compressed from three slides into two, because
-`## Coupling`, `## Integration Styles` and `§4.4` are all built on them. **The availability arithmetic
-(0.999⁴) moved into §Coupling *Must We Both Be Up?***, which is the slide that was already using it.
-
-**Cut text:** `session-work/cut-distributed-systems-preamble.md`, plus git history.
 
 ### Slide: Messages In, Private Data, No Shared Transaction
 
@@ -49,7 +34,7 @@ you design.
 #image: hand-drawn diagram — a microservice with private data receiving messages over a channel; database inside
 #image: hand-drawn diagram — two microservices exchanging messages over channels, each with its own database
 
-Presenter notes: **This is the load-bearing slide of both days, and it is now the first one.** Everything
+Presenter notes: **This is the load-bearing slide of both days, and it is the first one.** Everything
 the course teaches — outbox, sagas, idempotence, choreography, compensation — exists because the third
 bullet is true. Say that explicitly: it gives delegates a spine to hang the rest on. Keep it to five
 minutes; it is a premise, not an argument, and the room does not need persuading that processes have
@@ -57,10 +42,6 @@ boundaries. **Do not argue for microservices** — the boundary is the subject, 
 services, from a modular monolith with a queue between two components, or from talking to another company
 is not this course's business. §Coupling picks it up immediately: the boundary has already taken the two
 tightest coupling modes off the table, and the next slide is the bill for the rest.
-
-#note: Merged from *Microservice — Messages In, Private Data* and *Microservice — No Cross-Service
-Transactions* (2026-09-01). §Coupling *What the Process Boundary Already Bought You* cites both by name,
-and §4.4 calls back to the transaction rule; both citations now point here.
 
 ### Slide: Robust — Guaranteed Delivery
 
@@ -74,8 +55,8 @@ The other thing a boundary buys, and it is the cheaper of the two.
 
 ▎ One team, one service, one queue. Robustness without reorganising the company.
 
-Presenter notes: **Kept on Day 1 deliberately** (Ian, 2026-09-01) when the rest of the *why* went to Day 2:
-§4.4 Guaranteed Delivery is the spine of the afternoon, and this slide is the **inoculation** — it exists
+Presenter notes: §4.4 Guaranteed Delivery is the spine of the afternoon, and this slide is the
+**inoculation** — it exists
 so nobody in the room can file the course under "not for us, we're a monolith". Say the callout and move
 on; the mechanism is two hours away and they will recognise it when it arrives. **Do not say "the second
 property"** — the two-properties framing now lives on Day 2, and this slide has to stand alone.
@@ -83,14 +64,6 @@ property"** — the two-properties framing now lives on Day 2, and this slide ha
 ## Coupling
 
 *What the process boundary bought you, and what you can still give back.*
-
-#note: **Rebuilt 2026-08-28, review item D1-7.** Ian: *coupling and independent deployability are linked
-— in essence we prevent Content and Common coupling by providing a process boundary, but cannot avoid the
-other three in the message we send. Because we must now interact between processes we have to trade off
-temporal coupling too. That leads into the four integration styles, and how they show up on the coupling
-we have just discussed.* The old *Axis 1* slide presented all five levels as one flat tight→loose scale,
-which hid that split. It is now two slides: **what the boundary already prevented**, and **what is left
-for you to choose in the message**.
 
 ### Slide: What the Process Boundary Already Bought You
 
@@ -110,9 +83,8 @@ describing. The boundary is the mechanism; this is the payoff.
 
 #image: NEW — the Myers coupling scale (Content, Common, Control, Stamp, Data) with a process boundary drawn across it: Content and Common above the line, struck through as *prevented*; Control, Stamp and Data below it, live  [replaces (s27) hand-drawn coupling scale]
 
-Presenter notes: **New slide (D1-7), and since 2026-09-01 the section's opener** — *Coupling — Why It
-Matters* was dropped with the §1 preamble it called back to, so this slide now has to start the section
-cold. One sentence of framing before the scale: **coupling decides whether we can deploy independently,
+Presenter notes: **This slide opens the section cold**, so give it one sentence of framing before the
+scale: **coupling decides whether we can deploy independently,
 and how far a change spreads — it is a delivery and availability concern, not code tidiness.** Then the
 good news: this is the first thing delegates get *back* from drawing a boundary. Say plainly that **content coupling barely translates across a network boundary** rather than
 pretending the scale ports over unchanged; the honest version is more persuasive. The scale is Myers'
@@ -163,14 +135,12 @@ becomes the availability of the other.
 
 ▎ Messaging doesn't remove the outage. It converts a failure into a delay.
 
-Presenter notes: **The arithmetic moved here on 2026-09-01**, from *The Price of Distribution*, which left
-Day 1 with the §1 preamble. It belongs here: it was always an argument about *temporal* coupling, and this
-is the slide that names that axis. **Do the arithmetic on the board — 0.999⁴ = 0.996** — then be honest
+Presenter notes: **Do the arithmetic on the board — 0.999⁴ = 0.996** — then be honest
 about the trade: the messaging version does not make the downstream outage vanish, it buys an availability
 loss back as latency variance. That is usually a trade you can accept, and it is the argument the whole
 course rests on. Redundancy *within* a service raises availability; chaining temporally-coupled calls
-throws the gain away. This is where *robust* stops being a slogan and gets a number. This is the axis that multiplies your outages, and breaking it is what guaranteed
-delivery buys you. Note the asymmetry with the previous slide: the "about" axis you choose per message;
+throws the gain away. **This is where *robust* stops being a slogan and gets a number**, and breaking this
+axis is what guaranteed delivery buys you. Note the asymmetry with the previous slide: the "about" axis you choose per message;
 this one you choose per **style of integration**, which is the next section.
 
 #note: If this table is too dense on the rebuild, split it back into the original two slides
@@ -202,11 +172,6 @@ the next section makes about it.
 ## Integration Styles
 
 *Four ways to communicate between processes — and what each one gives back.*
-
-#note: **Reframed 2026-08-28, review item D1-7.** Each style is now scored against §Coupling's finding:
-**what did the process boundary buy you, and does this style hand any of it back?** Ian's goal for the
-section: *explain why messaging is our preferred option — and file transfer is just messaging without the
-support for locks, ordering, and so on.* The four styles are after Hohpe & Woolf.
 
 #note: **Do not say "Reactive."** The preference argued here is paid off on Day 2, and it has to land
 there as recognition. Argue it on coupling alone.
@@ -301,10 +266,9 @@ The four styles on the grid from §Coupling:
 
 #image: NEW — the two-axis grid from §Coupling, with the four integration styles plotted on it (reuse the same grid artwork so the call-back is visual, not just verbal)
 
-Presenter notes: **This is the section's goal slide (D1-7): it has to end on *why messaging*.** It used to
-end on an open question — "if File Transfer and Messaging are equally loosely coupled, why build the whole
-course on messaging?" — and leave the answer for later. Answer it here. Ian's framing is the one to use:
-**file transfer is just messaging, without the support for locks, ordering and the rest**; everything the
+Presenter notes: **This is the section's goal slide: it has to end on *why messaging*.** Do not leave the
+question — "if File Transfer and Messaging are equally loosely coupled, why build the whole course on
+messaging?" — hanging for later. Answer it here: **file transfer is just messaging, without the support for locks, ordering and the rest**; everything the
 broker does for you is something you would otherwise write. And the last callout is the whole argument of
 the day in one line. **Do not name Reactive** — Day 2 needs it fresh.
 
@@ -535,15 +499,13 @@ The **handler** is your code. The Service Activator is the join, and its whole j
 
 #image: (s62) EIP diagram — Service Activator invoking a service for request-reply  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessagingAdapter.html — **redraw**]
 
-Presenter notes: **Reframed 2026-08-28 (Ian).** The slide used to lead on *"lets application code be
-invoked by callers other than the pump — useful for developer tests"*, which is the side-effect, not the
-pattern. The point is the **separation**: the gateway owns everything about messaging, and the handler is
-independent of it. Testability follows from that, and lands better as evidence for the separation than as
-the headline. This is another case of the load-bearing idea sitting in the presenter notes — the old notes
-already said "handling all messaging details so the service doesn't know it's invoked via messaging",
-which is the sentence that should have been on the slide.
+Presenter notes: **The point is the separation**, not the testability: the gateway owns everything about
+messaging, and the handler is independent of it. Being able to invoke application code from callers other
+than the pump — developer tests, for one — *follows* from that, and lands better as evidence for the
+separation than as the headline. The sentence to say out loud is that the gateway handles all messaging
+details **so the service does not know it is invoked via messaging at all.**
 
-#note: **The exercises show this** (Ian). The handler signature in the exercise repos is the proof — a
+#note: **The exercises show this.** The handler signature in the exercise repos is the proof — a
 plain method over a domain type, with nothing messaging-shaped in it. Point at the actual code in §4.2's
 RMQ Quick Start rather than asserting it here; wire the specific file references in during Phase 3.
 
@@ -575,13 +537,10 @@ work is not lost — it waits.
 
 #image: hand-drawn architecture diagram — browser/web server enqueues work onto a channel; a backend Sender/Receiver maps messages to data; databases at each end
 
-Presenter notes: **Moved here from the old §1 (review items D1-3 / D1-6, 2026-08-28).** The opener keeps
-the *want* — *Robust — Guaranteed Delivery* — and this is the mechanism, which belongs where the parts
-have names.
-Everything the slide gestured at vaguely in the first ten minutes is now vocabulary they own: channel,
-pump, competing consumers. Call the callback out loud — this is the slide from the first ten minutes,
-and now they can read it. Ian's condition for keeping the task queue at all was that it earn its place in
-Messaging Patterns; this is where it does.
+Presenter notes: The opener kept the *want* — *Robust — Guaranteed Delivery* — and this is the mechanism,
+which belongs here, where the parts have names. Everything that slide gestured at vaguely in the first ten
+minutes is now vocabulary the room owns: channel, pump, competing consumers. **Call the callback out
+loud** — this is the promise from the first ten minutes, and now they can read how it is kept.
 
 ### Slide: Task Queue — HTTP Flow
 
@@ -598,17 +557,10 @@ How this looks over HTTP — and most delegates have not used it.
 
 ▎ 202 says *we have your work and we will not lose it*. §4.4 is how you keep that promise.
 
-Presenter notes: **Moved here from the old §1 (D1-6).** Ask who has returned a 202 in anger — usually a handful of
-hands. This is one of the most immediately usable things in the course: guaranteed delivery with no new
+Presenter notes: Ask who has returned a 202 in anger — usually a handful of hands. This is one of the most immediately usable things in the course: guaranteed delivery with no new
 infrastructure and no reorganisation, expressed in a protocol everyone in the room already ships. The
 callout is the set-up for §4.4 — the web server has *promised* not to lose the work, and the very next
-sub-topic is the fact that nothing so far actually guarantees it (D1-8).
-
-#note: **Settled in D1-8 (2026-08-28): both stay here.** The question was whether *Task Queue — HTTP
-Flow* belonged in §4.4 instead, since 202 Accepted is a delivery promise. It does not: the two slides are
-a pair — the architecture and its HTTP face — and splitting them across sub-topics would cost more than
-the filing gains. Instead the HTTP slide now points forward at §4.4, which is where the promise gets
-kept.
+sub-topic is the fact that nothing so far actually guarantees it.
 
 ---
 
@@ -617,13 +569,6 @@ kept.
 ## 4.4 Guaranteed Delivery
 
 *How do I stop losing messages — on the way out, and on the way in?*
-
-#note: **Restructured 2026-08-28, review item D1-8.** Ian: *we don't really distinguish well here between
-producer and consumer concerns.* Now in three groups. **Producer — did it get out?** dual write → Outbox →
-CDC → state change capture. **Consumer — the pump, and what it does with a message it cannot ack:**
-invalid, requeue-with-delay, dead letter, and then the Inbox. **Then the bill:** what your broker actually
-gives you natively. The Inbox moved out of the producer group; a new slide, *When the Handler Fails — Ack
-and Nack*, opens the consumer group and turns the three error channels into answers to three questions.
 
 ### Slide: Guaranteed Delivery
 
@@ -680,7 +625,7 @@ But look at what we just bought:
 #image: hand-drawn Outbox diagram — Entity and Outbox written in one DB transaction boundary, then relayed to a channel  [→ resources/Transactional With Outbox.png]
 
 Presenter notes: Do not let this land as a footnote — it is the question the **Inbox** exists to answer,
-and the Inbox is now four slides away, in the consumer group (D1-8). Leave the duplicate hanging
+and the Inbox is four slides away, in the consumer group. Leave the duplicate hanging
 deliberately: ask the room what they would do about it, take answers, and tell them you will come back to
 it when we are on the consumer side, because that is where it gets fixed. People from an HTTP background
 often assume the framework has already solved it.
@@ -753,10 +698,10 @@ But *not acking* is not a strategy, it is a question. Three of them, in order:
 **per-message acknowledgement**. A stream does not have one. §4.5 pays this off, and *What Your Broker
 Actually Gives You* two slides later makes it concrete.
 
-Presenter notes: **New slide (D1-8).** Ian: *do not underestimate the pump conversation on errors, and how
-that leads into DLQ, Invalid, Requeue — and Nack or Ack. That conversation makes parts of queue vs. stream
-much easier later.* This slide is that conversation, and it turns the next three from a list of patterns
-into the answers to three questions. Run it as a discussion before showing the answers: ask what their
+Presenter notes: **Do not underestimate this conversation.** Errors on the pump lead into DLQ, Invalid
+Message and Requeue-with-Delay — and into Nack or Ack — and having it here turns the next three slides
+from a list of patterns into the answers to three questions. It also makes parts of queue-vs-stream much
+easier later. Run it as a discussion before showing the answers: ask what their
 consumer does today when the handler throws. The usual answers are "it logs and moves on" (silent data
 loss) or "it retries forever" (the poison pill). Both are on this slide as the thing the three mechanisms
 prevent. This is also the natural place to define *poison message*.
@@ -809,7 +754,7 @@ a **Dead Letter Channel** for later operator review, often after retrying delive
 
 Presenter notes: Implementations vary (point-to-point or pub-sub). **This is the terminal state** — the
 place a message goes when *Requeue with Delay* has run out of attempts, which is why it now follows rather
-than precedes it (D1-8). Note the common confusion with the **Invalid Message Channel**, two slides back:
+than precedes it. Note the common confusion with the **Invalid Message Channel**, two slides back:
 Dead Letter = could not be delivered, or we gave up; Invalid Message = delivered but not understood. Some
 middleware (RabbitMQ) conflates the terms and calls rejected messages "dead letter". (EIP reference.)
 
@@ -828,10 +773,9 @@ If the message isn't idempotent (not side-effect free), use an **Inbox** to reco
 
 #image: hand-drawn Outbox→Inbox diagram — sender Outbox to channel to receiver Entity/Inbox for de-duplication  [→ resources/Inbox.png]
 
-Presenter notes: **Moved into the consumer half (D1-8).** It used to sit immediately after the Outbox, in
-the producer group, with a note explaining why it was out of place — Ian: *the Inbox is consumer side, and
-part of the pump, but it matters more once we have the Outbox.* Both halves of that are true, so it goes
-here and keeps the callback: this is consumer-side machinery answering a producer-side consequence.
+Presenter notes: **The Inbox is consumer-side machinery answering a producer-side consequence** — it is
+part of the pump, but it only matters once we have the Outbox, which is why it sits here rather than
+alongside it. Keep that callback.
 Exactly-once **delivery** does not exist; exactly-once **processing** is what the Outbox/Inbox pair gives
 you. It is the last of the four things the pump does with a message it cannot simply ack.
 
@@ -1120,20 +1064,12 @@ cancelling the order.
 
 **Out-In**, when you meet it, inherits In-Out's story: fault replaces the response.
 
-Presenter notes: **Merged from three slides — one per pattern (T-1, 2026-09-01)** — which made the same
-argument three times with the pattern's name changed. As a table the point becomes visible: **the fault
-story falls out of the coupling you already chose**, which is the payoff of putting a coupling verdict on
+Presenter notes: **The fault story falls out of the coupling you already chose** — which is the payoff of putting a coupling verdict on
 every pattern slide. Teach it top-down, loosest first, so the room sees the fault path *appear* as the
 coupling tightens. **The decision rule is the load-bearing line** — teams reach for fault channels
 reflexively, and if there is no action the requestor would take, a fault message is noise and a log line
 is the right answer. No Fault is "good enough" far more often than people admit; say so. Repair on the
 Out-Only row happens subscriber-side — retries, DLQs and the reconciliation they met in §4.4.
-
-#note: **T-1 (plan §11).** Was *In-Only — What About Faults?*, *Out-Only — Faults Are Not Available* and
-*In-Out — When the Reaction Is a Fault*. **A fourth candidate, *In-Out — When Nothing Comes Back*, was
-deliberately left standing** — it is not a fault story but the *absence* of a message: timeout, retry,
-idempotency, de-duplication. Different mechanism, and it is where the Inbox pattern earns its keep.
-The closing *Choosing an Exchange Pattern* table keeps its `fault path` column as the recap of this slide.
 
 ### Slide: In-Out — When Nothing Comes Back at All
 
@@ -1241,16 +1177,6 @@ Presenter notes: Third appearance of the grid — §2 introduced it, §3 plotted
 
 **Section goal:** given a message to design, choose what to put in it — and know how the receiver gets
 whatever you left out, and what that costs in availability.
-
-#note: **Moved from Day 2 (2026-08-28, review item D1-9).** Ian: this "better completes the picture on
-how to send and receive, ahead of Day 2's switch to the higher level". §4 taught how to move a message
-reliably, §5 which exchange to build with it; this is the last piece — what is actually *in* it. Day 2
-then opens at the level of whole flows.
-
-#note: **Versioning did not come with it.** The fourth sub-topic — Postel's Law, Tolerant Reader,
-additive vs. breaking change — is **dropped as taught material**, covered by the *Managing Asynchronous
-APIs* handout and signposted by a single pointer slide in the Day 2 wrap-up. Ian: *these are what we drop
-to focus on the exercises.*
 
 ---
 
@@ -1369,8 +1295,7 @@ listens on the channel, fetches what is missing, and republishes the message com
 
 #image: EIP diagram — Content Enricher augmenting a message from an external resource  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DataEnricher.html — **redraw**]
 
-Presenter notes: **Retained from the old §4.6 Pipelines when the rest of that sub-topic became a handout**
-(review item D1-9), because it is the drawn form of the slide before it. Make the callout the point:
+Presenter notes: **This is the drawn form of the slide before it.** Make the callout the point:
 teams reach for an enricher believing it decouples them, when all it has done is put a third party in the
 chain — A now depends on the enricher *and* B. Same arithmetic, one hop further away, and now it fails
 somewhere nobody owns.
@@ -1410,7 +1335,7 @@ and then **reverses it on a miss**, when B is down and you are not.
 sensitive, or it must be fresh at the instant you read it (an authorisation or a balance check). Then take
 the coupling knowingly, and put a circuit breaker on it.
 
-Presenter notes: **Reframed 2026-08-28 (review item D1-10).** The slide used to hedge — "replicas go stale, go wrong, and need rebuilding", teams adopt it "expecting it to be free". That over-states the risk. Ian's position, and it is the right one: in practice ECST is reliable, latency rarely causes an actual problem, and versioning the reference data closes the gap that remains. **Teach it as the recommendation.** The sharpest line in the room is the one about which way the trade runs — delegates arrive believing the synchronous lookup is the "correct" option and the cache is the shortcut, and it is the other way round. Ask what their p99 is on a cache miss when the upstream is degraded; nobody knows, which is the point.
+Presenter notes: **Teach this as the recommendation, not a warning.** In practice ECST is reliable, latency rarely causes an actual problem, and versioning the reference data closes the gap that remains. Do not hedge it with "replicas go stale, go wrong, and need rebuilding" — that over-states the risk. The sharpest line in the room is the one about which way the trade runs — delegates arrive believing the synchronous lookup is the "correct" option and the cache is the shortcut, and it is the other way round. Ask what their p99 is on a cache miss when the upstream is degraded; nobody knows, which is the point.
 
 ### Slide: Reference Data — Worked Example
 
@@ -1424,12 +1349,6 @@ Presenter notes: **Reframed 2026-08-28 (review item D1-10).** The slide used to 
 Presenter notes: **This slide is the proof of the previous one's claim** — it is what "particularly if you version the reference data" actually looks like. Without the version you cannot tell "I have not seen this yet" from "I have it", so staleness is invisible and you have to guess; with it, the replica knows what it does not know. Backpressure here is the same idea they meet again on Day 2 in the reactive material.
 
 ---
-
-#note: **D1-10 done 2026-08-28.** *Get It In Advance — ECST* is now written as the recommendation, not a
-warning, and the sub-topic has a verdict: **prefer the copy, version it, and take the synchronous lookup
-only where the data genuinely cannot be replicated.** The same over-emphasis was corrected in two other
-places it had leaked to — §6.3's *Why ECST Needs Snapshots* ("only tolerable" → the snapshot is what makes
-it work) and Day 2 §1's *FBP — Where Do Lookups Live?*.
 
 ---
 
@@ -1460,7 +1379,7 @@ You cannot replicate someone else's state from deltas unless you receive **every
 
 ▎ Choose the delta and you have chosen strict ordering. Choose the snapshot and you have bought it back.
 
-Presenter notes: This is the join between the two halves of the section. **ECST works because of the snapshot event** — it is what makes the next two slides possible at all, and it is the reason the previous sub-topic could recommend ECST without hedging. The rule: publish complete new versions rather than deltas. (D1-10: this used to read "only tolerable", which under-sells it.)
+Presenter notes: This is the join between the two halves of the section. **ECST works because of the snapshot event** — it is what makes the next two slides possible at all, and it is the reason the previous sub-topic could recommend ECST without hedging. The rule: publish complete new versions rather than deltas.
 
 ### Slide: If Later, Stream
 

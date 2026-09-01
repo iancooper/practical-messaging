@@ -12,20 +12,6 @@ Day Two moves from the single message to the **flow**. It opens on **Flow and Re
 
 *Two slides. Day 1 taught the mechanics; this says what they were for, and hands into the design day.*
 
-#note: **New 2026-09-01, timing pass (plan §11).** Ian: *move any discussion of why into Day 2 as a
-precursor to the general topic of how we design event-driven architecture.* It carries what survives of
-Day 1's old `## Distributed Systems` opening. **What did not survive the move:** the *Independent
-Deployability* slide's microservices apparatus — the monolith-branching timeline, the two-pizza team, the
-Netflix quote — because Ian: *it dated from an era when microservices was an important conversation, and
-that's not so true now.* The property is kept; the 2016 argument for it is not. ***Collaboration —
-Orchestration and Choreography* was dropped outright**: round 4 makes the room live that distinction and
-Process Automation names it, so planting the words a day early no longer earns a slide. **The availability
-arithmetic stayed on Day 1**, in §Coupling *Must We Both Be Up?*, which is the slide that was already
-using it — so this section names the trade and does not re-derive it.
-
-#note: **Adjusts D2-2**, which settled that *Flow and Reactive Programming*'s opener opens Day 2. It now
-opens the **teaching**, immediately after these two slides. Its section marker was rewritten accordingly.
-
 ### Slide: Easy to Change, and Robust
 
 You will hear four reasons to distribute a system — **performance and scalability**, **availability**,
@@ -88,13 +74,13 @@ theirs). **D — the name** (Reactive, which is what you have been building sinc
 **Section goal:** stop drawing your system as call-and-return, and start drawing it as flow — and know
 what that buys.
 
-**The order is deliberate (D2-5).** Flow comes first, on paper, before software is mentioned at all. Only
+**The order is deliberate.** Flow comes first, on paper, before software is mentioned at all. Only
 once delegates can draw a flow do we ask *how does this look in software?* — and call-and-return is then
 the **failed answer** to a question they already have, rather than an opening complaint about a system
 they have not yet been given an alternative to.
 
 #note: This section is **load-bearing for the Paper Flow exercise**, which no longer runs after it but
-**inside it**, in two blocks (D2-4, D2-7). Movement A teaches the desk / in-tray / out-tray notation and
+**inside it**, in two blocks. Movement A teaches the desk / in-tray / out-tray notation and
 the failure vocabulary, then hands straight to **block 1** — delegates draw the hotel on paper and break
 it. Movement C teaches nodes, ports and lookups and works both flows as graphs, then hands to **block
 2** — delegates redraw their own flow as a graph. Movement D closes on **round 4** (*who is in charge?*),
@@ -201,11 +187,6 @@ Walk the value stream first and the flow second, and say why: the value stream s
 gets*, the flow says *who has to do what to whom*. **Ask the room where the waiting is** before you show
 the flow — the answer is always "at the boundary", which is the point.
 
-#note: **D2-3.** These four flows were one-and-a-bit slides — Onboarding, then *Order, Placement,
-Confirmation* compressed onto a single slide carrying six images. They are the exercise's *see one* and
-are **walked in class**, so each flow now gets its own slide, in the order the takeaway business actually
-runs them.
-
 ### Slide: Worked Flow — Customer Order
 
 **The customer orders.** The first flow that crosses into the customer's world, and the first with more
@@ -291,10 +272,6 @@ Presenter notes: This is the **failure vocabulary the exercise's failure cards u
 #note: *ACID takes place at a desk; BASE takes place across desks* is **deliberately not spent here** —
 it is the punch line of the Paper Flow debrief in block 1. Do not use it in this section.
 
-#note: **Cut from here: *Two Axes — Discrete/Series and Skinny/Fat*.** Day 1 §6 *What Goes in a Message?*
-and Day 1 §6.3 *Event Shape* now own that material and treat it properly; a recap in the middle of the paper build
-interrupts the argument and serves the section goal not at all.
-
 ### Slide: Now Do One — the Hotel, on Paper
 
 You have seen the takeaway's four flows, and you have seen them fail.
@@ -313,11 +290,6 @@ just watched, so point back at *Worked Flow — Restaurant Onboarding* and start
 a desk; BASE takes place across desks* in this block's debrief — it is the payoff for the hard rule.
 Delegates must **not** meet BPMN before the exercise; they are inventing a notation, and Process
 Automation formalises it at the end of the day.
-
-#note: **D2-4 ⚑.** The exercise used to be one ~75-minute block after Reactive. It is now split: this
-block is paper (rounds 1–3, ~45 min), block 2 is the FBP re-expression at the end of movement C (~45
-min), and round 4 is a ~10-minute beat at the end of movement D. Total ~100 minutes against 75 budgeted —
-the 25 comes out of Process Automation, which D2-10 cuts anyway.
 
 ---
 
@@ -367,10 +339,8 @@ activity." — Nicolai Josuttis, *SOA in Practice*
 
 Presenter notes: SOA takes objects to a macro scale. The Josuttis quote is the standard against which the next slide fails: he says align the service with a *business activity*. The next slide shows what you get when you align it with an *entity* instead. **A desk is a business activity** — the takeaway flows already satisfied Josuttis, which is worth saying out loud here rather than at the end.
 
-#note: The Josuttis quote used to sit orphaned in the middle of the paper-workflow images (old s58) and
-again in Process Automation. It belongs here, where it is the yardstick for Feature Envy. **Collision
-resolved by D2-10:** Process Automation's copy is gone — that slide is now *Your Flow, in the Standard
-Notation*. This is the only place the quote is read out.
+#note: **This is the only place the Josuttis quote is read out.** It belongs here, where it is the
+yardstick *Feature Envy* fails against — do not reintroduce it in Process Automation.
 
 ### Slide: Feature Envy — You Built a Distributed Monolith
 
@@ -385,15 +355,6 @@ Notation*. This is the only place the quote is read out.
 #image: hand-drawn entity-services diagram — Device → API Gateway → Cart, Restaurant, Account, Menu, Payment, Order, Delivery
 
 Presenter notes: **This is the slide the movement exists for, and it is now an answer rather than an opening complaint.** The room proposed this shape an hour ago; here is what it costs. The distributed monolith is not a failure of nerve, it is what call-and-return *becomes* when you distribute it — and it gives back exactly the independent deployability this morning's opener called "the prize". **End on the comparison, not on a question:** you drew a flow this morning with no coordinator, and then you built one with a coordinator in the middle. So what would it take to build what you actually drew? Movement C is the answer.
-
-#note: **Cut from here: *SOA — Faults Propagate*.** Day 1 §Coupling now owns fault propagation (availabilities
-multiply under temporal coupling) and makes the argument better. The idea is not lost — it returns in
-movement D as the thing **bulkheads** fix, which is where it does work rather than repeating Day 1.
-
-#note: **D2-5 ⚑.** This movement used to open the section, with paper as its answer. Reversed: paper now
-poses *how would you build this?* and movement B is the failed answer. The slides survive almost intact —
-only the framing sentences at the top of *Object-Oriented Programming* and the close of *Feature Envy*
-change, because the question they answer moved.
 
 ---
 
@@ -493,7 +454,7 @@ Data*.
 #image: hand-drawn FBP diagram — components A and B with lookup ports (query / pause / response) — the 'walk of shame'
 #image: hand-drawn FBP diagram — a 'Build Lookup' node listening to A, pre-caching a lookup table for B
 
-Presenter notes: Promoted out of the old *FBP — Capacity* slide, where three substantive diagrams were buried under a heading about buffers. This is the direct callback to Day 1 §6.2 *Reference Data* — on-demand versus in-advance, and the CAP cost of each. Delegates met the decision in prose at the end of Day 1 and in a picture now. **Give the same verdict** (D1-10): the Build Lookup node is the recommended shape; the lookup port is what you use when the data cannot be replicated. The paper form is the Catalogue Maker: a desk whose whole job is keeping a local copy current so nobody has to walk.
+Presenter notes: This is the direct callback to Day 1 §6.2 *Reference Data* — on-demand versus in-advance, and the CAP cost of each. Delegates met the decision in prose at the end of Day 1 and meet it as a picture now. **Give the same verdict:** the Build Lookup node is the recommended shape; the lookup port is what you use when the data cannot be replicated. The paper form is the Catalogue Maker: a desk whose whole job is keeping a local copy current so nobody has to walk.
 
 #group: The Worked Flows Again — as Graphs
 
@@ -521,10 +482,6 @@ the paper flow already had: the file, the reference number on the fax, and the c
 out loud; the italic lines on the slide are there so delegates can do the mapping themselves afterwards.
 **This is the diagram *Putting It Together* annotates** at the end of the day, so leave it clean here — the
 exchange-pattern labels are that section's job, not this one's.
-
-#note: **D2-6.** This was one slide carrying six images and both flows. Ian: *do not chop so much away* —
-we want **both** flows from paper re-expressed, Onboarding and the order flow, plus the failure variant.
-Now three slides, mirroring the four paper flow slides plus the paper errors slide.
 
 ### Slide: Worked Example — the Order Flow in FBP
 
@@ -591,10 +548,6 @@ Delegates redraw the stage they modelled in block 1, so there is no new domain t
 purely the change of notation, which is the point. The debrief joins the tables' graphs into one network,
 mirroring the *Order Flow in FBP* slide — and the hand-offs *between* tables are the largest fracture
 planes of all. Still **no BPMN**.
-
-#note: **D2-7 ⚑.** Second do-one, per Ian. It sits here rather than at the end of the section because
-its *see one* is the three slides immediately above it, and because movement D reads better as a reveal
-to a room that has just built the thing being named.
 
 ---
 
@@ -759,21 +712,10 @@ notation.
 
 Presenter notes: **Paper Flow round 4, ~10 minutes, and the hand-off into Process Automation** — it sits
 here rather than at the end of block 2 so its payoff does not go cold across the whole of movement D. See
-REDEVELOPMENT-PLAN §7. **Nothing has planted these two words** — *Collaboration — Orchestration and
-Choreography* was dropped in the 2026-09-01 timing pass precisely because this round does the job better.
-So do not call back to anything: let the room invent the distinction here, and give it the names only
-after they have run it both ways. Delegates still must **not** have met BPMN — they are about to be shown that the
+REDEVELOPMENT-PLAN §7. **Nothing anywhere in the course has planted these two words, deliberately** — so
+do not call back to anything. Let the room invent the distinction here, and give it the names only after
+they have run it both ways. Delegates still must **not** have met BPMN — they are about to be shown that the
 thing they just enacted has a standard notation, which only works if it is a reveal.
-
-#note: **D2-4 / D2-7 ⚑ knock-on.** Round 4 was the last round of a single block placed immediately before
-Process Automation. With the exercise split, it is the only round whose payoff is in a *later* section, so
-it stays late and becomes the section's closing beat. Round 3 (*break it*) went with block 1, where the
-error vocabulary is taught. **It is no longer a second telling of anything** — the Day 1 slide that named
-the two words was dropped on 2026-09-01, so this is the room's first meeting with the distinction.
-
-#note: Was *Now Do One* — a single hand-off into a single ~75-minute exercise block. The exercise is now
-split across the section (D2-4, D2-7) and this slide inherited the job of closing it, and the day's first
-half, on the question the section opened with.
 
 ---
 
@@ -801,8 +743,6 @@ Nothing new happens in this section. It gives names to what the room already bui
 
 Presenter notes: **This slide exists to keep the promise made on the previous one.** Delegates have just run their own flow with a conductor and without one, and were told that the next section gives those two things their names *and a notation* — so do not open on BPMN primitives, open on their own drawing. Put the paper version up alone first and ask what a stranger could not tell from it; then reveal the BPMN. **The mapping table is the teaching move: they already have every concept, they lack only the vocabulary.** The primitives on the next two slides then arrive as *what you needed in order to draw that*, rather than as a legend to be memorised. Do not read the table out — walk the diagram and point at each pair.
 
-#note: **Replaces *What is a Microservice? (SOA 3.0)* (D2-10).** That slide opened the section on a Josuttis SOA quote — a cold start straight out of round 4, and a duplicate: the same quote is a callout on §1 *SOA Is OO at Macro Scale*, where it is the yardstick *Feature Envy* fails against. **§1 keeps it**, and carries the service-alignment argument with it.
-
 ### Slide: BPMN
 
 **BPMN** (Business Process Management and Notation) is a visual language for diagramming business processes clearly, in a standardized and comprehensive way.
@@ -828,7 +768,7 @@ There are two kinds of arrow, and the difference between them is what the rest o
 
 #image: BPMN diagram — start event, task, gateway splitting to two parallel tasks, merge gateway, end event  [→ resources/BPMN Elements.drawio.png]
 
-Presenter notes: **Merged from *BPMN — Basic Elements* and *BPMN — Connecting Objects* (D2-10)** — the second was two lines and is the more important half. **The load-bearing line is the token one**, so say it out loud: it is *ACID at a desk, BASE across desks* from block 1's debrief, in BPMN's own vocabulary, and it is the distinction that makes orchestration-vs-choreography obvious twelve slides from now rather than arbitrary.
+Presenter notes: **The load-bearing line is the token one**, so say it out loud: it is *ACID at a desk, BASE across desks* from block 1's debrief, in BPMN's own vocabulary, and it is the distinction that makes orchestration-vs-choreography obvious twelve slides from now rather than arbitrary.
 
 ### Slide: BPMN — Tasks, Events and Gateways
 
@@ -844,7 +784,7 @@ Three of the six have variants. They are reference, not material:
 #image: BPMN legend — event-circle variants (message, timer, signal, escalation, compensation, cancel, etc.)  [→ resources/Event Types.drawio.png]
 #image: BPMN legend — gateway-diamond variants (exclusive, inclusive, parallel, complex, event-based)  [→ resources/Gateway Types.drawio.png]
 
-Presenter notes: **Merged from three legend slides — *Tasks*, *Events*, *Gateways* (D2-10).** **Do not read the lists.** Teach the six in the callout, which are the only ones used anywhere in this deck, and point at the reference card for the rest. Three icon legends is a lookup table, and a lookup table wants to be in the delegate's hand, not on the screen — the same test that sent Managing Asynchronous APIs and the routing patterns to handouts. The bolded entries in each list are the six.
+Presenter notes: **Do not read the lists.** Teach the six in the callout, which are the only ones used anywhere in this deck, and point at the reference card for the rest. Three icon legends is a lookup table, and a lookup table wants to be in the delegate's hand, not on the screen — the same test that sent Managing Asynchronous APIs and the routing patterns to handouts. The bolded entries in each list are the six.
 
 #note: ☐ **Delegate reference card** — the three full legends on one A4 side, in the pack. Phase 3 build item; the images already exist as editable drawio, so it is a layout job, not a redraw.
 
@@ -904,7 +844,7 @@ A Process is an **orchestration** — focused on a **single participant's perspe
 
 #image: BPMN diagram — a Checkout Basket process (Create Basket, Validate Choice, Price Basket, Validate Delivery/Payment)  [→ resources/Shopping Flow As Sequence.drawio.png]
 
-Presenter notes: **Merged with *What is Orchestration?* (D2-10)**, which restated this slide in five bullets. This is the conductor from round 4 — one person, holding the routing slip, who knows the whole process. Name the callback; the room enacted it forty minutes ago.
+Presenter notes: This is the conductor from round 4 — one person, holding the routing slip, who knows the whole process. Name the callback; the room enacted it forty minutes ago.
 
 ### Slide: Tokens
 
@@ -942,9 +882,6 @@ Presenter notes: Same pattern — send messages to act, wait to receive. To debu
 
 ### Slide: Hotel Example — Pools and Lanes
 
-
-
-
 #image: ☐ REDRAW (hotel) — BPMN diagram, the full multi-lane collaboration (Guest / Booking Team / Fax Operator / Concierge / Front Desk) with cross-lane message flows
 
 Presenter notes: Multiple pools (Guest, Just Paper Hotels, The Hotel) with message flows (booking request, fax to the hotel, accept/reject back, confirmation to the guest). We want to examine the *interaction* from a neutral perspective, but modelling it as one pool with lanes doesn't work well — some tasks reference interaction (waiting for the hotel's answer, taking payment), others are oblivious to partners (checking the room list, packing). It is not semantically correct because message events always refer to messages received from *outside*. **This is the heavy vertical bar from the paper notation, drawn properly** — and the failure of one-pool-with-lanes is exactly why the bar was there.
@@ -962,7 +899,7 @@ Interaction can happen two ways:
 
 #image: BPMN collaboration — Customer and Shopping pools with message flows  [→ resources/Shopping Flow with Pools.drawio.png]
 
-Presenter notes: **Merged with *What is Collaboration?* (D2-10)**, which was four bullets restating this slide. The two interaction options are the half worth keeping — "both participants must run in the engine" is the coupling argument from Day 1 §2 arriving at process scale.
+Presenter notes: The two interaction options are the half that matters — **"both participants must run in the engine"** is the coupling argument from Day 1 §Coupling arriving at process scale.
 
 ### Slide: Pools and Lanes
 
@@ -987,7 +924,7 @@ The full collaboration diagram for the hotel example.
 
 #image: BPMN diagram — a horizontal flow with Customer/Shopping lane labels per task and message events  [→ resources/Shopping Choreography.drawio.png]
 
-Presenter notes: **Merged with *What is Choreography?* (D2-10)** — the dance line and the no-shared-state line were the only two it added. The correlation key is not new either: it is the booking reference written on the fax so the answer can be matched to the request, and it is the same id that becomes a trace id in `## Next Steps`.
+Presenter notes: **The dance and the no-shared-state line are what to land here.** The correlation key is not new: it is the booking reference written on the fax so the answer can be matched to the request, and it is the same id that becomes a trace id in `## Next Steps`.
 
 ### Slide: Hotel Example — BPMN Choreography
 
@@ -1044,7 +981,7 @@ A conversation that spans more than a request and a response: the requestor may 
 
 **The booking, exactly:** the agency asks the hotel to `reserve()` a room. The hotel holds it **with a timeout**, so it can sell the room to someone else if we go quiet. Guest pays inside the limit → `commit()` → `acknowledge()`, the room is allocated. Guest abandons, or the card is declined → `rollback()` → `freed()`.
 
-Presenter notes: **Merged from *Tentative Operations* and *Tentative Operations — Example*, and the example moved from a shopping basket to the booking (D2-10).** This is the bridge into durable execution, and the hotel makes the bridge shorter: reserve/commit/rollback is a conversation with a *lifetime* — someone has to remember the reservation exists, honour its timeout, and drive it to commit or rollback **even across a restart**. That requirement is what the rest of this section is about. Two failure cards land here — *the guest checks out early, mid-flow* and *this desk goes home; anything not written into a file is forgotten*.
+Presenter notes: **This is the bridge into durable execution**, and the hotel makes the bridge shorter: reserve/commit/rollback is a conversation with a *lifetime* — someone has to remember the reservation exists, honour its timeout, and drive it to commit or rollback **even across a restart**. That requirement is what the rest of this section is about. Two failure cards land here — *the guest checks out early, mid-flow* and *this desk goes home; anything not written into a file is forgotten*.
 
 ### Slide: Durable Execution
 
@@ -1088,7 +1025,7 @@ Handlers process events (change resources) and update activity state.
 
 #image: C# code screenshot — an async order handler using a transaction, postbox and the outbox pattern
 
-Presenter notes: Baseline automation. E.g. a `BookingRequestedHandler` looks up the booking and sets state = AwaitingHotel. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers. **The code screenshot was its own slide (*Handlers — Illustration*) and is now this slide's picture (D2-10)** — walk the transaction and the postbox on it, because the outbox is Day 1 §4.4 arriving with a job to do.
+Presenter notes: Baseline automation. E.g. a `BookingRequestedHandler` looks up the booking and sets state = AwaitingHotel. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers. **Walk the transaction and the postbox on the code screenshot**, because the outbox is Day 1 §4.4 arriving with a job to do.
 
 ### Slide: State Machine + Activity State Updates
 
@@ -1101,7 +1038,7 @@ When handler interaction becomes complex, make the activity **explicit**.
 
 #image: C# code screenshot — an OrderStateMachine (MassTransit) with Initially/During states and transitions
 
-Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic. **The code screenshot was its own slide (*State Machine — Illustration*) and is now this slide's picture (D2-10).**
+Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic. **Walk the Initially/During states on the code screenshot.**
 
 ### Slide: Routing Slip + Activity State Updates
 
@@ -1140,7 +1077,7 @@ You cannot roll back across desks. So for every "do", you write an "undo" — an
 
 #image: ☐ NEW — BPMN fragment: a task with an attached compensation event linked to its undo task
 
-Presenter notes: **Replaces four `(Fault) …` slides — one per mechanism (D2-10).** They made the same argument four times twenty slides apart; as a table the repetition becomes the point. The name comes from a 1980s paper on long-lived database transactions, and messaging frameworks that say "saga" almost always mean the state-machine row. **The distinction to land is business error vs. technical error** — retry is for technical, a gateway branch is for business, and confusing the two is how teams end up retrying a declined card forty times. (Ruecker, *Practical Process Automation*.) On the hotel: the undo for *reserve a room* is *release the room*; the undo for *take payment* is *refund*. Ask the room which of the four they would use, and why.
+Presenter notes: **One argument, four costumes — as a table the repetition becomes the point.** The Saga name comes from a 1980s paper on long-lived database transactions, and messaging frameworks that say "saga" almost always mean the state-machine row. **The distinction to land is business error vs. technical error** — retry is for technical, a gateway branch is for business, and confusing the two is how teams end up retrying a declined card forty times. (Ruecker, *Practical Process Automation*.) On the hotel: the undo for *reserve a room* is *release the room*; the undo for *take payment* is *refund*. Ask the room which of the four they would use, and why.
 
 ### Slide: Workflow Engines — Embedded, External, and the Lessons from SOA
 
@@ -1150,7 +1087,7 @@ Weighing engines embedded in a service against external orchestrators.
 - Keep core domain logic **inside** services; let the engine coordinate *outcomes*, not fine-grained steps.
 - Consider choreography, or a local embedded orchestration, where autonomy matters more than visibility.
 
-Presenter notes: **Merged from *Embedded vs. External Workflow Engines* and *Workflow Engines — Lessons from SOA* (D2-10)** — two lines each, and the second was the argument the first was missing. The failure mode is **anaemic services**: all domain logic migrates into the engine and the services become passive executors of workflow directives. That is the ESB, rebuilt, and it sets up the next slide.
+Presenter notes: The failure mode is **anaemic services**: all domain logic migrates into the engine and the services become passive executors of workflow directives. That is the ESB, rebuilt, and it sets up the next slide.
 
 ### Slide: Smart Endpoints, Dumb Pipes
 
@@ -1225,12 +1162,6 @@ Final visual recap tying the exchange patterns back to the worked example.
 ## Next Steps
 
 *What we did not cover, and where it lives.*
-
-#note: **New sub-group (2026-08-28, review items D1-9 / D1-11 / D2-1).** Versioning (4 entries, Day 2) and
-Observability (3 entries, Day 1) were **dropped as taught material** and replaced by the two pointer
-slides below. Ian: *these are what we drop to focus on the exercises.* Neither is unimportant — both are
-things a delegate can read; neither is a decision we can rehearse in the room, which is what the two days
-are for. Say that out loud rather than letting them look like an oversight.
 
 ### Slide: Describing and Versioning Your Messages — the Handout
 
