@@ -1065,23 +1065,6 @@ completion. Typically called *fire-and-forget*.
 - *Must you both be up?* **No.** Store-and-forward; the provider can be down.
 - Behavioural (control) coupling: you decided who should act.
 
-### Slide: In-Only — What About Faults?
-
-The requestor is not waiting for a response. So what guarantee does the provider make about **faults**?
-
-**No Fault** — the provider makes no attempt to communicate triggered faults back. From the requestor's
-perspective, faults are the provider's application issue. Consistency is repaired out-of-band, via logs
-or error reports.
-
-**Message Triggers Fault (Robust In-Only)** — the provider propagates faults from the operation back to
-the triggering requestor on a **reverse channel**. There is no existing subsequent message to replace
-with a fault, so we add one.
-
-- Assumes the requestor can act on receipt of the fault, but it still takes no success response.
-- **Example.** The cashier sends `place order()`; if order placement cannot place the order it raises `fault()`. The cashier does not acknowledge success, but on a fault may need to issue a refund.
-
-Presenter notes: No Fault is "good enough" in many cases — say so, because teams reach for fault channels reflexively. The question to ask is: *is there an action the requestor would take?* If there is no action, a fault message is noise and a log line is the right answer. Robust In-Only earns its keep when the fault has a compensating action, like the refund.
-
 ### Slide: Out-Only (Notification)
 
 Under **Out-Only**, the requestor subscribes to the provider; an operation is triggered by receipt of a
@@ -1095,20 +1078,8 @@ Publish-Subscribe pattern: a provider is not aware of its consumers.
 
 - *Coupled about:* the event schema, and nothing else. No operation is named.
 - *Must you both be up?* **No.**
-- The loosest coupling available — which is exactly why its fault story is the one on the next slide.
-
-### Slide: Out-Only — Faults Are Not Available
-
-With a notification, **No Fault is essentially forced** — and that is a consequence of the coupling, not
-an oversight.
-
-- **Example.** Search cannot add a store to its results after `changedstore()`, and makes no attempt to tell Store Information.
-- The provider does not know its subscribers. There is nobody to tell.
-- And if it *did* know, it would be coupled to them — you would have traded away the property you chose pub-sub for.
-
-▎ You cannot have loose coupling and a fault path back. Pick one.
-
-Presenter notes: This is the payoff of putting the coupling verdict on every slide — the fault story is not a separate topic bolted on, it falls out of the pattern you chose. Repair happens on the subscriber's side: retries, dead-letter queues and the reconciliation they already met in Guaranteed Delivery.
+- The loosest coupling available — and, as *Faults, by Pattern* shows shortly, that is exactly why it
+  has no fault path at all.
 
 ### Slide: In-Out (Request-Reaction)
 
@@ -1126,18 +1097,45 @@ triggered operation — on a *separate* channel.
 
 Presenter notes: The correlation id is the cheapest thing on the slide and the most consequential. The moment you need one you have a conversation with state in it — and something has to own that state across a process restart.
 
-### Slide: In-Out — When the Reaction Is a Fault
+### Slide: Faults, by Pattern
 
-Under **Fault Replaces Message (Robust In-Out)**, the provider propagates faults by switching to a fault
-flow — replacing any message *after the first* with a fault. The requestor handles the error; the fault
-replaces the expected response (`reaction()` → `fault()`).
+You have three patterns. **You do not get to choose their fault stories — the coupling already chose.**
 
-- **Example.** The Pricer sends `take payment()` to a payment provider. On failure the payment provider signals `payment error()` back.
-- The fault message should indicate **why** — a provider issue, an invalid card, insufficient funds — because the requestor has to choose the next move: ask for an alternate payment method, or cancel the order.
+| pattern | what a fault can be | why |
+|---|---|---|
+| **Out-Only** | **Nothing. No Fault is forced.** | The provider does not know its subscribers. There is nobody to tell — and if it *did* know, it would be coupled to them, and you would have traded away the property you chose pub-sub for. |
+| **In-Only** | **No Fault**, or **Message Triggers Fault** (Robust In-Only) — a fault on a *reverse channel*, because there is no later message to replace | The requestor took no response, so a fault channel is an addition, not a substitution. Add one **only if there is an action to take.** |
+| **In-Out** | **Fault Replaces Message** (Robust In-Out) — any message *after the first* becomes a fault instead of the normal outcome | There is already a response channel and a correlation id. The fault is a **response**, not an exception: same channel, same id, same code path. |
 
-Presenter notes: Any message in the conversation after the first may indicate a fault instead of the normal outcome. The design rule is that a fault is a *response*, not an exception — it travels the same channel, carries the same correlation id, and is handled by the same code path.
+▎ You cannot have loose coupling and a fault path back. Pick one.
 
-### Slide: In-Out — When Nothing Comes Back
+▎ The question is never "should we handle faults?" It is **"is there an action the requestor would take?"**
+
+**Examples.** Search cannot add a store after `changedstore()` and makes no attempt to tell Store
+Information — repair is Search's problem. The cashier sends `place order()`; if order placement fails it
+raises `fault()`, because the cashier may need to issue a **refund**. The Pricer sends `take payment()`;
+the payment provider signals `payment error()` — and the fault must say **why** (provider issue, invalid
+card, insufficient funds), because the requestor has to choose between an alternate payment method and
+cancelling the order.
+
+**Out-In**, when you meet it, inherits In-Out's story: fault replaces the response.
+
+Presenter notes: **Merged from three slides — one per pattern (T-1, 2026-09-01)** — which made the same
+argument three times with the pattern's name changed. As a table the point becomes visible: **the fault
+story falls out of the coupling you already chose**, which is the payoff of putting a coupling verdict on
+every pattern slide. Teach it top-down, loosest first, so the room sees the fault path *appear* as the
+coupling tightens. **The decision rule is the load-bearing line** — teams reach for fault channels
+reflexively, and if there is no action the requestor would take, a fault message is noise and a log line
+is the right answer. No Fault is "good enough" far more often than people admit; say so. Repair on the
+Out-Only row happens subscriber-side — retries, DLQs and the reconciliation they met in §4.4.
+
+#note: **T-1 (plan §11).** Was *In-Only — What About Faults?*, *Out-Only — Faults Are Not Available* and
+*In-Out — When the Reaction Is a Fault*. **A fourth candidate, *In-Out — When Nothing Comes Back*, was
+deliberately left standing** — it is not a fault story but the *absence* of a message: timeout, retry,
+idempotency, de-duplication. Different mechanism, and it is where the Inbox pattern earns its keep.
+The closing *Choosing an Exchange Pattern* table keeps its `fault path` column as the recap of this slide.
+
+### Slide: In-Out — When Nothing Comes Back at All
 
 The requestor may not receive the expected response at all. What can it do?
 

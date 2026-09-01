@@ -76,8 +76,8 @@ exercises; **Day 2 = 84** with one paper exercise, run in two blocks and a closi
 **✅ The timing pass is done (2026-09-01) — see §11.** It found the opposite of what the entry counts
 suggested. Day 2, the day we spent D2-10 cutting, **fits with room to spare**. **Day 1 was over by ~53
 minutes** — because D1-9 moved *Designing Messages* (16 entries) onto it and nothing came off to pay for
-it. **T-0 has since taken 19 of those minutes** by moving Day 1's *why* preamble to Day 2; Day 1 is now
-**424 of 390** and Day 2 **354 of 390**. The remaining ~34 minutes are §11's T-1 … T-5.
+it. **T-0 took 19 of those minutes** by moving Day 1's *why* preamble to Day 2, and **T-1 another 5**; Day 1
+is now **419 of 390** and Day 2 **354 of 390**. The remaining ~29 minutes are §11's T-2 … T-5.
 
 Why the split holds on content, not just counts: Conversations + Repair continues Day 1's build order
 directly — *you can send and receive reliably, now what exchange do you build with it*. Fat & Skinny +
@@ -183,7 +183,7 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | 4d | · 4.3 The Message Pump | **8** | +*Task Queue* worked example & HTTP flow, from §1 (D1-6) | | |
 | 4e | · **4.4 Guaranteed Delivery** | **11** | ✅ D1-8: producer / consumer / broker, +*Ack and Nack* | | |
 | 4f | · 4.5 Queues and Streams | 13 | +Kafka Quick Start | | |
-| 5 | **Conversations** *(moved from Day 2)* | **15** | ✅ 25 → 15, rebuilt as a decision | ☐ 1 new grid + reuse §2 grid | ☐ |
+| 5 | **Conversations** *(moved from Day 2)* | **13** | ✅ 25 → 15, rebuilt as a decision; **T-1: fault slides 3 → 1** | ☐ 1 new grid + reuse §2 grid | ☐ |
 | 6 | **Designing Messages** *(moved from Day 2)* | **16** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
 | 6a | · 6.1 Fat and Skinny Messages | 5 | ✅ rebuilt on the lifetime rule | | |
 | 6b | · 6.2 Reference Data | 5 | ✅ D1-10: ECST rewritten as **the recommendation**; +*Content Enricher* | | |
@@ -193,9 +193,9 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | — | ~~Observability~~ | 3 | ✅ **dropped**; one pointer slide in Day 2 `## Next Steps` | | |
 | — | ~~Managing Asynchronous APIs~~ | 31 | ✅ **→ handout (§6)** | | |
 
-Day 1 is **Messaging Patterns (46, 51%)**, then the two decisions — **Conversations (15)** and
-**Designing Messages (16)** — with **11** slides of framing in front and 2 of wrap-up behind. **90 entries**
-after T-0.
+Day 1 is **Messaging Patterns (46, 52%)**, then the two decisions — **Conversations (13)** and
+**Designing Messages (16)** — with **11** slides of framing in front and 2 of wrap-up behind. **88 entries**
+after T-0 and T-1.
 
 ---
 
@@ -1232,14 +1232,54 @@ distinction cold.
 **Cut text:** `session-work/cut-distributed-systems-preamble.md`,
 `session-work/cut-coupling-why-it-matters.md`, plus git history.
 
-### ☐ Still to find on Day 1 — ~34 min
+#### ✅ T-1 — the fault slides fold — done 2026-09-01
+
+**Conversations 15 → 13 entries, 48 → 44 min. Day 1: 424 → 419.** Five minutes, not the ten estimated —
+see *what the estimate got wrong* below.
+
+**Three of the four folded; the fourth was left standing.** *In-Only — What About Faults?*, *Out-Only —
+Faults Are Not Available* and *In-Out — When the Reaction Is a Fault* are one argument told three times
+with the pattern's name changed, and they became ***Faults, by Pattern***, a three-row table. But
+***In-Out — When Nothing Comes Back*** is **not a fault story** — it is the *absence* of a message:
+timeout, retry, idempotency, de-duplication, and the place the Inbox pattern from §4.4 earns its keep.
+Folding it into a table of fault *types* would have lost the mechanism. It survives, renamed ***When
+Nothing Comes Back at All*** so its subject is unmistakable.
+
+**What the new slide has to carry.** *Choosing an Exchange Pattern* already has a `fault path` column
+covering all five patterns, so a table of verdicts would have been pure duplication. The merged slide
+therefore carries the **reasoning** — a `why` column — and the closing table stays as its recap:
+
+- **Out-Only** — No Fault is *forced*: the provider does not know its subscribers, and if it did it would
+  be coupled to them. **"You cannot have loose coupling and a fault path back. Pick one."**
+- **In-Only** — a reverse channel, because there is no later message to replace. **Only if there is an
+  action to take.**
+- **In-Out** — Fault Replaces Message: same channel, same correlation id, same code path. A fault is a
+  **response**, not an exception.
+
+Taught loosest-first, the room watches the fault path *appear* as the coupling tightens — which is the
+payoff of having put a coupling verdict on every pattern slide.
+
+**A side benefit.** The three pattern slides — In-Only, Out-Only, In-Out — now run **consecutively**
+instead of being interrupted by a fault slide each. That was not the goal, and it is the better ordering.
+
+**One reference repaired:** *Out-Only* ended *"which is exactly why its fault story is the one on the next
+slide"* — no longer true, since the fault treatment is now two slides later and covers all three.
+
+**What the estimate got wrong.** §11 costed T-1 at ~10 min on a 4 → 1 fold. Two corrections: only three
+slides could legitimately fold, and the merged slide is a **table**, which the model rates 3.5 against the
+2.5 of each standard slide it replaced — so 7.5 units become 3.5, not 2.5 become 1. **Consolidating into
+tables recovers less time than consolidating into prose**, which is worth remembering for T-2 and T-3.
+
+**Cut text:** `session-work/cut-conversations-fault-slides.md`, plus git history.
+
+### ☐ Still to find on Day 1 — ~29 min
 
 T-0 took the structural half. The rest is consolidation, and these were profiled during the timing pass.
 **Work one at a time, as with §9.**
 
 | # | section | candidate | ~min |
 |---|---|---|---:|
-| **T-1** | Conversations (48 min / 15) | **The four fault slides fold into one table.** *In-Only — What About Faults?*, *Out-Only — Faults Are Not Available*, *In-Out — When the Reaction Is a Fault* and *In-Out — When Nothing Comes Back* are the D2-10 `(Fault)` shape exactly: the same argument once per pattern. **§3 already says "Repair was not a separate topic — it was the fault column of the same table"** — this is that fold being undone slide by slide. 4 → 1. | ~10 |
+| **T-1** ✅ | Conversations | **Done 2026-09-01 — 3 → 1, not 4 → 1.** See below. | **−5** |
 | **T-2** | 4.5 Queues and Streams (33 / 13) | **Two caption triples become two slides.** *Scaling Queues and Streams* (38 chars) + *Competing Consumers* (95) + *Partitions* (322) + *Consumer Groups* (150); and *Archive and Replay* (40) + *Queues — No Archive and Replay* (153) + *Streams — Archive and Replay* (95). Seven entries carrying almost no text — the **image-dump pattern** never checked on Day 1. Check first whether *Queues vs. Streams — Capability Matrix* already says it. 7 → 3. | ~10 |
 | **T-3** | 4.3 The Message Pump (24 / 8) | **Thin slides merge.** *Translate and Dispatch* (131 chars) and *Competing Consumers* (86) are captions; *Worked Example — the Task Queue* and *Task Queue — HTTP Flow* are one example over two entries. **Do not touch *Service Activator*** — Ian reopened it once already. | ~7 |
 | **T-4** | Conversations | **Two framing tables, one job?** *Messaging or Eventing?* and *Command or Query?* both classify the same exchange before it is chosen. Merge only if they genuinely overlap. | ~4 |
