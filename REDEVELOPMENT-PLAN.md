@@ -73,14 +73,11 @@ Day 1 is **the message**; Day 2 is **the flow**.
 Current (**Phase 1 complete on both days**, 2026-08-29): **Day 1 = 96 entries** with two code
 exercises; **Day 2 = 84** with one paper exercise, run in two blocks and a closing round *inside* §1.
 
-Two balance observations:
-
-1. **Process Automation is cut, 50 → 37 — 44% of Day 2** (D2-10). It is still the largest single section
-   and still entirely lecture, but it is no longer the outlier it was, and the 13 entries removed pay the
-   **25 minutes** D2-4 / D2-7 took from it when the paper exercise went from ~75 to ~100.
-2. **Day 1 is now the longer day on count** — 96 against 84 — which is the right way round only if the
-   two code exercises are shorter than they look. **Both days want a timing pass before Phase 3**, and
-   nothing blocks it now: it is the next piece of work.
+**✅ The timing pass is done (2026-09-01) — see §11.** It found the opposite of what the entry counts
+suggested. Day 2, the day we spent D2-10 cutting, **fits with room to spare**. **Day 1 was over by ~53
+minutes** — because D1-9 moved *Designing Messages* (16 entries) onto it and nothing came off to pay for
+it. **T-0 has since taken 19 of those minutes** by moving Day 1's *why* preamble to Day 2; Day 1 is now
+**424 of 390** and Day 2 **354 of 390**. The remaining ~34 minutes are §11's T-1 … T-5.
 
 Why the split holds on content, not just counts: Conversations + Repair continues Day 1's build order
 directly — *you can send and receive reliably, now what exchange do you build with it*. Fat & Skinny +
@@ -176,8 +173,8 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
-| 1 | Distributed Systems | **7** | ✅ D1-1…D1-6: rebuilt to stop at the problem; 10 → 7 | ☐ | ☐ |
-| 2 | Coupling | **5** | ✅ D1-7: rebuilt on *what the boundary bought you* | ☐ 1 new grid + 1 new scale-with-boundary | ☐ |
+| 1 | **The Process Boundary** *(was Distributed Systems)* | **2** | ✅ **T-0 (2026-09-01): 7 → 2.** The *why* went to Day 2; the boundary + guaranteed delivery compressed into an opener | ☐ | ☐ |
+| 2 | Coupling | **4** | ✅ D1-7; **T-0 dropped *Why It Matters*** and moved the 0.999⁴ arithmetic into *Must We Both Be Up?* | ☐ 1 new grid + 1 new scale-with-boundary | ☐ |
 | 3 | Integration Styles | 5 | ✅ D1-7: each style scored on what it hands back; closes on *Why Messaging* | ☐ reuse §2 grid artwork | ☐ |
 | 4 | **Messaging Patterns** | **46** | ✅ build order; −9 §4.6, +2 task queue, +1 D1-8 | ☐ 12 EIP redraws | ☐ merge scripts |
 | 4a | · The Big Picture | 1 | ☐ reframe as build order | | |
@@ -196,12 +193,13 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | — | ~~Observability~~ | 3 | ✅ **dropped**; one pointer slide in Day 2 `## Next Steps` | | |
 | — | ~~Managing Asynchronous APIs~~ | 31 | ✅ **→ handout (§6)** | | |
 
-Day 1 is **Messaging Patterns (46, 48%)**, then the two decisions — **Conversations (15)** and
-**Designing Messages (16)** — with 17 slides of framing in front and 2 of wrap-up behind.
+Day 1 is **Messaging Patterns (46, 51%)**, then the two decisions — **Conversations (15)** and
+**Designing Messages (16)** — with **11** slides of framing in front and 2 of wrap-up behind. **90 entries**
+after T-0.
 
 ---
 
-## 5. Day 2 work queue — `outlines/DayTwo.md`, 3 real sections, 84 entries
+## 5. Day 2 work queue — `outlines/DayTwo.md`, 4 sections, 86 entries
 
 > **Superseded by §9 (review queue, 2026-08-28/29). All of D2-1 … D2-10 are done.** Day 2 is **84
 > entries**: Process Automation cut 50 → 37, the pizza example redrawn to the hotel, and the Josuttis
@@ -209,6 +207,7 @@ Day 1 is **Messaging Patterns (46, 48%)**, then the two decisions — **Conversa
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
+| 0 | **Why Event-Driven?** | **2** | ✅ **new, T-0 (2026-09-01)** — the *why* moved off Day 1; opens the day ahead of Flow | ☐ | ☐ |
 | — | ~~Designing Messages~~ | 15 | ✅ **→ Day 1 §6** (D1-9) | | |
 | — | ~~Versioning~~ | 4 | ✅ **dropped**; one pointer slide in `## Next Steps` | | |
 | 1 | **Flow and Reactive Programming** | **34** | ✅ 32 → 28 → 34; movements reordered, exercise split across it (D2-3…D2-8) | ☐ 3 new/redrawn | ☐ |
@@ -1123,3 +1122,128 @@ written in.
    the same fix §6 needs.
 4. ☐ Signpost it in the deck. It is *routing*, so it belongs either with §4.5 Queues and Streams or with
    the Day 2 `## Next Steps` group — decide when D1-8 / §4.4 is worked.
+
+---
+
+## 11. The timing pass — done 2026-09-01
+
+**The first time either day has been timed.** Flagged in §3 since 2026-08-27 and blocked on D2-10 until
+Phase 1 closed.
+
+### Settled with Ian
+
+| | |
+|---|---|
+| **Teaching day** | 09:00–17:00, 1h lunch, 2 × 15m breaks → **390 min of teaching time** |
+| **Day 1 exercises** | RMQ (§4.2) + Kafka (§4.5) ≈ **160 min** together — Ian's estimate, **never measured** |
+| **Day 2 exercise** | Paper Flow ≈ **100 min** (§7, settled by D2-4 / D2-7) |
+| **Pace** | varies by entry type, not one flat rate |
+
+So the lecture budgets are **Day 1: 230 min** and **Day 2: 290 min**.
+
+### The model — `session-work/timing.py`
+
+Each `### ` entry is classified structurally and given a rate: **pointer/hand-off 1.0** (Q&A, further
+reading, exercise material, section markers, *Now Do One*), **standard 2.5**, **diagram walk 3.0** (has an
+image and real body text), **table 3.5** (a markdown table, because tables generate discussion). The total
+is then scaled by **1.154**, calibrated against the one section whose real duration is known: the old
+`## Managing Asynchronous APIs`, **31 entries at ~75 minutes** (§7), recovered from git at `3e875a3`. The
+model scores it 65 raw, so everything is scaled up 15%.
+
+**A prose-density model was tried first and abandoned.** Scoring entries by body + presenter-note length
+gave 13 min for a *Distributed Systems* entry and **795 min for Day 1**. The flaw is worth recording:
+**outline verbosity measures how much redevelopment an entry has had, not how long it takes to teach**,
+and the presenter notes are full of *why this slide is here* meta-commentary that is never said aloud. The
+anchor section scored thin only because nobody had rewritten it.
+
+### The result
+
+| | lecture | exercise | day | vs. 390 |
+|---|---:|---:|---:|---|
+| **Day 1** | **283** | 160 | **443** | **over by 53 min** |
+| **Day 2** | **248** | 100 | **348** | **42 min spare** |
+
+Day 1, by section — the cut queue is the top of this list:
+
+| min | entries | section | |
+|---:|---:|---|---|
+| **48** | 15 | **Conversations** | biggest section on either day |
+| **38** | 11 | 4.4 Guaranteed Delivery | rebuilt by D1-8 and coherent; low priority |
+| **33** | 13 | **4.5 Queues and Streams** | six entries under 250 characters |
+| **24** | 8 | 4.3 The Message Pump | |
+| 22 | 7 | Distributed Systems | already cut by D1-1…D1-6 |
+| 18 | 6 | 6.3 Event Shape | |
+| 18 | 5 | Integration Styles | |
+| 17 | 5 | Coupling | rebuilt by D1-7 |
+| 17 | 7 | 4.2 Sending and Receiving | |
+| 15 | 5 | 6.2 Reference Data | |
+| 14 | 5 | 6.1 Fat and Skinny Messages | |
+| 14 | 6 | 4.1 What Is a Message? | |
+| 3 | 3 | Messaging Patterns + Closing | markers |
+
+**Trust it to ±20%**, and no further. It rests on **one** observed duration, and the model was 13% low on
+that one before calibration. **The single highest-value thing anyone can do is time the two Day 1 code
+blocks on the next delivery** — 160 min is an estimate, and it is 41% of Day 1.
+
+### Day 1 cut queue — ~53 min to find, ~19 found
+
+Ian chose a **cut pass** over moving *Designing Messages* back to Day 2. Then, mid-pass, he named a
+better first move than any of the seeded candidates:
+
+> *One option here is to lose much of the initial pre-amble around distributed systems. Just go straight
+> into discussing integration styles, and then messaging mechanics. Move any discussion of why into Day 2
+> as a pre-cursor to the general topic of how we design event driven architecture.*
+> …*we already found it dated from an era when microservices was an important conversation, but that's
+> not so true now, so we could move this.*
+
+#### ✅ T-0 — the preamble moves — done 2026-09-01
+
+**Day 1: 96 → 90 entries, 443 → 424 min. Day 2: 84 → 86, 348 → 354.** Nineteen of the fifty-three minutes.
+
+**What the section actually was.** `## Distributed Systems`, 7 entries / ~22 min, rebuilt only three days
+earlier by D1-1 … D1-6. Reading it against §2 and §3 showed **five of the seven were *why* but two were
+machinery**: §Coupling's *What the Process Boundary Already Bought You* says Content and Common come off
+the table *"because §1's Messages In, Private Data and No Cross-Service Transactions"*, and §4.4 calls
+back to the transaction rule by name. Those two could not simply leave.
+
+| decision | what was done |
+|---|---|
+| **Compress, don't just cut** (Ian: *compress with 3, 4 into an opener, one or two slides*) | *Messages In, Private Data* + *No Cross-Service Transactions* → one slide, ***Messages In, Private Data, No Shared Transaction***. It is now **the first slide of the course**, which is right: its own notes always called it *"the load-bearing slide — everything the two days teach exists because this sentence is true."* |
+| **Keep robust** (Ian) | *Robust — Guaranteed Delivery* stays on Day 1 as the second opener slide. It is the **inoculation** — nobody can file the course under "not for us, we're a monolith" — and §4.4 is the spine of the afternoon. Its "the second property" wording had to go, since the two-properties framing is now on Day 2. |
+| **§Coupling's opener went too** | *Coupling — Why It Matters* was pure callback to *Independent Deployability*. With that gone it had no content, so §Coupling now opens on *What the Process Boundary Already Bought You* with one sentence of framing folded into its notes. |
+| **The arithmetic stayed on Day 1** | 0.999⁴ = 0.996 was on *The Price of Distribution*, and was **cited forward** by §Coupling *Must We Both Be Up?* and §3 *RPC*. Moving it to Day 2 would have made both forward-reference the next day. It is now **on *Must We Both Be Up?* itself** — where it belongs, because it was always an argument about *temporal* coupling. |
+| **Drop the older material rather than move it** (Ian) | The *Independent Deployability* slide's microservices apparatus — the monolith-branching timeline, the two-pizza team, the Cockcroft quote — **did not travel**. The property is kept on Day 2; the 2016 argument for it is not. ***Collaboration — Orchestration and Choreography* was dropped outright**: Day 2's round 4 makes the room live the distinction and Process Automation names it, so planting the words a day early stopped earning a slide. |
+
+**New on Day 2: `## Why Event-Driven?`, 2 entries** — *Easy to Change, and Robust* (the two properties and
+the prize, without the microservices case) and *So How Do You Design One?* (the hand-off into Flow). Day 1
+now builds the machinery and Day 2 says what it was for, which is the better order: the argument was
+preamble on Day 1 in front of people who had not yet seen a single mechanism.
+
+**Adjusts D2-2**, which had settled that Flow's opener opens Day 2. It now opens the *teaching*, two
+slides in, and its marker was rewritten to hand off from *So How Do You Design One?*.
+
+**Nine cross-references were rewritten**, six on Day 2. The two that mattered: the *Reactive Manifesto*
+payoff was built on the two properties being taught **a day** earlier and that gap is now **ninety
+minutes**, so its notes now say to make the room recall them from memory rather than re-reading the
+opener; and round 4's *So Who Is in Charge?* claimed to keep a promise made by a slide that no longer
+exists, so it now says plainly that nothing has planted the words and the room should invent the
+distinction cold.
+
+**Cut text:** `session-work/cut-distributed-systems-preamble.md`,
+`session-work/cut-coupling-why-it-matters.md`, plus git history.
+
+### ☐ Still to find on Day 1 — ~34 min
+
+T-0 took the structural half. The rest is consolidation, and these were profiled during the timing pass.
+**Work one at a time, as with §9.**
+
+| # | section | candidate | ~min |
+|---|---|---|---:|
+| **T-1** | Conversations (48 min / 15) | **The four fault slides fold into one table.** *In-Only — What About Faults?*, *Out-Only — Faults Are Not Available*, *In-Out — When the Reaction Is a Fault* and *In-Out — When Nothing Comes Back* are the D2-10 `(Fault)` shape exactly: the same argument once per pattern. **§3 already says "Repair was not a separate topic — it was the fault column of the same table"** — this is that fold being undone slide by slide. 4 → 1. | ~10 |
+| **T-2** | 4.5 Queues and Streams (33 / 13) | **Two caption triples become two slides.** *Scaling Queues and Streams* (38 chars) + *Competing Consumers* (95) + *Partitions* (322) + *Consumer Groups* (150); and *Archive and Replay* (40) + *Queues — No Archive and Replay* (153) + *Streams — Archive and Replay* (95). Seven entries carrying almost no text — the **image-dump pattern** never checked on Day 1. Check first whether *Queues vs. Streams — Capability Matrix* already says it. 7 → 3. | ~10 |
+| **T-3** | 4.3 The Message Pump (24 / 8) | **Thin slides merge.** *Translate and Dispatch* (131 chars) and *Competing Consumers* (86) are captions; *Worked Example — the Task Queue* and *Task Queue — HTTP Flow* are one example over two entries. **Do not touch *Service Activator*** — Ian reopened it once already. | ~7 |
+| **T-4** | Conversations | **Two framing tables, one job?** *Messaging or Eventing?* and *Command or Query?* both classify the same exchange before it is chosen. Merge only if they genuinely overlap. | ~4 |
+| **T-5** | 4.4 Guaranteed Delivery (38 / 11) | **Lowest priority — D1-8 is recent and Ian was emphatic about the pump/error conversation.** Only obvious candidate: *State Change Capture* (270 chars) folding into *Log Tailing*. | ~3 |
+
+**Re-run `python3 session-work/timing.py` after every item** — it reads the outlines directly, so the
+budget line is always current.

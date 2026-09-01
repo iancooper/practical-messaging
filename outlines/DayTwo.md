@@ -8,6 +8,74 @@ Day Two moves from the single message to the **flow**. It opens on **Flow and Re
 
 ---
 
+## Why Event-Driven?
+
+*Two slides. Day 1 taught the mechanics; this says what they were for, and hands into the design day.*
+
+#note: **New 2026-09-01, timing pass (plan §11).** Ian: *move any discussion of why into Day 2 as a
+precursor to the general topic of how we design event-driven architecture.* It carries what survives of
+Day 1's old `## Distributed Systems` opening. **What did not survive the move:** the *Independent
+Deployability* slide's microservices apparatus — the monolith-branching timeline, the two-pizza team, the
+Netflix quote — because Ian: *it dated from an era when microservices was an important conversation, and
+that's not so true now.* The property is kept; the 2016 argument for it is not. ***Collaboration —
+Orchestration and Choreography* was dropped outright**: round 4 makes the room live that distinction and
+Process Automation names it, so planting the words a day early no longer earns a slide. **The availability
+arithmetic stayed on Day 1**, in §Coupling *Must We Both Be Up?*, which is the slide that was already
+using it — so this section names the trade and does not re-derive it.
+
+#note: **Adjusts D2-2**, which settled that *Flow and Reactive Programming*'s opener opens Day 2. It now
+opens the **teaching**, immediately after these two slides. Its section marker was rewritten accordingly.
+
+### Slide: Easy to Change, and Robust
+
+You will hear four reasons to distribute a system — **performance and scalability**, **availability**,
+**maintainability**, and applications that are **inherently distributed**. Strip the architecture words
+away and two properties are what you are actually buying:
+
+- **Easy to change** — ship a part without shipping the whole. *Independent deployability.* One team
+  decides its own release candidate and is in production in hours, not at the end of a two-week release
+  everyone had to agree a date for.
+- **Robust** — keep working when something you depend on is not. *Guaranteed delivery.*
+
+Both are bought with the same mechanism: **messages** — which is what yesterday was about.
+
+▎ Two properties, one mechanism. Independent deployability is the prize; everything else is about not
+giving it back.
+
+Presenter notes: **Day 1 built the machinery; this is the first time the room is told what it was for.**
+That order is deliberate — the argument used to open Day 1 and it was preamble there, in front of people
+who had not yet seen a single mechanism. Here they have seen all of them, so it reads as a summing-up
+rather than a promise. Say the four reasons, then say that all four reduce to two properties, and put the
+two words on the board — they are the spine of today. **Deliberately not here:** the case *for
+microservices*. The property is what matters and there is more than one way to buy it; a 2016 argument
+about decomposing monoliths is not what this room needs in 2026. If someone asks, the honest answer is
+that microservices are one example, they are not free, and yesterday was the bill. **Do not mention
+Reactive** — it is ninety minutes away and it lands better as recognition.
+
+### Slide: So How Do You Design One?
+
+Yesterday answered *how do I send and receive reliably*. Today asks the harder question:
+
+- **What shape is the system**, once no one call-and-returns its way through the whole use case?
+- **Who is in charge** — and does anyone need to be?
+- **Where does the work live** when a request is not a thread waiting for a reply?
+
+You already know the cost side. Temporal coupling multiplies outages; store and forward converts a
+failure into a delay. **That trade is settled.** What is not settled is what the system *looks like* when
+you take it seriously — and that is today.
+
+▎ Messaging doesn't remove the outage; it converts a failure into a delay. Now: what does a system built
+that way actually look like?
+
+Presenter notes: **This is the hand-off slide, and it should take two minutes.** Do not re-derive the
+availability arithmetic — Day 1 §Coupling *Must We Both Be Up?* did it with a number (0.999⁴ = 0.996) and
+the room owns it. Name it and move. The three questions are the three movements of the next section in
+disguise, so do not answer any of them; the next slide is a section marker whose whole content is the
+second question. If the room is cold first thing in the morning, the fastest warm-up is to ask what they
+built yesterday and let somebody describe the outbox out loud.
+
+---
+
 ## Flow and Reactive Programming
 
 *The opening section of Day Two. Four movements: **A — how the office did it** (paper workflows: the
@@ -41,8 +109,10 @@ Section marker.
 
 ▎ Everything in this section is one question: *what is in charge?*
 
-Presenter notes: **This opens Day Two, so it has to earn the room's attention in one line** — and the line
-is the question, not the agenda. Do not list the movements. The route is: watch an office do it with no
+Presenter notes: **The first teaching slide of Day Two**, straight off *So How Do You Design One?*, which
+asked *who is in charge — and does anyone need to be?* This marker is that question, alone on a slide. It
+has to earn the room's attention in one line, and the line is the question, not the agenda. Do not list
+the movements. The route is: watch an office do it with no
 one in charge, do it yourself, then discover that the way you already build software puts somebody in
 charge whether you wanted it or not.
 
@@ -314,9 +384,9 @@ Notation*. This is the only place the quote is read out.
 
 #image: hand-drawn entity-services diagram — Device → API Gateway → Cart, Restaurant, Account, Menu, Payment, Order, Delivery
 
-Presenter notes: **This is the slide the movement exists for, and it is now an answer rather than an opening complaint.** The room proposed this shape an hour ago; here is what it costs. The distributed monolith is not a failure of nerve, it is what call-and-return *becomes* when you distribute it — and it gives back exactly the independent deployability Day 1 §1 called "the whole prize". **End on the comparison, not on a question:** you drew a flow this morning with no coordinator, and then you built one with a coordinator in the middle. So what would it take to build what you actually drew? Movement C is the answer.
+Presenter notes: **This is the slide the movement exists for, and it is now an answer rather than an opening complaint.** The room proposed this shape an hour ago; here is what it costs. The distributed monolith is not a failure of nerve, it is what call-and-return *becomes* when you distribute it — and it gives back exactly the independent deployability this morning's opener called "the prize". **End on the comparison, not on a question:** you drew a flow this morning with no coordinator, and then you built one with a coordinator in the middle. So what would it take to build what you actually drew? Movement C is the answer.
 
-#note: **Cut from here: *SOA — Faults Propagate*.** Day 1 §1 now owns fault propagation (availabilities
+#note: **Cut from here: *SOA — Faults Propagate*.** Day 1 §Coupling now owns fault propagation (availabilities
 multiply under temporal coupling) and makes the argument better. The idea is not lost — it returns in
 movement D as the thing **bulkheads** fix, which is where it does work rather than repeating Day 1.
 
@@ -563,7 +633,7 @@ on asynchronous message passing). — reactivemanifesto.org
 
 ▎ Two properties, one mechanism. Somebody wrote it down in 2014.
 
-Presenter notes: **This is the payoff of the Day 1 §1 plant, and Day 1 deliberately never said the word "Reactive" so that this lands as recognition rather than repetition.** Do not present the manifesto as new information; present it as the delegates' own two properties, already published, with two more added. Ask the room which two they already had before showing the mapping. Also: **not just the actor model** — these ideas have expression well beyond it, and following Helland, many implementations are possible.
+Presenter notes: **This is the payoff of *Easy to Change, and Robust*, and neither day has said the word "Reactive" before now, so it lands as recognition rather than repetition.** One caveat since the timing pass: the two properties are now named **this morning** rather than yesterday, so the gap is ninety minutes, not a day — the recognition is weaker and you have to work for it. **Ask the room to give you the two properties back from memory before you show the mapping**, and do not re-read the opener's wording. Present the manifesto as their own two properties, already published, with two more added. Also: **not just the actor model** — these ideas have expression well beyond it, and following Helland, many implementations are possible.
 
 ### Slide: Reactive Traits — Value, Form, Means
 
@@ -597,11 +667,11 @@ and send an outgoing message. That is a node with ports. That is a desk with tra
 - A component's inputs are commands and events; its outputs are events.
 - Nobody holds the whole process. There is no gateway `main`.
 
-▎ **Day 1 called independent deployability "the whole prize". This is how you stop giving it back.**
+▎ **This morning called independent deployability the prize. This is how you stop giving it back.**
 
 #image: hand-drawn message-passing diagram — a component with in-request / out-request / out-result ports (command vs event)
 
-Presenter notes: **Close the Day 1 loop explicitly** — name *Easy to Change — Independent Deployability* from Day 1 §1 out loud. The through-line to draw on the board: call and return puts knowledge of the whole use case in one place, so one place has to change every time the use case does; flow puts each step in its own component reacting to its own input, so a new step is a new subscriber. Reactive architectures derive from reactive programming, not OO — "everything flows". This is also the slide that answers movement B: the distributed monolith was entity services with a gateway `main`; this is the same distribution with the god object removed.
+Presenter notes: **Close the loop explicitly** — name *Easy to Change, and Robust* from this morning's opener out loud. The through-line to draw on the board: call and return puts knowledge of the whole use case in one place, so one place has to change every time the use case does; flow puts each step in its own component reacting to its own input, so a new step is a new subscriber. Reactive architectures derive from reactive programming, not OO — "everything flows". This is also the slide that answers movement B: the distributed monolith was entity services with a gateway `main`; this is the same distribution with the god object removed.
 
 ### Slide: Partitioning and Dataflow
 
@@ -629,7 +699,7 @@ we are brittle. In an asynchronous conversation it does not: the work queues up 
 
 #image: hand-drawn FBP diagram — Take Payment crossed out; work queues up on a fault (the bulkhead)
 
-Presenter notes: This slide absorbs the cut *SOA — Faults Propagate* — the fault propagation claim is made here, where it is immediately answered, instead of standing alone. And the callout is the Day 1 §1 central argument arriving for the third time: availabilities multiply only under temporal coupling; store-and-forward breaks the chain. This requires storage and retransmission — usually Message-Oriented Middleware. If a table drew *"the night porter is on a break"* in block 1, this is that card with a name on it.
+Presenter notes: This slide absorbs the cut *SOA — Faults Propagate* — the fault propagation claim is made here, where it is immediately answered, instead of standing alone. And the callout is Day 1 §Coupling's central argument arriving for the third time: availabilities multiply only under temporal coupling; store-and-forward breaks the chain. This requires storage and retransmission — usually Message-Oriented Middleware. If a table drew *"the night porter is on a break"* in block 1, this is that card with a name on it.
 
 ### Slide: When the Pipe Fills — Backpressure or Load-Shedding
 
@@ -689,16 +759,17 @@ notation.
 
 Presenter notes: **Paper Flow round 4, ~10 minutes, and the hand-off into Process Automation** — it sits
 here rather than at the end of block 2 so its payoff does not go cold across the whole of movement D. See
-REDEVELOPMENT-PLAN §7. Day 1 §1 *Collaboration — Orchestration and Choreography* planted both words and
-promised the room would *feel* the difference before either was defined; this is that promise being kept,
-so name the callback. Delegates still must **not** have met BPMN — they are about to be shown that the
+REDEVELOPMENT-PLAN §7. **Nothing has planted these two words** — *Collaboration — Orchestration and
+Choreography* was dropped in the 2026-09-01 timing pass precisely because this round does the job better.
+So do not call back to anything: let the room invent the distinction here, and give it the names only
+after they have run it both ways. Delegates still must **not** have met BPMN — they are about to be shown that the
 thing they just enacted has a standard notation, which only works if it is a reveal.
 
 #note: **D2-4 / D2-7 ⚑ knock-on.** Round 4 was the last round of a single block placed immediately before
 Process Automation. With the exercise split, it is the only round whose payoff is in a *later* section, so
 it stays late and becomes the section's closing beat. Round 3 (*break it*) went with block 1, where the
-error vocabulary is taught. Not a duplicate of Day 1 §1: that slide names the two words, this makes the
-room live the difference.
+error vocabulary is taught. **It is no longer a second telling of anything** — the Day 1 slide that named
+the two words was dropped on 2026-09-01, so this is the room's first meeting with the distinction.
 
 #note: Was *Now Do One* — a single hand-off into a single ~75-minute exercise block. The exercise is now
 split across the section (D2-4, D2-7) and this slide inherited the job of closing it, and the day's first

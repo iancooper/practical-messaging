@@ -11,172 +11,74 @@ Prerequisites: We use RabbitMQ and Kafka for examples. You should have Docker (o
 
 ---
 
-## Distributed Systems
+## The Process Boundary
 
-*What we want, and what it costs.*
+*What sending messages between processes commits you to. Two slides, and then straight into coupling.*
 
-#note: **Rebuilt 2026-08-28, review items D1-1 … D1-6.** Three movements. **A — what we want** (2 slides).
-**B — what independent deployability commits you to** (3 slides). **C — the price, and the second thing
-we want** (2 slides, handing to §Coupling). The section now deliberately **stops at the problem** —
-messaging is the answer, and §Coupling → §Integration Styles → §Messaging Patterns are where it gets
-given. Ian: *we want independent deployability, but here are the problems, and then the next section is
-about messaging as the answer.*
+#note: **Rebuilt 2026-09-01, timing pass (plan §11).** Was `## Distributed Systems`, 7 entries / ~22 min.
+Ian: *lose much of the initial preamble around distributed systems — go straight into integration styles
+and then messaging mechanics, and move any discussion of why into Day 2 as a precursor to how we design
+event-driven architecture.* And: *it dated from an era when microservices was an important conversation,
+and that's not so true now.* The four **why** slides — *Easy to Change, and Robust*, *Easy to Change —
+Independent Deployability*, *Collaboration — Orchestration and Choreography* and *The Price of
+Distribution* — left; what survives of them opens **Day 2** (`## Why Event-Driven?`). The **microservices
+argument was dropped rather than moved**, and *Orchestration and Choreography* with it: Day 2's round 4
+makes the room live that distinction and Process Automation names it, so planting the words a day early no
+longer earns a slide. The three that stayed are here, compressed from three slides into two, because
+`## Coupling`, `## Integration Styles` and `§4.4` are all built on them. **The availability arithmetic
+(0.999⁴) moved into §Coupling *Must We Both Be Up?***, which is the slide that was already using it.
 
-#note: **Left this section in the rebuild.** *Why Distribute?* — folded into the opener as one line
-(D1-1: it did not earn its weight, and it buried the lead). *Fallacies of Distributed Computing* — cut;
-its one distinct contribution, the where-we-answer-it column, is now a course map on §4 *The Big Picture*
-(D1-5). The two **task-queue mechanism slides** — moved to §4.3, after *Competing Consumers*, which is
-what they are a worked example of (D1-6: task queues are an *answer*, and this section no longer gives
-answers). Earlier revisions cut *Product Mode* and the standalone *Example — Microservices* quote.
+**Cut text:** `session-work/cut-distributed-systems-preamble.md`, plus git history.
 
-### Slide: Easy to Change, and Robust
+### Slide: Messages In, Private Data, No Shared Transaction
 
-You will hear four reasons to distribute a system — **performance and scalability**, **availability**,
-**maintainability**, and applications that are **inherently distributed**. Strip the architecture words
-away and two properties are what you are actually buying:
+We are going to spend two days sending messages between processes. Before anything else, **what does
+drawing that boundary decide for you?**
 
-- **Easy to change** — ship a part without shipping the whole. *Independent deployability.*
-- **Robust** — keep working when something you depend on is not. *Guaranteed delivery.*
-
-Both are bought with the same mechanism: **messages**.
-
-▎ Two properties, one mechanism. Everything in the next two days buys one of them with messages.
-
-Presenter notes: **This is now the opening slide** (D1-1). *Why Distribute?* used to come first and spend
-a slide on the four forces before getting here; the four forces are worth ten seconds, not a slide, and
-leading with them buried the lead. Say the list, then say that all four reduce to two properties, and put
-the two words on the board — they are the spine of both days. **Do not mention Reactive.** Day 2 pays this
-off: the Reactive Manifesto (2014) names the second property **Resilient** and claims the first in its own
-words — reactive systems are "easier to develop and amenable to change". Delegates should meet that on
-Day 2 as recognition, not repetition. One force to keep in your pocket: **availability** is the one that
-gets qualified later — redundancy *within* a service raises it, chaining services throws the gain away.
-Do not resolve it here; *The Price of Distribution* settles it.
-
-### Slide: Easy to Change — Independent Deployability
-
-**What we want.** Ship a part without shipping the whole. One team decides its own release candidate and
-is in production in hours.
-
-**What is in the way.** As an organisation grows to many teams, a monolith fights you. Each team branches
-to avoid contention; releasing means agreeing a date and merging, which collides with everyone else's
-schedule. Teams pile onto a release to avoid re-merging and re-testing upstream changes. A release takes a
-couple of weeks and distracts everyone.
-
-**Microservices are one example of buying it** — team-sized services, each with its own release train.
-Each team negotiates only internally; develop on master behind a feature switch per story and go straight
-to production. Delivery becomes hours, not weeks.
-
-- They are **not the only way** to get independent deployability.
-- They are **not free** — the rest of this section is the bill.
-
-▎ "Speed wins in the marketplace" — Adrian Cockcroft, former lead architect at Netflix.
-
-▎ Independent deployability is the whole prize. Everything from here on is about not giving it back.
-
-#image: timeline diagram — many teams on feature branches merging into a single monolith release over ~2 weeks
-#image: diagram — a monolith decomposed into independently released microservices (Alpha, Beta, Gamma), delivering in hours
-
-Presenter notes: **Reframed (D1-2): the property is the point; microservices are an example of it.** The
-slide used to read "the answer: decompose into microservices", which made the section an argument for
-microservices — dated in 2026, and not this section's goal. Show the two diagrams as a before/after pair.
-On the monolith side: once teams line up they merge to master and resolve conflicts; more features → more
-bugs → cost and schedule overruns (assume ~30% rework); we must re-test everything because we merged
-potentially incompatible changes; all teams wait on any fix, even another team's. Feature switches help
-drop changes, but database/schema changes (a monolith has a shared schema) make this hard, and rollback
-forces everyone out — hence "roll forward only". On the microservice side: Continuous Delivery is table
-stakes; we build microservices once we grow beyond a single "two-pizza" team. The second callout is the
-load-bearing line of the section — §Coupling calls straight back to it.
-
-### Slide: Microservice — Messages In, Private Data
-
-Independent deployability needs a **process boundary**. The next three slides are what you have committed
-to by drawing one.
-
-- The only way to complete a task within a service is to **send it a message**. Each service has its own
+- **The only way to get work done in another process is to send it a message.** Each service has its own
   accepted message types, and its own data requirements for partners submitting work.
-- Encapsulated within the service is **private data**. Requests to the service do not describe the shape
-  of internal data.
+- **The data behind the boundary is private.** A request does not describe the shape of the data inside;
+  it describes the work. Nobody reads your tables.
+- **No transaction spans two services.** Transactions — 2PC included — happen *within* a boundary, never
+  across one. You do not exchange transactions with your business partners, because their mistake would
+  lock your database. Without transactions you communicate through **multiple messages over time**.
+
+▎ No transaction spans two services. Consistency stops being something you declare and becomes something
+you design.
 
 #image: hand-drawn diagram — a microservice with private data receiving messages over a channel; database inside
-
-Presenter notes: **Regrouped (D1-4)** — this and the next two slides are the independent-deployability
-thread, and the task-queue material used to sit between them and break it. Now the thread runs
-uninterrupted: the property, then the three things the boundary commits you to.
-
-### Slide: Microservice — No Cross-Service Transactions
-
-- Transactions (including 2PC) may occur *within* a microservice.
-- Transactions cannot occur *between* services. If you operate independently from your business partners,
-  you don't exchange transactions with them. Cross-organisational transactions are avoided to prevent
-  lockup of *your* database when the *other* organisation makes a mistake. Without transactions, you
-  communicate through multiple messages over time.
-
-▎ No transaction spans two services. Consistency stops being something you declare and becomes something you design.
-
 #image: hand-drawn diagram — two microservices exchanging messages over channels, each with its own database
 
-Presenter notes: This is the load-bearing slide of the section. Everything the two days teach — outbox,
-sagas, idempotence, choreography, compensation — exists because this sentence is true. Say so explicitly;
-it gives delegates a spine to hang the rest of the course on.
+Presenter notes: **This is the load-bearing slide of both days, and it is now the first one.** Everything
+the course teaches — outbox, sagas, idempotence, choreography, compensation — exists because the third
+bullet is true. Say that explicitly: it gives delegates a spine to hang the rest on. Keep it to five
+minutes; it is a premise, not an argument, and the room does not need persuading that processes have
+boundaries. **Do not argue for microservices** — the boundary is the subject, and whether you got it from
+services, from a modular monolith with a queue between two components, or from talking to another company
+is not this course's business. §Coupling picks it up immediately: the boundary has already taken the two
+tightest coupling modes off the table, and the next slide is the bill for the rest.
 
-### Slide: Collaboration — Orchestration and Choreography
-
-- As services are independent, a collaboration comprises **orchestrations** — handlers, sagas or workflows
-  *within* the services…
-- …and the **choreography** — the flow of messages *between* services.
-
-#image: hand-drawn diagram — a process of tasks sending a message via a channel to a receiver task; databases at each end
-
-Presenter notes: Plant the two words now; Day 2 §Process Automation takes them apart properly, and the
-Paper Flow exercise makes delegates feel the difference before either word is defined.
+#note: Merged from *Microservice — Messages In, Private Data* and *Microservice — No Cross-Service
+Transactions* (2026-09-01). §Coupling *What the Process Boundary Already Bought You* cites both by name,
+and §4.4 calls back to the transaction rule; both citations now point here.
 
 ### Slide: Robust — Guaranteed Delivery
 
-The second property, and it is the cheaper of the two.
+The other thing a boundary buys, and it is the cheaper of the two.
 
 - We want the work **not to be lost** when something we depend on is slow, overwhelmed, or down.
-- **Store and forward.** The work waits somewhere durable until whoever does it is ready. The outage
-  becomes a delay.
-- **You do not need microservices for this one.** A single team with a single web application can have it
-  on Monday — one team, one service, one queue. No reorganisation required.
+- **Store and forward.** The work waits somewhere durable until whoever does it is ready. **The outage
+  becomes a delay.**
+- **You do not need to reorganise anything to get this.** A single team with a single web application can
+  have it on Monday — one team, one service, one queue.
 
 ▎ One team, one service, one queue. Robustness without reorganising the company.
 
-Presenter notes: **Renamed from *Robust — Task Queues* (D1-3): guaranteed delivery is the point, and the
-task queue is an example of it.** The *shape* of it — enqueue, throttle, competing consumers, and the 202
-Accepted flow — moved to §4.3 (D1-6: task queues are an answer, and this section no longer gives answers).
-What has to survive here is the inoculation: this slide exists so that nobody in the room can file the
-whole course under "not for us, we're a monolith". Say the callout and move on; the mechanism is two hours
-away and they will recognise it when it arrives.
-
-### Slide: The Price of Distribution
-
-Everything so far was the benefit. Here is the bill.
-
-- **Every call is now a network call.** It can be slow, it can fail, and it can succeed while losing the
-  reply.
-- **You cannot use a transaction to make two services agree.** Consistency becomes something you design.
-- **Your availability is now entangled with everyone you depend on** — and *how* it is entangled is a
-  choice you make.
-
-That last one is the one people get wrong:
-
-- **Call a service and wait, and your availabilities multiply.** Four services at 99.9% leaves you at
-  99.6% — before anything has actually failed.
-- **Send a message and don't wait, and they don't multiply.** Guaranteed delivery means the message
-  outlives their outage and is processed when they come back.
-
-▎ Messaging doesn't remove the outage. It converts a failure into a delay.
-
-Presenter notes: **This slide is now the glue and the close of the section (D1-5)** — it does the work
-*Fallacies of Distributed Computing* was also doing, and does it better, with a number. Anyone who spotted
-the availability tension in the opener gets their answer here: redundancy *within* a service raises
-availability; chaining *temporally coupled* calls throws that gain away. Do the arithmetic on the board:
-0.999⁴ = 0.996. Then be honest about the trade — the messaging version does not make the downstream outage
-vanish, it buys an availability loss back as latency variance. That is usually a trade you can accept, and
-it is the argument the whole course rests on. This is where *robust* stops being a slogan and gets a
-number. **End the section here**, on the problem: hands directly to §Coupling, which asks "must we both be
-up?"
+Presenter notes: **Kept on Day 1 deliberately** (Ian, 2026-09-01) when the rest of the *why* went to Day 2:
+§4.4 Guaranteed Delivery is the spine of the afternoon, and this slide is the **inoculation** — it exists
+so nobody in the room can file the course under "not for us, we're a monolith". Say the callout and move
+on; the mechanism is two hours away and they will recognise it when it arrives. **Do not say "the second
+property"** — the two-properties framing now lives on Day 2, and this slide has to stand alone.
 
 ## Coupling
 
@@ -190,24 +92,6 @@ we have just discussed.* The old *Axis 1* slide presented all five levels as one
 which hid that split. It is now two slides: **what the boundary already prevented**, and **what is left
 for you to choose in the message**.
 
-### Slide: Coupling — Why It Matters
-
-We have just argued that we split the monolith so teams can move independently. **Coupling is what takes
-that back.** It decides two things we care about:
-
-- **Can we deploy independently?** — or does my release require your release?
-- **When a change lands, how far does it spread?** — who else has to be touched, tested, redeployed?
-
-Coupling here is not a code-tidiness concern. It is a **delivery** and **availability** concern.
-
-▎ Coupling is the tax you pay on every change, forever.
-
-Presenter notes: Deliberate call-back to §1 *Easy to Change — Independent Deployability* and its callout,
-*independent deployability is the whole prize; everything from here on is about not giving it back*. This
-section is the "giving it back" part, and the two questions above are the two ways you do it. Ask the
-room: when you last shipped a change, how many other teams did you have to talk to? That number is the
-coupling.
-
 ### Slide: What the Process Boundary Already Bought You
 
 The classic coupling scale runs Content → Common → Control → Stamp → Data, tightest first. **Drawing a
@@ -219,16 +103,18 @@ process boundary takes the top two off the table.**
 - **Common** — both parties share the same mutable store. Uncontrolled propagation of change; nobody owns
   the schema. Separate processes with **private data** do not have one.
 
-That is not an accident — it is what §1's *Messages In, Private Data* and *No Cross-Service Transactions*
-were describing. The boundary is the mechanism; this is the payoff.
+That is not an accident — it is what the opener's *Messages In, Private Data, No Shared Transaction* was
+describing. The boundary is the mechanism; this is the payoff.
 
 ▎ The two worst kinds of coupling are the two you cannot have any more. That is what you bought.
 
 #image: NEW — the Myers coupling scale (Content, Common, Control, Stamp, Data) with a process boundary drawn across it: Content and Common above the line, struck through as *prevented*; Control, Stamp and Data below it, live  [replaces (s27) hand-drawn coupling scale]
 
-Presenter notes: **New slide (D1-7).** This is the pivot of the section and it is good news, so deliver it
-as good news — delegates have just been told the bill for distribution, and this is the first thing they
-get back. Say plainly that **content coupling barely translates across a network boundary** rather than
+Presenter notes: **New slide (D1-7), and since 2026-09-01 the section's opener** — *Coupling — Why It
+Matters* was dropped with the §1 preamble it called back to, so this slide now has to start the section
+cold. One sentence of framing before the scale: **coupling decides whether we can deploy independently,
+and how far a change spreads — it is a delivery and availability concern, not code tidiness.** Then the
+good news: this is the first thing delegates get *back* from drawing a boundary. Say plainly that **content coupling barely translates across a network boundary** rather than
 pretending the scale ports over unchanged; the honest version is more persuasive. The scale is Myers'
 structured-design scale, adapted to services — say so.
 
@@ -266,11 +152,24 @@ becomes the availability of the other.
 | Options | OpenAPI, GraphQL, gRPC, Thrift, SOAP | SQS, Kafka, AMQP 0-9-1 (RMQ), AMQP 1-0, MQTT, S3 |
 | Temporal coupling | **Introduces it** | **Avoids it** |
 
+**And it is the axis that multiplies your outages:**
+
+- **Call a service and wait, and your availabilities multiply.** Four services at 99.9% leaves you at
+  **99.6%** — before anything has actually failed.
+- **Send a message and don't wait, and they don't.** Guaranteed delivery means the message outlives their
+  outage and is processed when they come back.
+
 ▎ If my availability depends on yours, I have bought your outages.
 
-Presenter notes: The arithmetic was done on §1 *The Price of Distribution* (0.999⁴ = 0.996) — don't repeat
-it, **name** it. What that slide showed as an availability problem is now revealed to be one specific
-coupling: temporal. This is the axis that multiplies your outages, and breaking it is what guaranteed
+▎ Messaging doesn't remove the outage. It converts a failure into a delay.
+
+Presenter notes: **The arithmetic moved here on 2026-09-01**, from *The Price of Distribution*, which left
+Day 1 with the §1 preamble. It belongs here: it was always an argument about *temporal* coupling, and this
+is the slide that names that axis. **Do the arithmetic on the board — 0.999⁴ = 0.996** — then be honest
+about the trade: the messaging version does not make the downstream outage vanish, it buys an availability
+loss back as latency variance. That is usually a trade you can accept, and it is the argument the whole
+course rests on. Redundancy *within* a service raises availability; chaining temporally-coupled calls
+throws the gain away. This is where *robust* stops being a slogan and gets a number. This is the axis that multiplies your outages, and breaking it is what guaranteed
 delivery buys you. Note the asymmetry with the previous slide: the "about" axis you choose per message;
 this one you choose per **style of integration**, which is the next section.
 
@@ -334,7 +233,7 @@ Both applications read and write the same schema, typically through an ORM.
 ▎ This is the one style that hands back what the boundary bought you.
 
 **Nobody owns the schema.** A change propagates to every reader whether they wanted it or not, and you
-are back to agreeing release dates — which is where §1 started.
+are back to agreeing release dates across teams — which is exactly what the boundary was for.
 
 #image: (s33) Shared Database integration diagram — producer and consumer share a database via an ORM
 
@@ -354,7 +253,7 @@ One application invokes an operation on another and waits for the result.
 #image: (s34) Remote Procedure Call diagram — client stub to server proxy, request/response
 
 Presenter notes: You are telling the other party *what to do* — control coupling — and waiting while it
-does it, which is where §1's arithmetic bites: 0.999⁴ = 0.996. Be fair to it: RPC is the right answer when
+does it, which is where §Coupling's arithmetic bites: 0.999⁴ = 0.996. Be fair to it: RPC is the right answer when
 you genuinely need the reply before you can continue, and Day 1 §5 *Conversations* has a whole slide on
 Blocking In-Out. It is the default that is wrong, not the pattern.
 
@@ -676,8 +575,9 @@ work is not lost — it waits.
 
 #image: hand-drawn architecture diagram — browser/web server enqueues work onto a channel; a backend Sender/Receiver maps messages to data; databases at each end
 
-Presenter notes: **Moved here from §1 (review items D1-3 / D1-6, 2026-08-28).** §1 kept the *want* —
-*Robust — Guaranteed Delivery* — and this is the mechanism, which belongs where the parts have names.
+Presenter notes: **Moved here from the old §1 (review items D1-3 / D1-6, 2026-08-28).** The opener keeps
+the *want* — *Robust — Guaranteed Delivery* — and this is the mechanism, which belongs where the parts
+have names.
 Everything the slide gestured at vaguely in the first ten minutes is now vocabulary they own: channel,
 pump, competing consumers. Call the callback out loud — this is the slide from the first ten minutes,
 and now they can read it. Ian's condition for keeping the task queue at all was that it earn its place in
@@ -698,7 +598,7 @@ How this looks over HTTP — and most delegates have not used it.
 
 ▎ 202 says *we have your work and we will not lose it*. §4.4 is how you keep that promise.
 
-Presenter notes: **Moved here from §1 (D1-6).** Ask who has returned a 202 in anger — usually a handful of
+Presenter notes: **Moved here from the old §1 (D1-6).** Ask who has returned a 202 in anger — usually a handful of
 hands. This is one of the most immediately usable things in the course: guaranteed delivery with no new
 infrastructure and no reorganisation, expressed in a protocol everyone in the room already ships. The
 callout is the set-up for §4.4 — the web server has *promised* not to lose the work, and the very next
@@ -757,8 +657,8 @@ No transaction spans both my write to the DB for an entity *and* my sending of a
 
 #image: hand-drawn diagram — a sender writing an Entity to a database and a Message to a channel, with no shared transaction  [→ resources/Transactional No Outbox.png]
 
-Presenter notes: Call straight back to §Distributed Systems — "No Cross-Service Transactions" said this
-would happen; this is the first place it actually bites. There is no clever ordering that fixes it;
+Presenter notes: Call straight back to the opener — *Messages In, Private Data, No Shared Transaction*
+said this would happen; this is the first place it actually bites. There is no clever ordering that fixes it;
 one of the two writes is always unprotected.
 
 ### Slide: Outbox
@@ -1497,8 +1397,8 @@ synchronous call to read it.
 - **Versioning is what makes it safe.** Carry **id and version**. Then "I have not seen this yet" is
   distinguishable from "I have it", and a missing version becomes a **wait** rather than a wrong answer —
   which is the next slide.
-- **You removed the temporal coupling rather than relocating it.** A stays up when B is down. Day 1 §1's
-  argument arriving inside message design.
+- **You removed the temporal coupling rather than relocating it.** A stays up when B is down. Day 1
+  §Coupling's *Must We Both Be Up?* arriving inside message design.
 
 **Be honest about the trade, and about which way it runs.** ECST is **availability over consistency**,
 deliberately and *boundedly*: you read a copy that is behind by the propagation delay, and you can measure
