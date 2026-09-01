@@ -375,7 +375,7 @@ Presenter notes: A channel is a *logical* view, not physical — the virtual pip
 Only one consumer receives any message. With multiple consumers, the channel ensures only one succeeds, so receivers need not coordinate.
 
 
-#image: (s49) EIP diagram — Point-to-Point Channel, sender to a single receiver  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/PointToPointChannel.html]
+#image: (s49) diagram — Point-to-Point Channel, sender to a single receiver  [→ resources/eip-point-to-point.png]
 
 Presenter notes: The channel locks a message until the consumer acks/nacks or times out. On ack it is deleted; while locked, other consumers read past it. This lets us scale out with multiple consumers while only one gets each message. If timed-out messages return to the channel, consumers must tolerate duplicates. (EIP reference.)
 
@@ -385,7 +385,7 @@ Presenter notes: The channel locks a message until the consumer acks/nacks or ti
 Delivers a copy of each message to every subscriber. A publisher sends to one input channel, replicated onto many output channels, one per subscriber.
 
 
-#image: (s51) EIP diagram — Publish-Subscribe Channel, publisher to multiple subscribers  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/PublishSubscribeChannel.html]
+#image: (s51) diagram — Publish-Subscribe Channel, one input channel replicated onto an output channel per subscriber  [→ resources/eip-publish-subscribe.png]
 
 Presenter notes: Each output channel behaves like a point-to-point channel — a consumer receives a message once, and with multiple listeners the middleware uses locking + read-past. Pub-sub allows eavesdropping — a firehose of all channels can act like a message store. Both a channel-based and a router-based approach are often shorthanded as "publish-subscribe". (EIP reference.)
 
@@ -395,7 +395,7 @@ Presenter notes: Each output channel behaves like a point-to-point channel — a
 Use a separate channel per message schema so all messages on a channel share the same schema.
 
 
-#image: (s50) EIP diagram — Datatype Channel, a separate channel per message type (Query, Price Quote, Purchase Order)  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DatatypeChannel.html]
+#image: (s50) diagram — Datatype Channel, a separate channel per message type (Query, Price Quote, Purchase Order)  [→ resources/eip-datatype-channel.png]
 
 Presenter notes: How does a consumer know how to deserialize a message? Knowing the channel tells it the type. Otherwise the consumer must inspect header/body to determine type and look up how to deserialize — unneeded complexity if a separate channel works. The reason *not* to use one: messages that must be processed in sequence but have different, non-unifiable schemas. (EIP reference.)
 
@@ -405,7 +405,7 @@ Presenter notes: How does a consumer know how to deserialize a message? Knowing 
 How does an application connect to a channel to send and receive?
 
 
-#image: (s55) EIP diagram — Message Endpoint connecting an application to a message channel  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageEndpoint.html]
+#image: (s55) diagram — Message Endpoint connecting an application to a message channel  [→ resources/eip-message-endpoint.png]
 
 Presenter notes: We want to separate messaging concerns from domain concerns — a developer shouldn't need to know middleware, formats, or channels. Application code just knows it has data to send or expects data. The **Message Endpoint** takes that data, makes a message, and sends it on a channel; on receipt it extracts contents and gives them to the application meaningfully. Endpoint code is custom to the middleware's client API. (EIP reference.)
 
@@ -415,7 +415,7 @@ Presenter notes: We want to separate messaging concerns from domain concerns —
 Within the endpoint, encapsulate the middleware-access code in a **Messaging Gateway**, isolating all middleware dependencies into one component so the domain is isolated from messaging concerns.
 
 
-#image: (s56) EIP diagram — Messaging Gateway between an application and the messaging system  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessagingGateway.html]
+#image: (s56) diagram — the Messaging Gateway inside the endpoint, the only component that knows which broker this is  [→ resources/eip-messaging-gateway.png]
 
 Presenter notes: Gateway vs. Endpoint: the endpoint *contains* the gateway but may also run a message pump, map messages to domain types, and call application code. The gateway only abstracts middleware interaction. An endpoint may support multiple middleware offerings, the gateway abstracting each so application code can switch middleware without changing. (EIP reference.)
 
@@ -465,7 +465,7 @@ Presenter notes: A **Message Mapper** converts domain objects to/from messages, 
 The message pump makes an explicit call to check for messages. Consumes a thread even when idle, but needs no held-open connection to the middleware. (EIP reference.)
 
 
-#image: (s60) EIP diagram — Polling Consumer explicitly checking a channel for messages  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/PollingConsumer.html]
+#image: (s60) diagram — Polling Consumer explicitly checking a channel for messages  [→ resources/eip-polling-consumer.png]
 
 ### Slide: Event Driven Consumer
 
@@ -473,7 +473,7 @@ The message pump makes an explicit call to check for messages. Consumes a thread
 The pump registers a callback that the middleware invokes when a message is available. Doesn't consume a thread, but requires a held-open connection (or the app to serve middleware requests). (EIP reference.)
 
 
-#image: (s61) EIP diagram — Event-Driven Consumer invoked by the middleware on message arrival  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/EventDrivenConsumer.html]
+#image: (s61) diagram — Event-Driven Consumer invoked by the middleware on message arrival  [→ resources/eip-event-driven-consumer.png]
 
 ### Slide: Service Activator
 
@@ -497,7 +497,7 @@ The **handler** is your code. The Service Activator is the join, and its whole j
   test, an HTTP endpoint, a gRPC service. Useful, and worth calling out; but it is a *consequence* of the
   separation, not the reason for it.
 
-#image: (s62) EIP diagram — Service Activator invoking a service for request-reply  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessagingAdapter.html — **redraw**]
+#image: (s62) diagram — the Service Activator as the line between the messaging gateway and the handler  [→ resources/eip-service-activator.png]
 
 Presenter notes: **The point is the separation**, not the testability: the gateway owns everything about
 messaging, and the handler is independent of it. Being able to invoke application code from callers other
@@ -515,7 +515,7 @@ RMQ Quick Start rather than asserting it here; wire the specific file references
 To stop a channel backing up, consume faster than messages arrive by adding consumers.
 
 
-#image: (s63) EIP diagram — Message Dispatcher / competing consumers distributing numbered messages to performers  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/MessageDispatcher.html]
+#image: (s63) diagram — competing consumers draining a channel that is backing up  [→ resources/eip-message-dispatcher.png]
 
 Presenter notes: Compare arrival rate to consumption rate (time to ack/nack). If arrival exceeds consumption and it isn't a burst, you never catch up. You may also need to process within a deadline. Solution: more consumers. The queue hands a message to only one consumer, locking it while processed, unlocking on failure, and letting waiting consumers read past locked messages. Caveat: competing consumers break in-sequence processing (lock + read-past de-orders). If order matters and arrival exceeds consumption, **partition** using consistent hashing so order is preserved within a partition and per-partition arrival ≤ single-consumer consumption. (EIP reference.)
 
@@ -715,7 +715,7 @@ schema mismatch)?
 **Needs from the broker:** the ability to take the message off the channel and put it somewhere else
 *without* pretending it was processed.
 
-#image: (s53) EIP diagram — Invalid Message Channel, receiver routes an unprocessable message aside  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/InvalidMessageChannel.html]
+#image: (s53) diagram — Invalid Message Channel: the receiver routes aside a message it cannot understand  [→ resources/eip-invalid-message-channel.png]
 
 Presenter notes: The middleware delivered it, but app code can't process it. Retrying keeps failing — it
 risks becoming a "poison pill", blocking a single consumer or being choked on by many. But silently
@@ -750,7 +750,7 @@ a **Dead Letter Channel** for later operator review, often after retrying delive
 
 **Needs from the broker:** somewhere to put the undeliverable message, and a rule for when to give up.
 
-#image: (s52) EIP diagram — Dead Letter Channel, an undeliverable message rerouted to a dead-letter channel  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DeadLetterChannel.html]
+#image: (s52) diagram — Dead Letter Channel: the broker puts aside a message it could not deliver  [→ resources/eip-dead-letter-channel.png]
 
 Presenter notes: Implementations vary (point-to-point or pub-sub). **This is the terminal state** — the
 place a message goes when *Requeue with Delay* has run out of attempts, which is why it now follows rather
@@ -1293,7 +1293,7 @@ listens on the channel, fetches what is missing, and republishes the message com
 
 ▎ The enricher does not remove the lookup. It moves it — and the availability sum moves with it.
 
-#image: EIP diagram — Content Enricher augmenting a message from an external resource  [external — Hohpe & Woolf EIP figure: https://www.enterpriseintegrationpatterns.com/patterns/messaging/DataEnricher.html — **redraw**]
+#image: diagram — Content Enricher augmenting a message from an external resource  [→ resources/eip-content-enricher.png]
 
 Presenter notes: **This is the drawn form of the slide before it.** Make the callout the point:
 teams reach for an enricher believing it decouples them, when all it has done is put a third party in the

@@ -35,8 +35,23 @@ d.note(170, 24, "the message the receiver could not take", MUTED, 14)
 d.save("resources/eip-dead-letter-channel")   # -> .drawio + .png
 ```
 
-**Elements:** `box`, `cylinder` (a database), `pipe` (an EIP channel), `note` (free text),
+**Elements:** `box`, `group` (a labelled container — *your application*, *messaging gateway*),
+`msg` (a message on a channel), `cylinder` (a database), `pipe` (an EIP channel), `note` (free text),
 `arrow` (carbon, with head), `attach` (dashed muted tie — a service to its database).
+
+`box` and `note` take multi-line labels — `"Message\nPump"` stacks and block-centres.
+
+**Routing.** `arrow` picks the edge that faces its target. Override it when the automatic choice is
+wrong — which it is for any fan-out, because all the arrows want to leave the same side:
+
+```python
+d.arrow(pipe, sub, sides=("r", "l"))                     # pin both ends
+d.arrow(pump, pipe, "receive()", accent=True,            # a return path, routed round
+        via=[(356, 58), (93, 58)], sides=("t", "t"))
+d.arrow(rcv, dlq, "cannot read it", lx=-62)              # nudge a label off the line
+```
+
+`src` and `dst` may also be a bare `(x, y)` point, for an arrow that comes from off-diagram.
 
 **`accent=True`** paints an element or arrow in annotation red. Per `styles.md`, **red marks the one thing
 the diagram is about** — if two things are red, the diagram is doing two jobs.
@@ -48,6 +63,29 @@ the diagram is about** — if two things are red, the diagram is doing two jobs.
 - **Text is outlined to vector paths** with fontTools, so previews are faithful with **no system font
   install**. This is necessary rather than clever: librsvg here ignores `@font-face` data URIs (verified),
   and Caveat/Plex are not installed, so anything else silently falls back to Helvetica.
+
+## `eip_figures.py`
+
+The 12 EIP figures that replaced the Hohpe & Woolf illustrations in `outlines/DayOne.md`, as one script,
+so the set stays a family — same canvas widths, same label voice, same convention for what red means.
+
+```
+python3 tools/eip_figures.py                    # rebuild all 12 into resources/
+python3 tools/eip_figures.py eip-dead-letter-channel   # just one
+python3 tools/eip_figures.py --list
+```
+
+**Read the renders before believing them.** The first pass had a missing arrow and four labels sitting on
+top of strokes; none of it was visible in the source. Every figure was eyeballed as a PNG and fixed.
+
+Conventions held across the set, and worth holding for the next batch:
+
+- **one red idea per figure**, stated as a red note at the top — the sentence the presenter says out loud
+- a **muted note** names the pattern element where the name is the thing being taught (*dead letter
+  channel*, *invalid message channel*), and a second muted note at the bottom carries the caveat
+- **paired figures contrast through red**: *Polling Consumer* reds `receive()`, *Event-Driven Consumer*
+  reds the push; *Invalid Message* diverts from the **receiver**, *Dead Letter* diverts from the
+  **channel** — which is the distinction the two slides keep getting confused about
 
 ## `fonts/`
 

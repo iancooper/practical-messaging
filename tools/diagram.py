@@ -124,15 +124,34 @@ class Diagram:
         self.title = title
         self.w, self.h = w, h
         self.panel = panel          # draw the manila panel behind it
+        self.groups = []            # containers, drawn behind everything
         self.nodes = []             # dicts with kind/geometry/label
         self.edges = []
         self._n = 0
 
     # -- elements --
-    def box(self, x, y, w, h, label, accent=False):
+    def box(self, x, y, w, h, label, accent=False, size=15, label_pos="center"):
         self._n += 1
         node = dict(id=f"n{self._n}", kind="box", x=x, y=y, w=w, h=h,
-                    label=label, accent=accent)
+                    label=label, accent=accent, size=size, label_pos=label_pos)
+        self.nodes.append(node)
+        return node
+
+    def group(self, x, y, w, h, label="", accent=False, dashed=True, size=14):
+        """A labelled container -- 'Application', 'Messaging Gateway'. Drawn behind."""
+        self._n += 1
+        node = dict(id=f"g{self._n}", kind="group", x=x, y=y, w=w, h=h,
+                    label=label, accent=accent, dashed=dashed, size=size,
+                    label_pos="top")
+        self.groups.append(node)
+        return node
+
+    def msg(self, x, y, label="", accent=False, w=20, h=14, size=12):
+        """A message on a channel -- a small envelope. Its own element because the
+        EIP figures put messages *in* the pipe, and that is what makes them read."""
+        self._n += 1
+        node = dict(id=f"m{self._n}", kind="msg", x=x, y=y, w=w, h=h,
+                    label=label, accent=accent, size=size, label_pos="center")
         self.nodes.append(node)
         return node
 
@@ -155,27 +174,73 @@ class Diagram:
         self.nodes.append(dict(id=None, kind="note", x=x, y=y, label=text,
                                color=color, size=size, anchor=anchor))
 
-    def arrow(self, src, dst, label="", accent=False, dashed=False):
-        self.edges.append(dict(src=src, dst=dst, label=label,
-                               accent=accent, dashed=dashed))
+    def arrow(self, src, dst, label="", accent=False, dashed=False,
+              via=None, sides=None, lx=0, ly=0, muted=False):
+        """src/dst may be a node or a bare (x, y) point.
 
-    def attach(self, src, dst):
+        via     -- waypoints, for a divert or a return path that must not cut a corner
+        sides   -- ("r", "l") to pin which edge it leaves and enters, overriding the
+                   automatic choice; any of l/r/t/b, or None for automatic
+        lx, ly  -- nudge the label off the line where it would otherwise sit on it
+        """
+        ss, ds = (sides or (None, None))
+        self.edges.append(dict(src=src, dst=dst, label=label, accent=accent,
+                               dashed=dashed, via=list(via or []), ssid=ss, dsid=ds,
+                               lx=lx, ly=ly, muted=muted))
+
+    def attach(self, src, dst, via=None, sides=None):
         """A dashed 'this belongs to that' tie -- e.g. a service to its database."""
+        ss, ds = (sides or (None, None))
         self.edges.append(dict(src=src, dst=dst, label="", accent=False,
-                               dashed=True, plain=True))
+                               dashed=True, plain=True, via=list(via or []),
+                               ssid=ss, dsid=ds, lx=0, ly=0, muted=False))
 
     # -- geometry helpers --
+    _SIDES = {"l": (0.0, 0.5), "r": (1.0, 0.5), "t": (0.5, 0.0), "b": (0.5, 1.0)}
+
     @staticmethod
-    def _anchor_pair(a, b):
-        ax, ay = a["x"] + a["w"] / 2, a["y"] + a["h"] / 2
-        bx, by = b["x"] + b["w"] / 2, b["y"] + b["h"] / 2
-        if abs(bx - ax) >= abs(by - ay):        # mostly horizontal
-            if bx > ax:
-                return (a["x"] + a["w"], ay, b["x"], by)
-            return (a["x"], ay, b["x"] + b["w"], by)
-        if by > ay:                              # mostly vertical
-            return (ax, a["y"] + a["h"], bx, b["y"])
-        return (ax, a["y"], bx, b["y"] + b["h"])
+    def _centre(o):
+        return o if isinstance(o, tuple) else (o["x"] + o["w"] / 2, o["y"] + o["h"] / 2)
+
+    @classmethod
+    def _side_point(cls, n, side):
+        fx, fy = cls._SIDES[side]
+        return (n["x"] + n["w"] * fx, n["y"] + n["h"] * fy)
+
+    @staticmethod
+    def _auto_point(n, toward):
+        """Leave by whichever edge actually faces the next point."""
+        cx, cy = n["x"] + n["w"] / 2, n["y"] + n["h"] / 2
+        tx, ty = toward
+        if abs(tx - cx) >= abs(ty - cy):
+            return (n["x"] + n["w"], cy) if tx > cx else (n["x"], cy)
+        return (cx, n["y"] + n["h"]) if ty > cy else (cx, n["y"])
+
+    def _points(self, e):
+        """The full polyline for an edge: source anchor, waypoints, target anchor."""
+        src, dst, via = e["src"], e["dst"], e.get("via") or []
+        nxt = via[0] if via else self._centre(dst)
+        prv = via[-1] if via else self._centre(src)
+        if isinstance(src, tuple):
+            p1 = src
+        elif e.get("ssid"):
+            p1 = self._side_point(src, e["ssid"])
+        else:
+            p1 = self._auto_point(src, nxt)
+        if isinstance(dst, tuple):
+            p2 = dst
+        elif e.get("dsid"):
+            p2 = self._side_point(dst, e["dsid"])
+        else:
+            p2 = self._auto_point(dst, prv)
+        return [p1] + list(via) + [p2]
+
+    @staticmethod
+    def _mid(pts):
+        """Midpoint of the polyline -- the middle segment, not the chord."""
+        i = (len(pts) - 1) // 2
+        (x1, y1), (x2, y2) = pts[i], pts[i + 1]
+        return (x1 + x2) / 2, (y1 + y2) / 2
 
     # ---- SVG preview ----
     def to_svg(self):
@@ -194,8 +259,21 @@ class Diagram:
             f'<marker id="arR" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">'
             f'<path d="M0,0 L6,3 L0,6" fill="none" stroke="{ANNOTATION}" stroke-width="1.3" '
             f'stroke-linecap="round"/></marker>'
+            f'<marker id="arM" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">'
+            f'<path d="M0,0 L6,3 L0,6" fill="none" stroke="{MUTED}" stroke-width="1.3" '
+            f'stroke-linecap="round"/></marker>'
             '</defs>')
         o.append(f'<rect width="{W}" height="{H}" fill="{MANILA if self.panel else PAPER}"/>')
+
+        # containers first, so everything else sits inside them
+        o.append('<g filter="url(#wob)" fill="none" stroke-linecap="round" '
+                 'stroke-linejoin="round">')
+        for g in self.groups:
+            c = ANNOTATION if g.get("accent") else MUTED
+            dash = ' stroke-dasharray="6 5"' if g.get("dashed") else ""
+            o.append(f'<rect x="{g["x"]}" y="{g["y"]}" width="{g["w"]}" height="{g["h"]}" '
+                     f'rx="6" stroke="{c}" stroke-width="1.4"{dash}/>')
+        o.append('</g>')
 
         # shapes, wobbled together so the hand is consistent
         o.append(f'<g filter="url(#wob)" fill="none" stroke-linecap="round" stroke-linejoin="round">')
@@ -211,22 +289,36 @@ class Diagram:
                          f'stroke="{c}" stroke-width="1.7"/>')
                 o.append(f'<path d="M{x},{y+ry} v{h-2*ry} a{rx},{ry} 0 0 0 {w},0 v{-(h-2*ry)}" '
                          f'stroke="{c}" stroke-width="1.7"/>')
+            elif n["kind"] == "msg":
+                x, y, w, h = n["x"], n["y"], n["w"], n["h"]
+                o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="1.5" '
+                         f'fill="{PAPER}" stroke="{c}" stroke-width="1.4"/>')
+                o.append(f'<path d="M{x},{y} L{x+w/2},{y+h*0.55} L{x+w},{y}" '
+                         f'stroke="{c}" stroke-width="1.2"/>')
             elif n["kind"] == "pipe":
                 x, y, w, h = n["x"], n["y"], n["w"], n["h"]
                 o.append(f'<path d="M{x},{y} h{w} M{x},{y+h} h{w}" stroke="{c}" stroke-width="1.7"/>')
                 o.append(f'<ellipse cx="{x}" cy="{y+h/2}" rx="{max(3,h/3)}" ry="{h/2}" '
                          f'stroke="{c}" stroke-width="1.4"/>')
         for e in self.edges:
-            x1, y1, x2, y2 = self._anchor_pair(e["src"], e["dst"])
-            col = MUTED if e.get("plain") else (ANNOTATION if e["accent"] else CARBON)
+            pts = self._points(e)
+            col = MUTED if (e.get("plain") or e.get("muted")) else (
+                ANNOTATION if e["accent"] else CARBON)
             dash = ' stroke-dasharray="3 4"' if e["dashed"] else ""
             mark = "" if e.get("plain") else (
-                ' marker-end="url(#arR)"' if e["accent"] else ' marker-end="url(#ar)"')
-            o.append(f'<path d="M{x1},{y1} L{x2},{y2}" stroke="{col}" stroke-width="1.8"'
-                     f'{dash}{mark}/>')
+                ' marker-end="url(#arR)"' if e["accent"] else
+                ' marker-end="url(#arM)"' if e.get("muted") else ' marker-end="url(#ar)"')
+            d = "M" + " L".join(f"{x},{y}" for x, y in pts)
+            o.append(f'<path d="{d}" stroke="{col}" stroke-width="1.8"{dash}{mark}/>')
         o.append('</g>')
 
         # text, outlined -- deliberately NOT wobbled, so labels stay legible
+        for g in self.groups:
+            if not g["label"]:
+                continue
+            col = ANNOTATION if g.get("accent") else MUTED
+            self._text(o, g["label"], g["x"] + 10, g["y"] + g.get("size", 14) + 2,
+                       g.get("size", 14), col, "start")
         for n in self.nodes:
             if not n["label"]:
                 continue
@@ -234,22 +326,34 @@ class Diagram:
                 self._text(o, n["label"], n["x"], n["y"], n.get("size", 14),
                            n.get("color", MUTED), n.get("anchor", "middle"))
             else:
-                cx = n["x"] + n["w"] / 2
-                cy = n["y"] + n["h"] / 2 + 5
+                size = n.get("size", 15)
                 col = ANNOTATION if n.get("accent") else INK
-                self._text(o, n["label"], cx, cy, 15, col, "middle")
+                cx = n["x"] + n["w"] / 2
+                if n.get("label_pos") == "top":
+                    cy = n["y"] + size + 2
+                else:
+                    cy = n["y"] + n["h"] / 2 + size / 3
+                self._text(o, n["label"], cx, cy, size, col, "middle")
         for e in self.edges:
             if not e["label"]:
                 continue
-            x1, y1, x2, y2 = self._anchor_pair(e["src"], e["dst"])
-            col = ANNOTATION if e["accent"] else CARBON
-            self._text(o, e["label"], (x1 + x2) / 2, (y1 + y2) / 2 - 7, 15, col, "middle")
+            mx, my = self._mid(self._points(e))
+            col = MUTED if e.get("muted") else (ANNOTATION if e["accent"] else CARBON)
+            self._text(o, e["label"], mx + e.get("lx", 0), my - 7 + e.get("ly", 0),
+                       15, col, "middle")
 
         o.append('</svg>')
         return "\n".join(o)
 
-    @staticmethod
-    def _text(out, text, x, y, size, color, anchor, family=HAND):
+    @classmethod
+    def _text(cls, out, text, x, y, size, color, anchor, family=HAND):
+        if "\n" in text:                       # stack the lines, block-centred on y
+            lines = text.split("\n")
+            lead = size * 1.05
+            top = y - (len(lines) - 1) * lead / 2
+            for i, line in enumerate(lines):
+                cls._text(out, line, x, top + i * lead, size, color, anchor, family)
+            return
         try:
             d, _ = _Outliner.outline(text, family, size, x, y, anchor,
                                      weight=600 if family == PLAIN else None)
@@ -275,6 +379,22 @@ class Diagram:
 
         base = (f"sketch=1;hachureGap=4;jiggle=2;curveFitting=1;"
                 f"fontFamily={HAND};fontSize=15;html=1;")
+
+        # containers first so they land behind, and so a reader can drag the whole
+        # group in draw.io without the members jumping out of it
+        for g in self.groups:
+            col = ANNOTATION if g.get("accent") else MUTED
+            style = (base + "rounded=1;arcSize=8;verticalAlign=top;align=left;"
+                     "spacingLeft=8;spacingTop=2;fillColor=none;"
+                     f"strokeColor={col};strokeWidth=1.4;fontColor={col};"
+                     f"fontSize={g.get('size',14)};")
+            if g.get("dashed"):
+                style += "dashed=1;dashPattern=6 5;"
+            cell = ET.SubElement(root, "mxCell", id=g["id"], value=g["label"],
+                                 style=style, vertex="1", parent="1")
+            ET.SubElement(cell, "mxGeometry", x=str(g["x"]), y=str(g["y"]),
+                          width=str(g["w"]), height=str(g["h"])).set("as", "geometry")
+
         for n in self.nodes:
             if n["kind"] == "note":
                 style = (f"text;html=1;align=center;fontFamily={HAND};"
@@ -287,16 +407,24 @@ class Diagram:
             stroke = ANNOTATION if n.get("accent") else INK
             shape = {"box": "rounded=1;arcSize=12;",
                      "cyl": "shape=cylinder3;boundedLbl=1;backgroundOutline=1;",
-                     "pipe": "shape=tube;"}[n["kind"]]
+                     "pipe": "shape=tube;",
+                     "msg": "shape=message;"}[n["kind"]]
+            fill = PAPER if n["kind"] == "msg" else "none"
             style = (base + shape +
-                     f"strokeColor={stroke};strokeWidth=1.7;fillColor=none;fontColor={stroke};")
+                     f"strokeColor={stroke};strokeWidth=1.7;fillColor={fill};"
+                     f"fontColor={stroke};fontSize={n.get('size',15)};")
+            if n.get("label_pos") == "top":
+                style += "verticalAlign=top;spacingTop=2;"
+            if n["kind"] == "msg" and n["label"]:
+                style += "verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;"
             cell = ET.SubElement(root, "mxCell", id=n["id"], value=n["label"],
                                  style=style, vertex="1", parent="1")
             ET.SubElement(cell, "mxGeometry", x=str(n["x"]), y=str(n["y"]),
                           width=str(n["w"]), height=str(n["h"])).set("as", "geometry")
 
         for i, e in enumerate(self.edges):
-            col = MUTED if e.get("plain") else (ANNOTATION if e["accent"] else CARBON)
+            col = MUTED if (e.get("plain") or e.get("muted")) else (
+                ANNOTATION if e["accent"] else CARBON)
             style = (f"sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;"
                      f"strokeColor={col};strokeWidth=1.8;fontFamily={HAND};fontSize=15;"
                      f"fontColor={col};html=1;")
@@ -304,10 +432,28 @@ class Diagram:
                 style += "dashed=1;"
             if e.get("plain"):
                 style += "endArrow=none;"
-            cell = ET.SubElement(root, "mxCell", id=f"e{i}", value=e["label"], style=style,
-                                 edge="1", parent="1",
-                                 source=e["src"]["id"], target=e["dst"]["id"])
-            ET.SubElement(cell, "mxGeometry", relative="1").set("as", "geometry")
+            for side, key in ((e.get("ssid"), "exit"), (e.get("dsid"), "entry")):
+                if side:
+                    fx, fy = self._SIDES[side]
+                    style += f"{key}X={fx};{key}Y={fy};{key}Dx=0;{key}Dy=0;"
+            attrs = dict(id=f"e{i}", value=e["label"], style=style, edge="1", parent="1")
+            if not isinstance(e["src"], tuple):
+                attrs["source"] = e["src"]["id"]
+            if not isinstance(e["dst"], tuple):
+                attrs["target"] = e["dst"]["id"]
+            cell = ET.SubElement(root, "mxCell", **attrs)
+            geo = ET.SubElement(cell, "mxGeometry", relative="1")
+            geo.set("as", "geometry")
+            # a bare (x, y) end has no shape to attach to, so it needs a fixed point
+            for end, key in ((e["src"], "sourcePoint"), (e["dst"], "targetPoint")):
+                if isinstance(end, tuple):
+                    ET.SubElement(geo, "mxPoint", x=str(end[0]),
+                                  y=str(end[1])).set("as", key)
+            if e.get("via"):
+                arr = ET.SubElement(geo, "Array")
+                arr.set("as", "points")
+                for vx, vy in e["via"]:
+                    ET.SubElement(arr, "mxPoint", x=str(vx), y=str(vy))
 
         ET.indent(mx, space="  ")
         return ET.tostring(mx, encoding="unicode")
@@ -357,7 +503,7 @@ def check():
 
 
 def demo(out=None):
-    """Point-to-Point Channel -- the first of the 12 EIP replacements."""
+    """Smoke test for the pipeline. The real figures live in eip_figures.py."""
     d = Diagram("Point-to-Point Channel", w=340, h=150)
     snd = d.box(10, 42, 84, 50, "Sender")
     rcv = d.box(246, 42, 84, 50, "Receiver")

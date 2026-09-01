@@ -518,11 +518,12 @@ than a blank canvas.
 3. **The same grid again** with the four exchange patterns, Blocking In-Out alone in the temporally-
    coupled quadrant (Day 1 §5 *Choosing an Exchange Pattern*).
 4. **2×2 exchange-pattern grid** — who speaks first × is there a reply (Day 1 §5). New drawing.
-5. **12 EIP figure replacements** (Day 1 §4) — currently Hohpe & Woolf's own illustrations. Was 20; the
-   **8 routing figures left with §4.6** to the handout (§10), and *Content Enricher* stayed and still
-   needs a redraw. Whether the handout carries its own artwork or cites the originals is a handout-build
-   decision. Still the biggest single item in the budget; decides whether the material looks like ours or
-   assembled.
+5. **✅ 12 EIP figure replacements** (Day 1 §4 and §6.2) — **built 2026-09-01**, drawn to `styles.md` and
+   linked into the outline. Was 20; the **8 routing figures left with §4.6** to the handout (§10), and
+   *Content Enricher* stayed and was redrawn with the rest. Whether the handout carries its own artwork or
+   cites the originals is still a handout-build decision. `tools/eip_figures.py` holds all 12 as one
+   script — regenerate the set with `python3 tools/eip_figures.py`. **No Hohpe & Woolf figure remains in
+   either outline.**
 6. **2 If-Later diagrams** — versioned envelopes on a stream, and on a queue with competing consumers
    and read-past (**now Day 1 §6.3**).
 6a. **Day 2 §2 — three items.** (a) *The Desk — In-Tray, Out-Tray, File*: a **notation key** drawn in the
@@ -561,8 +562,9 @@ than a blank canvas.
   `FBP IP`, `FBP Ports and Connectors`, `FBP Network`, `FBP Service`, `FBP Sub Networks`,
   `OO vs. FBP Service`, `Task Queues*`, `Composite Microservice`) — different drawings, same ideas,
   usable as a starting point.
-- 20 Day 1 figures are **Hohpe & Woolf EIP book figures**, annotated in the outline with canonical URLs.
-  Third-party; professional training material should replace them with our own.
+- **The Hohpe & Woolf EIP figures are gone.** 20 Day 1 figures were third-party book illustrations; 8 left
+  with §4.6 to the routing handout and the remaining 12 were redrawn (item 5). The canonical URLs are in
+  git history if a figure ever needs checking against the original.
 
 ### `#image:` annotation state
 
@@ -570,35 +572,34 @@ than a blank canvas.
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
-| `outlines/DayOne.md` | **49** | 7 | 12 | 4 | **26** |
+| `outlines/DayOne.md` | **49** | 19 | 0 | 4 | **26** |
 | `outlines/DayTwo.md` | **89** | 34 | 0 | 13 | **42** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
-20 → 12 for the same reason, and **those 12 are exactly the EIP redraw budget (item 5)**. Day 2's six
-`[no source …]` markers are gone — D2-10 replaced the pizza family with `☐ REDRAW (hotel)`.
+20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
+why Day 1's `[→ resources/…]` column moved 7 → 19 and `[external]` is 0. Day 2's six `[no source …]`
+markers are gone — D2-10 replaced the pizza family with `☐ REDRAW (hotel)`.
 
 **The 68 unannotated lines are the hidden bulk of Phase 2**, and they are larger than the redraw list.
 They are photos, logos, book covers, screenshots and hand-drawn diagrams whose masters are the extracted
 `session-work/imgs/dayN-sNNN-M.png`. Annotating in bulk was rejected — the slide-number → outline-entry
 mapping does not align automatically, because consolidated entries break the 1:1. **Do it per section.**
 
-### ☐ Undecided — settle before Phase 2 starts
+### Settled 2026-09-01 — how Phase 2 is built
 
-1. **Division of labour.** Items 1–4 and 7a are marked *Ian to draw* — the conceptual grids and the
-   coupling scale. **Items 5, 6, 6a and 8 are unassigned** (12 EIP replacements, 2 If-Later diagrams,
-   Day 2 §2's three, ~12 BPMN hotel redraws + 2 new + the reference card).
-2. **Format and pipeline.** Verified on this machine 2026-09-01: **`rsvg-convert` is present and works**
-   (SVG → PNG), Pillow 12 is present, and `node`/`npx` exist. **No `drawio` CLI, no `soffice`, no
-   ImageMagick, no Inkscape.** So the options are: hand-authored **SVG → PNG** (fast, but Ian cannot
-   easily edit it afterwards); **`.drawio` XML** (matches the 40-odd editable sources already in
-   `resources/`, and Ian edits it in draw.io, but there is no local renderer to export PNG);
-   **`.excalidraw` JSON** (matches the hand-drawn house style, same rendering problem).
-3. **Where output lives and how it is linked back.** Presumably `resources/`, annotated into the outline
-   as `[→ resources/X.png]` — `session-work/link_resources.py` and `insert_images.py` already do the
-   block replacement.
-4. **Order.** §2 says the phases run *per section*, but §8 is a global list. Either start with Day 1 §4's
-   12 EIP replacements (biggest single item, highest impact on whether the deck looks like ours), or go
-   section by section from the front.
+2, 3 and 4 below were open questions; the answers held for the 12 EIP figures and should hold for the rest.
+
+1. **Division of labour.** Items 1–4 and 7a stay *Ian to draw* — the conceptual grids and the coupling
+   scale, which are arguments rather than illustrations. **Item 5 is done.** Items 6, 6a and 8 remain
+   unassigned (2 If-Later diagrams, Day 2 §2's three, ~12 BPMN hotel redraws + 2 new + the reference card).
+2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
+   preview from one definition, so the two cannot drift. That answers the trap in the original options:
+   `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.
+3. **Where output lives — settled.** `resources/eip-<name>.drawio` + `.png`, linked into the outline as
+   `[→ resources/<name>.png]`.
+4. **Order — settled.** Day 1 §4's 12 EIP replacements went first, as the biggest single item and the one
+   that decides whether the material looks like ours. Next: the 14 `☐` markers on Day 2, then the
+   If-Later pair and Day 2 §2, then the 68 unannotated lines section by section.
 
 ---
 

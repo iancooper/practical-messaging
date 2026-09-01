@@ -5,3 +5,6 @@
 # PowerPoint lock/temp files
 ~$*.pptx
 .DS_Store
+
+# python bytecode from tools/
+__pycache__/
