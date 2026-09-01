@@ -566,14 +566,39 @@ than a blank canvas.
 
 ### `#image:` annotation state
 
-| file | `#image:` lines | `[→ resources/…]` | `[no source …]` | `[external …]` | unannotated |
-|---|---|---|---|---|---|
-| `outlines/DayOne.md` | 62 | 5 | 0 | 20 | 37 |
-| `outlines/DayTwo.md` | 92 | 37 | 6 | 0 | 49 |
+**Re-measured 2026-09-01**, after T-0, T-1 and D2-10 changed both files. The previous table was stale.
 
-The unannotated ones are photos, logos, book covers, screenshots and hand-drawn diagrams. Annotating in
-bulk was rejected — the slide-number → outline-entry mapping does not align automatically, because
-consolidated entries break the 1:1. Do it per section during Phase 2.
+| file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
+|---|---|---:|---:|---:|---:|
+| `outlines/DayOne.md` | **49** | 7 | 12 | 4 | **26** |
+| `outlines/DayTwo.md` | **89** | 34 | 0 | 13 | **42** |
+
+Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
+20 → 12 for the same reason, and **those 12 are exactly the EIP redraw budget (item 5)**. Day 2's six
+`[no source …]` markers are gone — D2-10 replaced the pizza family with `☐ REDRAW (hotel)`.
+
+**The 68 unannotated lines are the hidden bulk of Phase 2**, and they are larger than the redraw list.
+They are photos, logos, book covers, screenshots and hand-drawn diagrams whose masters are the extracted
+`session-work/imgs/dayN-sNNN-M.png`. Annotating in bulk was rejected — the slide-number → outline-entry
+mapping does not align automatically, because consolidated entries break the 1:1. **Do it per section.**
+
+### ☐ Undecided — settle before Phase 2 starts
+
+1. **Division of labour.** Items 1–4 and 7a are marked *Ian to draw* — the conceptual grids and the
+   coupling scale. **Items 5, 6, 6a and 8 are unassigned** (12 EIP replacements, 2 If-Later diagrams,
+   Day 2 §2's three, ~12 BPMN hotel redraws + 2 new + the reference card).
+2. **Format and pipeline.** Verified on this machine 2026-09-01: **`rsvg-convert` is present and works**
+   (SVG → PNG), Pillow 12 is present, and `node`/`npx` exist. **No `drawio` CLI, no `soffice`, no
+   ImageMagick, no Inkscape.** So the options are: hand-authored **SVG → PNG** (fast, but Ian cannot
+   easily edit it afterwards); **`.drawio` XML** (matches the 40-odd editable sources already in
+   `resources/`, and Ian edits it in draw.io, but there is no local renderer to export PNG);
+   **`.excalidraw` JSON** (matches the hand-drawn house style, same rendering problem).
+3. **Where output lives and how it is linked back.** Presumably `resources/`, annotated into the outline
+   as `[→ resources/X.png]` — `session-work/link_resources.py` and `insert_images.py` already do the
+   block replacement.
+4. **Order.** §2 says the phases run *per section*, but §8 is a global list. Either start with Day 1 §4's
+   12 EIP replacements (biggest single item, highest impact on whether the deck looks like ours), or go
+   section by section from the front.
 
 ---
 
@@ -1127,40 +1152,6 @@ written in.
 
 ---
 
-## 12. Outline hygiene — cleaned 2026-09-01
-
-**The outlines are build inputs, not a change log.** Before Phase 3 they carried the redevelopment's own
-working state: 23 provenance `#note:` blocks and 25 presenter notes citing review-item codes, dates,
-*"merged from"*, *"moved here from"*, *"used to read"*, and attributions.
-
-**The reason to remove it is not tidiness.** Presenter notes become the **speaker notes in the generated
-deck** — so *"Merged from three slides (D2-10)"* would have shipped to whoever presents the course.
-
-### The rule
-
-**Strip everything backward-looking. Keep everything forward-looking.**
-
-| removed | kept |
-|---|---|
-| why a slide changed, when, and which review item did it | the 20 pending `☐` build markers |
-| *"used to read…"*, *"was one slide carrying six images"* | 12 live `#note:` blocks — quick-start placement, *do not say "Reactive"*, the delegate reference card, *"split this table back if it is too dense"* |
-| `**Cut text:** session-work/…` pointers | every word of delivery guidance, including the *reasons* a slide is taught a particular way |
-| attributions (*"Ian:"*, *"(Ian)"*) | the substance of what was decided, rewritten as instruction rather than history |
-
-Where a provenance clause carried teaching content, the content was **rewritten as instruction**, not
-deleted — *"Reframed 2026-08-28 (review item D1-10). The slide used to hedge…"* became *"Teach this as the
-recommendation, not a warning… do not hedge it with 'replicas go stale', that over-states the risk."*
-
-**Verified:** entry counts and timings identical before and after — 88 / 86 entries, 419 / 354 min — so
-only metadata was removed.
-
-### Keep it this way
-
-**Rationale belongs here and in commit messages, never in the outline.** This section is the standing
-instruction; §9 and §11 are where the *why* for every change already lives.
-
----
-
 ## 11. The timing pass — done and closed 2026-09-01
 
 **The first time either day has been timed.** Flagged in §3 since 2026-08-27 and blocked on D2-10 until
@@ -1348,3 +1339,106 @@ Sizes below are therefore an upper bound.
 **Re-run `python3 session-work/timing.py`** if any of these is ever worked, or after any change that adds
 material — it reads the outlines directly, so the budget line is always current. **Watch the pair total,
 not the single day**: 780 minutes is the real budget.
+
+---
+
+## 12. Outline hygiene — cleaned 2026-09-01
+
+**The outlines are build inputs, not a change log.** Before Phase 3 they carried the redevelopment's own
+working state: 23 provenance `#note:` blocks and 25 presenter notes citing review-item codes, dates,
+*"merged from"*, *"moved here from"*, *"used to read"*, and attributions.
+
+**The reason to remove it is not tidiness.** Presenter notes become the **speaker notes in the generated
+deck** — so *"Merged from three slides (D2-10)"* would have shipped to whoever presents the course.
+
+### The rule
+
+**Strip everything backward-looking. Keep everything forward-looking.**
+
+| removed | kept |
+|---|---|
+| why a slide changed, when, and which review item did it | the 20 pending `☐` build markers |
+| *"used to read…"*, *"was one slide carrying six images"* | 12 live `#note:` blocks — quick-start placement, *do not say "Reactive"*, the delegate reference card, *"split this table back if it is too dense"* |
+| `**Cut text:** session-work/…` pointers | every word of delivery guidance, including the *reasons* a slide is taught a particular way |
+| attributions (*"Ian:"*, *"(Ian)"*) | the substance of what was decided, rewritten as instruction rather than history |
+
+Where a provenance clause carried teaching content, the content was **rewritten as instruction**, not
+deleted — *"Reframed 2026-08-28 (review item D1-10). The slide used to hedge…"* became *"Teach this as the
+recommendation, not a warning… do not hedge it with 'replicas go stale', that over-states the risk."*
+
+**Verified:** entry counts and timings identical before and after — 88 / 86 entries, 419 / 354 min — so
+only metadata was removed.
+
+### Keep it this way
+
+**Rationale belongs here and in commit messages, never in the outline.** This section is the standing
+instruction; §9 and §11 are where the *why* for every change already lives.
+
+---
+
+## 13. Visual style — settled 2026-09-01
+
+**Direction C, "Field Guide".** Chosen from three directions shown side by side on the same slide
+(*Messages In, Private Data, No Shared Transaction*). **A serious typographic frame with the hand-drawn
+work living inside it.** Structure, hierarchy and print quality from the technical-manual register; the
+diagrams stay hand-drawn, because delegates reproduce the in-tray / out-tray notation with a pen in the
+Paper Flow exercise and the drawings have to look like something a person could draw.
+
+### Why the old deck was failing — measured, not impression
+
+Read from both `.pptx` files:
+
+| finding | detail |
+|---|---|
+| **4:3** | Both decks are 10 × 7.5in. Letterboxed on every modern screen. |
+| **Chalkboard everywhere** | 908 runs on Day 2, 398 on Day 1 — a macOS system handwriting face carrying every heading *and* every body line. The single biggest "personal deck" signal. |
+| **8pt body** | 227 runs at 8pt on Day 1, 12pt next most common. Unreadable four rows back. |
+
+**The hand-drawn quality was never the fault.** It is an asset the Paper Flow exercise depends on.
+
+### The spec
+
+**Aspect ratio: 16:9** — 13.333 × 7.5in. Reflows every slide in Phase 3.
+
+**Typefaces** — all **SIL Open Font License 1.1**, so commercial training use, PowerPoint embedding and
+printed handouts are all permitted. *The licensing risk flagged at decision time is closed.*
+
+| role | face | notes |
+|---|---|---|
+| Display / slide titles | **IBM Plex Serif** | 600 weight, −0.01em tracking |
+| Body | **IBM Plex Sans** | |
+| Labels, kickers, specs, code | **IBM Plex Mono** | ☐ *In the approved sample but not in Ian's wording — veto if unwanted.* Code was Consolas (225 runs); Plex Mono replaces it. |
+| Callouts (`▎`) and diagram labels **only** | **Caveat** | **Never body copy.** This is the discipline that separates C from the old deck. |
+
+**Type sizes.** **18pt is the floor for body**; **16pt is permitted for sub-items only** (settled with Ian).
+Nothing below 16pt. Expect this to force content off crowded slides — that is intended, and it will find
+slides doing too much.
+
+**Palette — taken from the Paper Flow notation, not invented.** This is why it will not fight the ~40
+existing editable `resources/*.drawio` diagrams.
+
+| token | hex | where it already exists in the course |
+|---|---|---|
+| `ink` | `#181B1F` | everything a clerk writes by hand |
+| `paper` | `#FDFCFA` | the slide ground |
+| `carbon` | `#1D4E6B` | the carbon copy — which **is** the outbox pattern we teach |
+| `annotation` | `#C0453B` | the red dashed arrows: paper moving between trays |
+| `manila` | `#F3EFE6` | the file, the folder, the desk — and the diagram panel |
+| `rule` | `#E0D9C8` | |
+
+**Layout.** Text left, **diagrams in a fixed manila panel on the right** — roughly 1.15 : 0.85 — so every
+diagram has a consistent home instead of floating in whitespace. Kicker (section name) above the title.
+
+### What this settles for Phase 2
+
+- **Format: `.drawio` XML** (settled with Ian), matching the ~40 editable sources already in `resources/`.
+  No local `drawio` CLI exists, so PNG export happens on Ian's machine or in Phase 3.
+- **Start point: the 12 EIP replacements** (§8 item 5, settled with Ian). All 12 are located in
+  `outlines/DayOne.md` and currently carry `[external]` annotations with canonical URLs: Point-to-Point,
+  Publish-Subscribe, Datatype Channel, Message Endpoint, Messaging Gateway, Polling Consumer,
+  Event-Driven Consumer, Service Activator, Message Dispatcher, Invalid Message Channel, Dead Letter
+  Channel, Content Enricher.
+- **Diagrams are drawn in the hand-drawn register** — `sketch=1` in drawio, Caveat labels, ink stroke,
+  carbon for flow arrows, annotation red reserved for the thing the slide is actually about.
+
+**Reference:** the three directions, rendered — https://claude.ai/code/artifact/45339596-b57a-4132-9e3e-121599954c61
