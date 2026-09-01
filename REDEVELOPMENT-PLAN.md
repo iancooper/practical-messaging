@@ -629,10 +629,15 @@ mapping does not align automatically, because consolidated entries break the 1:1
    BPMN, and a hand-drawn BPMN collapses that contrast. BPMN keeps the Field Guide palette, so the section
    still belongs to the deck, and Caveat then reads as **our annotation on top of a standard diagram**.
 
-   **Knock-on, not yet done:** the six BPMN diagrams already in `resources/` (`BPMN Elements`,
+   **Knock-on, not yet done:** the **8** legacy BPMN images the outline still links (`BPMN Elements`,
    `BPMN Ordering Flow`, `Shopping Flow As Sequence`, `Shopping Flow with Pools`, `Shopping Choreography`
-   and the three legend sheets) are plain black-on-white draw.io. They are editable, so bringing them onto
-   the palette is a restyle, not a redraw — but until it happens the section mixes two BPMN looks.
+   and the three legend sheets — `Task Types`, `Event Types`, `Gateway Types`) are plain black-on-white
+   draw.io. Until they are brought onto the palette the section mixes two BPMN looks.
+
+   **7 of the 8 are a restyle, not a redraw** — they have editable `.drawio` sources, so this is an edit
+   to `strokeColor` / `fontFamily`, not new artwork. **`Shopping Choreography` is the exception: there is
+   no `.drawio` for it, only the `.png`.** That one is a redraw — and `tools/diagram.py` now has a
+   `choreo` element (built for the hotel choreography) that would draw it directly.
 
 ---
 
