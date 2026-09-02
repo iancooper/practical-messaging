@@ -662,8 +662,32 @@ than a blank canvas.
    **`Paper Office` belongs with the Paper Flow exercise materials (§7), not on this slide** — it defines
    roles, which this slide does not teach. Place it there when §7's materials are built.
 
-   (b) **⚑ An order wheel photograph — Ian to supply.** The only one of the three physical devices with no
-   image in the deck, and not something we can produce. Marked on the `#image:` line in the outline.
+   (b) **✅ The order wheel — it was already in the deck. 2026-09-02.**
+   `session-work/imgs/day2-s063-1.jpg` → `resources/photo-order-wheel.jpg`: a kitchen order wheel with
+   tickets clipped round the rim and one being clipped on, which is the slide's sentence exactly.
+
+   **This was a wrong blocker, and it is the third of the same kind.** *"The only one of the three
+   physical devices with no image in the deck, and not something we can produce"* was never checked
+   against the extracted masters — it put work on Ian's desk that was never his, and he is the one who
+   asked *"any reason why you can't … use the existing picture?"* Rule 4 of the hand-off exists for
+   precisely this and was not applied. **The `session-work/imgs/` set is 215 images and is not searchable
+   by filename — the photos are `dayN-sNNN-M`, so you have to look at them.**
+
+   **Found in the same sweep, all unlinked and all worth knowing about:** a **1984 OE Division routing
+   sheet** (`day2-s056-1`) — a real routing slip, for the slide whose note says *"this is literally the
+   conductor's routing slip"*; an **interdepartment delivery envelope** with its ruled been-to list
+   (`day2-s053-1`); a **mail cart** (`day2-s054-2`), which is the facilitator guide's spare *Post Room*
+   role; a **fax machine** (`day2-s057-1`); the **Fax Call Log** (`day2-s069-1`); and **mailroom
+   pigeonholes** (`day2-s055-1`).
+
+   (d) **✅ The carbon-copy pad** — same sweep. `day2-s067-1.jpg` → `resources/photo-carbon-copy-pad.jpg`,
+   a multi-part NCR form with the top sheet peeled back to show the copies beneath.
+
+   (e) **⚑ A licensing problem, and it is Ian's call.** The *office desk with overflowing IN and OUT
+   trays* photo (`day2-s054-1`, Day 2 §2) is a **watermarked Getty / Comstock comp** — the watermark, the
+   agency name and the asset id are all visible in the image that is in the deck. It is the same class of
+   problem as the Hohpe & Woolf figures and the setupmyhotel infographic, and it is now flagged on its
+   `#image:` line. Licence it, replace it, or draw the desk — we already have the glyph vocabulary.
 
    (c) **✅ The *Worked Flows* montage** — `resources/paper-worked-flows-montage.png`. Composition, not
    drawing: the four takeaway flows embedded 2×2 as data URIs, so the montage does not depend on the
@@ -784,8 +808,16 @@ mapping does not align automatically, because consolidated entries break the 1:1
 
 1. **Division of labour.** Items 1–4 and 7a stay *Ian to draw* — the conceptual grids and the coupling
    scale, which are arguments rather than illustrations. **Items 5, 6a, 7 and 8 are done.** What is left
-   unassigned is **item 6**, the 2 If-Later diagrams, and 6a(b), the **order-wheel photograph, which is
-   ⚑ Ian's to supply** and is not something we can produce.
+   unassigned is **item 6**, the 2 If-Later diagrams. **6a(b) is closed** — the order-wheel photograph was
+   already in the deck; see 6a below.
+
+   **☐ Items 1–4 and 7a are worth reopening.** The *arguments rather than illustrations* reasoning was
+   recorded before the tooling had drawn anything, and 37 figures later it does not hold: `bpmn-elements`,
+   the guest cycle and Departure are all arguments, and each carries one red idea because that is what
+   `styles.md` requires of every figure. There is **no capability reason** these cannot be drawn — a
+   two-axis grid needs axes, four plotted points and a quadrant callout, and `diagram.py` has all of it.
+   The honest position is that they are conceptual enough that **Ian should review them hard**, not that
+   he should draw them. Raised with him 2026-09-02.
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.

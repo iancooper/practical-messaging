@@ -125,7 +125,7 @@ ends by *asking* that, and movement B answers it badly on purpose.
 
 #image: photo — mailroom pigeonhole shelves stuffed with sorted mail and parcels
 #image: photo — a worker pushing a mail-delivery cart through an office
-#image: photo — an office desk with overflowing IN and OUT trays and a phone
+#image: photo — an office desk with overflowing IN and OUT trays and a phone  [⚑ needs replacing — the image in the deck is a watermarked Getty/Comstock comp, not a licensed asset]
 
 In a mail room, **the frame** was the rack of pigeonholes: mail was sorted into it by floor, then a
 worker took a cart round and delivered it.
@@ -163,8 +163,8 @@ Two devices worth naming, because they are patterns you already know:
 
 #image: notation key — the desk (in-tray, out-tray, file), the boundary bar, red-dashed vs. solid arrows, numbered steps, and the out-tray-to-in-tray rule drawn as two desks  [→ resources/paper-notation-key.png]
 #image: photo — a large stack of manila file folders and papers
-#image: photo — an order wheel in a restaurant kitchen  [⚑ Ian to supply — the only one of the three devices with no image in the deck]
-#image: photo — a multi-part carbon-copy (NCR) form pad
+#image: photo — an order wheel in a restaurant kitchen, tickets clipped round the rim and one being clipped on  [→ resources/photo-order-wheel.jpg]
+#image: photo — a multi-part carbon-copy (NCR) form pad, top sheet peeled back to show the copies beneath  [→ resources/photo-carbon-copy-pad.jpg]
 
 Presenter notes: **New slide.** The notation was previously never taught — it was demonstrated in passing across a dozen unlabelled photographs. It has to be explicit now, because delegates draw in it within the hour and the exercise's hard rule (*every hand-off through a tray*) is what makes the fracture planes visible. The out-tray-to-in-tray rule is the whole exercise in one line.
 
