@@ -123,8 +123,8 @@ ends by *asking* that, and movement B answers it badly on purpose.
 
 ### Slide: The Frame
 
-#image: photo — mailroom pigeonhole shelves stuffed with sorted mail and parcels
-#image: photo — a worker pushing a mail-delivery cart through an office
+#image: photo — mailroom pigeonhole shelves stuffed with sorted mail and parcels  [→ resources/photo-mailroom-pigeonholes.jpg]
+#image: photo — a worker pushing a mail-delivery cart through an office  [→ resources/photo-mail-cart.jpg]
 #image: a desk drawn in the paper notation — an overflowing in-tray, the file, a telephone, and an out-tray with one document in it  [→ resources/paper-the-desk.png]
 
 In a mail room, **the frame** was the rack of pigeonholes: mail was sorted into it by floor, then a
@@ -264,7 +264,7 @@ Paper had failure modes, and it had answers, and they are our answers.
 | it arrived twice | check the file before acting | idempotency, the **inbox** |
 
 #image: flow diagram — restaurant onboarding errors  [→ resources/Restaurant Onboarding Errors.drawio.png]
-#image: screenshot — a Fax Call Log table with error status codes highlighted
+#image: screenshot — a Fax Call Log table with error status codes highlighted  [→ resources/screenshot-fax-call-log.jpg]
 #image: flow diagram — customer order errors  [→ resources/Customer Order Errors.drawio.png]
 #image: flow diagram — order placement errors  [→ resources/Order Placement Errors.drawio.png]
 
@@ -1196,28 +1196,28 @@ Presenter notes: One slide, deliberately. The correlation id has been on the tab
 *Reactive Microservices Architecture* — Jonas Bonér. (jonasboner.com/resources/Reactive_Microservices_Architecture.pdf)
 
 
-#image: book cover — 'Reactive Microservices Architecture' by Jonas Bonér (O'Reilly)
+#image: book cover — 'Reactive Microservices Architecture' by Jonas Bonér (O'Reilly)  [→ resources/cover-reactive-microservices.jpg]
 
 ### Slide: Further Reading — Practical Process Automation
 
 *Practical Process Automation* — Bernd Ruecker. (processautomationbook.com)
 
 
-#image: book cover — 'Practical Process Automation' by Bernd Ruecker (O'Reilly)
+#image: book cover — 'Practical Process Automation' by Bernd Ruecker (O'Reilly)  [→ resources/cover-practical-process-automation.jpg]
 
 ### Slide: Further Reading — EDA Visuals
 
 Serverless Land — event-driven architecture visuals. (serverlessland.com/event-driven-architecture/visuals)
 
 
-#image: screenshot — the Serverless Land 'EDA Visuals' page of event-driven architecture cards
+#image: screenshot — the Serverless Land 'EDA Visuals' page of event-driven architecture cards  [→ resources/screenshot-eda-visuals.png]
 
 ### Slide: Further Reading — Enterprise Integration Patterns
 
 Gregor Hohpe. (enterpriseintegrationpatterns.com/gregor.html)
 
 
-#image: book cover — 'Enterprise Integration Patterns' by Gregor Hohpe and Bobby Woolf
+#image: book cover — 'Enterprise Integration Patterns' by Gregor Hohpe and Bobby Woolf  [→ resources/cover-enterprise-integration-patterns.jpg]
 
 ### Slide: Q&A
 

@@ -829,7 +829,7 @@ was replaced by a drawing (41 → 38 unannotated across that and the order wheel
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
 | `outlines/DayOne.md` | **49** | 26 | 0 | **0** | **23** |
-| `outlines/DayTwo.md` | **88** | 50 | 0 | **0** | **38** |
+| `outlines/DayTwo.md` | **88** | 57 | 0 | **0** | **31** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
@@ -838,10 +838,53 @@ markers are gone — D2-10 replaced the pizza family with `☐ REDRAW (hotel)`, 
 built** (item 8), which is why Day 2's linked column moved 34 → 47 and its pending column 13 → **0**.
 The only `☐` left anywhere on Day 2 is the reference card, and that is a `#note:`, not an image.
 
-**The 68 unannotated lines are the hidden bulk of Phase 2**, and they are larger than the redraw list.
-They are photos, logos, book covers, screenshots and hand-drawn diagrams whose masters are the extracted
-`session-work/imgs/dayN-sNNN-M.png`. Annotating in bulk was rejected — the slide-number → outline-entry
-mapping does not align automatically, because consolidated entries break the 1:1. **Do it per section.**
+**The unannotated lines are the hidden bulk of Phase 2**, and they are larger than the redraw list was.
+Their masters are the extracted `session-work/imgs/dayN-sNNN-M.png`. Annotating in bulk was rejected —
+the slide-number → outline-entry mapping does not align automatically, because consolidated entries break
+the 1:1. **Do it per section.**
+
+### ⚑ They are not one job — surveyed 2026-09-02
+
+Calling them "61 unannotated lines" hid the fact that they are **three different jobs with three
+different answers**, and only one of them is mechanical.
+
+| class | count | what it needs |
+|---|---:|---|
+| **A — link only** | ~18 | photos, book covers, screenshots, the *DON'T PANIC* motif, an icon. Find the master, copy to `resources/`, link. No visual decision. |
+| **B — the two hand-drawn families** | ~36 | Day 1 §4.5 *Queues and Streams* (12) and Day 2's OO/FBP run (24). **This is the decision.** |
+| **C — Integration Styles, s32–s35** | 4 | conceptual diagrams sitting immediately beside the new coupling grid |
+
+**✅ A is under way. 7 done 2026-09-02** — Day 2 §Next Steps' four (`cover-reactive-microservices`,
+`cover-practical-process-automation`, `screenshot-eda-visuals`,
+`cover-enterprise-integration-patterns`) and three from the order-wheel sweep
+(`photo-mailroom-pigeonholes`, `photo-mail-cart`, `screenshot-fax-call-log`). Every one was **opened and
+looked at** before linking, not matched by filename.
+
+**☐ Two class-A masters are not found yet** — *a large stack of manila file folders and papers* and
+*order taking (phone / card machine / order pad)*, both Day 2 §Flow. They may not exist; check before
+reporting either as missing.
+
+### ☐ B is a decision, not a task — for Ian
+
+**~36 hand-drawn diagrams in two runs**: Day 1 §4.5 *Queues and Streams* (queues, streams, offsets,
+partitions, consumer groups, replay, the comparison grid) and Day 2's *Flow and Reactive* run (OO,
+call-and-return, service orientation, entity services, the dataflow and FBP series, ports, lookups,
+backpressure, load shedding, circuit breaker, supervisors).
+
+**The deck now holds 45 figures in the Field Guide register.** If these ~36 stay as 2021 excalidraw, the
+two longest technical runs on each day are in the old look — which is exactly the problem the BPMN
+restyle was for, at four times the scale.
+
+**Editable sources exist for part of it and are worth checking before any estimate**: `FBP Basics`,
+`FBP IP`, `FBP Ports and Connectors`, `FBP Network`, `FBP Service`, `FBP Sub Networks`, `OO Basics`,
+`OO Service`, `OO vs. FBP Service`, `Composite Microservice`, `Task Queues`, `Task Queues Moving Parts`,
+`No Task Queues`, `Stream Log Tailing`, `Kafka-Partition-Log`, `SQS-Queue-Visibility`,
+`SQS-Group-Queue-Visibility`, `Entity Stream`. §8 already records these as *different drawings, same
+ideas* — a starting point, not a swap. **And their `.png`s are 2021 black-on-white, so linking them keeps
+the old look; only a redraw through `diagram.py` changes it.**
+
+*Options, cheapest first:* link the masters and accept two registers · redraw only the load-bearing ones
+and link the rest · redraw both runs. **Not started, and not to be started without an answer.**
 
 ### Settled 2026-09-01 — how Phase 2 is built
 
