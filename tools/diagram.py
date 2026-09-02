@@ -243,6 +243,16 @@ class Diagram:
         self.nodes.append(node)
         return node
 
+    def doc(self, x, y, w, h, label="", accent=False, size=13):
+        """A loose sheet of paper -- the artefact in flight, before it lands in a
+        tray or a file. The tray already draws one sitting in its tray; this is the
+        same sheet on its own, for the hand-offs the guest cycle is made of."""
+        self._n += 1
+        node = dict(id=f"c{self._n}", kind="doc", x=x, y=y, w=w, h=h, label=label,
+                    accent=accent, size=size, label_pos="below")
+        self.nodes.append(node)
+        return node
+
     def bar(self, x, y, h, w=7, label="", size=13):
         """The heavy vertical bar: an organisational boundary."""
         self._n += 1
@@ -535,6 +545,14 @@ class Diagram:
                 o.append(f'<path d="M{x},{y + h - lip} L{x},{y + h} L{x + w},{y + h} '
                          f'L{x + w},{y + h - lip}" fill="{c if n.get("out") else PAPER}" '
                          f'stroke="{c}" stroke-width="1.5"/>')
+            elif n["kind"] == "doc":
+                x, y, w, h = n["x"], n["y"], n["w"], n["h"]
+                o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" '
+                         f'fill="{PAPER}" stroke="{c}" stroke-width="1.3"/>')
+                for i in range(3):
+                    ly = y + h * 0.26 + i * h * 0.22
+                    o.append(f'<path d="M{x + w*0.16},{ly} h{w*0.68}" stroke="{c}" '
+                             f'stroke-width="1"/>')
             elif n["kind"] == "folder":
                 x, y, w, h = n["x"], n["y"], n["w"], n["h"]
                 tab = h * 0.2
@@ -811,14 +829,15 @@ class Diagram:
                      "msg": "shape=message;",
                      "desk": "rounded=0;",
                      "tray": "shape=document;boundedLbl=1;",
+                     "doc": "shape=note;size=0;",
                      "folder": "shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;",
                      "bar": "rounded=0;",
                      "step": "rounded=0;"}[n["kind"]]
-            fill = {"msg": PAPER, "folder": MANILA, "bar": INK,
+            fill = {"msg": PAPER, "folder": MANILA, "bar": INK, "doc": PAPER,
                     "tray": PAPER, "desk": PAPER, "step": PAPER}.get(n["kind"], "none")
             if n["kind"] == "step":
                 stroke = CARBON
-            if n["kind"] in ("tray", "folder", "step", "bar"):
+            if n["kind"] in ("tray", "folder", "step", "bar", "doc"):
                 style_extra = "verticalLabelPosition=bottom;verticalAlign=top;"
             elif n["kind"] == "desk":
                 style_extra = "verticalLabelPosition=top;verticalAlign=bottom;"

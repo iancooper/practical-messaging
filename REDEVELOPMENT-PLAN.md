@@ -463,19 +463,58 @@ measure too. Settled 2026-08-29.
 circulates dealing failures. Five tables covers the cycle; fewer, and drop stages from the middle,
 keeping Onboarding and Departure.
 
-### ☐ TODO — build (design settled; build queued behind the Day 2 section reviews)
+### ☐ TODO — build
+
+**Scope corrected by Ian, 2026-09-02.** These were previously parked behind "the deferred `exercises/`
+phase". That was a misreading, and Ian corrected it: *"Day One includes some coding exercises for RMQ and
+Kafka. Those are a separate task. But for Day Two, please do work on these."* So **the Paper Flow
+exercise materials below are in scope now** — the guide, the brief, the printables, the `.pptx` rebuild
+and the wiring. What stays deferred is the **coding** exercise material (`Quick-Start-RMQ`,
+`Quick-Start-Kafka`, the pattern exercise decks and the two `README DAY *.md` code sections), which is
+its own task.
+
+*Working assumption, stated rather than asked:* `exercises/README DAY TWO.md` is today entirely about the
+**Kafka/streams coding** exercises, so item 7 adds the Paper Flow to it without touching the code
+sections. If the intent was for the Day 2 coding material to be in scope too, that is a bigger job and
+worth saying so.
 
 1. ☐ **Facilitator guide** — run-of-show, timings, circulating prompts, debrief questions, reveal order.
    Tracked, e.g. `exercises/Paper-Flow-Facilitator-Guide.md`.
 2. ☐ **Delegate brief** — scenario, roles, the in-tray/out-tray rule, the three artefacts expected.
 3. ☐ **Printable materials** — role cards, document cards, failure cards, tray sheets.
-4. ☐ **`resources/Departure.drawio`** — reference answer for the one stage with no worked flow, in the
-   same notation as the other four, and on the **settled numbering rule** above: one global ascending
-   sequence, no repeats, no gaps.
+4. ✅ **`resources/Departure.drawio`** — **built 2026-09-02**, `tools/paper_flow.py`. Reference answer for
+   the one stage with no worked flow, on the **settled numbering rule** above. Five desk-turns, matching
+   Occupancy's granularity: **1** guest asks to check out (solid — spoken, no paper) · **2** Front Desk
+   takes the stay file, totals the invoices, puts the bill out · **3** guest settles and hands the key
+   back · **4** Front Desk files the receipt and puts *room vacated* out · **5** Housekeeping returns the
+   room to the Room List. Shape agreed with Ian before drawing.
+
+   **Step 3 is where the numbering rule earns its keep.** Settling the bill and returning the key are one
+   turn, so they are drawn **structurally** — one number branching to two arrows — not as two steps and
+   not as a repeated number. The reference answer therefore demonstrates the rule it is asking delegates
+   to follow.
+
+   **It answers the question slide 4 actually asks** — *"show how the flow of bills reaches my file"* — by
+   drawing the Guest Stay File with a **muted** stub above it captioned *filed here all week — that is
+   Occupancy's flow*. Muted marks context from the previous stage; red is reserved for this flow's own
+   paper. **Do NOT wire it into `outlines/DayTwo.md`** (plan §8 rule 9): it is revealed in block 1's
+   debrief, and putting it in front of the room before the task destroys see-one/do-one.
 5. ☐ **Rebuild `Paper Flow.pptx`** — the *takeaway* flows become the worked example up front; the four
    **hotel** flows move behind the exercise as the debrief reveal. As it stands the deck shows the
    hotel answers before the task, which see-one/do-one makes wrong.
-6. ☐ Replace the third-party *Guest Cycle* infographic (s003, setupmyhotel.com).
+6. ✅ Replace the third-party *Guest Cycle* infographic (s003, setupmyhotel.com) — **built 2026-09-02**
+   as `resources/paper-guest-cycle.png`, `tools/paper_flow.py`.
+
+   **Ours says two things theirs does not, and both are load-bearing.** The original shows four peer
+   stages; ours puts **Hotel Onboarding outside the loop** — the guest is not there for it, it is how a
+   hotel is in the catalogue at all — because the exercise runs *five* tables against a *four*-stage
+   cycle, and pretending Onboarding is a guest-cycle stage is the confusion that would cause. And the red
+   idea: **every stage hands the next one a piece of paper**, drawn as the artefact between each pair —
+   catalogue, booking, key, invoices, which slide 4 names verbatim. The cycle is a chain of hand-offs
+   before anyone has drawn a desk, which is the exercise's whole thesis arriving one slide early.
+
+   *Departure is the delegates' task* is deliberately **not** marked on it — that is slide 4's point, and
+   a second red idea would cost this one its own.
 7. ☐ Wire it into `exercises/README DAY TWO.md` — absent today.
 
 **✅ Resolved 2026-09-02 — it was a slip, and Pre-Arrival is renumbered.** Ian: *"probably an error
@@ -581,7 +620,17 @@ than a blank canvas.
    drawing: the four takeaway flows embedded 2×2 as data URIs, so the montage does not depend on the
    sources staying put. Note the naming mismatch it exposes — *Customer Order.drawio* is captioned
    *"Order Taking"* inside the artwork. The outline's name won; the source was left alone.
-7. **`resources/Departure.drawio`** and the *Guest Cycle* replacement (Day 2 Paper Flow).
+7. **✅ `resources/Departure.drawio` and the *Guest Cycle* replacement — built 2026-09-02.** Both live in
+   `tools/paper_flow.py`; §7's TODO 4 and 6 carry the design reasoning. Both target
+   **`exercises/Paper Flow.pptx`**, not `outlines/DayTwo.md` — Departure is a facilitator reference
+   answer and must not be wired into the outline at all (rule 9); the Guest Cycle map is slide 3.
+
+   **`Departure` follows the bare-`.png` convention** the other four hotel flows use
+   (`Arrival.png`, not `Arrival.drawio.png`), so the five stages sit together in `resources/`.
+
+   **A new glyph, `doc`.** `tools/diagram.py` gained a bare sheet of paper — the artefact in flight,
+   before it lands in a tray or a file. The tray already drew one *in* its tray; `doc` is the same sheet
+   on its own, which is what the guest cycle's hand-offs are made of.
 7a. **The coupling scale with a process boundary drawn across it** (Day 1 §2, D1-7) — Content and Common
    above the line and struck through as *prevented*; Control, Stamp and Data below it, live. Replaces the
    old flat tight→loose scale (s27) and is the pivot of the section. **Ian to draw**, alongside items 1–4.
@@ -659,8 +708,9 @@ mapping does not align automatically, because consolidated entries break the 1:1
 2, 3 and 4 below were open questions; the answers held for the 12 EIP figures and should hold for the rest.
 
 1. **Division of labour.** Items 1–4 and 7a stay *Ian to draw* — the conceptual grids and the coupling
-   scale, which are arguments rather than illustrations. **Items 5 and 8 are done.** Items 6 and 6a remain
-   unassigned (2 If-Later diagrams, Day 2 §2's three).
+   scale, which are arguments rather than illustrations. **Items 5, 6a, 7 and 8 are done.** What is left
+   unassigned is **item 6**, the 2 If-Later diagrams, and 6a(b), the **order-wheel photograph, which is
+   ⚑ Ian's to supply** and is not something we can produce.
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.
@@ -678,7 +728,11 @@ mapping does not align automatically, because consolidated entries break the 1:1
    BPMN, and a hand-drawn BPMN collapses that contrast. BPMN keeps the Field Guide palette, so the section
    still belongs to the deck, and Caveat then reads as **our annotation on top of a standard diagram**.
 
-   **Knock-on, not yet done:** the **8** legacy BPMN images the outline still links (`BPMN Elements`,
+   **✅ Approved by Ian, 2026-09-02**, on the BPMN review sheet: *"This family is straight-stroked and set
+   in Plex Sans => agreed"*. The decision had been made without asking him, and it stands.
+
+   **Knock-on, ✅ approved and queued 2026-09-02** — Ian: *"yes, let's restyle the others too"*. The **8**
+   legacy BPMN images the outline still links (`BPMN Elements`,
    `BPMN Ordering Flow`, `Shopping Flow As Sequence`, `Shopping Flow with Pools`, `Shopping Choreography`
    and the three legend sheets — `Task Types`, `Event Types`, `Gateway Types`) are plain black-on-white
    draw.io. Until they are brought onto the palette the section mixes two BPMN looks.
