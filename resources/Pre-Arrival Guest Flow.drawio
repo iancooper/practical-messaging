@@ -120,13 +120,13 @@
             <mxPoint x="1016.5" y="286.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-17" value="&lt;font style=&quot;font-size: 29px&quot;&gt;4&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-17" value="&lt;font style=&quot;font-size: 29px&quot;&gt;3&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="726.5" y="355" width="60" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-18" value="&lt;font style=&quot;font-size: 29px&quot;&gt;5&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-18" value="&lt;font style=&quot;font-size: 29px&quot;&gt;4&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="1023.25" y="336.5" width="60" height="48.5" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-19" value="&lt;font style=&quot;font-size: 29px&quot;&gt;6&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-19" value="&lt;font style=&quot;font-size: 29px&quot;&gt;5&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="963.25" y="591.25" width="60" height="40" as="geometry" />
         </mxCell>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-21">
@@ -216,7 +216,7 @@
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-99" value="&lt;font color=&quot;#ff6666&quot;&gt;Respond with Booking Accept/Reject&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="470" y="728.5" width="80" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-100" value="&lt;font style=&quot;font-size: 29px&quot;&gt;7&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-100" value="&lt;font style=&quot;font-size: 29px&quot;&gt;6&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="777" y="748.5" width="60" height="40" as="geometry" />
         </mxCell>
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-103" value="Pre-Arrival" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;fontSize=24;" vertex="1" parent="1">
@@ -273,19 +273,19 @@
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-123" value="" style="verticalLabelPosition=bottom;sketch=0;aspect=fixed;html=1;verticalAlign=top;strokeColor=none;align=center;outlineConnect=0;shape=mxgraph.citrix.document;fillColor=#FF3333;" vertex="1" parent="1">
           <mxGeometry x="1000" y="1018.5" width="47" height="72" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-125" value="&lt;font style=&quot;font-size: 29px&quot;&gt;4&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-125" value="&lt;font style=&quot;font-size: 29px&quot;&gt;8&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="97" y="920" width="60" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-126" value="&lt;font style=&quot;font-size: 29px&quot;&gt;6&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-126" value="&lt;font style=&quot;font-size: 29px&quot;&gt;10&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="323.5" y="754.5" width="60" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-127" value="&lt;font style=&quot;font-size: 29px&quot;&gt;8&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-127" value="&lt;font style=&quot;font-size: 29px&quot;&gt;11&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="1020" y="783" width="60" height="40" as="geometry" />
         </mxCell>
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-128" value="Booking Confirmation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1070" y="1008.5" width="40" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-130" value="&lt;font style=&quot;font-size: 29px&quot;&gt;5&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-130" value="&lt;font style=&quot;font-size: 29px&quot;&gt;9&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="350" y="940" width="60" height="40" as="geometry" />
         </mxCell>
       </root>

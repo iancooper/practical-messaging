@@ -341,6 +341,12 @@ one-page index up front so it reads as a reference rather than a talk.
 - **A consistent visual language, and it is ours.** Desks drawn as boxes with an **in-tray and an
   out-tray**; a heavy vertical bar for the **organisational boundary**; numbered steps; red dashed
   arrows for paper movement; solid arrows for phone/fax channels; folders for filed state.
+- **Step numbering — settled with Ian 2026-09-02.** **One global ascending sequence per flow, no repeats,
+  no gaps**, counting every numbered marker in the order the arrows run — *not* per participant, and *not*
+  reused across a boundary to imply concurrency. Where two things genuinely happen at once, show it
+  **structurally** (one step branching to two), because "same number = same step" is the only rule a
+  delegate can apply without being told. This was already the house norm: **6 of the 8 flows were
+  clean**; see the survey below.
 - **Four worked reference flows** — Hotel Onboarding (s005), Pre-Arrival (s006), Arrival (s007),
   Occupancy (s008). Every hand-off annotated *Put X in Outbox* / *Take X from Inbox*.
 - **Departure deliberately not drawn** — s004 sets it as the delegate task: *"Departure is how I get my
@@ -464,15 +470,33 @@ keeping Onboarding and Departure.
 2. ☐ **Delegate brief** — scenario, roles, the in-tray/out-tray rule, the three artefacts expected.
 3. ☐ **Printable materials** — role cards, document cards, failure cards, tray sheets.
 4. ☐ **`resources/Departure.drawio`** — reference answer for the one stage with no worked flow, in the
-   same notation as the other four.
+   same notation as the other four, and on the **settled numbering rule** above: one global ascending
+   sequence, no repeats, no gaps.
 5. ☐ **Rebuild `Paper Flow.pptx`** — the *takeaway* flows become the worked example up front; the four
    **hotel** flows move behind the exercise as the debrief reveal. As it stands the deck shows the
    hotel answers before the task, which see-one/do-one makes wrong.
 6. ☐ Replace the third-party *Guest Cycle* infographic (s003, setupmyhotel.com).
 7. ☐ Wire it into `exercises/README DAY TWO.md` — absent today.
 
-Minor: the Pre-Arrival diagram (s006) repeats step numbers 4/6/7 either side of the boundary — check
-whether that is deliberate concurrency or a slip.
+**✅ Resolved 2026-09-02 — it was a slip, and Pre-Arrival is renumbered.** Ian: *"probably an error
+derived from building this from the Just Paper Takeaway material."* Survey of all eight paper flows:
+
+| flow | steps as found | verdict |
+|---|---|---|
+| Restaurant Onboarding · Order Placement · Order Confirmation · Hotel Onboarding · Occupancy | clean 1..n | ✅ |
+| **Customer Order** | `1,1,2,3,4,5,6` | ⚑ one duplicate `1` — not yet touched |
+| **Arrival** | `1,2,3,4,5,5` | ⚑ one duplicate `5` — not yet touched |
+| **Pre-Arrival Guest Flow** | `1,2,4,4,5,5,6,6,7,7,8` — `3` absent, four values doubled | ✅ **renumbered 1..11** |
+
+The concurrency reading was tested and fails: under it a shared number means "at the same time", but the
+old `6` paired the agency *taking from an inbox* with the hotel *putting into an outbox* — which the
+notation's own hard rule makes strictly sequential. The new order was derived from the **arrow graph**
+in the file, not from position on the page.
+
+> **⚑ `resources/Pre-Arrival Guest Flow.png` is now stale** — the `.drawio` carries 1..11, the render
+> still shows the old numbers. **There is no drawio CLI here, so Ian has to re-export that one file.**
+> It is embedded in `resources/bpmn-your-flow-side-by-side.png`, so after the export, re-run
+> `python3 tools/bpmn_hotel.py bpmn-your-flow-side-by-side`.
 
 ### Knock-on: Process Automation moves to the hotel
 
