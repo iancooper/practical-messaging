@@ -521,9 +521,33 @@ worth saying so.
    Occupancy's flow*. Muted marks context from the previous stage; red is reserved for this flow's own
    paper. **Do NOT wire it into `outlines/DayTwo.md`** (plan §8 rule 9): it is revealed in block 1's
    debrief, and putting it in front of the room before the task destroys see-one/do-one.
-5. ☐ **Rebuild `Paper Flow.pptx`** — the *takeaway* flows become the worked example up front; the four
-   **hotel** flows move behind the exercise as the debrief reveal. As it stands the deck shows the
-   hotel answers before the task, which see-one/do-one makes wrong.
+5. ✅ **`Paper Flow.pptx` restructured — 2026-09-02.** 9 slides → 12, and the defect is fixed: the four
+   hotel flows sat **immediately after the task slide**, so the deck put the answers in front of the room
+   before the work.
+
+   | | slide |
+   |---:|---|
+   | 1 | Paper Flow — Partitioning our System |
+   | 2 | Create a Paper Flow |
+   | 3 | **The Guest Cycle** — ours, replacing the setupmyhotel.com infographic |
+   | 4 | **The notation key** — new here, and it belongs *before* the task |
+   | 5 | Pick One Step and Model As A Paper Flow — **the task** |
+   | 6 | **Debrief — the Worked Flows** — a divider whose body reads *"Do not show these until the tables have drawn their own"* |
+   | 7–10 | Hotel Onboarding · Pre-Arrival · Arrival · Occupancy — **moved behind the task** |
+   | 11 | **Departure** — new, and revealed last |
+   | 12 | What Would This Look Like? — block 2's FBP task |
+
+   **The takeaway *see one* is not duplicated here.** Movement A of `outlines/DayTwo.md` already walks the
+   four takeaway flows and the montage, so this deck carries only what the main deck does not: the
+   notation, the per-stage task detail, and the reveals.
+
+   **Nor is the framing duplicated.** *Now Do One — the Hotel, on Paper*, *…as a Graph* and *So Who Is in
+   Charge?* live in the main deck; this one is the exercise's own reference material, projected while the
+   tables work.
+
+   **Speaker notes were written for all six new or changed slides**, and they are instructions to the
+   presenter — the reveal protocol, what to point at in each flow, and why Occupancy is shown immediately
+   before Departure (its last step files the invoice into the very file Departure opens).
 6. ✅ Replace the third-party *Guest Cycle* infographic (s003, setupmyhotel.com) — **built 2026-09-02**
    as `resources/paper-guest-cycle.png`, `tools/paper_flow.py`.
 
