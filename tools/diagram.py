@@ -260,14 +260,37 @@ class Diagram:
         self.nodes.append(node)
         return node
 
-    def rule(self, x, y, w, color=None, weight=1.1):
-        """A plain hairline: a writing rule on a printable, a divider on a card.
-        Its own element because `arrow` always draws a head, and a line you write on
-        must not have one."""
+    def rule(self, x, y, w, color=None, weight=1.1, h=0):
+        """A plain hairline: a writing rule on a printable, a divider on a card, a
+        gridline on a plot. Its own element because `arrow` always draws a head, and
+        neither a line you write on nor an axis may have one.
+
+        Horizontal by default; pass `w=0, h=<len>` for a vertical one."""
         self._n += 1
-        node = dict(id=f"r{self._n}", kind="rule", x=x, y=y, w=w, h=1, label="",
-                    accent=False, size=13, label_pos="below",
-                    color=color or MUTED, weight=weight)
+        node = dict(id=f"r{self._n}", kind="rule", x=x, y=y, w=w or 1, h=h or 1,
+                    label="", accent=False, size=13, label_pos="below",
+                    color=color or MUTED, weight=weight, dx=w, dy=h)
+        self.nodes.append(node)
+        return node
+
+    def point(self, x, y, label="", accent=False, r=7, size=14, label_pos="below"):
+        """A plotted item on a grid -- a filled dot and its name. The grids are the
+        one place in the deck where the *position* carries the argument, so the mark
+        has to be small and exact and the label has to sit clear of it."""
+        self._n += 1
+        node = dict(id=f"o{self._n}", kind="point", x=x - r, y=y - r, w=2 * r,
+                    h=2 * r, label=label, accent=accent, size=size,
+                    label_pos=label_pos)
+        self.nodes.append(node)
+        return node
+
+    def phone(self, x, y, w, h, label="", accent=False, size=13):
+        """A desk telephone, seen from above: handset on the left, keypad on the
+        right. Matches the glyph in `resources/Paper Office.drawio`, so a drawn desk
+        and the 2021 worked flows read as one office."""
+        self._n += 1
+        node = dict(id=f"h{self._n}", kind="phone", x=x, y=y, w=w, h=h, label=label,
+                    accent=accent, size=size, label_pos="below")
         self.nodes.append(node)
         return node
 
@@ -588,8 +611,25 @@ class Diagram:
                          f'M{x + w*0.14},{y + h*0.75} h{w*0.5}" stroke="{c}" '
                          f'stroke-width="1"/>')
             elif n["kind"] == "rule":
-                o.append(f'<path d="M{n["x"]},{n["y"]} h{n["w"]}" fill="none" '
+                o.append(f'<path d="M{n["x"]},{n["y"]} l{n.get("dx") or 0},'
+                         f'{n.get("dy") or 0}" fill="none" '
                          f'stroke="{n["color"]}" stroke-width="{n["weight"]}"/>')
+            elif n["kind"] == "point":
+                o.append(f'<circle cx="{n["x"] + n["w"] / 2}" cy="{n["y"] + n["h"] / 2}" '
+                         f'r="{n["w"] / 2}" fill="{c}" stroke="{c}" stroke-width="1"/>')
+            elif n["kind"] == "phone":
+                x, y, w, h = n["x"], n["y"], n["w"], n["h"]
+                o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="4" '
+                         f'fill="{PAPER}" stroke="{c}" stroke-width="1.5"/>')
+                o.append(f'<rect x="{x + w*0.07}" y="{y + h*0.12}" width="{w*0.2}" '
+                         f'height="{h*0.76}" rx="{min(w*0.09, h*0.16)}" fill="{PAPER}" '
+                         f'stroke="{c}" stroke-width="1.5"/>')
+                for r_ in range(3):
+                    for k in range(3):
+                        o.append(f'<rect x="{x + w*(0.38 + k*0.18)}" '
+                                 f'y="{y + h*(0.17 + r_*0.24)}" width="{w*0.11}" '
+                                 f'height="{h*0.15}" fill="none" stroke="{c}" '
+                                 f'stroke-width="1.1"/>')
             elif n["kind"] == "bar":
                 o.append(f'<rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
                          f'height="{n["h"]}" fill="{INK}" stroke="none"/>')
@@ -863,14 +903,19 @@ class Diagram:
                      "folder": "shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;",
                      "bar": "rounded=0;",
                      "rule": "shape=line;",
+                     "point": "ellipse;",
+                     "phone": "shape=mxgraph.telecom.telephone;",
                      "step": "rounded=0;"}[n["kind"]]
             if n["kind"] == "rule":
                 stroke = n.get("color", MUTED)
+                if n.get("dy"):
+                    shape += "direction=north;"
             fill = {"msg": PAPER, "folder": MANILA, "bar": INK, "doc": PAPER,
-                    "tray": PAPER, "desk": PAPER, "step": PAPER}.get(n["kind"], "none")
+                    "tray": PAPER, "desk": PAPER, "step": PAPER, "phone": PAPER,
+                    "point": stroke}.get(n["kind"], "none")
             if n["kind"] == "step":
                 stroke = CARBON
-            if n["kind"] in ("tray", "folder", "step", "bar", "doc"):
+            if n["kind"] in ("tray", "folder", "step", "bar", "doc", "point", "phone"):
                 style_extra = "verticalLabelPosition=bottom;verticalAlign=top;"
             elif n["kind"] == "desk":
                 style_extra = "verticalLabelPosition=top;verticalAlign=bottom;"

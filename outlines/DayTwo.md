@@ -125,7 +125,7 @@ ends by *asking* that, and movement B answers it badly on purpose.
 
 #image: photo — mailroom pigeonhole shelves stuffed with sorted mail and parcels
 #image: photo — a worker pushing a mail-delivery cart through an office
-#image: photo — an office desk with overflowing IN and OUT trays and a phone  [⚑ needs replacing — the image in the deck is a watermarked Getty/Comstock comp, not a licensed asset]
+#image: a desk drawn in the paper notation — an overflowing in-tray, the file, a telephone, and an out-tray with one document in it  [→ resources/paper-the-desk.png]
 
 In a mail room, **the frame** was the rack of pigeonholes: mail was sorted into it by floor, then a
 worker took a cart round and delivered it.

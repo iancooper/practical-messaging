@@ -317,6 +317,45 @@ def tray_sheets():
     return d
 
 
+@figure("paper-the-desk")
+def the_desk():
+    """*The Frame*, Day 2 §2 — the desk with overflowing trays and a phone.
+
+    **This replaces a watermarked stock photograph.** The image in the deck was a
+    Getty / Comstock comp with the watermark, the agency name and the asset id all
+    visible on it — the same class of problem as the Hohpe & Woolf figures and the
+    setupmyhotel infographic, and the same answer: draw our own.
+
+    **No red note, deliberately.** It sits beside two photographs as one of three
+    establishing images at the very top of the day, and it is not making an argument
+    — the section opener does that. The BPMN workflow-pattern figures carry no red
+    for the same reason: vocabulary, not argument.
+
+    The in-tray overflows and the out-tray does not, which is the only editorial
+    choice in it and it is the true one — work arrives faster than a desk clears it,
+    and that is the whole reason a queue is a place rather than an event.
+    """
+    d = Diagram("The Desk", w=940, h=460)
+
+    d.desk(60, 96, 820, 300)
+
+    # the in-tray, overflowing -- the stack is drawn leaning, as a real one does
+    d.tray(146, 250, 104, 76)
+    for i, (dx, dy) in enumerate(((6, 196), (-4, 172), (10, 148))):
+        d.doc(164 + dx, dy, 72, 46)
+    d.note(198, 356, "IN", INK, 20)
+
+    d.folder(322, 254, 84, 60, "the file")
+
+    d.phone(478, 244, 130, 88)
+    d.note(543, 358, "a telephone, for when it cannot wait", MUTED, 14)
+
+    d.tray(700, 250, 104, 76, out=True)
+    d.doc(718, 196, 72, 46)
+    d.note(752, 356, "OUT", INK, 20)
+    return d
+
+
 def main(argv):
     if "--list" in argv:
         for n in FIGURES:

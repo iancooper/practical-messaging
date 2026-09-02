@@ -81,7 +81,7 @@ describing. The boundary is the mechanism; this is the payoff.
 
 ▎ The two worst kinds of coupling are the two you cannot have any more. That is what you bought.
 
-#image: NEW — the Myers coupling scale (Content, Common, Control, Stamp, Data) with a process boundary drawn across it: Content and Common above the line, struck through as *prevented*; Control, Stamp and Data below it, live  [replaces (s27) hand-drawn coupling scale]
+#image: the Myers coupling scale drawn vertically, tightest first, with the process boundary as a line across it — Content and Common above the line, struck through as *prevented*; Control, Stamp and Data below it, live  [→ resources/coupling-scale-boundary.png]
 
 Presenter notes: **This slide opens the section cold**, so give it one sentence of framing before the
 scale: **coupling decides whether we can deploy independently,
@@ -159,7 +159,7 @@ independently:
 
 ▎ "Loosely coupled" is a question with two answers.
 
-#image: NEW — a two-axis grid: *what are we coupled about?* (Content→Data) against *must we both be up?* (temporally coupled ↔ decoupled), with the four examples above plotted on it
+#image: a two-axis grid — *what are we coupled about?* (Content→Data) against *must we both be up?* — with the four examples above plotted on it  [→ resources/grid-coupling.png]
 
 Presenter notes: This is the slide the next section pays off — Integration Styles plots File Transfer,
 Shared Database, RPC and Messaging onto exactly this grid. It also explains why RPC's verdict needs two
@@ -264,7 +264,7 @@ The four styles on the grid from §Coupling:
 
 ▎ Only one style keeps everything the process boundary bought you, and lets you choose the rest.
 
-#image: NEW — the two-axis grid from §Coupling, with the four integration styles plotted on it (reuse the same grid artwork so the call-back is visual, not just verbal)
+#image: the two-axis grid from §Coupling, same artwork, with the four integration styles on it — Messaging drawn as a span rather than a point, because its coupling is a choice  [→ resources/grid-integration-styles.png]
 
 Presenter notes: **This is the section's goal slide: it has to end on *why messaging*.** Do not leave the
 question — "if File Transfer and Messaging are equally loosely coupled, why build the whole course on
@@ -993,7 +993,7 @@ a message back?**
 - *In* and *Out* are named from the **provider's** point of view: In = a message arrives, Out = a message leaves.
 - Everything else in this section is one of these four, or a composition of them.
 
-#image: NEW — the 2×2 exchange-pattern grid (who speaks first × is there a reply) with all four patterns named  [Phase 2 — new drawing]
+#image: the 2×2 exchange-pattern grid — who speaks first × is there a reply — with all four patterns named and glossed  [→ resources/grid-exchange-2x2.png]
 
 ### Slide: In-Only (Fire and Forget)
 
@@ -1165,7 +1165,7 @@ The decision, in order:
 | Out-In | the solicitation contract | no | fault replaces the response |
 | Blocking In-Out | request + response contracts | **yes** | fault replaces the response |
 
-#image: the §2 two-axis grid re-plotted a third time — *what are we coupled about* × *must we both be up* — with the four exchange patterns plotted and Blocking In-Out alone in the temporally-coupled quadrant  [Phase 2 — reuse the §2/§3 grid artwork]
+#image: the §2 two-axis grid a third time, same artwork — with the five exchange patterns on it and Blocking In-Out alone below the line  [→ resources/grid-exchange-patterns.png]
 
 Presenter notes: Third appearance of the grid — §2 introduced it, §3 plotted the integration styles on it, and now the exchange patterns land on it too. The repetition is deliberate: it is the one picture that carries the argument of the day, and delegates should be able to draw it from memory by the end.
 

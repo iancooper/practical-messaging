@@ -632,13 +632,24 @@ than a blank canvas.
 
 ### Required so far
 
-1. **Two-axis grid** — *what are we coupled about* × *must we both be up* — with gRPC / command-message
-   / shared-database / whole-entity-event plotted (Day 1 §2 Coupling, final slide). **Ian to draw.**
-2. **The same grid** re-plotted with File Transfer / Shared Database / RPC / Messaging (Day 1 §3) — same
-   artwork, so the call-back is visual and not just verbal.
-3. **The same grid again** with the four exchange patterns, Blocking In-Out alone in the temporally-
-   coupled quadrant (Day 1 §5 *Choosing an Exchange Pattern*).
-4. **2×2 exchange-pattern grid** — who speaks first × is there a reply (Day 1 §5). New drawing.
+1–4. **✅ The grids — built 2026-09-02**, `tools/coupling_grids.py`. **Ian: *"Let's draw all the others
+   too."*** `grid-coupling` (§2) · `grid-integration-styles` (§3) · `grid-exchange-patterns` (§5
+   *Choosing an Exchange Pattern*) · `grid-exchange-2x2` (§5 *The Four Exchange Patterns*).
+
+   **The first three are literally one drawing.** `_frame()` draws the axes; the three figures differ only
+   in what is plotted on them. The outline demands exactly that — *"reuse the same grid artwork so the
+   call-back is visual, not just verbal"* — and the §5 presenter note says delegates should be able to
+   draw it from memory by the end of the day. Edit the frame and all three move together.
+
+   **Two judgements worth checking.** On §3, **Messaging is drawn as a span, not a point**, because the
+   table's entry for it is *your choice*; that is the difference between it and File Transfer, which
+   lands in the same cell and cannot move out of it, and the slide's closing callout is exactly that.
+   On §5, the four decoupled patterns stack in the **Control** column while Out-Only sits out at **Data**,
+   which follows the slide's own table — *the event schema* is the loosest thing there.
+
+   **`grid-exchange-2x2` is deliberately not the same drawing**: it is a definition, not a plot. Its red
+   is spent on *In and Out are named from the provider's side*, which is the one thing the room gets
+   backwards — and the axis labels are useless to anyone holding the direction the wrong way round.
 5. **✅ 12 EIP figure replacements** (Day 1 §4 and §6.2) — **built 2026-09-01**, drawn to `styles.md` and
    linked into the outline. Was 20; the **8 routing figures left with §4.6** to the handout (§10), and
    *Content Enricher* stayed and was redrawn with the rest. Whether the handout carries its own artwork or
@@ -683,11 +694,17 @@ than a blank canvas.
    (d) **✅ The carbon-copy pad** — same sweep. `day2-s067-1.jpg` → `resources/photo-carbon-copy-pad.jpg`,
    a multi-part NCR form with the top sheet peeled back to show the copies beneath.
 
-   (e) **⚑ A licensing problem, and it is Ian's call.** The *office desk with overflowing IN and OUT
-   trays* photo (`day2-s054-1`, Day 2 §2) is a **watermarked Getty / Comstock comp** — the watermark, the
-   agency name and the asset id are all visible in the image that is in the deck. It is the same class of
-   problem as the Hohpe & Woolf figures and the setupmyhotel infographic, and it is now flagged on its
-   `#image:` line. Licence it, replace it, or draw the desk — we already have the glyph vocabulary.
+   (e) **✅ The licensing problem is drawn out. 2026-09-02.** The *office desk with overflowing IN and OUT
+   trays* photo (`day2-s054-1`, Day 2 §2) was a **watermarked Getty / Comstock comp** — watermark, agency
+   name and asset id all visible in the image that was in the deck, the same class of problem as the
+   Hohpe & Woolf figures and the setupmyhotel infographic. Ian: *"Let's draw it."*
+   `resources/paper-the-desk.png`.
+
+   **It carries no red note, deliberately.** It sits beside two photographs as one of three establishing
+   images at the top of the day, and it is not making an argument — the section opener does that. The
+   BPMN workflow-pattern figures carry none for the same reason. The one editorial choice in it is that
+   **the in-tray overflows and the out-tray does not**, which is true and is the reason a queue is a
+   place rather than an event.
 
    (c) **✅ The *Worked Flows* montage** — `resources/paper-worked-flows-montage.png`. Composition, not
    drawing: the four takeaway flows embedded 2×2 as data URIs, so the montage does not depend on the
@@ -704,9 +721,14 @@ than a blank canvas.
    **A new glyph, `doc`.** `tools/diagram.py` gained a bare sheet of paper — the artefact in flight,
    before it lands in a tray or a file. The tray already drew one *in* its tray; `doc` is the same sheet
    on its own, which is what the guest cycle's hand-offs are made of.
-7a. **The coupling scale with a process boundary drawn across it** (Day 1 §2, D1-7) — Content and Common
-   above the line and struck through as *prevented*; Control, Stamp and Data below it, live. Replaces the
-   old flat tight→loose scale (s27) and is the pivot of the section. **Ian to draw**, alongside items 1–4.
+7a. **✅ The coupling scale with a process boundary across it — built 2026-09-02**,
+   `resources/coupling-scale-boundary.png`.
+
+   **Drawn vertically, and that is the whole point.** Myers' scale runs top to bottom, tightest first,
+   with the boundary as a horizontal line across it — so *above the line* and *below the line* are
+   literal, and the two kinds of coupling you can no longer have are literally out of reach. The flat
+   left-to-right scale this replaces (s27) cannot show a boundary taking anything off the table, which is
+   what the section is for.
 8. **✅ All 13 BPMN drawings — built 2026-09-01.** `tools/bpmn_hotel.py` holds them; regenerate with
    `python3 tools/bpmn_hotel.py`. Covers the five workflow-pattern examples,
    the three orchestration pools (Guest / Just Paper Hotels / The Hotel), *Pools and Lanes*, the
@@ -782,13 +804,15 @@ makes it too.
 
 ### `#image:` annotation state
 
-**Re-measured 2026-09-02.** Day 2 fell 90 → 88 when `bpmn-the-six` replaced three legend `#image:`
-lines with one; nothing else moved. Day 1 is unchanged since 2026-09-01.
+**Re-measured 2026-09-02, after the grids.** **Both days now have zero pending markers.** Day 1's four
+`NEW —` lines and the §5 grid re-plot are linked (19 → 24 linked); Day 2 fell 90 → 88 when
+`bpmn-the-six` replaced three legend lines with one, and gained a link when the watermarked desk photo
+was replaced by a drawing (41 → 38 unannotated across that and the order wheel and carbon pad).
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
-| `outlines/DayOne.md` | **49** | 19 | 0 | 4 | **26** |
-| `outlines/DayTwo.md` | **88** | 47 | 0 | 0 | **41** |
+| `outlines/DayOne.md` | **49** | 24 | 0 | **0** | **25** |
+| `outlines/DayTwo.md` | **88** | 50 | 0 | **0** | **38** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
@@ -806,18 +830,16 @@ mapping does not align automatically, because consolidated entries break the 1:1
 
 2, 3 and 4 below were open questions; the answers held for the 12 EIP figures and should hold for the rest.
 
-1. **Division of labour.** Items 1–4 and 7a stay *Ian to draw* — the conceptual grids and the coupling
-   scale, which are arguments rather than illustrations. **Items 5, 6a, 7 and 8 are done.** What is left
-   unassigned is **item 6**, the 2 If-Later diagrams. **6a(b) is closed** — the order-wheel photograph was
-   already in the deck; see 6a below.
+1. **✅ Division of labour — settled, and the *Ian to draw* set is empty.** Items 1–4 and 7a were held
+   back on the reasoning that they are *arguments rather than illustrations*. That was recorded before
+   the tooling had drawn anything and it did not survive contact with 37 figures: `bpmn-elements`, the
+   guest cycle and Departure are all arguments too, and every figure carries one red idea because
+   `styles.md` requires it. Ian reopened it — *"any reason why you can't draw these?"* — and there was
+   none. **All five are built.** The honest residue of the old reasoning is that they are conceptual
+   enough to want a **hard review**, which is a different thing from being undrawable.
 
-   **☐ Items 1–4 and 7a are worth reopening.** The *arguments rather than illustrations* reasoning was
-   recorded before the tooling had drawn anything, and 37 figures later it does not hold: `bpmn-elements`,
-   the guest cycle and Departure are all arguments, and each carries one red idea because that is what
-   `styles.md` requires of every figure. There is **no capability reason** these cannot be drawn — a
-   two-axis grid needs axes, four plotted points and a quadrant callout, and `diagram.py` has all of it.
-   The honest position is that they are conceptual enough that **Ian should review them hard**, not that
-   he should draw them. Raised with him 2026-09-02.
+   **Everything in §8 is now built except item 6**, the 2 If-Later diagrams (Day 1 §6.3), and
+   **both days have zero pending `#image:` markers.**
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.
