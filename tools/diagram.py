@@ -62,6 +62,7 @@ class _Outliner:
     """Convert a run of text into SVG path data, so no font install is needed."""
 
     _cache = {}
+    _warned = set()
 
     @classmethod
     def _font(cls, family):
@@ -95,6 +96,14 @@ class _Outliner:
         for ch in text:
             gname = cmap.get(ord(ch))
             if gname is None:
+                # .notdef draws as a hollow box, which looks deliberate in a preview
+                # and is invisible in the source -- exactly the class of defect that
+                # only shows up in the PNG. Say so at build time instead. Caveat is
+                # the usual culprit: it has no arrows and no maths.
+                if (family, ch) not in cls._warned:
+                    cls._warned.add((family, ch))
+                    print(f"  ! {family} has no glyph for {ch!r} (U+{ord(ch):04X}) "
+                          f"— it will render as a box", file=sys.stderr)
                 gname = ".notdef"
             names.append(gname)
             advance += hmtx[gname][0] * scale

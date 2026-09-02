@@ -1389,7 +1389,7 @@ Presenter notes: This is the join between the two halves of the section. **ECST 
 - Even on a stream, non-blocking retry or guaranteed delivery via an outbox can produce out-of-order messages; If-Later also lets us shed load.
 - We *cannot* use If-Later with a Domain Event — those must all be applied. With Domain Events we can only use a blocking retry and cannot shed load.
 
-#image: diagram — a stream of versioned message envelopes (12345 v1..v3) read by a consumer applying 'if later'
+#image: diagram — a stream of versioned envelopes read left to right (12345 v1, v3, v2), a consumer applying write-if-later, and v2 discarded because v3 is already later  [→ resources/if-later-stream.png]
 
 Presenter notes: Publish complete new versions rather than deltas, then apply "write if later" — with v0, we can write v2 even without seeing v1, because v2 is later and either overwrites or includes v1's changes; we can then safely discard v1.
 
@@ -1401,7 +1401,7 @@ If-Later also lets messages be processed out-of-order with a queue and competing
 - A queue normally processes messages (not events), so this applies only where we use a queue.
 - If a message *must* be ordered (e.g. a series of commands), use requeue-with-delay or a sequencer to re-order.
 
-#image: diagram — a queue of versioned message envelopes with two competing consumers and read-past
+#image: diagram — a queue of versioned envelopes with two competing consumers: A takes v1, B reads past and takes v2, and both write the same replica  [→ resources/if-later-queue.png]
 
 ### Slide: Public and Private Providers
 

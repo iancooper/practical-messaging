@@ -1,0 +1,69 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="If Later — on a Queue with Competing Consumers">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1120" pageHeight="600" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="the second consumer reads past and takes v2 — it does not wait for the first" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="500" y="32" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="the consumer reads left to right" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="300" y="96" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=tube;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="90" y="150" width="540" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="12345 v1" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="116" y="126" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="m2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="150" y="168" width="52" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="12345 v2" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="296" y="126" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="m3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="330" y="168" width="52" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="12345 v3" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="476" y="126" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="m4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="510" y="168" width="52" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" value="Consumer A" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="760" y="116" width="210" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="Consumer B" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="760" y="262" width="210" height="76" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" value="the replica&#10;12345 is at v2" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=cylinder3;boundedLbl=1;backgroundOutline=1;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="785" y="424" width="160" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="whichever of them finishes last, v2 is what remains" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="805" y="526" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="this is a queue, not a stream — it carries messages,&#10;and a message that must be ordered cannot use it.&#10;For those, requeue with delay, or a sequencer." style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="240" y="318" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="takes v1" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n1" target="n5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="reads past, takes v2" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#C0453B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n1" target="n6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="writes v1" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n5" target="n7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1035" y="154" />
+              <mxPoint x="1035" y="463" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="writes v2" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n6" target="n7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

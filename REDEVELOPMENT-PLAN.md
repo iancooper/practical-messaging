@@ -656,8 +656,25 @@ than a blank canvas.
    cites the originals is still a handout-build decision. `tools/eip_figures.py` holds all 12 as one
    script — regenerate the set with `python3 tools/eip_figures.py`. **No Hohpe & Woolf figure remains in
    either outline.**
-6. **2 If-Later diagrams** — versioned envelopes on a stream, and on a queue with competing consumers
-   and read-past (**now Day 1 §6.3**).
+6. **✅ The 2 If-Later diagrams — built 2026-09-02**, `tools/if_later.py`. **The last unbuilt drawing in
+   §8.** `if-later-stream` and `if-later-queue`, Day 1 §6.3.
+
+   **They are a pair, and they contrast through red** — the convention the 12 EIP figures set. Both
+   slides describe the same trick (a versioned Summary Event means a later message supersedes an earlier
+   one) but spend it on different problems, so each figure reds the mechanism *its own* slide introduces:
+   **stream** reds the **discard**, **queue** reds the **read-past**. The wrong way round would make them
+   look like one picture drawn twice, which is what the section is trying not to be.
+
+   **Read order is drawn, not implied.** Both lay the envelopes out left to right in the order the
+   consumer takes them and say so on the figure, because the natural EIP reading — nearest the consumer
+   is next — gives the opposite answer, and which message was seen when is the entire point of both
+   slides.
+
+   **Found while building: `diagram.py` now warns on a missing glyph.** `12345 → v3` rendered the arrow
+   as a hollow `.notdef` box — invisible in the source, visible only in the PNG, exactly the class of
+   defect rule 2 exists for. The outliner now prints the face, the character and the codepoint at build
+   time. **Caveat has no arrows and no maths**; a sweep of all 45 figures found that one and nothing
+   else.
 6a. **Day 2 §2 — three items. (a) and (c) built 2026-09-02**; `tools/paper_flow.py` holds them.
 
    (a) **✅ The notation key** — `resources/paper-notation-key.png`. A legend for every glyph the slide
@@ -811,7 +828,7 @@ was replaced by a drawing (41 → 38 unannotated across that and the order wheel
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
-| `outlines/DayOne.md` | **49** | 24 | 0 | **0** | **25** |
+| `outlines/DayOne.md` | **49** | 26 | 0 | **0** | **23** |
 | `outlines/DayTwo.md` | **88** | 50 | 0 | **0** | **38** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
@@ -838,8 +855,8 @@ mapping does not align automatically, because consolidated entries break the 1:1
    none. **All five are built.** The honest residue of the old reasoning is that they are conceptual
    enough to want a **hard review**, which is a different thing from being undrawable.
 
-   **Everything in §8 is now built except item 6**, the 2 If-Later diagrams (Day 1 §6.3), and
-   **both days have zero pending `#image:` markers.**
+   **Everything in §8 is now built.** Both days have zero pending `#image:` markers, and what remains
+   of Phase 2 is the **61 unannotated `#image:` lines** — 23 Day 1, 38 Day 2 — done per section.
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.
