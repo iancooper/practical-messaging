@@ -214,6 +214,51 @@ class Diagram:
             out.append(f'<circle cx="{x+6.5}" cy="{y+6.5}" r="2" fill="none" '
                        f'stroke="{col}" stroke-width="1.2"/>')
 
+    # -- Paper Flow --
+    # The vocabulary the delegates draw with by hand during the exercise. Glyphs match
+    # the ~15 paper-flow sources already in resources/ (a desk is a rectangle with
+    # corner brackets, a tray is a document sitting in a shallow tray) so the legend
+    # and the worked flows read as one notation.
+    def desk(self, x, y, w, h, label="", accent=False, size=14):
+        self._n += 1
+        node = dict(id=f"d{self._n}", kind="desk", x=x, y=y, w=w, h=h, label=label,
+                    accent=accent, size=size, label_pos="above")
+        self.nodes.append(node)
+        return node
+
+    def tray(self, x, y, w, h, label="", out=False, accent=False, size=13):
+        """An in-tray, or an out-tray when out=True -- the document sits proud of a
+        filled tray rather than down in an empty one."""
+        self._n += 1
+        node = dict(id=f"y{self._n}", kind="tray", x=x, y=y, w=w, h=h, label=label,
+                    out=out, accent=accent, size=size, label_pos="below")
+        self.nodes.append(node)
+        return node
+
+    def folder(self, x, y, w, h, label="", accent=False, size=13):
+        """The file -- what a desk knows, written down, because the clerk goes home."""
+        self._n += 1
+        node = dict(id=f"f{self._n}", kind="folder", x=x, y=y, w=w, h=h, label=label,
+                    accent=accent, size=size, label_pos="below")
+        self.nodes.append(node)
+        return node
+
+    def bar(self, x, y, h, w=7, label="", size=13):
+        """The heavy vertical bar: an organisational boundary."""
+        self._n += 1
+        node = dict(id=f"b{self._n}", kind="bar", x=x, y=y, w=w, h=h, label=label,
+                    accent=False, size=size, label_pos="below")
+        self.nodes.append(node)
+        return node
+
+    def step(self, x, y, n, r=13):
+        """A numbered step marker, as the paper flows number their sequence."""
+        self._n += 1
+        node = dict(id=f"s{self._n}", kind="step", x=x - r, y=y - r, w=2 * r, h=2 * r,
+                    label=str(n), accent=False, size=14, label_pos="center")
+        self.nodes.append(node)
+        return node
+
     # -- BPMN --
     def pool(self, x, y, w, h, label, lanes=None, accent=False):
         """A participant. `lanes` is a list of (height, label) drawn as bands inside
@@ -466,6 +511,47 @@ class Diagram:
                 o.append(f'<rect x="{x+1}" y="{y+h-b}" width="{w-2}" height="{b-1}" '
                          f'fill="{MANILA}" stroke="none"/>')
                 o.append(f'<path d="M{x},{y+h-b} h{w}" stroke="{c}" stroke-width="1.2"/>')
+            elif n["kind"] == "desk":
+                x, y, w, h = n["x"], n["y"], n["w"], n["h"]
+                k = min(22, w / 5, h / 4)
+                o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" '
+                         f'fill="{PAPER}" stroke="{c}" stroke-width="1.5"/>')
+                for cx, cy, sx, sy in ((x, y, 1, 1), (x + w, y, -1, 1),
+                                       (x, y + h, 1, -1), (x + w, y + h, -1, -1)):
+                    o.append(f'<path d="M{cx},{cy + sy*k} L{cx},{cy} L{cx + sx*k},{cy}" '
+                             f'fill="none" stroke="{c}" stroke-width="3.2"/>')
+            elif n["kind"] == "tray":
+                x, y, w, h = n["x"], n["y"], n["w"], n["h"]
+                lip = h * 0.42
+                # the document
+                o.append(f'<rect x="{x + w*0.16}" y="{y}" width="{w*0.68}" '
+                         f'height="{h - lip + 2}" fill="{PAPER}" stroke="{c}" '
+                         f'stroke-width="1.3"/>')
+                for i in range(3):
+                    ly = y + h * 0.14 + i * h * 0.14
+                    o.append(f'<path d="M{x + w*0.26},{ly} h{w*0.48}" stroke="{c}" '
+                             f'stroke-width="1"/>')
+                # the tray it sits in
+                o.append(f'<path d="M{x},{y + h - lip} L{x},{y + h} L{x + w},{y + h} '
+                         f'L{x + w},{y + h - lip}" fill="{c if n.get("out") else PAPER}" '
+                         f'stroke="{c}" stroke-width="1.5"/>')
+            elif n["kind"] == "folder":
+                x, y, w, h = n["x"], n["y"], n["w"], n["h"]
+                tab = h * 0.2
+                o.append(f'<path d="M{x},{y + tab} L{x},{y} L{x + w*0.42},{y} '
+                         f'L{x + w*0.52},{y + tab} L{x + w},{y + tab} L{x + w},{y + h} '
+                         f'L{x},{y + h} z" fill="{MANILA}" stroke="{c}" '
+                         f'stroke-width="1.5" stroke-linejoin="round"/>')
+                o.append(f'<path d="M{x + w*0.14},{y + h*0.55} h{w*0.72} '
+                         f'M{x + w*0.14},{y + h*0.75} h{w*0.5}" stroke="{c}" '
+                         f'stroke-width="1"/>')
+            elif n["kind"] == "bar":
+                o.append(f'<rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
+                         f'height="{n["h"]}" fill="{INK}" stroke="none"/>')
+            elif n["kind"] == "step":
+                o.append(f'<rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
+                         f'height="{n["h"]}" rx="2" fill="{PAPER}" stroke="{CARBON}" '
+                         f'stroke-width="1.4"/>')
             elif n["kind"] == "task":
                 o.append(f'<rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
                          f'height="{n["h"]}" rx="7" fill="{PAPER}" stroke="{c}" '
@@ -573,11 +659,14 @@ class Diagram:
                            "middle", self.font)
             else:
                 size = n.get("size", 15)
-                col = ANNOTATION if n.get("accent") else INK
+                col = ANNOTATION if n.get("accent") else (
+                    CARBON if n["kind"] == "step" else INK)
                 cx = n["x"] + n["w"] / 2
                 face = self.font if n["kind"] in ("task", "event", "gateway") else self.font
                 if n.get("label_pos") == "top":
                     cy = n["y"] + size + 2
+                elif n.get("label_pos") == "above":
+                    cy = n["y"] - 7
                 elif n.get("label_pos") == "below":
                     cy = n["y"] + n["h"] + size + 3      # events and gateways label under
                 else:
@@ -714,12 +803,28 @@ class Diagram:
             if n["kind"] in ("event", "gateway", "task", "choreo"):
                 self._drawio_bpmn(root, n, stroke)
                 continue
+            # Paper Flow glyphs fall back to the nearest core draw.io shape. The PNG
+            # carries the real notation; the .drawio stays editable and roughly right.
             shape = {"box": "rounded=1;arcSize=12;",
                      "cyl": "shape=cylinder3;boundedLbl=1;backgroundOutline=1;",
                      "pipe": "shape=tube;",
-                     "msg": "shape=message;"}[n["kind"]]
-            fill = PAPER if n["kind"] == "msg" else "none"
-            style = (base + shape +
+                     "msg": "shape=message;",
+                     "desk": "rounded=0;",
+                     "tray": "shape=document;boundedLbl=1;",
+                     "folder": "shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;",
+                     "bar": "rounded=0;",
+                     "step": "rounded=0;"}[n["kind"]]
+            fill = {"msg": PAPER, "folder": MANILA, "bar": INK,
+                    "tray": PAPER, "desk": PAPER, "step": PAPER}.get(n["kind"], "none")
+            if n["kind"] == "step":
+                stroke = CARBON
+            if n["kind"] in ("tray", "folder", "step", "bar"):
+                style_extra = "verticalLabelPosition=bottom;verticalAlign=top;"
+            elif n["kind"] == "desk":
+                style_extra = "verticalLabelPosition=top;verticalAlign=bottom;"
+            else:
+                style_extra = ""
+            style = (base + shape + style_extra +
                      f"strokeColor={stroke};strokeWidth=1.7;fillColor={fill};"
                      f"fontColor={stroke};fontSize={n.get('size',15)};")
             if n.get("label_pos") == "top":

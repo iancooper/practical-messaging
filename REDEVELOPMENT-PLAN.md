@@ -526,12 +526,28 @@ than a blank canvas.
    either outline.**
 6. **2 If-Later diagrams** — versioned envelopes on a stream, and on a queue with competing consumers
    and read-past (**now Day 1 §6.3**).
-6a. **Day 2 §2 — three items.** (a) *The Desk — In-Tray, Out-Tray, File*: a **notation key** drawn in the
-   Paper Flow house style (box, two trays, file, boundary bar, red-dashed vs. solid arrows) — delegates
-   draw in this notation within the hour, so it must be a legend, not a photograph. Doubles as the
-   exercise handout. (b) An **order wheel** photograph — the only one of the three physical devices with
-   no image in the deck today. (c) The *Worked Flows* **montage** of the four takeaway flow diagrams;
-   sources all exist in `resources/`, so this is composition, not drawing.
+6a. **Day 2 §2 — three items. (a) and (c) built 2026-09-02**; `tools/paper_flow.py` holds them.
+
+   (a) **✅ The notation key** — `resources/paper-notation-key.png`. A legend for every glyph the slide
+   teaches, plus the out-tray-to-in-tray rule drawn as two desks, which is the red idea. Hand-drawn
+   register (unlike the BPMN family): delegates reproduce this with a pen within the hour, so it has to
+   look like something a person could draw. Sized to stand alone as the exercise handout.
+
+   **Found while building it: `resources/Paper Office.drawio` (2021, editable) is already a partial
+   notation key** — phone / inbox / outbox / fax / chair / desk, plus Call Taker / Worker / Fax Operator
+   role cards. **It is not linked from any outline.** It does not cover the three things this slide leans
+   on — the **file**, the **boundary bar**, and **red-dashed vs. solid arrows** — so the new key is a
+   build, not a relink; but its glyph vocabulary was matched deliberately, so the two read as one hand.
+   **`Paper Office` belongs with the Paper Flow exercise materials (§7), not on this slide** — it defines
+   roles, which this slide does not teach. Place it there when §7's materials are built.
+
+   (b) **⚑ An order wheel photograph — Ian to supply.** The only one of the three physical devices with no
+   image in the deck, and not something we can produce. Marked on the `#image:` line in the outline.
+
+   (c) **✅ The *Worked Flows* montage** — `resources/paper-worked-flows-montage.png`. Composition, not
+   drawing: the four takeaway flows embedded 2×2 as data URIs, so the montage does not depend on the
+   sources staying put. Note the naming mismatch it exposes — *Customer Order.drawio* is captioned
+   *"Order Taking"* inside the artwork. The outline's name won; the source was left alone.
 7. **`resources/Departure.drawio`** and the *Guest Cycle* replacement (Day 2 Paper Flow).
 7a. **The coupling scale with a process boundary drawn across it** (Day 1 §2, D1-7) — Content and Common
    above the line and struck through as *prevented*; Control, Stamp and Data below it, live. Replaces the
@@ -591,7 +607,7 @@ than a blank canvas.
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
 | `outlines/DayOne.md` | **49** | 19 | 0 | 4 | **26** |
-| `outlines/DayTwo.md` | **89** | 47 | 0 | 0 | **42** |
+| `outlines/DayTwo.md` | **90** | 49 | 0 | 0 | **41** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is

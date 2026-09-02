@@ -161,8 +161,9 @@ Two devices worth naming, because they are patterns you already know:
   send; and you can read a file's message history to reconstruct its current state. That is the
   **outbox**, and it is event sourcing.
 
+#image: notation key — the desk (in-tray, out-tray, file), the boundary bar, red-dashed vs. solid arrows, numbered steps, and the out-tray-to-in-tray rule drawn as two desks  [→ resources/paper-notation-key.png]
 #image: photo — a large stack of manila file folders and papers
-#image: photo — an order wheel in a restaurant kitchen
+#image: photo — an order wheel in a restaurant kitchen  [⚑ Ian to supply — the only one of the three devices with no image in the deck]
 #image: photo — a multi-part carbon-copy (NCR) form pad
 
 Presenter notes: **New slide.** The notation was previously never taught — it was demonstrated in passing across a dozen unlabelled photographs. It has to be explicit now, because delegates draw in it within the hour and the exercise's hard rule (*every hand-off through a tray*) is what makes the fracture planes visible. The out-tray-to-in-tray rule is the whole exercise in one line.
@@ -242,7 +243,7 @@ movement C supply the vocabulary for what the room already saw.
 ▎ Four flows, no `main`. Every desk is doing exactly one thing, because something landed in its in-tray.
 
 #image: flow diagram — order confirmation  [→ resources/Order Confirmation.drawio.png]
-#image: montage of the four flow diagrams together
+#image: montage — the four takeaway flow diagrams together  [→ resources/paper-worked-flows-montage.png]
 
 Presenter notes: Land the montage — it is the close of the *see one* and the reason the four flows were
 walked separately. **Ask the room the movement's question here:** if you were asked to build this, how
