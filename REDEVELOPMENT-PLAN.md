@@ -484,8 +484,8 @@ derived from building this from the Just Paper Takeaway material."* Survey of al
 | flow | steps as found | verdict |
 |---|---|---|
 | Restaurant Onboarding · Order Placement · Order Confirmation · Hotel Onboarding · Occupancy | clean 1..n | ✅ |
-| **Customer Order** | `1,1,2,3,4,5,6` | ⚑ one duplicate `1` — not yet touched |
-| **Arrival** | `1,2,3,4,5,5` | ⚑ one duplicate `5` — not yet touched |
+| **Customer Order** | `1,1,2,3,4,5,6` | ✅ **left alone deliberately — not the same defect**, see below |
+| **Arrival** | `1,2,3,4,5,5` | ✅ **fixed** — *Issue Key* 5 → 6; the key desk must take the request before it can issue the key |
 | **Pre-Arrival Guest Flow** | `1,2,4,4,5,5,6,6,7,7,8` — `3` absent, four values doubled | ✅ **renumbered 1..11** |
 
 The concurrency reading was tested and fails: under it a shared number means "at the same time", but the
@@ -493,10 +493,19 @@ old `6` paired the agency *taking from an inbox* with the hotel *putting into an
 notation's own hard rule makes strictly sequential. The new order was derived from the **arrow graph**
 in the file, not from position on the page.
 
-> **⚑ `resources/Pre-Arrival Guest Flow.png` is now stale** — the `.drawio` carries 1..11, the render
-> still shows the old numbers. **There is no drawio CLI here, so Ian has to re-export that one file.**
-> It is embedded in `resources/bpmn-your-flow-side-by-side.png`, so after the export, re-run
-> `python3 tools/bpmn_hotel.py bpmn-your-flow-side-by-side`.
+**✅ The renders are consistent again, without needing draw.io.** `tools/repatch_steps.py` repaints just
+the step numbers of a paper-flow PNG from its `.drawio`: it finds the blue `#3333FF` glyph clusters,
+matches each to a numbered cell by position, paints the old glyph out and redraws the new value in
+**Helvetica** — draw.io's own default face, which librsvg *can* reach here — at the same centre, size and
+colour. Nothing else in the image is touched, and a real draw.io export would supersede it and agree.
+`bpmn-your-flow-side-by-side` was rebuilt after, since it embeds the render.
+
+**Why `Customer Order` was left alone.** Its two `1`s are not a slip: they are **the same artefact — the
+New Catalogue — held on both sides of the boundary**, one copy each for the customer and the order taker.
+That is consistent with the rule (*same number = same step*), and it is load-bearing for the slide's own
+*"Eventual Consistency?"* callout — *sometimes customers have an out-of-date catalogue, so we validate
+their order against our latest one*. Renumbering them would make the catalogue read as two different
+documents and break that point. **Left as-is on purpose; raise it with Ian if it ever looks wrong.**
 
 ### Knock-on: Process Automation moves to the hotel
 

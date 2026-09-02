@@ -127,6 +127,27 @@ Conventions held across the set, and worth holding for the next batch:
   reds the push; *Invalid Message* diverts from the **receiver**, *Dead Letter* diverts from the
   **channel** — which is the distinction the two slides keep getting confused about
 
+## `repatch_steps.py`
+
+```
+python3 tools/repatch_steps.py "resources/Pre-Arrival Guest Flow" resources/Arrival
+```
+
+Repaints **only the step numbers** of a paper-flow PNG from its `.drawio`. The paper flows are hand-made
+draw.io files whose renders draw.io exported, and there is **no drawio CLI here** — so renumbering a step
+would otherwise leave the `.png` stale, and the `.png` is what the deck shows.
+
+It finds the blue `#3333FF` glyph clusters in the image, matches each to a numbered cell by position,
+paints the old glyph out in white and redraws the new value in **Helvetica** at the same centre, size and
+colour. Helvetica is draw.io's default face and librsvg *can* reach it here, so the result is
+indistinguishable from an export; if draw.io ever does re-export the file, its output supersedes this and
+the two agree.
+
+It refuses to run if the glyph count and the numbered-cell count disagree, rather than guessing.
+
+**Rebuild anything that embeds the render afterwards** — e.g.
+`python3 tools/bpmn_hotel.py bpmn-your-flow-side-by-side`.
+
 ## `fonts/`
 
 `Caveat.ttf`, `IBMPlexSans-Variable.ttf`, `IBMPlexMono-Regular.ttf` — all **SIL OFL 1.1**, so commercial
