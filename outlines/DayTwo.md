@@ -781,13 +781,11 @@ Three of the six have variants. They are reference, not material:
 
 ▎ Six of them do nearly all the work: **Service** and **Receive** tasks, **Message** and **Timer** events, **Exclusive** and **Parallel** gateways.
 
-#image: BPMN legend — task/activity icon variants (service, message, user, manual, business rule, script, loop, transaction)  [→ resources/Task Types.drawio.png]
-#image: BPMN legend — event-circle variants (message, timer, signal, escalation, compensation, cancel, etc.)  [→ resources/Event Types.drawio.png]
-#image: BPMN legend — gateway-diamond variants (exclusive, inclusive, parallel, complex, event-based)  [→ resources/Gateway Types.drawio.png]
+#image: the six BPMN elements this deck actually uses — Service and Receive tasks, Message and Timer events, Exclusive and Parallel gateways, each glyph named and glossed in one line  [→ resources/bpmn-the-six.png]
 
-Presenter notes: **Do not read the lists.** Teach the six in the callout, which are the only ones used anywhere in this deck, and point at the reference card for the rest. Three icon legends is a lookup table, and a lookup table wants to be in the delegate's hand, not on the screen — the same test that sent Managing Asynchronous APIs and the routing patterns to handouts. The bolded entries in each list are the six.
+Presenter notes: **Do not read the lists.** Teach the six on the figure — they are the only ones used anywhere in this deck, and every diagram in this section is built from them, which is the point worth making out loud. The bolded entries in the three bullet lists are those same six. Everything else is on the reference card in the pack: a lookup table wants to be in the delegate's hand, not on the screen — the same test that sent Managing Asynchronous APIs and the routing patterns to handouts.
 
-#note: ☐ **Delegate reference card** — the three full legends on one A4 side, in the pack. Phase 3 build item; the images already exist as editable drawio, so it is a layout job, not a redraw.
+#note: ☐ **Delegate reference card** — the full task, event and gateway legends on one A4 side, in the pack, and now their only home. Phase 3 layout job, not a redraw: `Task Types.drawio`, `Event Types.drawio` and `Gateway Types.drawio` are editable, and for print the plain black-on-white reads fine.
 
 ### Slide: Workflow Patterns
 

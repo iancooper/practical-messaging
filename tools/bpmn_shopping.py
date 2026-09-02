@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""The shopping / food-ordering BPMN figures for Day 2's Process Automation section.
+"""The eight legacy BPMN images for Day 2's Process Automation section, redrawn.
+
+Mostly the shopping / food-ordering family, plus `bpmn-the-six`, which is vocabulary
+rather than a flow and replaces three legend sheets at once.
 
     python3 tools/bpmn_shopping.py                  # rebuild all
     python3 tools/bpmn_shopping.py bpmn-elements
@@ -212,6 +215,60 @@ def shopping_choreography():
         prev, xs = c, xs + 234
     en = d.event(1298, 200, "end")
     d.flow(prev, en, sides=("r", "l"))
+    return d
+
+
+@figure("bpmn-the-six")
+def the_six():
+    """*BPMN — Tasks, Events and Gateways.* Replaces **three** legend sheets --
+    `Task Types`, `Event Types`, `Gateway Types` -- with one figure of the six the
+    deck actually uses.
+
+    **The slide asked for this.** Its callout is already *"Six of them do nearly all
+    the work"*, its presenter note is *"do not read the lists"*, and its own `#note:`
+    sends the full legends to a delegate reference card -- *a lookup table wants to be
+    in the delegate's hand, not on the screen*, the same test that sent Managing
+    Asynchronous APIs and the routing patterns to handouts. Three lookup tables on a
+    screen were doing the opposite of what the slide says out loud.
+
+    It is also the cheap option, which is rare and worth noting: drawing the three
+    legends faithfully would have needed roughly fifteen more BPMN symbols in
+    `diagram.py` -- manual, business rule, script, loop and transaction markers;
+    signal, escalation, conditional, error, cancel, link and terminate events;
+    inclusive, complex and event-based gateways -- every one of them used on that one
+    slide and nowhere else in either day.
+
+    All six here already existed in the tool, because all six are the ones the hotel
+    and shopping families are built from. That is the same fact the callout is making.
+    """
+    d = D("BPMN — the Six That Do the Work", 1200, 580)
+    d.note(600, 44, "six of them do nearly all the work", ANNOTATION, 19)
+
+    for x, head in ((196, "Tasks"), (600, "Events"), (992, "Gateways")):
+        d.note(x, 112, head, INK, 17, font=PLAIN)
+
+    # tasks -- the name goes inside the box, so the gloss sits under it
+    for y, marker, name, gloss in (
+            (182, "service", "Service", "calls something that is not a person"),
+            (352, "receive", "Receive", "waits for a message to arrive")):
+        d.task(101, y, 190, 56, name, marker=marker)
+        d.note(196, y + 104, gloss, MUTED, 14)
+
+    # events and gateways label themselves underneath, so the gloss drops further
+    for cy, symbol, name, gloss in (
+            (210, "message", "Message", "something arrived from\nanother participant"),
+            (380, "timer", "Timer", "enough time passed,\nand nothing arrived")):
+        d.event(600, cy, "intermediate", symbol, name)
+        d.note(600, cy + 76, gloss, MUTED, 14)
+
+    for cy, kind, name, gloss in (
+            (210, "exclusive", "Exclusive", "one path is taken,\nand only one"),
+            (380, "parallel", "Parallel", "every path is taken,\nand the token splits")):
+        d.gateway(992, cy, kind, name)
+        d.note(992, cy + 76, gloss, MUTED, 14)
+
+    d.note(600, 548, "every other task type, event and gateway is on the reference card "
+                     "in your pack", MUTED, 15)
     return d
 
 

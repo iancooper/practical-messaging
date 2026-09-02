@@ -710,27 +710,30 @@ than a blank canvas.
    gateway legends, whose three drawio sources already exist. Its own outline note calls it a Phase 3
    item, so it stays there.
 
-### ☐ Open question — the three BPMN legend sheets
+### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 
-`Task Types`, `Event Types` and `Gateway Types` are still the 2021 black-on-white drawio, and they are
-the last of the eight. Redrawing them faithfully means teaching `diagram.py` roughly **fifteen** more BPMN
-symbols it has no use for anywhere else — manual, business rule, script, loop and transaction task
-markers; signal, escalation, conditional, error, cancel, link and terminate events; inclusive, complex and
-event-based gateways.
+**Ian: *"Agree"*** — one figure of the six that matter; the full legends go to the delegate reference card.
 
-**The slide already argues against doing that.** *BPMN — Tasks, Events and Gateways* carries the callout
-*"Six of them do nearly all the work: **Service** and **Receive** tasks, **Message** and **Timer** events,
-**Exclusive** and **Parallel** gateways"*, its presenter note says **"Do not read the lists"**, and its own
-`#note:` already sends the three full legends to a **delegate reference card** — *"a lookup table wants to
-be in the delegate's hand, not on the screen"*, the same test that sent Managing Asynchronous APIs and the
-routing patterns to handouts.
+`resources/bpmn-the-six.png` replaces **three** `#image:` lines with one, so Day 2 falls 90 → 88 images
+and 49 → 47 linked. Service and Receive tasks, Message and Timer events, Exclusive and Parallel gateways,
+each glyph named and glossed in a line.
 
-So the cheap option and the better option are the same one: **replace the three legend sheets on the slide
-with a single figure of the six that matter**, and let the full legends live on the reference card, where
-the 2021 artwork is fine because it is print and not projection. That is a change to what is on the slide,
-so it is Ian's call, not a routine judgement — **asked, not assumed.**
+**The slide had been asking for this all along.** Its callout is already *"Six of them do nearly all the
+work"*, its presenter note is *"do not read the lists"*, and its own `#note:` sends the full legends to a
+reference card — *a lookup table wants to be in the delegate's hand, not on the screen*. Three lookup
+tables projected on a wall were doing the exact opposite of what the slide says out loud.
 
----
+**It was also the cheap option, which is worth recording because it usually is not.** Drawing the three
+legends faithfully needed roughly fifteen more BPMN symbols in `diagram.py` — manual, business rule,
+script, loop and transaction markers; signal, escalation, conditional, error, cancel, link and terminate
+events; inclusive, complex and event-based gateways — every one used on that one slide and nowhere else in
+either day. All six on the new figure already existed in the tool, **because all six are what the hotel
+and shopping families are built from**. That is the same fact the callout is making, and now the figure
+makes it too.
+
+**The reference card is unaffected and still Phase 3.** `Task Types.drawio`, `Event Types.drawio` and
+`Gateway Types.drawio` stay as they are: they are editable, they are now the legends' only home, and for
+**print** the plain black-on-white reads fine. It is a layout job, not a redraw.
 
 ### What sources exist
 
@@ -755,12 +758,13 @@ so it is Ian's call, not a routine judgement — **asked, not assumed.**
 
 ### `#image:` annotation state
 
-**Re-measured 2026-09-01**, after T-0, T-1 and D2-10 changed both files. The previous table was stale.
+**Re-measured 2026-09-02.** Day 2 fell 90 → 88 when `bpmn-the-six` replaced three legend `#image:`
+lines with one; nothing else moved. Day 1 is unchanged since 2026-09-01.
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
 | `outlines/DayOne.md` | **49** | 19 | 0 | 4 | **26** |
-| `outlines/DayTwo.md` | **90** | 49 | 0 | 0 | **41** |
+| `outlines/DayTwo.md` | **88** | 47 | 0 | 0 | **41** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
@@ -808,10 +812,11 @@ mapping does not align automatically, because consolidated entries break the 1:1
    and the three legend sheets — `Task Types`, `Event Types`, `Gateway Types`) are plain black-on-white
    draw.io. Until they are brought onto the palette the section mixes two BPMN looks.
 
-   **✅ 5 of the 8 are done, 2026-09-02** — `tools/bpmn_shopping.py`, a family script like the other two.
+   **✅ All 8 are done, 2026-09-02** — `tools/bpmn_shopping.py`, a family script like the other two.
+   **Six figures replace eight images**, because `bpmn-the-six` stands in for all three legend sheets:
    `bpmn-elements` · `bpmn-ordering-flow` · `bpmn-shopping-as-sequence` · `bpmn-shopping-collaboration`
-   (which three slides share) · `bpmn-shopping-choreography`. The outline links are repointed; the 2021
-   sources are left in `resources/` untouched, and git history holds them either way.
+   (which three slides share) · `bpmn-shopping-choreography` · `bpmn-the-six`. The outline links are
+   repointed; the 2021 sources are left in `resources/` untouched, and git history holds them either way.
 
    **Correction: all 8 are redraws, not restyles.** The earlier "7 of the 8 are an edit to `strokeColor` /
    `fontFamily`" was optimistic and is wrong. **Checked, not assumed:** there is no `drawio`, `soffice` or
@@ -829,7 +834,7 @@ mapping does not align automatically, because consolidated entries break the 1:1
    different messages — careless on a slide about correlating messages; the second is now
    *Basket Checked*.
 
-   **☐ The three legend sheets are held, and want a decision** — see the question below.
+   **The three legend sheets were held for a decision, and Ian took it** — see below.
 
    **`diagram.py` gained two things here.** `msg` takes `label_pos="above"` / `"below"`, so a BPMN message
    name is set as a **node label in Plex Sans** rather than as a `note`, which is always Caveat: on a

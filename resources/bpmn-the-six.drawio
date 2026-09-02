@@ -1,0 +1,64 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="BPMN — the Six That Do the Work">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1200" pageHeight="580" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="six of them do nearly all the work" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="540" y="32" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="Tasks" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="136" y="100" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="Events" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="540" y="100" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="Gateways" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="932" y="100" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="Service" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="101" y="182" width="190" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="calls something that is not a person" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="136" y="274" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="Receive" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="101" y="352" width="190" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="t2i" style="shape=message;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="108" y="359" width="14" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="waits for a message to arrive" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="136" y="444" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="Message" style="shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;outline=eventInt;symbol=message;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="583" y="193" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="something arrived from&#10;another participant" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="540" y="274" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="Timer" style="shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;outline=eventInt;symbol=timer;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="583" y="363" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" value="enough time passed,&#10;and nothing arrived" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="540" y="444" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g5" value="Exclusive" style="shape=mxgraph.bpmn.shape;perimeter=rhombusPerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;background=gateway;outline=none;symbol=exclusiveGw;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="971" y="189" width="42" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" value="one path is taken,&#10;and only one" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="932" y="274" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="g6" value="Parallel" style="shape=mxgraph.bpmn.shape;perimeter=rhombusPerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;background=gateway;outline=none;symbol=parallelGw;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="971" y="359" width="42" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" value="every path is taken,&#10;and the token splits" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="932" y="444" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t11" value="every other task type, event and gateway is on the reference card in your pack" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="540" y="536" width="120" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

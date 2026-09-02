@@ -369,9 +369,15 @@ class Diagram:
         self.groups.append(node)          # behind everything we draw ourselves
         return node
 
-    def note(self, x, y, text, color=MUTED, size=14, anchor="middle"):
+    def note(self, x, y, text, color=MUTED, size=14, anchor="middle", font=None):
+        """Free text. Always Caveat unless `font` says otherwise, because a note is
+        *our annotation on top of* a diagram -- which is exactly what Caveat means in
+        this deck. Pass `font=PLAIN` only where the text is the notation's own
+        vocabulary rather than our commentary on it: a column head reading "Gateways"
+        on a BPMN figure is a BPMN word, and setting it in a hand face says it is a
+        remark when it is a label."""
         self.nodes.append(dict(id=None, kind="note", x=x, y=y, label=text,
-                               color=color, size=size, anchor=anchor))
+                               color=color, size=size, anchor=anchor, font=font))
 
     def arrow(self, src, dst, label="", accent=False, dashed=False,
               via=None, sides=None, lx=0, ly=0, muted=False):
@@ -686,7 +692,8 @@ class Diagram:
                 continue
             if n["kind"] == "note":
                 self._text(o, n["label"], n["x"], n["y"], n.get("size", 14),
-                           n.get("color", MUTED), n.get("anchor", "middle"))
+                           n.get("color", MUTED), n.get("anchor", "middle"),
+                           n.get("font") or HAND)
             elif n["kind"] == "choreo":
                 size, col = n.get("size", 13), ANNOTATION if n.get("accent") else INK
                 cx, b = n["x"] + n["w"] / 2, n["band"]
@@ -832,7 +839,7 @@ class Diagram:
 
         for n in self.nodes:
             if n["kind"] == "note":
-                style = (f"text;html=1;align=center;fontFamily={HAND};"
+                style = (f"text;html=1;align=center;fontFamily={n.get('font') or HAND};"
                          f"fontSize={n.get('size',14)};fontColor={n.get('color',MUTED)};")
                 note_no += 1
                 cell = ET.SubElement(root, "mxCell", id=f"t{note_no}", value=n["label"],
