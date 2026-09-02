@@ -478,10 +478,32 @@ its own task.
 sections. If the intent was for the Day 2 coding material to be in scope too, that is a bigger job and
 worth saying so.
 
-1. ☐ **Facilitator guide** — run-of-show, timings, circulating prompts, debrief questions, reveal order.
-   Tracked, e.g. `exercises/Paper-Flow-Facilitator-Guide.md`.
-2. ☐ **Delegate brief** — scenario, roles, the in-tray/out-tray rule, the three artefacts expected.
-3. ☐ **Printable materials** — role cards, document cards, failure cards, tray sheets.
+1. ✅ **Facilitator guide** — **built 2026-09-02**, `exercises/Paper-Flow-Facilitator-Guide.md`.
+   Run-of-show, per-round circulating prompts, the failure-card deal (which card suits which flow, and
+   why 3 and 4 go to the same table three minutes apart), the reveal order, and a cut-list for when it
+   overruns.
+
+   **It flags the round-numbering trap.** Round 4 runs **last**, after block 2 — it kept its number when
+   it moved to the section's close, and **five presenter notes across `outlines/DayTwo.md` call it "round
+   4"**, so renumbering would break all five. The guide states the running order as **1, 2, 3 → 5, 6 →
+   4** and tells the facilitator to say *"who is in charge?"* in the room rather than a number.
+2. ✅ **Delegate brief** — **built 2026-09-02**, `exercises/Paper-Flow-Delegate-Brief.md`. Scenario, the
+   one rule, the notation in six glyphs, the per-stage assumption table taken from slide 4, and the three
+   artefacts. It closes by naming what is deliberately withheld — *nobody is going to give you a standard
+   notation; you will invent one, and later be shown the industry already agreed on something close* —
+   because a delegate who notices the gap and is told it is deliberate stops trying to fill it.
+3. ✅ **Printable materials** — **built 2026-09-02**, `exercises/Paper-Flow-Printables.md`, plus two
+   drawn sheets where the design is the teaching and text would not do it:
+   `resources/paper-document-card.png` (4-up on A4) and `resources/paper-tray-sheets.png` (2-up).
+
+   Role cards carry **three** lines, not two — name, *what this desk does*, and **what it knows**, because
+   the third line is the file and the file is what tables forget to draw. The document card's header strip
+   (*type / correlation id / reply-to*) is left **deliberately unexplained**: a table hits the problem in
+   round 2 — two documents in an in-tray, no way to tell which request one of them answers — and then you
+   point at the box they left blank.
+
+   `diagram.py` gained a `rule` element for this: a plain hairline, because `arrow` always draws a head
+   and a line you write on must not have one.
 4. ✅ **`resources/Departure.drawio`** — **built 2026-09-02**, `tools/paper_flow.py`. Reference answer for
    the one stage with no worked flow, on the **settled numbering rule** above. Five desk-turns, matching
    Occupancy's granularity: **1** guest asks to check out (solid — spoken, no paper) · **2** Front Desk
@@ -515,7 +537,10 @@ worth saying so.
 
    *Departure is the delegates' task* is deliberately **not** marked on it — that is slide 4's point, and
    a second red idea would cost this one its own.
-7. ☐ Wire it into `exercises/README DAY TWO.md` — absent today.
+7. ✅ Wired into `exercises/README DAY TWO.md` — **2026-09-02**. Its own section at the top, above the
+   code exercises, saying plainly that this is the one Day 2 exercise that is **not code**, is in-person
+   only, needs printing before the day, and must run **before** Process Automation. It was easy to miss
+   precisely because there is nothing to clone. The README's coding sections are untouched.
 
 **✅ Resolved 2026-09-02 — it was a slip, and Pre-Arrival is renumbered.** Ian: *"probably an error
 derived from building this from the Just Paper Takeaway material."* Survey of all eight paper flows:

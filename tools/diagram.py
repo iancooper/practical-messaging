@@ -260,6 +260,17 @@ class Diagram:
         self.nodes.append(node)
         return node
 
+    def rule(self, x, y, w, color=None, weight=1.1):
+        """A plain hairline: a writing rule on a printable, a divider on a card.
+        Its own element because `arrow` always draws a head, and a line you write on
+        must not have one."""
+        self._n += 1
+        node = dict(id=f"r{self._n}", kind="rule", x=x, y=y, w=w, h=1, label="",
+                    accent=False, size=13, label_pos="below",
+                    color=color or MUTED, weight=weight)
+        self.nodes.append(node)
+        return node
+
     def bar(self, x, y, h, w=7, label="", size=13):
         """The heavy vertical bar: an organisational boundary."""
         self._n += 1
@@ -570,6 +581,9 @@ class Diagram:
                 o.append(f'<path d="M{x + w*0.14},{y + h*0.55} h{w*0.72} '
                          f'M{x + w*0.14},{y + h*0.75} h{w*0.5}" stroke="{c}" '
                          f'stroke-width="1"/>')
+            elif n["kind"] == "rule":
+                o.append(f'<path d="M{n["x"]},{n["y"]} h{n["w"]}" fill="none" '
+                         f'stroke="{n["color"]}" stroke-width="{n["weight"]}"/>')
             elif n["kind"] == "bar":
                 o.append(f'<rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
                          f'height="{n["h"]}" fill="{INK}" stroke="none"/>')
@@ -841,7 +855,10 @@ class Diagram:
                      "doc": "shape=note;size=0;",
                      "folder": "shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;",
                      "bar": "rounded=0;",
+                     "rule": "shape=line;",
                      "step": "rounded=0;"}[n["kind"]]
+            if n["kind"] == "rule":
+                stroke = n.get("color", MUTED)
             fill = {"msg": PAPER, "folder": MANILA, "bar": INK, "doc": PAPER,
                     "tray": PAPER, "desk": PAPER, "step": PAPER}.get(n["kind"], "none")
             if n["kind"] == "step":

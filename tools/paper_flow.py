@@ -254,6 +254,69 @@ def departure():
     return d
 
 
+@figure("paper-document-card")
+def document_card():
+    """The half-A5 document card, for the exercise. Print four to an A4 sheet.
+
+    **The header strip is the whole design.** Three boxes -- type, correlation id,
+    reply-to -- across the top of an otherwise blank card. It makes delegates use a
+    correlation id without being told to, and makes *reply-to* a property of the
+    document rather than something everybody just knows.
+
+    Both become load-bearing in round 3: the correlation id is how you tell a
+    duplicate from a new request, and reply-to is why a resend reaches the right
+    desk. So the strip is left deliberately unexplained -- a table hits the problem
+    in round 2, with two documents in an in-tray and no way to tell which request one
+    of them answers, and then you point at the box they left blank.
+
+    Drawn at 2:1.4, which is half-A5 in landscape, and mono-safe.
+    """
+    W, H = 600, 420
+    d = Diagram("Document Card", w=W, h=H)
+
+    d.box(20, 20, W - 40, H - 40, "")
+
+    # -- the header strip -------------------------------------------------------
+    fields = (("TYPE", 52, 168), ("CORRELATION ID", 236, 168), ("REPLY-TO", 424, 128))
+    for label, x, w in fields:
+        d.note(x + 6, 78, label, MUTED, 13, anchor="start")
+        d.rule(x, 92, w, INK, 1.4)
+    d.note(300, 128, "one card is one document — fill the strip in before you send it",
+           ANNOTATION, 15)
+
+    # -- the body: ruled, because a blank box invites a diagram -----------------
+    for i in range(6):
+        d.rule(52, 186 + i * 38, W - 104)
+    return d
+
+
+@figure("paper-tray-sheets")
+def tray_sheets():
+    """The in-tray and out-tray sheets. Print two to an A4, cut in half, two per desk.
+
+    A tray is a sheet of paper you put paper on. The cheapness is the point: the room
+    has to believe a queue is a *physical place*, and a labelled sheet of A4 is more
+    convincing than a slide.
+
+    The glyph on each sheet is the same one the notation key teaches, so a delegate
+    who has read the key recognises the tray on the table without being told.
+    """
+    W, H = 620, 880
+    d = Diagram("Tray Sheets", w=W, h=H)
+
+    for i, (title, out, rule) in enumerate((
+            ("IN-TRAY", False, "work that has arrived, and is not done yet"),
+            ("OUT-TRAY", True, "finished here, and not yet collected"))):
+        y = 30 + i * 430
+        d.desk(24, y, W - 48, 390)
+        d.tray(70, y + 44, 96, 70, out=out)
+        d.note(210, y + 66, title, INK, 34, anchor="start")
+        d.note(210, y + 106, rule, MUTED, 16, anchor="start")
+        d.note(W / 2, y + 190, "put paper here", MUTED, 18)
+        d.note(W / 2, y + 340, "nobody shouts across the office", ANNOTATION, 17)
+    return d
+
+
 def main(argv):
     if "--list" in argv:
         for n in FIGURES:
