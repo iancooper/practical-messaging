@@ -151,12 +151,19 @@ class Diagram:
         self.groups.append(node)
         return node
 
-    def msg(self, x, y, label="", accent=False, w=20, h=14, size=12):
+    def msg(self, x, y, label="", accent=False, w=20, h=14, size=12,
+            label_pos="center"):
         """A message on a channel -- a small envelope. Its own element because the
-        EIP figures put messages *in* the pipe, and that is what makes them read."""
+        EIP figures put messages *in* the pipe, and that is what makes them read.
+
+        `label_pos="above"` / `"below"` names the envelope instead of writing inside
+        it, and matters for more than layout: a node label is set in the diagram's own
+        face, where `note` is always Caveat. On a BPMN choreography the message names
+        are *diagram content*, not our annotation on top of it, so they have to be
+        Plex Sans with everything else the notation owns."""
         self._n += 1
         node = dict(id=f"m{self._n}", kind="msg", x=x, y=y, w=w, h=h,
-                    label=label, accent=accent, size=size, label_pos="center")
+                    label=label, accent=accent, size=size, label_pos=label_pos)
         self.nodes.append(node)
         return node
 
@@ -684,7 +691,9 @@ class Diagram:
                 if n.get("label_pos") == "top":
                     cy = n["y"] + size + 2
                 elif n.get("label_pos") == "above":
-                    cy = n["y"] - 7
+                    # _text block-centres a multi-line label on cy, so a two-line
+                    # label above an element would sit half on top of it
+                    cy = n["y"] - 7 - (n["label"].count("\n")) * size * 1.05 / 2
                 elif n.get("label_pos") == "below":
                     cy = n["y"] + n["h"] + size + 3      # events and gateways label under
                 else:
@@ -849,7 +858,10 @@ class Diagram:
             if n.get("label_pos") == "top":
                 style += "verticalAlign=top;spacingTop=2;"
             if n["kind"] == "msg" and n["label"]:
-                style += "verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;"
+                if n.get("label_pos") == "above":
+                    style += "verticalLabelPosition=top;verticalAlign=bottom;labelPosition=center;"
+                elif n.get("label_pos") == "below":
+                    style += "verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;"
             cell = ET.SubElement(root, "mxCell", id=n["id"], value=n["label"],
                                  style=style, vertex="1", parent="1")
             ET.SubElement(cell, "mxGeometry", x=str(n["x"]), y=str(n["y"]),

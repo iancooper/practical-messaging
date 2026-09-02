@@ -752,7 +752,7 @@ Presenter notes: **This slide exists to keep the promise made on the previous on
 - **Sequence flow** arrows show the path of execution.
 - An **event** begins, ends, or interrupts a flow; a **task** is where work gets done.
 
-#image: BPMN diagram — an 'Order Food' process (Enter Location, Choose Restaurant, Add Menu Choices, Checkout) ending with a message event  [→ resources/BPMN Ordering Flow.drawio.png]
+#image: BPMN diagram — an 'Order Food' process (Enter Location, Choose Restaurant, Add Menu Choices, Checkout) ending with a message event  [→ resources/bpmn-ordering-flow.png]
 
 Presenter notes: Second example, and deliberately the *takeaway* domain rather than the hotel — the see-one, so the room gets the notation twice over on two flows it already knows. It is also an editable resource, which the hotel diagrams are not.
 
@@ -767,7 +767,7 @@ There are two kinds of arrow, and the difference between them is what the rest o
 
 ▎ Sequence flow is what happens at a desk. Message flow is what happens between desks.
 
-#image: BPMN diagram — start event, task, gateway splitting to two parallel tasks, merge gateway, end event  [→ resources/BPMN Elements.drawio.png]
+#image: BPMN diagram — two pools; in the first, start event, task, message event, a parallel gateway splitting to two tasks, merge gateway, end event, with each element named; a message flow from the second pool into the message event  [→ resources/bpmn-elements.png]
 
 Presenter notes: **The load-bearing line is the token one**, so say it out loud: it is *ACID at a desk, BASE across desks* from block 1's debrief, in BPMN's own vocabulary, and it is the distinction that makes orchestration-vs-choreography obvious twelve slides from now rather than arbitrary.
 
@@ -843,7 +843,7 @@ A Process is an **orchestration** — focused on a **single participant's perspe
 - Control flow, state and decisions are **all local to the orchestrator**.
 - Generally a process orchestration lives within an address space (not distributed) — an embedded workflow or an external process manager, often a state machine or a workflow engine.
 
-#image: BPMN diagram — a Checkout Basket process (Create Basket, Validate Choice, Price Basket, Validate Delivery/Payment)  [→ resources/Shopping Flow As Sequence.drawio.png]
+#image: BPMN diagram — a Checkout Basket process (Create Basket, Validate Choice, Price Basket, Validate Delivery/Payment)  [→ resources/bpmn-shopping-as-sequence.png]
 
 Presenter notes: This is the conductor from round 4 — one person, holding the routing slip, who knows the whole process. Name the callback; the room enacted it forty minutes ago.
 
@@ -852,7 +852,7 @@ Presenter notes: This is the conductor from round 4 — one person, holding the 
 - A **token** represents an instance of a process.
 - A token flows down the process; it is the state of the process for that instance.
 
-#image: BPMN collaboration — Customer and Shopping pools with message flows (Begin Shopping, Basket Price, Valid Basket)  [→ resources/Shopping Flow with Pools.drawio.png]
+#image: BPMN collaboration — Customer and Shopping pools with message flows (Begin Shopping, Basket Price, Valid Basket)  [→ resources/bpmn-shopping-collaboration.png]
 
 ### Slide: Hotel Example — BPMN Orchestration (Guest Pool)
 
@@ -898,7 +898,7 @@ Interaction can happen two ways:
 - **Within a workflow engine** — but this creates coupling, and both participants must run in the engine.
 - **Via an API** — from an event-driven perspective, this is the model we care about.
 
-#image: BPMN collaboration — Customer and Shopping pools with message flows  [→ resources/Shopping Flow with Pools.drawio.png]
+#image: BPMN collaboration — Customer and Shopping pools with message flows  [→ resources/bpmn-shopping-collaboration.png]
 
 Presenter notes: The two interaction options are the half that matters — **"both participants must run in the engine"** is the coupling argument from Day 1 §Coupling arriving at process scale.
 
@@ -908,7 +908,7 @@ Presenter notes: The two interaction options are the half that matters — **"bo
 - A **Lane** distinguishes sequences of activities within a pool. White box = can see process; black box = cannot.
 - Activities within the pool are organised by sequence flow.
 
-#image: BPMN collaboration — Customer and Shopping pools with labelled pools/lanes and message flows  [→ resources/Shopping Flow with Pools.drawio.png]
+#image: BPMN collaboration — Customer and Shopping pools with labelled pools/lanes and message flows  [→ resources/bpmn-shopping-collaboration.png]
 
 Presenter notes: **Black box is the load-bearing word.** The Hotel is a black box to the agency — you see the messages, never the process — which is what makes the fracture plane in block 1 a *real* boundary rather than a drawing convention.
 
@@ -923,7 +923,7 @@ The full collaboration diagram for the hotel example.
 - A **Choreography** describes a sequence/flow of activities *between* participants — a graph of flow elements (a message flow of activities, events, gateways). It is focused on the interaction across participants, **like describing a dance**: no single owner of the flow, no centralized control, and no access to anyone's shared internal state. It defines **who talks to whom, in what order**.
 - A **Conversation** is a logical association of messages that can all be correlated. **Correlation Keys** associate messages in the same conversation (may be existing message data); the first task in a conversation *must* populate the conversation id.
 
-#image: BPMN diagram — a horizontal flow with Customer/Shopping lane labels per task and message events  [→ resources/Shopping Choreography.drawio.png]
+#image: BPMN diagram — a horizontal flow with Customer/Shopping lane labels per task and message events  [→ resources/bpmn-shopping-choreography.png]
 
 Presenter notes: **The dance and the no-shared-state line are what to land here.** The correlation key is not new: it is the booking reference written on the fax so the answer can be matched to the request, and it is the same id that becomes a trace id in `## Next Steps`.
 

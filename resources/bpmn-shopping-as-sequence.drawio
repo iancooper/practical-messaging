@@ -1,0 +1,52 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Checkout Basket — as an Orchestration">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1270" pageHeight="218" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="one participant holds the whole process — control, state and the decisions are all local to it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="575" y="20" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;outline=standard;symbol=general;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="39" y="107" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="Create Basket" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="106" y="98" width="186" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="Validate Choice" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="320" y="98" width="186" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="Price Basket" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="534" y="98" width="186" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="Validate Delivery&#10;Information" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="748" y="98" width="186" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="Validate Payment&#10;Information" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="962" y="98" width="186" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="Checked Out&#10;Basket" style="shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;outline=end;symbol=message;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1195" y="107" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e1" target="t2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t2" target="t3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3" target="t4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t4" target="t5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t5" target="t6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=12;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t6" target="e7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

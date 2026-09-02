@@ -661,6 +661,28 @@ than a blank canvas.
    gateway legends, whose three drawio sources already exist. Its own outline note calls it a Phase 3
    item, so it stays there.
 
+### ☐ Open question — the three BPMN legend sheets
+
+`Task Types`, `Event Types` and `Gateway Types` are still the 2021 black-on-white drawio, and they are
+the last of the eight. Redrawing them faithfully means teaching `diagram.py` roughly **fifteen** more BPMN
+symbols it has no use for anywhere else — manual, business rule, script, loop and transaction task
+markers; signal, escalation, conditional, error, cancel, link and terminate events; inclusive, complex and
+event-based gateways.
+
+**The slide already argues against doing that.** *BPMN — Tasks, Events and Gateways* carries the callout
+*"Six of them do nearly all the work: **Service** and **Receive** tasks, **Message** and **Timer** events,
+**Exclusive** and **Parallel** gateways"*, its presenter note says **"Do not read the lists"**, and its own
+`#note:` already sends the three full legends to a **delegate reference card** — *"a lookup table wants to
+be in the delegate's hand, not on the screen"*, the same test that sent Managing Asynchronous APIs and the
+routing patterns to handouts.
+
+So the cheap option and the better option are the same one: **replace the three legend sheets on the slide
+with a single figure of the six that matter**, and let the full legends live on the reference card, where
+the 2021 artwork is fine because it is print and not projection. That is a change to what is on the slide,
+so it is Ian's call, not a routine judgement — **asked, not assumed.**
+
+---
+
 ### What sources exist
 
 - **`session-work/imgs/dayN-sNNN-M.png` are the masters** for most of the deck. Many hand-drawn
@@ -737,10 +759,33 @@ mapping does not align automatically, because consolidated entries break the 1:1
    and the three legend sheets — `Task Types`, `Event Types`, `Gateway Types`) are plain black-on-white
    draw.io. Until they are brought onto the palette the section mixes two BPMN looks.
 
-   **7 of the 8 are a restyle, not a redraw** — they have editable `.drawio` sources, so this is an edit
-   to `strokeColor` / `fontFamily`, not new artwork. **`Shopping Choreography` is the exception: there is
-   no `.drawio` for it, only the `.png`.** That one is a redraw — and `tools/diagram.py` now has a
-   `choreo` element (built for the hotel choreography) that would draw it directly.
+   **✅ 5 of the 8 are done, 2026-09-02** — `tools/bpmn_shopping.py`, a family script like the other two.
+   `bpmn-elements` · `bpmn-ordering-flow` · `bpmn-shopping-as-sequence` · `bpmn-shopping-collaboration`
+   (which three slides share) · `bpmn-shopping-choreography`. The outline links are repointed; the 2021
+   sources are left in `resources/` untouched, and git history holds them either way.
+
+   **Correction: all 8 are redraws, not restyles.** The earlier "7 of the 8 are an edit to `strokeColor` /
+   `fontFamily`" was optimistic and is wrong. **Checked, not assumed:** there is no `drawio`, `soffice` or
+   `inkscape` on this machine, so a style edit to a `.drawio` cannot regenerate its `.png` — and the
+   `.png` is what the deck shows. Drawing through `diagram.py` emits both from one definition, which is
+   the reason that tool exists. `Shopping Choreography` having no source turned out not to be the
+   distinguishing fact.
+
+   **Two are improved rather than copied, both because the slide's own text asked for it.**
+   *BPMN — The Elements* is a slide whose body is **two kinds of arrow** and whose callout is *sequence
+   flow is what happens at a desk; message flow is what happens between desks* — and the original picture
+   had no message flow on it at all, and no labels. The redraw names the six elements and adds a second
+   participant so the message flow has somewhere to come from. The *Choreography* original reads
+   **"Bakset Validated"**, a typo that would go up on a screen, and reuses *Review Price* for two
+   different messages — careless on a slide about correlating messages; the second is now
+   *Basket Checked*.
+
+   **☐ The three legend sheets are held, and want a decision** — see the question below.
+
+   **`diagram.py` gained two things here.** `msg` takes `label_pos="above"` / `"below"`, so a BPMN message
+   name is set as a **node label in Plex Sans** rather than as a `note`, which is always Caveat: on a
+   choreography those names are the notation's own content, not our annotation on top of it. And a
+   multi-line `"above"` label now stacks upward instead of half over the element it names.
 
 ---
 
