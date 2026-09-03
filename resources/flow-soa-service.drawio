@@ -10,7 +10,7 @@
         <mxCell id="t1" value="same idea, a bigger unit: operations, and the data those operations need, shut away behind them" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="520.0" y="32" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="n2" value="operations" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+        <mxCell id="n2" value="operations" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="500" y="190" width="300" height="112" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="placeOrder · cancelOrder · trackOrder" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
@@ -19,7 +19,7 @@
         <mxCell id="n3" value="its own data" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=cylinder3;boundedLbl=1;backgroundOutline=1;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=15;" vertex="1" parent="1">
           <mxGeometry x="858" y="300" width="180" height="88" as="geometry" />
         </mxCell>
-        <mxCell id="n4" value="Consumer" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+        <mxCell id="n4" value="Consumer" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="110" y="198" width="200" height="96" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="endpoint — where it lives&#10;binding — how you talk to it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">

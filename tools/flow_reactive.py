@@ -91,7 +91,7 @@ def oo_class():
     idea(d, "the data lives inside the object, and only the object’s own "
             "behaviours may touch it")
 
-    base = d.box(384, 104, 220, 56, "Base Class")
+    base = d.box(384, 104, 220, 56, "Base Class", size=17)
 
     X, Y, W = 344, 226, 300
     cls = d.box(X, Y, W, 218, "")
@@ -112,7 +112,7 @@ def oo_class():
                      "may come from the base class:\ndynamic dispatch",
            MUTED, 15, anchor="start")
 
-    caller = d.box(80, 386, 200, 76, "another object")
+    caller = d.box(80, 386, 200, 76, "another object", size=17)
     d.arrow(caller, (X, Y + 176))
     d.note(180, 336, "a message — the behaviour to run,\nand what to run it on",
            CARBON, 15)
@@ -132,13 +132,13 @@ def call_and_return():
             "so it changes whenever any step does")
 
     main = d.group(250, 92, 740, 56, "main — the entry point", dashed=True)
-    cart = d.box(540, 264, 180, 88, "Cart", accent=True)
+    cart = d.box(540, 264, 180, 88, "Cart", accent=True, size=17)
 
     ring = {}
     for name, (x, y) in (("Restaurant", (200, 254)), ("Account", (900, 254)),
                          ("Menu", (300, 458)), ("Payment", (540, 500)),
                          ("Order", (790, 458)), ("Delivery", (1030, 458))):
-        ring[name] = d.box(x, y, 160, 74, name)
+        ring[name] = d.box(x, y, 160, 74, name, size=17)
 
     # main fans out, so both calls need their own exit point: the automatic choice
     # puts them on the same bottom-centre and the Account call then cuts the figure
@@ -172,12 +172,12 @@ def soa_service():
             "need, shut away behind them")
 
     d.group(450, 132, 620, 340, "Service")
-    ops = d.box(500, 190, 300, 112, "operations")
+    ops = d.box(500, 190, 300, 112, "operations", size=17)
     d.note(650, 282, "placeOrder · cancelOrder · trackOrder", MUTED, 14)
     store = d.cylinder(858, 300, 180, 88, "its own data", accent=True)
     d.attach(ops, store, sides=("r", "l"))
 
-    con = d.box(110, 198, 200, 96, "Consumer")
+    con = d.box(110, 198, 200, 96, "Consumer", size=17)
     d.arrow(con, ops, "input message", sides=("r", "l"), ly=-12)
     d.arrow(ops, con, "output message", sides=("b", "b"),
             via=[(560, 400), (210, 400)], ly=24)
@@ -207,16 +207,16 @@ def entity_services():
             "the gateway is `main`")
 
     d.phone(586, 88, 68, 104)
-    d.note(566, 142, "Device", INK, 15, anchor="end")
-    gw = d.box(250, 236, 740, 58, "API Gateway", accent=True)
+    d.note(566, 142, "Device", INK, 17, anchor="end")
+    gw = d.box(250, 236, 740, 58, "API Gateway", accent=True, size=17)
     d.arrow((620, 192), gw, sides=(None, "t"))
 
-    cart = d.box(540, 372, 180, 84, "Cart")
+    cart = d.box(540, 372, 180, 84, "Cart", size=17)
     ring = {}
     for name, (x, y) in (("Restaurant", (200, 366)), ("Account", (900, 366)),
                          ("Menu", (300, 552)), ("Payment", (540, 590)),
                          ("Order", (790, 552)), ("Delivery", (1030, 552))):
-        ring[name] = d.box(x, y, 160, 72, name)
+        ring[name] = d.box(x, y, 160, 72, name, size=17)
 
     d.arrow((630, 294), cart, sides=(None, "t"))
     d.arrow((980, 294), ring["Account"], sides=(None, "t"))
@@ -725,9 +725,11 @@ def partition_checkout():
     d.arrow(p1, b["ports"]["in0"], sides=("r", "l"))
     d.arrow(b["ports"]["out0"], p2, sides=("r", "l"))
 
-    d.note(135, 300, "purchase", MUTED, 15, anchor="middle")
-    d.note(705, 300, "priced", MUTED, 15, anchor="middle")
-    d.note(1195, 300, "payment due", MUTED, 15, anchor="middle")
+    # the packet names sit a row above the port labels, not level with them: at 17pt
+    # bold the last "out" runs straight into "payment due"
+    d.note(135, 282, "purchase", MUTED, 15, anchor="middle")
+    d.note(705, 282, "priced", MUTED, 15, anchor="middle")
+    d.note(1195, 282, "payment due", MUTED, 15, anchor="middle")
 
     d.group(320, 128, 800, 60, "", dashed=True, accent=True)
     d.note(720, 160, "no gateway. no `main`. nothing here is in charge.",
@@ -751,7 +753,7 @@ def bulkhead():
     # the name sits above the hexagon, not in it: a full-size cross over a labelled
     # component strikes through its own label
     b = d.node(900, 220, 220, 132, "", ins=("in",), outs=("out",))
-    d.note(1010, 202, "Take Payment", INK, 15)
+    d.note(1010, 202, "Take Payment", INK, 17)
 
     pipe = d.pipe(430, 254, 380, 64, accent=True)
     for i in range(4):
@@ -858,7 +860,7 @@ def circuit_breaker():
     cons = d.node(520, 196, 230, 132, "consumer", ins=("in",), outs=("out",),
                   accent_ports=("in",))
     prov = d.node(950, 196, 230, 132, "", ins=("in",), outs=("out",))
-    d.note(1065, 178, "payment provider", INK, 15)
+    d.note(1065, 178, "payment provider", INK, 17)
     d.icon(1065, 262, "cross", r=42)
 
     d.arrow(pipe, cons["ports"]["in0"], sides=("r", "l"), accent=True)
@@ -931,7 +933,7 @@ def scale_out_fault():
         d.arrow(sup["ports"]["out0"], w["ports"]["in0"], sides=("r", "l"),
                 via=[(500, 306), (500, y + 64)])
         if dead:
-            d.note(770, 398, "Worker", INK, 15)
+            d.note(770, 398, "Worker", INK, 17)
             d.icon(770, y + 64, "cross", accent=True, r=40)
         else:
             d.arrow(w["ports"]["out0"], pkt_on(d, 950, w["ports"]["out0"]),
