@@ -828,8 +828,8 @@ was replaced by a drawing (41 → 38 unannotated across that and the order wheel
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
-| `outlines/DayOne.md` | **49** | 26 | 0 | **0** | **23** |
-| `outlines/DayTwo.md` | **88** | 57 | 0 | **0** | **31** |
+| `outlines/DayOne.md` | **49** | 28 | 0 | **0** | **21** |
+| `outlines/DayTwo.md` | **88** | 60 | 0 | **0** | **28** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
@@ -860,9 +860,16 @@ different answers**, and only one of them is mechanical.
 (`photo-mailroom-pigeonholes`, `photo-mail-cart`, `screenshot-fax-call-log`). Every one was **opened and
 looked at** before linking, not matched by filename.
 
-**☐ Two class-A masters are not found yet** — *a large stack of manila file folders and papers* and
-*order taking (phone / card machine / order pad)*, both Day 2 §Flow. They may not exist; check before
-reporting either as missing.
+**✅ One of the two "missing" masters was there. 2026-09-03.** *A large stack of manila file folders and
+papers* is `day2-s053-2.jpg` — the second image on a slide whose first image had already been looked at,
+which is how it was missed. Also found in the same pass: **`DON'T PANIC`** (`day2-s113-1.jpg`, identical
+to `day1-s090-1.jpg`), which is **one file serving four markers** across both days.
+
+**☐ One master genuinely is not there** — *order taking (phone / card machine / order pad)*, Day 2 §Flow,
+on the *Three different media, one notation* slide. **All 14 Day 2 `.jpg`s and all 6 Day 1 `.jpg`s have
+now been opened**; the photos in this deck are all `.jpg`, and none of them is this. **Ian offered to
+export it from the deck** — that is the right next step, and it is a real ask this time, not an
+unchecked one.
 
 ### ☐ B is a decision, not a task — for Ian
 

@@ -428,7 +428,7 @@ Readme, videos, scripts & slides. Introduction to Exercises; Quick Start RabbitM
 primitives (exchanges, bindings, queues) behind everything §4.2 just described abstractly.
 
 
-#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)
+#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)  [→ resources/dont-panic.jpg]
 
 ---
 
@@ -930,7 +930,7 @@ Then the exercises: **take the reliability you built on a queue and get the same
 stream.** Nothing you relied on in §4.4 is native here.
 
 
-#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)
+#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)  [→ resources/dont-panic.jpg]
 
 ---
 

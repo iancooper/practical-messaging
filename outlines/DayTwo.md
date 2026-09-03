@@ -162,7 +162,7 @@ Two devices worth naming, because they are patterns you already know:
   **outbox**, and it is event sourcing.
 
 #image: notation key — the desk (in-tray, out-tray, file), the boundary bar, red-dashed vs. solid arrows, numbered steps, and the out-tray-to-in-tray rule drawn as two desks  [→ resources/paper-notation-key.png]
-#image: photo — a large stack of manila file folders and papers
+#image: photo — a large stack of manila file folders and papers  [→ resources/photo-manila-folders.jpg]
 #image: photo — an order wheel in a restaurant kitchen, tickets clipped round the rim and one being clipped on  [→ resources/photo-order-wheel.jpg]
 #image: photo — a multi-part carbon-copy (NCR) form pad, top sheet peeled back to show the copies beneath  [→ resources/photo-carbon-copy-pad.jpg]
 
@@ -283,7 +283,7 @@ You have seen the takeaway's four flows, and you have seen them fail.
 - **Hard rule: every hand-off goes out-tray to in-tray.** Nobody shouts across the office.
 - Then run it with cards, one person per desk. Then we break it.
 
-#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)
+#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)  [→ resources/dont-panic.jpg]
 
 Presenter notes: **Hand-off into Paper Flow block 1 (~45 minutes) — rounds 1, 2 and 3.** See
 REDEVELOPMENT-PLAN §7. There is no round-0 recap any more: the *see one* is the four slides they have
@@ -541,7 +541,7 @@ You have seen the takeaway flow four ways: **as paper**, **as errors on paper**,
 - Where do the lookups live? Where is state stored? Which arcs must survive a crash?
 - Then join your graph to the next table's.
 
-#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)
+#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)  [→ resources/dont-panic.jpg]
 
 Presenter notes: **Hand-off into Paper Flow block 2 (~45 minutes)** — the FBP re-expression, which was
 the closing task of the original exercise deck (s009) and never had room. See REDEVELOPMENT-PLAN §7.
