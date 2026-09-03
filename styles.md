@@ -100,6 +100,15 @@ never more than one idea per diagram. Carbon blue carries flow and structure; in
 - **Stroke** 1.6–1.8px at diagram scale. **Rounded corners**, `r=4`.
 - **Databases** as cylinders, attached to their service with a dashed `muted` line.
 - **One idea in red.** If two things are red, the diagram is doing two jobs.
+- **Muted is for *our* annotation, not the notation's own words.** A label that is part of what the
+  diagram *is* — a stream's offsets, a port's name, a step number — is **ink at label size**, the same
+  size as a box label. `muted` is for the remarks we add on top: the caveat at the foot, the aside
+  beside a shape. Getting this backwards makes the content quieter than the commentary, and it does not
+  show up until the figure is on a projector. **Stream offsets were 12pt muted until Ian saw them across
+  a room.**
+- **Nothing in a diagram below 14pt**, and 17 for anything a delegate has to read off the slide and use.
+  The 18pt body floor exists because the old deck was unreadable four rows back; a diagram label is no
+  more legible than a bullet.
 
 ### Building them
 
