@@ -423,6 +423,72 @@ class Diagram:
         self.nodes.append(node)
         return node
 
+    # -- dataflow / FBP --
+    def node(self, x, y, w, h, label, ins=(), outs=(), accent=False,
+             accent_ports=(), size=15, port_size=14, port_r=7):
+        """A dataflow node / FBP component: a hexagon with named ports.
+
+        **This is the glyph Day 2's whole flow run is built from, so it lives here
+        rather than in the figure script.** Twenty-five figures draw it, and a
+        component that is a hexagon in one and a rounded box in the next teaches the
+        shape again instead of the idea.
+
+        A *dataflow node* and an *FBP component* are the same glyph on purpose: the
+        outline says FBP is a subclass of dataflow, and the deltas are the content.
+        Drawing them differently would argue they are different things.
+
+        **The left and right vertices are flattened into short vertical edges.** A
+        true hexagon has a single point each side, so a second in-port would have to
+        sit on a slant at a different x and the two would not line up. Flattening
+        them means a port always lands on a stroke, however many there are.
+
+        **Ports on the left are in, ports on the right are out, and data flows left to
+        right.** Fixed here, once, because run 1's costliest mistake was settling the
+        reading direction per figure and having four of them fight it.
+
+        `ins` / `outs` are port names, in top-to-bottom order; `""` gives an
+        unlabelled dot. Returns the node with `["ports"]`, keyed both by name and
+        positionally as `in0`, `in1`, `out0` ... -- pass one straight to `arrow`, so
+        nothing ever aims at the hexagon's own edge.
+        """
+        self._n += 1
+        n = max(len(ins), len(outs), 1)
+        slant = min(h * 0.22, h / (n + 1) - 2)
+        hexn = dict(id=f"x{self._n}", kind="hex", x=x, y=y, w=w, h=h, label=label,
+                    accent=accent, size=size, label_pos="center", slant=slant)
+        self.nodes.append(hexn)
+        hexn["ports"] = {}
+        for names, px, anch, dx, key in ((ins, x, "end", -13, "in"),
+                                         (outs, x + w, "start", 13, "out")):
+            for i, name in enumerate(names):
+                py = y + h * (i + 1) / (len(names) + 1)
+                red = accent or name in accent_ports
+                p = self.point(px, py, "", accent=red, r=port_r)
+                # every port is reachable positionally as well as by name, so an
+                # unnamed dot still has a handle and a figure never has to guess one
+                hexn["ports"][f"{key}{i}"] = p
+                if name:
+                    hexn["ports"][name] = p
+                    self.note(px + dx, py - 10, name,
+                              ANNOTATION if red else INK, port_size, anchor=anch)
+        return hexn
+
+    def packet(self, x, y, w=30, h=26, label="", accent=False, size=13,
+               label_pos="center"):
+        """An information packet -- a dashed rounded square, empty unless named.
+
+        Deliberately **not** the `msg` envelope. An envelope is a message sitting on a
+        channel, and the EIP and queue families own it; an IP is a value in flight
+        between ports, with a lifetime that ends when a component consumes it. Two
+        ideas, two shapes, so a reader coming from Day 1 is not told they are the
+        same thing.
+        """
+        self._n += 1
+        node = dict(id=f"q{self._n}", kind="pkt", x=x, y=y, w=w, h=h, label=label,
+                    accent=accent, size=size, label_pos=label_pos)
+        self.nodes.append(node)
+        return node
+
     def image(self, x, y, w, h, path):
         """Place an existing raster inside a drawing -- for the one figure that has to
         show a delegate's own artefact beside ours. It is embedded as a data URI in
@@ -758,6 +824,19 @@ class Diagram:
                          f'fill="{PAPER}" stroke="{c}" stroke-width="1.4"/>')
                 o.append(f'<path d="M{x},{y} L{x+w/2},{y+h*0.55} L{x+w},{y}" '
                          f'stroke="{c}" stroke-width="1.2"/>')
+            elif n["kind"] == "hex":
+                x, y, w, h, v = n["x"], n["y"], n["w"], n["h"], n["slant"]
+                k = min(w * 0.20, h * 0.55)
+                pts = ((x, y + v), (x + k, y), (x + w - k, y), (x + w, y + v),
+                       (x + w, y + h - v), (x + w - k, y + h), (x + k, y + h),
+                       (x, y + h - v))
+                d_ = "M" + " L".join(f"{px},{py}" for px, py in pts) + " z"
+                o.append(f'<path d="{d_}" fill="{MANILA}" stroke="{c}" '
+                         f'stroke-width="1.7"/>')
+            elif n["kind"] == "pkt":
+                o.append(f'<rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
+                         f'height="{n["h"]}" rx="5" fill="{PAPER}" stroke="{c}" '
+                         f'stroke-width="1.5" stroke-dasharray="5 4"/>')
             elif n["kind"] == "pipe":
                 x, y, w, h = n["x"], n["y"], n["w"], n["h"]
                 o.append(f'<path d="M{x},{y} h{w} M{x},{y+h} h{w}" stroke="{c}" stroke-width="1.7"/>')
@@ -988,12 +1067,15 @@ class Diagram:
                      "log": "shape=table;childLayout=tableLayout;",
                      "icon": "rounded=1;arcSize=20;",
                      "phone": "shape=mxgraph.telecom.telephone;",
+                     "hex": "shape=hexagon;perimeter=hexagonPerimeter2;",
+                     "pkt": "rounded=1;arcSize=22;dashed=1;dashPattern=5 4;",
                      "step": "rounded=0;"}[n["kind"]]
             if n["kind"] == "rule":
                 stroke = n.get("color", MUTED)
                 if n.get("dy"):
                     shape += "direction=north;"
             fill = {"msg": PAPER, "folder": MANILA, "bar": INK, "doc": PAPER,
+                    "hex": MANILA, "pkt": PAPER,
                     "tray": PAPER, "desk": PAPER, "step": PAPER, "phone": PAPER,
                     "log": PAPER, "icon": PAPER,
                     "point": stroke}.get(n["kind"], "none")

@@ -1,0 +1,87 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Backpressure">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1220" pageHeight="560" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="the producer feels the pipe pushing back, and slows down — you pay in latency, and lose nothing" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="550.0" y="32" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="x1" value="producer" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="90" y="190" width="210" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="83" y="249.0" width="14" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="17" y="234.0" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="293" y="249.0" width="14" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="253" y="234.0" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="x4" value="consumer" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="910" y="190" width="210" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="o5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="903" y="249.0" width="14" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="837" y="234.0" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1113" y="249.0" width="14" height="14" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="1073" y="234.0" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=tube;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="420" y="224" width="380" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="q8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="452" y="243" width="30" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="q9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="536" y="243" width="30" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="q10" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="620" y="243" width="30" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="q11" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="704" y="243" width="30" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="full" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="550" y="184" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="push — the middleware calls&#10;us as messages arrive" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="135" y="458" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" value="pull — we poll, so we&#10;control the rate" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="955" y="458" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" value="blocking retry creates it as a side effect: retrying a&#10;connection slows consumption, which fills the queue" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="550" y="458" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" value="choose it when data loss is unacceptable and the extra latency is tolerable" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="550.0" y="522" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o3" target="n7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n7" target="o5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="slow down" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#C0453B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="x4" target="x1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1015" y="404" />
+              <mxPoint x="195" y="404" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

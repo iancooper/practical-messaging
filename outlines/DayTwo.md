@@ -306,7 +306,7 @@ A class has a **role** with **responsibilities**; we capture responsibilities as
 encapsulate the data those behaviours need inside the object; roles may be inherited via dynamic
 dispatch.
 
-#image: hand-drawn OO diagram — a class with role/responsibilities, encapsulated data, inheritance via dynamic dispatch, message passing
+#image: hand-drawn OO diagram — a class with its role, encapsulated data, inheritance and message passing  [→ resources/flow-oo-class.png]
 
 Presenter notes: Deliberately uncontroversial — everyone in the room has this, and they proposed it themselves before the exercise. Read their flipchart back to them first. It is here to be named, because the next three slides are about what happens when you scale it up and point it at a flow. **Movement B is the wrong answer, delivered fairly**: do not sneer at it, and do not tip the ending.
 
@@ -320,7 +320,7 @@ Presenter notes: Deliberately uncontroversial — everyone in the room has this,
 
 ▎ Somebody has to be in charge, and in call and return it is always `main`.
 
-#image: hand-drawn call-and-return diagram — Main invoking Cart, Restaurant, Account, Menu, Payment, Order, Delivery objects
+#image: hand-drawn call-and-return diagram — main invoking Cart, and Cart invoking Restaurant, Account, Menu, Payment, Order, Delivery  [→ resources/flow-call-and-return.png]
 
 Presenter notes: A system passes control between classes to meet a use case, via message passing — "call and return" from `main` on down. **Contrast it directly with the flows they drew this morning**: no desk in the takeaway knew the whole process; `main` knows nothing else. Hold the phrase *knowledge of the whole process lives in one place*; movement D and the exercise's round 4 both come back to it.
 
@@ -336,7 +336,7 @@ as an architectural principle.
 ▎ "A service should represent a self-contained functionality that corresponds to a real-world business
 activity." — Nicolai Josuttis, *SOA in Practice*
 
-#image: hand-drawn service-orientation diagram — a WSDL service with endpoint, binding, operations, input/output messages
+#image: hand-drawn service-orientation diagram — a service's operations, its input and output messages, and the data shut away behind them  [→ resources/flow-soa-service.png]
 
 Presenter notes: SOA takes objects to a macro scale. The Josuttis quote is the standard against which the next slide fails: he says align the service with a *business activity*. The next slide shows what you get when you align it with an *entity* instead. **A desk is a business activity** — the takeaway flows already satisfied Josuttis, which is worth saying out loud here rather than at the end.
 
@@ -353,7 +353,7 @@ yardstick *Feature Envy* fails against — do not reintroduce it in Process Auto
 
 ▎ The gateway is `main`. You have distributed the objects and kept the god object.
 
-#image: hand-drawn entity-services diagram — Device → API Gateway → Cart, Restaurant, Account, Menu, Payment, Order, Delivery
+#image: hand-drawn entity-services diagram — Device → API Gateway → Cart, Restaurant, Account, Menu, Payment, Order, Delivery  [→ resources/flow-entity-services.png]
 
 Presenter notes: **This is the slide the movement exists for, and it is now an answer rather than an opening complaint.** The room proposed this shape an hour ago; here is what it costs. The distributed monolith is not a failure of nerve, it is what call-and-return *becomes* when you distribute it — and it gives back exactly the independent deployability this morning's opener called "the prize". **End on the comparison, not on a question:** you drew a flow this morning with no coordinator, and then you built one with a coordinator in the middle. So what would it take to build what you actually drew? Movement C is the answer.
 
@@ -372,7 +372,7 @@ available — not when someone calls it.
 
 ▎ In call and return, control moves and data sits still. In dataflow, data moves and control sits still.
 
-#image: hand-drawn dataflow graph — nodes/vertices connected by arcs, with operation and data annotations
+#image: hand-drawn dataflow graph — nodes connected by arcs, one of them firing because its input arrived  [→ resources/flow-dataflow-graph.png]
 
 Presenter notes: Perhaps the oldest expression of the reactive approach, and **the formal version of the paper flow they drew themselves an hour ago** — say that in the first sentence, because it is the whole reason this movement lands where it does. Unlike OO — where state is co-located with behaviour in the node — data *moves between* transformations along arcs. **The desk is a node; the tray is an arc; the file is the node's state.** Draw that mapping on the board and leave it up for the rest of the movement.
 
@@ -392,8 +392,8 @@ ports.
 
 ▎ It is *reactive* because it fires in response to an event.
 
-#image: hand-drawn diagram — a dataflow node as a black box with input/output ports (activate → process → push)
-#image: hand-drawn diagram — two nodes passing data packets between ports
+#image: hand-drawn diagram — a dataflow node as a black box with in and out ports; activation, process, push  [→ resources/flow-node-ports.png]
+#image: hand-drawn diagram — two nodes passing packets between ports  [→ resources/flow-two-nodes.png]
 
 Presenter notes: Single-threaded-node / concurrency-from-many-nodes is the clerk rule: one clerk does one document at a time, and you get throughput by hiring clerks. Every delegate has just enacted this with cards.
 
@@ -405,7 +405,7 @@ Presenter notes: Single-threaded-node / concurrency-from-many-nodes is the clerk
   infinite capacity exist only in theory.
 - Therefore: **backpressure**. A full buffer means either slow the producer, or drop data.
 
-#image: hand-drawn diagram — an arc/link pipe with buffers for pipelining; push/pull, synchronous/asynchronous
+#image: hand-drawn diagram — a buffered arc between two nodes: capacity, push and pull, and a full buffer  [→ resources/flow-arc-buffers.png]
 
 Presenter notes: Arcs connect nodes; buffered arcs allow asynchrony — a node can push its output onto the buffer while the downstream node is still busy, which is what enables parallelism. Throughput is then limited by the slowest node. None of this is *required* for dataflow: a synchronous, unbuffered, single-threaded pipeline is a valid dataflow program. Push is a hot source you listen to (mouse clicks); pull means nothing is generated until a sink pulls the chain. Introduce backpressure and load-shedding as the two available answers here — movement D turns them into a decision. If a table got *"this in-tray holds only three documents"* in block 1, this is their card, named.
 
@@ -423,9 +423,9 @@ always is not:
 - **Node lifetime:** a component keeps running while there is work on an input queue, and **suspends**
   rather than terminates when there is none.
 
-#image: hand-drawn FBP diagram — a component with in/out ports, an information packet, and a connector
-#image: hand-drawn FBP diagram — packet lifetime and process-and-wait annotations
-#image: hand-drawn FBP diagram — multiple writers on an in-port, single writer on an out-port, multiple ports
+#image: hand-drawn FBP diagram — component, port, information packet and connector  [→ resources/flow-fbp-component.png]
+#image: hand-drawn FBP diagram — packet lifetime either side of the component, and process-then-wait  [→ resources/flow-fbp-lifetime.png]
+#image: hand-drawn FBP diagram — multiple writers on an in-port, a single writer on each out-port  [→ resources/flow-fbp-ports.png]
 
 Presenter notes: Merged from three slides. The deltas from dataflow are the whole content — do not re-teach dataflow. Suspend-not-terminate is the one to dwell on: it is the message pump from Day 1 §4.3, described from the other side — and it is the clerk who stays at the desk all day rather than being hired per document.
 
@@ -434,7 +434,7 @@ Presenter notes: Merged from three slides. The deltas from dataflow are the whol
 An **IIP** is a packet a component receives at start-up rather than from an upstream component —
 configuration, or a starting value. Control packets bracket a stream into groups.
 
-#image: hand-drawn FBP diagram — an initial information packet (iip_in) and control-packet bracketing
+#image: hand-drawn FBP diagram — an initial information packet on iip_in, and control packets bracketing a stream  [→ resources/flow-fbp-iip.png]
 
 Presenter notes: MQTT **retained messages** are a way of emulating the IIP idea — the broker holds the last value on a topic so a late subscriber gets state immediately rather than waiting for the next publish. Same problem: how does a node that just started know anything? The paper answer is the standing instruction pinned above the desk.
 
@@ -451,9 +451,9 @@ Data*.
 
 ▎ Same decision as reference data, drawn as a graph — and the same answer: hold the copy.
 
-#image: hand-drawn FBP diagram — components A and B; does A need data from another node?
-#image: hand-drawn FBP diagram — components A and B with lookup ports (query / pause / response) — the 'walk of shame'
-#image: hand-drawn FBP diagram — a 'Build Lookup' node listening to A, pre-caching a lookup table for B
+#image: hand-drawn FBP diagram — components A and B, and the data B needs that no arc brings it  [→ resources/flow-lookup-question.png]
+#image: hand-drawn FBP diagram — the lookup port: query out, pause, response in — the 'walk of shame'  [→ resources/flow-lookup-port.png]
+#image: hand-drawn FBP diagram — a Build Lookup node listening to A and keeping a table B reads locally  [→ resources/flow-lookup-build.png]
 
 Presenter notes: This is the direct callback to Day 1 §6.2 *Reference Data* — on-demand versus in-advance, and the CAP cost of each. Delegates met the decision in prose at the end of Day 1 and meet it as a picture now. **Give the same verdict:** the Build Lookup node is the recommended shape; the lookup port is what you use when the data cannot be replicated. The paper form is the Catalogue Maker: a desk whose whole job is keeping a local copy current so nobody has to walk.
 
@@ -523,7 +523,7 @@ Then the last move of the movement: **make the arcs middleware and the nodes pro
 drawn a distributed system.
 
 #image: hand-drawn FBP 'Order Food Errors' flow  [→ resources/flowbased_order_food_errors.png, resources/FBP Order Food Failure.drawio]
-#image: hand-drawn FBP diagram — nodes as processes connected by Message-Oriented Middleware (MoM)
+#image: hand-drawn FBP diagram — nodes as processes, arcs as message-oriented middleware  [→ resources/flow-nodes-as-processes.png]
 
 Presenter notes: **The summit of movements A and C.** Two beats, and the second is the hinge into
 movement D — do not let the failure discussion eat it. The MoM diagram is where the whole section turns:
@@ -609,7 +609,7 @@ Presenter notes: Fixed attribution — the old slide showed four words and three
 **Message passing** is an asynchronous method of communication: both parties need not be simultaneously
 present. Mail is delivered to a **mailbox** of some form, for later retrieval.
 
-#image: hand-drawn diagram — a component with incoming and outgoing message arrows (asynchronous message passing)
+#image: hand-drawn diagram — a sender, a mailbox that holds the message, and a receiver that collects when it is ready  [→ resources/flow-message-passing.png]
 
 Presenter notes: Message passing invokes behaviour on a computer. In contrast to calling a program by name, it uses an object model to separate the general function from the specific implementation — the invoker sends a message and relies on the object to select and execute the code. The justifications fall into two categories: encapsulation and distribution. Point back at the frame: a mailbox is a pigeonhole.
 
@@ -623,7 +623,7 @@ and send an outgoing message. That is a node with ports. That is a desk with tra
 
 ▎ **This morning called independent deployability the prize. This is how you stop giving it back.**
 
-#image: hand-drawn message-passing diagram — a component with in-request / out-request / out-result ports (command vs event)
+#image: hand-drawn message-passing diagram — in-request, out-request and out-result: commands in, events out  [→ resources/flow-command-event-ports.png]
 
 Presenter notes: **Close the loop explicitly** — name *Easy to Change, and Robust* from this morning's opener out loud. The through-line to draw on the board: call and return puts knowledge of the whole use case in one place, so one place has to change every time the use case does; flow puts each step in its own component reacting to its own input, so a new step is a new subscriber. Reactive architectures derive from reactive programming, not OO — "everything flows". This is also the slide that answers movement B: the distributed monolith was entity services with a gateway `main`; this is the same distribution with the god object removed.
 
@@ -636,7 +636,7 @@ Presenter notes: **Close the loop explicitly** — name *Easy to Change, and Rob
 
 ▎ Divide by verb, not by noun. Entity services divide by noun — that is Feature Envy.
 
-#image: hand-drawn FBP diagram — Checkout and Take Payment components with purchase / priced / payment-due messages
+#image: hand-drawn FBP diagram — Checkout and Take Payment, purchase / priced / payment due, and no gateway  [→ resources/flow-partition-checkout.png]
 
 Presenter notes: The direct answer to movement B. Reactive inherits from dataflow: conceive the application as a graph of nodes operating on data flowing through it. It shines for data-driven applications composed from components in workflows — let components subscribe to each other's event streams and consume published facts asynchronously, on demand. **Every desk in the paper office was a verb**: Take Order, Send Fax, Make Catalogue. That is why the office had no god object and the gateway does.
 
@@ -651,7 +651,7 @@ we are brittle. In an asynchronous conversation it does not: the work queues up 
 
 ▎ The outage became a delay, not a failure. Again.
 
-#image: hand-drawn FBP diagram — Take Payment crossed out; work queues up on a fault (the bulkhead)
+#image: hand-drawn FBP diagram — Take Payment down, and the work queueing up on the arc: the bulkhead  [→ resources/flow-bulkhead.png]
 
 Presenter notes: This slide absorbs the cut *SOA — Faults Propagate* — the fault propagation claim is made here, where it is immediately answered, instead of standing alone. And the callout is Day 1 §Coupling's central argument arriving for the third time: availabilities multiply only under temporal coupling; store-and-forward breaks the chain. This requires storage and retransmission — usually Message-Oriented Middleware. If a table drew *"the night porter is on a break"* in block 1, this is that card with a name on it.
 
@@ -672,8 +672,8 @@ answers, and it is a **decision**, not a default.
   consumption, which fills the queue, which slows the producer.
 - **Load-shedding** can discriminate — prioritise, and discard only the less valuable data.
 
-#image: hand-drawn message-passing diagram — push vs pull, with backpressure annotations on the ports
-#image: hand-drawn message-passing diagram — load-shedding, dropping messages on a fault
+#image: hand-drawn message-passing diagram — backpressure: a full pipe, and the producer told to slow down  [→ resources/flow-backpressure.png]
+#image: hand-drawn message-passing diagram — load-shedding: packets dropped on purpose to keep up  [→ resources/flow-load-shedding.png]
 
 Presenter notes: Merged from two slides. The idea was introduced as a mechanism back in *Capacity, Backpressure and Node Lifetime*; here it becomes the choice. Worth asking the room which one their current system does — the answer is usually "neither, it falls over", which is a third option nobody chooses on purpose.
 
@@ -690,9 +690,9 @@ The pieces, and how they compose.
 
 ▎ Responsive under failure, responsive under load. The traits are these mechanisms.
 
-#image: hand-drawn message-passing diagram — circuit breaker: stop consuming on a fault
-#image: hand-drawn 'scale out not up' diagram — a Supervisor fanning out to Worker instances
-#image: hand-drawn 'scale out not up' diagram — Supervisor to Workers with scale-out and fault regions
+#image: hand-drawn message-passing diagram — circuit breaker: stop consuming, and let one trial call through  [→ resources/flow-circuit-breaker.png]
+#image: hand-drawn 'scale out not up' diagram — a Supervisor fanning work out to identical Workers  [→ resources/flow-scale-out.png]
+#image: hand-drawn 'scale out not up' diagram — one Worker in a fault region, and the other carrying on  [→ resources/flow-scale-out-fault.png]
 
 Presenter notes: The circuit-breaker and scale-out diagrams used to be orphaned images under a "recap" heading and were never really taught. Give them a sentence each. Land the callout: Resilient and Elastic are not aspirations, they are the four mechanisms on this slide.
 

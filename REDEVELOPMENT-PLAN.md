@@ -848,11 +848,12 @@ the 1:1. **Do it per section.**
 Calling them "61 unannotated lines" hid the fact that they are **three different jobs with three
 different answers**, and only one of them is mechanical.
 
-| class | count | what it needs |
-|---|---:|---|
-| **A — link only** | ~18 | photos, book covers, screenshots, the *DON'T PANIC* motif, an icon. Find the master, copy to `resources/`, link. No visual decision. |
-| **B — the two hand-drawn families** | ~36 | Day 1 §4.5 *Queues and Streams* (12) and Day 2's OO/FBP run (24). **This is the decision.** |
-| **C — Integration Styles, s32–s35** | 4 | conceptual diagrams sitting immediately beside the new coupling grid |
+| class | count | left | what it needs |
+|---|---:|---:|---|
+| **A — link only** | ~18 | **1** | photos, book covers, screenshots, the *DON'T PANIC* motif, an icon. Find the master, copy to `resources/`, link. No visual decision. The one left is the order-taking photograph — **Ian's export**. |
+| **B — the two hand-drawn families** | ~36 | **0** | Day 1 §4.5 *Queues and Streams* (11, run 1) and Day 2's OO/FBP run (25, run 2). **Both done.** |
+| **C — Integration Styles, s32–s35** | 4 | 4 | conceptual diagrams sitting immediately beside the new coupling grid. **Next.** |
+| **D — the rest** | ~9 | ~9 | Day 1's process-boundary pair, the messaging-concepts diagram, the message-pump pair, a stopwatch icon; Day 2's two C# code screenshots. |
 
 **✅ A is under way. 7 done 2026-09-02** — Day 2 §Next Steps' four (`cover-reactive-microservices`,
 `cover-practical-process-automation`, `screenshot-eda-visuals`,
@@ -913,7 +914,50 @@ keeps eleven drawings looking like one set:
 
 **`diagram.py` gained `log` and `icon`** for this run, and both are shared with run 2.
 
-**☐ Run 2 — Day 2's OO/FBP run, ~24 figures.** Not started.
+**✅ Run 2 done — Day 2 §*Flow and Reactive Programming*, 2026-09-03.** `tools/flow_reactive.py`,
+**25 figures**, which is every unannotated marker in the section. Day 2 unannotated falls 28 → 3, and the
+three that remain are the order-taking photograph (Ian's export) and the two C# code screenshots.
+
+**The run has two vocabularies, and the split is the section's own argument.** Movement B — the wrong
+answer — is **boxes joined by call arrows**: somebody is in charge and you can see who, because every
+arrow starts at a caller. Movements C and D are **hexagons with ports, and dashed-square packets**. A
+reader who sees a hexagon knows nothing is in charge; a reader who sees a box knows something is. Mixing
+them would have thrown away the one contrast the section is built on.
+
+**Two elements went into `diagram.py` rather than into the figure script**, for the same reason `queue()`
+went into run 1's:
+
+  * **`node(x, y, w, h, label, ins=, outs=)`** — the component glyph, a hexagon with named ports.
+    Twenty-five figures draw it. It owns the reading direction (**in-ports left, out-ports right, data
+    flows left to right**), and its left and right vertices are flattened into short vertical edges so a
+    port always lands on a stroke however many there are. Ports come back keyed by name *and*
+    positionally (`in0`, `out1`, …), so nothing ever aims at the hexagon's own edge.
+  * **`packet(...)`** — an information packet, a dashed rounded square. Deliberately **not** the `msg`
+    envelope: an envelope is a message on a channel and the EIP and queue families own it, while an IP is
+    a value in flight between ports with a lifetime that ends when a component consumes it.
+
+**A dataflow node and an FBP component are the same glyph on purpose.** The outline says FBP is a
+subclass of dataflow and the deltas are the content; drawing them differently would argue they are
+different things.
+
+**Red pairs figures across the run**, as it does in the EIP set: the class and the service red the same
+thing (encapsulated data), because *same idea, bigger unit* is the whole claim; the gateway is red in
+*Feature Envy* and **its absence** is red in *Partitioning and Dataflow*, drawn as the empty dashed bar
+where the gateway bar sat; the lookup port reds the pause, Build Lookup reds the absence of one;
+backpressure reds a signal travelling back, load-shedding reds packets leaving the drawing.
+
+**Defects that were invisible in the source and only showed up in the PNG** — the same lesson as every
+batch before it: a leader line aimed at a port crossed the hexagon body, and when re-aimed struck through
+the port's own label (fixed by reddening the ports themselves instead of annotating them); a full-size
+cross over a named component struck through its own name, twice (fixed by moving the name above the
+hexagon); the circuit-breaker figure was laid out consumer-first, so the feed arrow ran backwards through
+the consumer's label and the outbound call crossed the queue; a pipe's mouth ellipse sat on a process
+boundary and swallowed an out-port label; and the lookup response crossed the query until it was routed
+the long way round — which turned out to be the honest drawing, because the round trip is the cost the
+figure is about.
+
+**`diagram.py`'s change is additive**: all seven existing families rebuild byte-identical, and
+`flow_reactive.py` rebuilds byte-identical too.
 
 ### Settled 2026-09-01 — how Phase 2 is built
 
@@ -928,7 +972,8 @@ keeps eleven drawings looking like one set:
    enough to want a **hard review**, which is a different thing from being undrawable.
 
    **Everything in §8 is now built.** Both days have zero pending `#image:` markers, and what remains
-   of Phase 2 is the **61 unannotated `#image:` lines** — 23 Day 1, 38 Day 2 — done per section.
+   of Phase 2 is **13 unannotated `#image:` lines** — 10 Day 1, 3 Day 2 — done per section. (It was 61
+   when this was written; runs 1 and 2 of the redraw took 36 of them, and the class-A sweep the rest.)
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.
