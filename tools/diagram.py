@@ -293,7 +293,7 @@ class Diagram:
         self.nodes.append(node)
         return node
 
-    def log(self, x, y, w, h, cells, label="", start=0, accent=False, size=12):
+    def log(self, x, y, w, h, cells, label="", start=0, accent=False, size=17):
         """An append-only log: contiguous numbered cells.
 
         Drawn as a *different thing* from a queue on purpose. §4.5 spends ten slides
@@ -729,10 +729,14 @@ class Diagram:
                 for i in range(1, cn):
                     o.append(f'<path d="M{x + i*cw},{y} v{h}" stroke="{c}" '
                              f'stroke-width="1.1"/>')
+                # An offset is the stream's own vocabulary, not our annotation on
+                # top of it, so it is set in ink at label size and bold -- not muted
+                # at 12. Ian, reviewing the run on a projector: "a little small and
+                # faint to read on a slide across a room."
                 for i in range(cn):
                     self._text(o, str(n["start"] + i), x + (i + 0.5) * cw,
-                               y + h + n["size"] + 4, n["size"], MUTED, "middle",
-                               self.font)
+                               y + h + n["size"] + 6, n["size"], INK, "middle",
+                               self.font, weight=700)
             elif n["kind"] == "icon":
                 x, y, w, h = n["x"], n["y"], n["w"], n["h"]
                 cx, cy, r = x + w / 2, y + h / 2, w / 2
@@ -958,17 +962,22 @@ class Diagram:
                    "".join(buf) + "</g>")
 
     @classmethod
-    def _text(cls, out, text, x, y, size, color, anchor, family=HAND):
+    def _text(cls, out, text, x, y, size, color, anchor, family=HAND, weight=None):
+        """`weight` overrides the face's default instance. Both bundled faces are
+        variable (Caveat 400-700, Plex Sans 100-700), so this is a real axis setting
+        rather than a synthetic bold -- which matters, because a faux-bolded outline
+        would thicken by a fixed amount at every size."""
         if "\n" in text:                       # stack the lines, block-centred on y
             lines = text.split("\n")
             lead = size * 1.05
             top = y - (len(lines) - 1) * lead / 2
             for i, line in enumerate(lines):
-                cls._text(out, line, x, top + i * lead, size, color, anchor, family)
+                cls._text(out, line, x, top + i * lead, size, color, anchor, family,
+                          weight)
             return
         try:
             d, _ = _Outliner.outline(text, family, size, x, y, anchor,
-                                     weight=490 if family == PLAIN else None)
+                                     weight=weight or (490 if family == PLAIN else None))
             if d:
                 out.append(f'<path d="{d}" fill="{color}"/>')
                 return

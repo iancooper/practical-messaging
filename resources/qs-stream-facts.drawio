@@ -7,7 +7,7 @@
         <mxCell id="t1" value="nothing is consumed by reading — both consumers read every record, and each remembers how far it got" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="500" y="32" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="l1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=table;childLayout=tableLayout;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+        <mxCell id="l1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=table;childLayout=tableLayout;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="70" y="210" width="560" height="68" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="the stream — nothing is ever removed" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
