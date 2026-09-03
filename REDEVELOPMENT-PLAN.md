@@ -828,7 +828,7 @@ was replaced by a drawing (41 → 38 unannotated across that and the order wheel
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
-| `outlines/DayOne.md` | **49** | 28 | 0 | **0** | **21** |
+| `outlines/DayOne.md` | **49** | 39 | 0 | **0** | **10** |
 | `outlines/DayTwo.md` | **88** | 60 | 0 | **0** | **28** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
@@ -890,8 +890,30 @@ restyle was for, at four times the scale.
 ideas* — a starting point, not a swap. **And their `.png`s are 2021 black-on-white, so linking them keeps
 the old look; only a redraw through `diagram.py` changes it.**
 
-*Options, cheapest first:* link the masters and accept two registers · redraw only the load-bearing ones
-and link the rest · redraw both runs. **Not started, and not to be started without an answer.**
+**✅ Ian: *"Let's redraw both runs. One thing I want to strive for is a consistent look and feel."***
+
+**Run 1 of 2 done — Day 1 §4.5, 2026-09-03.** `tools/queues_streams.py`, 11 figures, and §4.4's requeue
+diagram is built in the same family so the queue a reader meets in §4.4 is the queue they meet in §4.5.
+Day 1 unannotated falls 21 → 10.
+
+**Consistency was enforced structurally, not by eye.** The section is one long comparison, so the run
+uses one pair of shapes and never varies them: a queue is always `pipe` + loose `msg` envelopes, a stream
+is always a `log` of contiguous numbered cells. Ten slides argue queue-versus-stream, and if both were a
+pipe with envelopes the room would have to be *told* the difference every time instead of seeing it.
+`lock` / `clock` / `tick` / `cross` mean exactly one thing each and are the only icons in the run.
+
+**Two layout rules are enforced in the `queue()` helper rather than per figure**, which is what actually
+keeps eleven drawings looking like one set:
+
+  * **a lock sits on its envelope's top-left corner**, because arrows leave an envelope from the top or
+    bottom and a centred padlock lands exactly on the one that goes up;
+  * **the head of the queue is the right-hand envelope**, nearest the consumers. The first pass locked
+    the left-hand one and every arrow then had to cross the whole queue to reach a consumer — the drawing
+    was fighting its own reading direction. Messages enter at the capped left end and leave at the right.
+
+**`diagram.py` gained `log` and `icon`** for this run, and both are shared with run 2.
+
+**☐ Run 2 — Day 2's OO/FBP run, ~24 figures.** Not started.
 
 ### Settled 2026-09-01 — how Phase 2 is built
 

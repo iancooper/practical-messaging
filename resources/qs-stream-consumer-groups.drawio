@@ -1,0 +1,55 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Scaling Streams — Consumer Groups">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1180" pageHeight="580" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="g1" value="consumer group" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#8A8578;fontSize=14;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
+          <mxGeometry x="700" y="96" width="420" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="one consumer per partition at a time — the spare is there to take over, not to help" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="530" y="32" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=table;childLayout=tableLayout;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="150" y="132" width="420" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="partition 0" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="76" y="150" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="Consumer 1" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="740" y="124" width="230" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="k4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="663" y="145" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="l5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=table;childLayout=tableLayout;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="150" y="262" width="420" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="partition 1" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="76" y="280" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="Consumer 2" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="740" y="254" width="230" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="k7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="663" y="275" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" value="Consumer 3" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="740" y="356" width="230" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="holding nothing, and that is correct" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="795" y="440" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="a consumer may hold more than one of the group's partitions — but a partition is never held by two at once" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+          <mxGeometry x="370" y="516" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="l2" target="n3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="l5" target="n6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

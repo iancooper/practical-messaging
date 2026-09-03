@@ -737,7 +737,7 @@ database is failing over. The message is fine — you just tried at a bad moment
 **Needs from the broker:** per-message acknowledgement, a redelivery mechanism, and a way to hold a
 message back for a period.
 
-#image: diagram — a queue with requeue and delay (stopwatch), moving to a dead-letter channel after N tries
+#image: diagram — a locked message at the head of a queue, unlocked and held back on a timer when it is not acked, and dead-lettered after N tries  [→ resources/qs-requeue-with-delay.png]
 
 #note: This is a *queue* capability, taught before we have formally drawn the queue/stream distinction.
 That is deliberate — §4.5 then gets the reveal that streams have none of this. Say "queue" here and
@@ -823,7 +823,7 @@ Think of messages on a **queue** as **tasks** — requests to carry out an actio
 - We don't want anyone else to action a done task; a receiver of a done task discards it. If we can't action it, someone else must.
 
 
-#image: diagram — a queue of message envelopes with Consumer One/Two and lock icons (lock and read-past)
+#image: diagram — a queue of envelopes: Consumer One locks the one at the head, Consumer Two reads past it and locks the next  [→ resources/qs-queue-tasks.png]
 
 ### Slide: Queue Lifecycle — Ack, Fail, Requeue
 
@@ -834,7 +834,7 @@ Think of messages on a **queue** as **tasks** — requests to carry out an actio
 - After a number of re-queues, move it to a dead-letter channel — no one actioned the request in a reasonable time frame.
 
 
-#image: diagram — competing consumers on a queue with lock, delete (eraser) and delay (stopwatch) icons
+#image: diagram — a locked message and its three endings: deleted on success, unlocked on failure, dead-lettered after N tries  [→ resources/qs-queue-lifecycle.png]
 
 ### Slide: Streams Contain Facts
 
@@ -847,7 +847,7 @@ Think of records on a **stream** as **facts** — records that a state change oc
 - Facts are an "inverse database" — how current state was arrived at. Navigate offsets to compute a point-in-time position. We don't consume facts by reading; they persist.
 
 
-#image: diagram — a stream log of message envelopes with an Offset Store and two consumers
+#image: diagram — an append-only log of numbered cells, two consumers reading all of it, each with its own offset store  [→ resources/qs-stream-facts.png]
 
 ### Slide: Scaling Queues and Streams
 
@@ -860,7 +860,7 @@ Section marker: how each model scales.
 Scale consumption of a queue by adding more consumers (lock, read-past, lock-next — as before).
 
 
-#image: diagram — a queue with multiple competing consumers locking and reading past messages
+#image: diagram — three competing consumers on one queue, each holding a locked message, one still waiting  [→ resources/qs-queue-competing.png]
 
 ### Slide: Scaling Streams — Partitions
 
@@ -871,7 +871,7 @@ To scale out we partition the stream so multiple consumers can read it.
 - For events that must be processed sequentially (e.g. all changes to one entity), use **consistent hashing** to push same-identifier messages to the same partition — scale while preserving order.
 
 
-#image: diagram — a stream divided into partitions, each read by its own consumer, with offset stores
+#image: diagram — a stream split into three partitions, one consumer and one offset store per partition  [→ resources/qs-stream-partitions.png]
 
 ### Slide: Scaling Streams — Consumer Groups
 
@@ -879,7 +879,7 @@ To scale out we partition the stream so multiple consumers can read it.
 For availability, only one consumer in a group reads from a partition at a time, but a consumer may read from more than one of the group's partitions.
 
 
-#image: diagram — stream partitions with a consumer group; one consumer per partition at a time
+#image: diagram — two partitions held by two consumers in a group, and a third consumer holding nothing  [→ resources/qs-stream-consumer-groups.png]
 
 ### Slide: Archive and Replay
 
@@ -892,7 +892,7 @@ Section marker: can we re-read the past?
 With queues we delete a message once the action completes, so there's no way to replay a work request — our only option is to ask the producer to resend.
 
 
-#image: diagram — a queue where a processed message is deleted (eraser icon); nothing left to replay
+#image: diagram — a queue with the processed messages gone from the head end, and nothing left where they were  [→ resources/qs-queue-no-replay.png]
 
 ### Slide: Streams — Archive and Replay
 
@@ -900,7 +900,7 @@ With queues we delete a message once the action completes, so there's no way to 
 Straightforward, because nothing is deleted: reset the consumer's offset to re-read the stream.
 
 
-#image: diagram — a stream log with an Offset Store; replay by resetting the consumer's offset
+#image: diagram — a log with the consumer's offset marker moved backwards, the log itself unchanged  [→ resources/qs-stream-replay.png]
 
 ### Slide: Streams — No Requeue or DLQ
 
@@ -912,7 +912,7 @@ Because we don't lock items, we don't requeue (including requeue-with-delay). St
 - Copy to another stream (a delay or DLQ stream).
 
 
-#image: diagram — a stream log with an Offset Store; no locking, requeue, or DLQ
+#image: diagram — a log and a consumer, with requeue, requeue-with-delay and dead-letter each struck out, and the three alternatives named  [→ resources/qs-stream-no-requeue.png]
 
 ### Slide: Queues vs. Streams — Capability Matrix
 
@@ -920,7 +920,7 @@ Because we don't lock items, we don't requeue (including requeue-with-delay). St
 Summary comparison across: Messaging (Discrete Event vs. Series Event), Ordering, Archive and Replay, and Requeue with Delay — for Queue vs. Stream.
 
 
-#image: comparison grid of green-check / red-cross icons (queue vs stream across ordering, replay, requeue-with-delay, etc.)
+#image: a queue-versus-stream matrix — what each carries, then ordering, archive and replay, requeue with delay, and lock-and-read-past, one tick and one cross on every row  [→ resources/qs-capability-matrix.png]
 
 ### Slide: Exercise Material — Introduction to Kafka
 

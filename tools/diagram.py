@@ -293,6 +293,38 @@ class Diagram:
         self.nodes.append(node)
         return node
 
+    def log(self, x, y, w, h, cells, label="", start=0, accent=False, size=12):
+        """An append-only log: contiguous numbered cells.
+
+        Drawn as a *different thing* from a queue on purpose. §4.5 spends ten slides
+        on queue-versus-stream, and if both are a pipe with envelopes in it the room
+        has to be told the difference every time instead of seeing it. A queue is
+        loose envelopes in a pipe; a log is cells in a row, each with an offset, and
+        nothing ever leaves it.
+
+        Cell i has centre x + (i + 0.5) * w / cells -- compute it in the figure when
+        you need to point at one.
+        """
+        self._n += 1
+        node = dict(id=f"l{self._n}", kind="log", x=x, y=y, w=w, h=h, label=label,
+                    cells=cells, start=start, accent=accent, size=size,
+                    label_pos="below")
+        self.nodes.append(node)
+        return node
+
+    def icon(self, x, y, kind, accent=False, r=13, label="", size=12):
+        """lock | clock | tick | cross -- the four marks §4.5 leans on.
+
+        They are one element rather than four because they only ever appear as small
+        annotations on something else, and one element means one place to keep them
+        consistent."""
+        self._n += 1
+        node = dict(id=f"k{self._n}", kind="icon", x=x - r, y=y - r, w=2 * r,
+                    h=2 * r, ikind=kind, label=label, accent=accent, size=size,
+                    label_pos="below")
+        self.nodes.append(node)
+        return node
+
     def phone(self, x, y, w, h, label="", accent=False, size=13):
         """A desk telephone, seen from above: handset on the left, keypad on the
         right. Matches the glyph in `resources/Paper Office.drawio`, so a drawn desk
@@ -623,6 +655,46 @@ class Diagram:
                 o.append(f'<path d="M{n["x"]},{n["y"]} l{n.get("dx") or 0},'
                          f'{n.get("dy") or 0}" fill="none" '
                          f'stroke="{n["color"]}" stroke-width="{n["weight"]}"/>')
+            elif n["kind"] == "log":
+                x, y, w, h, cn = n["x"], n["y"], n["w"], n["h"], n["cells"]
+                cw = w / cn
+                o.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" '
+                         f'fill="{PAPER}" stroke="{c}" stroke-width="1.6"/>')
+                for i in range(1, cn):
+                    o.append(f'<path d="M{x + i*cw},{y} v{h}" stroke="{c}" '
+                             f'stroke-width="1.1"/>')
+                for i in range(cn):
+                    self._text(o, str(n["start"] + i), x + (i + 0.5) * cw,
+                               y + h + n["size"] + 4, n["size"], MUTED, "middle",
+                               self.font)
+            elif n["kind"] == "icon":
+                x, y, w, h = n["x"], n["y"], n["w"], n["h"]
+                cx, cy, r = x + w / 2, y + h / 2, w / 2
+                k = n["ikind"]
+                if k == "lock":
+                    o.append(f'<path d="M{cx - r*0.5},{cy - r*0.05} '
+                             f'v{-r*0.45} a{r*0.5},{r*0.5} 0 0 1 {r},0 v{r*0.45}" '
+                             f'fill="none" stroke="{c}" stroke-width="1.8"/>')
+                    o.append(f'<rect x="{cx - r*0.72}" y="{cy - r*0.05}" '
+                             f'width="{r*1.44}" height="{r*0.95}" rx="2" '
+                             f'fill="{PAPER}" stroke="{c}" stroke-width="1.6"/>')
+                elif k == "clock":
+                    o.append(f'<circle cx="{cx}" cy="{cy}" r="{r*0.82}" '
+                             f'fill="{PAPER}" stroke="{c}" stroke-width="1.6"/>')
+                    o.append(f'<path d="M{cx},{cy - r*0.5} v{r*0.5} h{r*0.4}" '
+                             f'fill="none" stroke="{c}" stroke-width="1.6"/>')
+                    o.append(f'<path d="M{cx - r*0.3},{cy - r*0.95} h{r*0.6}" '
+                             f'stroke="{c}" stroke-width="1.8"/>')
+                elif k == "tick":
+                    o.append(f'<path d="M{cx - r*0.7},{cy} l{r*0.5},{r*0.55} '
+                             f'l{r*0.95},{-r*1.15}" fill="none" stroke="{c}" '
+                             f'stroke-width="2.4" stroke-linecap="round" '
+                             f'stroke-linejoin="round"/>')
+                elif k == "cross":
+                    o.append(f'<path d="M{cx - r*0.6},{cy - r*0.6} '
+                             f'l{r*1.2},{r*1.2} M{cx + r*0.6},{cy - r*0.6} '
+                             f'l{-r*1.2},{r*1.2}" fill="none" stroke="{c}" '
+                             f'stroke-width="2.4" stroke-linecap="round"/>')
             elif n["kind"] == "point":
                 o.append(f'<circle cx="{n["x"] + n["w"] / 2}" cy="{n["y"] + n["h"] / 2}" '
                          f'r="{n["w"] / 2}" fill="{c}" stroke="{c}" stroke-width="1"/>')
@@ -913,6 +985,8 @@ class Diagram:
                      "bar": "rounded=0;",
                      "rule": "shape=line;",
                      "point": "ellipse;",
+                     "log": "shape=table;childLayout=tableLayout;",
+                     "icon": "rounded=1;arcSize=20;",
                      "phone": "shape=mxgraph.telecom.telephone;",
                      "step": "rounded=0;"}[n["kind"]]
             if n["kind"] == "rule":
@@ -921,10 +995,12 @@ class Diagram:
                     shape += "direction=north;"
             fill = {"msg": PAPER, "folder": MANILA, "bar": INK, "doc": PAPER,
                     "tray": PAPER, "desk": PAPER, "step": PAPER, "phone": PAPER,
+                    "log": PAPER, "icon": PAPER,
                     "point": stroke}.get(n["kind"], "none")
             if n["kind"] == "step":
                 stroke = CARBON
-            if n["kind"] in ("tray", "folder", "step", "bar", "doc", "point", "phone"):
+            if n["kind"] in ("tray", "folder", "step", "bar", "doc", "point",
+                             "phone", "log", "icon"):
                 style_extra = "verticalLabelPosition=bottom;verticalAlign=top;"
             elif n["kind"] == "desk":
                 style_extra = "verticalLabelPosition=top;verticalAlign=bottom;"
