@@ -19,16 +19,16 @@
         <mxCell id="t1" value="four flows, no `main` — every desk acts because something landed in its in-tray" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="510" y="36" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="Restaurant Onboarding" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t2" value="Restaurant Onboarding" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="240" y="480" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="Customer Order" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t3" value="Customer Order" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="780" y="480" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t4" value="Order Placement" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t4" value="Order Placement" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="240" y="906" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="Order Confirmation" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t5" value="Order Confirmation" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="780" y="906" width="120" height="20" as="geometry" />
         </mxCell>
       </root>

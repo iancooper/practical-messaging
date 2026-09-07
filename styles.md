@@ -121,13 +121,24 @@ not because green is easy for them, but because to a deuteranope annotation red 
   beside a shape. Getting this backwards makes the content quieter than the commentary, and it does not
   show up until the figure is on a projector. **Stream offsets were 12pt muted until Ian saw them across
   a room.**
-- **Nothing in a diagram below 14pt**, and 17 for anything a delegate has to read off the slide and use.
-  The 18pt body floor exists because the old deck was unreadable four rows back; a diagram label is no
-  more legible than a bullet.
-- **Those numbers are Caveat points, and the two faces are not on the same scale.** IBM Plex Sans's
-  x-height is `0.516`em against Caveat's `0.400`, so **13pt of Plex reads across a room as 17pt of
+- **One floor: 18pt, the same number as the body floor.** Content and commentary are the same size and
+  the *colour* is what separates them — which is what the muted-to-comment change already decided, taken
+  to its conclusion. The old pair (17 content / 16 aside) said "secondary" twice, in size and in hue, and
+  paid for it twice. The 18pt body floor exists because the old deck was unreadable four rows back; a
+  diagram label is no more legible than a bullet, so it gets the same number.
+- **⚑ That number is in canvas units, so the canvas width decides what it means.** A figure is scaled to
+  fit its slide, so 18pt on a 460-unit EIP canvas reads across a room at about 32 real points, and the
+  same 18 on a 1200-unit canvas reads at 13. **The floor is not a legibility guarantee on its own** —
+  it is a guarantee only once the canvas width is chosen. Roughly, at full slide width, a label reads at
+  `18 × 890 / w` real points, so **w ≈ 890 is where the diagram floor meets the body floor**.
+- **Aspect matters as much as width.** A 16:9 slide leaves about 2.2 : 1 of usable area for a figure.
+  Anything wider than that is fitted by width; anything squarer is fitted by *height*, and then every
+  label in it shrinks again. Adding a row of content to a wide figure costs legibility twice over — once
+  for the height, once for the aspect. **Cut content or cut width; do not just raise the number.**
+- **That number is Caveat points, and the two faces are not on the same scale.** IBM Plex Sans's
+  x-height is `0.516`em against Caveat's `0.400`, so **14pt of Plex reads across a room as 18pt of
   Caveat**. The BPMN register is therefore already at the floor at the sizes it was drawn at, and a flat
-  "17pt everywhere" would make it a third larger than the deck around it. Compare the two registers by
+  "18pt everywhere" would make it a third larger than the deck around it. Compare the two registers by
   x-height, never by point number — comparing point numbers is what let the labels drift.
 - **The floor is enforced, not remembered.** `Diagram._legible()` raises every label at render time, so a
   figure cannot quietly ship at 13pt again. Set a size only to go *above* the floor.

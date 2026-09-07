@@ -62,7 +62,7 @@ def publish_subscribe():
     for i, y in enumerate((40, 126, 212)):
         out = d.pipe(276, y + 14, 60, 26)
         d.msg(294, y + 20, w=18, h=13, accent=True)
-        sub = d.box(370, y, 84, 54, f"Subscriber {i + 1}")
+        sub = d.box(360, y, 96, 54, f"Subscriber {i + 1}")
         outs.append(out)
         subs.append(sub)
         d.arrow(inp, out, sides=("r", "l"))
@@ -133,34 +133,34 @@ def messaging_gateway():
 @figure("eip-polling-consumer")
 def polling_consumer():
     """The consumer asks. Red is on the asking."""
-    d = Diagram("Polling Consumer", w=460, h=240)
+    d = Diagram("Polling Consumer", w=580, h=250)
     pipe = d.pipe(34, 112, 118, 30)
     d.msg(64, 120, w=20, h=14)
-    pump = d.box(292, 100, 128, 56, "Message\nPump")
+    pump = d.box(412, 100, 128, 56, "Message\nPump")
     d.arrow(pump, pipe, "receive()", accent=True,
-            via=[(356, 58), (93, 58)], sides=("t", "t"))
+            via=[(476, 58), (93, 58)], sides=("t", "t"))
     d.arrow(pipe, pump, "a message, or nothing", sides=("r", "l"), ly=-2)
     d.note(93, 168, "channel", INK, 14)
-    d.note(230, 212, "holds a thread even when the channel is empty -- "
+    d.note(290, 216, "holds a thread even when the channel is empty --\n"
                      "but needs no connection held open", COMMENT, 14)
-    d.note(230, 26, "the consumer asks", ANNOTATION, 17)
+    d.note(290, 26, "the consumer asks", ANNOTATION, 17)
     return d
 
 
 @figure("eip-event-driven-consumer")
 def event_driven_consumer():
     """The broker calls. Red is on the call -- the mirror of Polling Consumer."""
-    d = Diagram("Event-Driven Consumer", w=460, h=240)
+    d = Diagram("Event-Driven Consumer", w=580, h=250)
     pipe = d.pipe(34, 112, 118, 30)
     d.msg(64, 120, w=20, h=14)
-    pump = d.box(292, 100, 128, 56, "Message\nPump")
+    pump = d.box(412, 100, 128, 56, "Message\nPump")
     d.arrow(pump, pipe, "register callback", dashed=True, muted=True,
-            via=[(356, 58), (93, 58)], sides=("t", "t"))
+            via=[(476, 58), (93, 58)], sides=("t", "t"))
     d.arrow(pipe, pump, "on message", accent=True, sides=("r", "l"), ly=-2)
     d.note(93, 168, "channel", INK, 14)
-    d.note(230, 212, "no thread while idle -- but the connection stays open, "
+    d.note(290, 216, "no thread while idle -- but the connection stays open,\n"
                      "and the broker sets the pace", COMMENT, 14)
-    d.note(230, 26, "the broker calls", ANNOTATION, 17)
+    d.note(290, 26, "the broker calls", ANNOTATION, 17)
     return d
 
 

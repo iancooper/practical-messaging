@@ -10,34 +10,34 @@
         <mxCell id="t1" value="divide by verb, not by noun — Checkout and Take Payment are things the business does, not things it stores" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="580.0" y="32" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="x1" value="Checkout" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+        <mxCell id="x1" value="Checkout" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="320" y="260" width="240" height="132" as="geometry" />
         </mxCell>
         <mxCell id="o2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="313" y="319.0" width="14" height="14" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="t2" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="247" y="300.0" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="o3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="553" y="319.0" width="14" height="14" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="t3" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="513" y="300.0" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="x4" value="Take Payment" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+        <mxCell id="x4" value="Take Payment" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="880" y="260" width="240" height="132" as="geometry" />
         </mxCell>
         <mxCell id="o5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="873" y="319.0" width="14" height="14" as="geometry" />
         </mxCell>
-        <mxCell id="t4" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="t4" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="807" y="300.0" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="o6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="1113" y="319.0" width="14" height="14" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="t5" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="1073" y="300.0" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="q7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
@@ -49,31 +49,31 @@
         <mxCell id="q9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="1180" y="313.0" width="30" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="t6" value="purchase" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t6" value="purchase" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="75" y="270" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="priced" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t7" value="priced" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="645" y="270" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="payment due" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t8" value="payment due" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="1135" y="270" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t9" value="no gateway. no `main`. nothing here is in charge." style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
+        <mxCell id="t9" value="no gateway. no `main`. nothing here is in charge." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="660" y="148" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t10" value="entity services divide by noun — Cart, Payment, Order — and then the verbs have&#10;nowhere to live but the gateway. Every desk in the paper office was a verb." style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
+        <mxCell id="t10" value="entity services divide by noun — Cart, Payment, Order — and then the verbs have&#10;nowhere to live but the gateway. Every desk in the paper office was a verb." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="560" y="430" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q7" target="o2">
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q7" target="o2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o3" target="q8">
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o3" target="q8">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e2" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q8" target="o5">
+        <mxCell id="e2" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q8" target="o5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e3" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o6" target="q9">
+        <mxCell id="e3" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o6" target="q9">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>

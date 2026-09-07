@@ -105,7 +105,8 @@ def if_later_queue():
     a = d.box(760, 116, 210, 76, "Consumer A")
     b = d.box(760, 262, 210, 76, "Consumer B")
     d.arrow(pipe, a, "takes v1", sides=("r", "l"), ly=-16)
-    d.arrow(pipe, b, "reads past, takes v2", accent=True, sides=("r", "l"), ly=18)
+    d.arrow(pipe, b, "reads past, takes v2", accent=True, sides=("r", "l"),
+            lx=-26, ly=18)
 
     store = d.cylinder(785, 424, 160, 78, "the replica\n12345 is at v2")
     # A's write has to go round the outside: straight down would cut through B

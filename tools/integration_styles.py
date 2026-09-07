@@ -19,6 +19,7 @@ line across Myers' scale takes Content and Common coupling off the table. This i
 same line, turned on its side because these two processes sit side by side, and it is
 what makes Shared Database's figure an argument rather than an illustration: its
 apparatus is the only one that a *reader* on the far side reaches through.
+**Ian confirmed it stays on all four, 2026-09-07.**
 
 **How far the line runs is the figure's decision, not the frame's** -- `_frame(bb=)`.
 Each style crosses the boundary at a different depth (a file at the middle, a database
@@ -32,9 +33,33 @@ file, the schema, the message -- and one reds *when* they must both be up. That 
 two axes, in the order the section meets them, and it is why the RPC figure spends its
 red on the wait and leaves the call in carbon.
 
+**File Transfer and Messaging share a strip, and that is the point of them.** Ian,
+2026-09-07: *"Messaging repeats File Transfer's composition, but the fix is asking what
+does the locking, partitioning etc."* Both figures end on the **same four questions** in
+the same four columns; only the answers change, from *you* to the broker. That is the
+"out of the box" idea drawn rather than asserted, and it takes back information the 2021
+exports carried in their blue commentary boxes and the rewrite had dropped. It also
+makes the repeated composition deliberate: two slides that look alike with one row of
+words different is a comparison; two slides that look alike for no reason is a mistake.
+
+The four questions are *Why Messaging*'s own list -- ordering, locking and competing
+consumers, delivery guarantees, granularity and timeliness. These figures **pose** them;
+that slide scores them and states the verdict. Posing a question two slides before
+answering it is a setup, and File Transfer's own text asks for exactly that: *"Hold that
+thought -- the last slide of this section is about everything you did not get with it."*
+
+**Canvas width is a legibility decision here, not a layout one.** The label floor is in
+canvas units, so what it means on a slide depends entirely on how wide the canvas is: a
+460-unit EIP figure's 18pt reads across a room at about 32 real points, and the same 18
+on a 1200-unit canvas reads at 13. These were 1200 and are now **1000**, which is what
+took their commentary from roughly 12 real points to 16. Aspect matters as much as
+width -- a figure wider than about 2.2:1 is fitted by width on a 16:9 slide, and
+anything squarer is fitted by height, which shrinks every label in it again.
+
 These replace the 2021 exports (s32-s35), which each carried three paragraphs of blue
-commentary because the slides underneath them were bare. The rewritten slides carry
-that prose as bullets, so the figures do not repeat it.
+commentary because the slides underneath them were bare. The rewritten slides carry the
+argument as bullets, so the figures do not repeat it -- what they keep is the part a
+picture says better than a line of text.
 
 Hand-drawn register, like the rest of Day 1.
 """
@@ -43,16 +68,22 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, COMMENT, INK      # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK      # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
 
 # the shared stage
-W, MID = 1200, 600
-GT, GH = 140, 190                 # every process container, top and height
-BOX_Y, BOX_H = 196, 88            # every application box -- so all four line up
-BT = 128                          # where the boundary line starts
+W, MID = 1000, 500
+GT, GH = 124, 176                 # every process container, top and height
+BOX_Y, BOX_H = 170, 88            # every application box -- so all four line up
+BT = 108                          # where the boundary line starts
+
+# The four questions a file leaves you and a broker answers, in one order, used by two
+# figures. They live here rather than in each figure so the two strips cannot drift
+# apart -- and the two strips being identical bar one row IS the comparison.
+QUESTIONS = ("in what order?", "who locks it?", "did it land?", "when do I look?")
+COL_X = (170, 390, 610, 830)
 
 
 def figure(name):
@@ -62,7 +93,7 @@ def figure(name):
     return wrap
 
 
-def _frame(title, idea, bb, h=530, lg=(60, 400), rg=(740, 400),
+def _frame(title, idea, bb, h=470, lg=(40, 390), rg=(570, 390),
            left="producer process", right="consumer process"):
     """The stage: the red idea, the boundary down to `bb`, and a container per side.
 
@@ -70,147 +101,167 @@ def _frame(title, idea, bb, h=530, lg=(60, 400), rg=(740, 400),
     style with two boxes a side and an arrow label that has to sit clear of the line.
     """
     d = Diagram(title, w=W, h=h)
-    d.note(MID, 48, idea, ANNOTATION, 19)
-    d.note(MID, 112, "the process boundary", INK, 16)
+    d.note(MID, 44, idea, ANNOTATION, 21)
+    d.note(MID, 100, "the process boundary", INK, 18)
     d.rule(MID, BT, 0, INK, 2.6, h=bb - BT)
     d.group(lg[0], GT, lg[1], GH, left)
     d.group(rg[0], GT, rg[1], GH, right)
     return d
 
 
+def _strip(d, y, header, answers):
+    """The four questions, and who answers them. Identical geometry both times, so the
+    answers are the only thing a reader has to compare."""
+    d.note(MID, y, header, COMMENT, 18)
+    d.rule(60, y + 22, 880, MUTED, 1.1)
+    for x, q, a in zip(COL_X, QUESTIONS, answers):
+        d.note(x, y + 52, q, COMMENT, 18)
+        d.note(x, y + 84, a, INK, 18)
+
+
 @figure("style-file-transfer")
 def file_transfer():
     """*File Transfer.* One file across the boundary, and the whole agreement is what
     is in it and where it lives. Red is on the file because the slide's claim is that
-    the file **is** the contract -- and the second comment is the slide's own *hold
-    that thought*, which the section cashes two slides later on *Why Messaging*."""
+    the file **is** the contract -- and the strip underneath is that claim's other half,
+    *nothing else is agreed*, made countable."""
     d = _frame("File Transfer",
                "the file is the contract — its format and where it lives, "
-               "and nothing else is agreed", bb=336, h=520)
+               "and nothing else is agreed", bb=270, h=570,
+               lg=(40, 390), rg=(570, 390))
 
-    src = d.box(110, BOX_Y, 280, BOX_H, "Application")
-    dst = d.box(810, BOX_Y, 280, BOX_H, "Application")
-    # a sheet on the line, centred on the arrows' own height so they stay level. It
-    # has a PAPER fill, so the rule disappears behind it and comes out below -- which
-    # is the reading: the file is the only thing that crosses
-    f = d.doc(556, 184, 88, 112, accent=True)
+    src = d.box(70, BOX_Y, 240, BOX_H, "Application")
+    dst = d.box(690, BOX_Y, 240, BOX_H, "Application")
+    # a sheet on the line, centred on the arrows' own height so they stay level. It has
+    # a PAPER fill, so the rule disappears behind it and comes out below -- which is the
+    # reading: the file is the only thing that crosses
+    f = d.doc(464, 158, 72, 112, accent=True)
 
-    d.arrow(src, f, "writes it", sides=("r", "l"), ly=-7)
-    d.arrow(f, dst, "reads it, later", sides=("r", "l"), ly=-7)
-    d.note(MID, 372, "a file, in a directory both can reach", INK, 17)
+    d.arrow(src, f, "writes it", sides=("r", "l"), ly=-8)
+    d.arrow(f, dst, "reads it", sides=("r", "l"), ly=-8)
+    # "later" moved off the arrow and into the caption: at 18pt it was long enough to
+    # land on the consumer container's border, and it says more here anyway
+    d.note(MID, 322, "a file, in a directory both can reach — "
+                     "it waits there until somebody comes for it", INK, 18)
 
-    d.note(MID, 432, "nobody has to be up at the same time — the file waits in the "
-                     "directory until somebody comes for it", COMMENT, 16)
-    d.note(MID, 472, "and a file is a message: a batch of them, in a channel that "
-                     "happens to be a filesystem", COMMENT, 16)
+    _strip(d, 380, "and every one of these is yours to write",
+           ("none", "you do", "nothing says", "you decide"))
+
+    d.note(MID, 542, "a file is a message: a batch of them, in a channel that happens "
+                     "to be a filesystem", COMMENT, 18)
     return d
 
 
 @figure("style-shared-database")
 def shared_database():
-    """*Shared Database.* The one figure where something on the far side of the
-    boundary is reached *through*: two ORMs on one schema, and neither process owns
-    it. Red is on the schema rather than on the reach, because the slide's verdict is
-    about ownership -- the change propagates whether the reader wanted it or not."""
+    """*Shared Database.* The one figure where something on the far side of the boundary
+    is reached *through*: two ORMs on one schema, and neither process owns it. Red is on
+    the schema rather than on the reach, because the slide's verdict is about ownership
+    -- the change propagates whether the reader wanted it or not.
+
+    No strip. The four questions are about a channel, and this style does not have one;
+    its problem sits upstream of them.
+    """
     d = _frame("Shared Database",
                "nobody owns the schema — a change reaches every reader "
-               "whether they wanted it or not", bb=448, h=610)
+               "whether they wanted it or not", bb=428, h=570)
 
-    d.box(100, BOX_Y, 212, BOX_H, "Application")
-    orm_w = d.box(332, BOX_Y, 78, BOX_H, "ORM")
-    orm_r = d.box(790, BOX_Y, 78, BOX_H, "ORM")
-    d.box(888, BOX_Y, 212, BOX_H, "Application")
-    db = d.cylinder(536, 352, 128, 96, accent=True)
+    d.box(62, BOX_Y, 200, BOX_H, "Application")
+    orm_w = d.box(282, BOX_Y, 80, BOX_H, "ORM")
+    orm_r = d.box(638, BOX_Y, 80, BOX_H, "ORM")
+    d.box(738, BOX_Y, 200, BOX_H, "Application")
+    db = d.cylinder(436, 336, 128, 92, accent=True)
 
-    d.arrow(orm_w, db, "writes", sides=("b", "l"), via=[(371, 400)], ly=-8)
+    d.arrow(orm_w, db, "writes", sides=("b", "l"), via=[(322, 382)], ly=-8)
     # the extra waypoint is not geometry, it is where the label lands: _mid takes the
-    # middle SEGMENT, so without it "reads" sits on the vertical run and the pair
-    # stops being a mirror of itself
-    d.arrow(db, orm_r, "reads", sides=("r", "b"), via=[(664, 400), (829, 400)], ly=-8)
-    d.note(MID, 486, "one schema", INK, 17)
+    # middle SEGMENT, so without it "reads" sits on the vertical run and the pair stops
+    # being a mirror of itself
+    d.arrow(db, orm_r, "reads", sides=("r", "b"), via=[(564, 382), (678, 382)], ly=-8)
+    d.note(MID, 466, "one schema", INK, 18)
 
-    d.note(MID, 534, "not temporally coupled — neither has to be up when the other "
-                     "is. what couples them is the shared mutable schema", COMMENT, 16)
-    d.note(MID, 574, "and that is the boundary itself, handed back: you are agreeing "
-                     "release dates across teams again", COMMENT, 16)
+    d.note(MID, 508, "not temporally coupled — neither has to be up when the other is. "
+                     "what couples them is the shared mutable schema", COMMENT, 18)
+    d.note(MID, 542, "and that is the boundary itself, handed back: you are agreeing "
+                     "release dates across teams again", COMMENT, 18)
     return d
 
 
 @figure("style-rpc")
 def rpc():
-    """*Remote Procedure Call.* The only figure that spends its red on the clock
-    rather than on the thing agreed, because RPC is the only style that loses on the
-    *second* axis -- and a room that writes HTTP all day already knows what a call
-    looks like, so the drawing spends itself on the waiting instead.
+    """*Remote Procedure Call.* The only figure that spends its red on the clock rather
+    than on the thing agreed, because RPC is the only style that loses on the *second*
+    axis -- and a room that writes HTTP all day already knows what a call looks like, so
+    the drawing spends itself on the waiting instead.
 
     The control half is carried where it actually lives: the arrow's label is an
     operation name rather than data, and the comment underneath says so.
     """
     d = _frame("Remote Procedure Call",
                "the only style that loses on both axes at once — you say what to do, "
-               "and you wait while it is done", bb=380, h=510,
-               lg=(60, 340), rg=(800, 340),
+               "and you wait while it is done", bb=350, h=480,
+               lg=(40, 300), rg=(660, 300),
                left="client process", right="server process")
 
-    d.box(86, BOX_Y, 200, BOX_H, "Application")
-    stub = d.box(306, BOX_Y, 78, BOX_H, "Stub")
-    proxy = d.box(816, BOX_Y, 78, BOX_H, "Proxy")
-    d.box(914, BOX_Y, 200, BOX_H, "Application")
+    d.box(58, BOX_Y, 180, BOX_H, "Application")
+    stub = d.box(256, BOX_Y, 72, BOX_H, "Stub")
+    proxy = d.box(672, BOX_Y, 72, BOX_H, "Proxy")
+    d.box(762, BOX_Y, 180, BOX_H, "Application")
 
     # both labels are pushed off MID, because the boundary rule runs through it
-    d.arrow(stub, proxy, "PlaceOrder(order)", lx=-104, ly=-7)
+    d.arrow(stub, proxy, "PlaceOrder(order)", lx=-94, ly=-8)
     d.arrow(proxy, stub, "the result", sides=("b", "b"),
-            via=[(855, 356), (345, 356)], lx=112)
+            via=[(708, 336), (292, 336)], lx=98)
 
-    d.icon(345, 168, "clock", accent=True, r=15)
-    d.note(345, 128, "blocked until it comes back", ANNOTATION, 17)
+    d.icon(292, 142, "clock", accent=True, r=14)
+    d.note(292, 106, "blocked until it comes back", ANNOTATION, 18)
 
-    d.note(MID, 424, "an operation name, not data — you are telling the other side "
-                     "what to do, which is control coupling", COMMENT, 16)
-    d.note(MID, 464, "and both must be up at the same moment, so an outage here is "
-                     "not a delay, it is a failure", COMMENT, 16)
+    d.note(MID, 406, "an operation name, not data — you are telling the other side what "
+                     "to do, which is control coupling", COMMENT, 18)
+    d.note(MID, 440, "and both must be up at the same moment, so an outage here is not "
+                     "a delay, it is a failure", COMMENT, 18)
     return d
 
 
 @figure("style-messaging")
 def messaging():
-    """*Messaging.* Deliberately the same shape as File Transfer, because the two land
-    in the same cell of the grid and the figure should not pretend otherwise. What
-    differs is that the thing crossing the boundary has a choice in it -- which is what
-    the red note says and what the three lines under the channel spell out, and it is
-    the only style where that is true.
+    """*Messaging.* Deliberately File Transfer's composition again, because the two land
+    in the same cell of the grid and the figure should not pretend otherwise. The strip
+    is what makes the repetition an argument: **the same four questions, already
+    answered.** Everything the broker does for you is something a directory would have
+    left you to write.
 
-    The red envelope is the one centred on the boundary, so the message is literally
-    what crosses.
+    The three coupling glosses that stood here -- *a command is control coupled*, and so
+    on -- came out to make room. They restated the slide's own bullets word for word,
+    which is the failure the 2021 exports were full of, and `grid-integration-styles`
+    already makes that point better by drawing Messaging as a span rather than a point.
+    The strip is information the deck has nowhere else.
+
+    The red envelope is the one centred on the boundary, so the message is literally what
+    crosses.
     """
     d = _frame("Messaging",
                "the coupling is a decision here, not a property of the style — "
-               "it is whatever you put in the message", bb=296)
+               "it is whatever you put in the message", bb=270, h=570,
+               lg=(40, 380), rg=(580, 380))
 
     # the same two boxes in the same places as File Transfer, on purpose
-    src = d.box(110, BOX_Y, 280, BOX_H, "Application")
-    dst = d.box(810, BOX_Y, 280, BOX_H, "Application")
-    pipe = d.pipe(530, 208, 140, 64)
-    for x in (546, 586, 626):
-        d.msg(x, 226, w=28, h=20, accent=(x == 586))
+    src = d.box(70, BOX_Y, 240, BOX_H, "Application")
+    dst = d.box(690, BOX_Y, 240, BOX_H, "Application")
+    pipe = d.pipe(440, 186, 120, 56)
+    for x in (449, 487, 525):
+        d.msg(x, 200, w=26, h=20, accent=(x == 487))
 
-    # short labels, because the pipe's mouth ellipse reaches 21 units back from its
-    # left edge and a longer one lands in it
-    d.arrow(src, pipe, "writes it", sides=("r", "l"), ly=-7)
-    d.arrow(pipe, dst, "reads it", sides=("r", "l"), ly=-7)
-    d.note(MID, 322, "a channel", INK, 17)
+    # short labels, because the pipe's mouth ellipse reaches 19 units back from its left
+    # edge and a longer one lands in it
+    d.arrow(src, pipe, "writes it", sides=("r", "l"), ly=-8)
+    d.arrow(pipe, dst, "reads it", sides=("r", "l"), ly=-8)
+    d.note(MID, 322, "a channel", INK, 18)
 
-    # two columns either side of the rule -- which is why they read as a list and not
-    # as a caption, and why nothing has to sit on the boundary to say it
-    for y, what, kind in ((372, "a command", "control coupled"),
-                          (404, "a whole-entity event", "stamp coupled"),
-                          (436, "only what the receiver needs", "data coupled")):
-        d.note(MID - 24, y, what, INK, 17, anchor="end")
-        d.note(MID + 24, y, kind, INK, 17, anchor="start")
+    _strip(d, 380, "the same four questions — and the broker has answered them",
+           ("the channel", "the broker", "an ack", "poll, or be pushed"))
 
-    d.note(MID, 494, "the other three styles fix where you sit on the "
-                     "coupled-about axis; this is the one that leaves it open",
-           COMMENT, 16)
+    d.note(MID, 542, "the other three styles fix where you sit on the coupled-about "
+                     "axis; this is the one that leaves it open", COMMENT, 18)
     return d
 
 

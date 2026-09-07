@@ -7,58 +7,58 @@
         <mxCell id="t1" value="a component suspends when there is no work — it does not terminate, and it is not started per packet" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="540.0" y="32" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="x1" value="Take Order" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+        <mxCell id="x1" value="Take Order" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="450" y="178" width="300" height="150" as="geometry" />
         </mxCell>
         <mxCell id="o2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="443" y="246.0" width="14" height="14" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="t2" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="377" y="227.0" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="o3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
           <mxGeometry x="743" y="246.0" width="14" height="14" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="t3" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="703" y="227.0" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="q4" value="IP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+        <mxCell id="q4" value="IP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="190" y="240.0" width="30" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="q5" value="IP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+        <mxCell id="q5" value="IP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="980" y="240.0" width="30" height="26" as="geometry" />
         </mxCell>
         <mxCell id="r6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="190" y="132" width="260" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t4" value="this packet's lifetime" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t4" value="this packet's lifetime" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="260" y="106" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="750" y="132" width="300" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="and this one's — a different packet" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t5" value="and this one's — a different packet" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="840" y="106" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="450" y="372" width="300" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t6" value="process, then wait" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
+        <mxCell id="t6" value="process, then wait" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="540" y="388" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="k9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="588" y="340" width="24" height="24" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="consuming a packet destroys it; sending one creates a new one. The component outlives both." style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
+        <mxCell id="t7" value="consuming a packet destroys it; sending one creates a new one. The component outlives both." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="540" y="436" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="this is the message pump from Day 1, described from the other side of the loop" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
+        <mxCell id="t8" value="this is the message pump from Day 1, described from the other side of the loop" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="540.0" y="482" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q4" target="o2">
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q4" target="o2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o3" target="q5">
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o3" target="q5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>

@@ -812,6 +812,82 @@ than a blank canvas.
    until a redundant waypoint was added purely to move the label; and `writes a message` landed inside the
    pipe's mouth ellipse — the same defect run 2 hit — and was shortened to `writes it`.
 
+10. **✅ One 18pt floor, and what the floor turned out not to guarantee — 2026-09-07.** Ian, on the
+   Integration Styles sheet: *"The images and their text are only using the top half of the slide, and we
+   could make the text larger for the comments than it is at present, for readability."*
+
+   **The immediate fix is one floor.** `CONTENT_PT` and `ASIDE_PT` were 17 and 16; both are **18**, the
+   same number as the deck's body floor. Content and commentary are now the same size and only the
+   *colour* separates them — which is what §Settled 7 decided in principle and then only half applied.
+   The old pair said "secondary" twice, in size and in hue, and charged for it twice.
+
+   **The finding underneath it is bigger, and it is the fifth of the same shape.** The floor is expressed
+   in **canvas units**, and a figure is scaled to fit its slide — so what "18pt" means across a room
+   depends entirely on how wide the canvas is. Measured across the nine families:
+
+   | family | canvas width | what 18pt reads as, full slide width |
+   |---|---:|---:|
+   | `eip_figures` | 460–600 | 27–35 pt |
+   | `coupling_grids` | 980–1060 | 15–16 pt |
+   | `integration_styles` (was 1200) | 1000 | 16 pt |
+   | `queues_streams` | 1080–1360 | 12–15 pt |
+   | `flow_reactive` | 1060–1300 | 12–15 pt |
+
+   **A three-fold spread under one number.** `styles.md` claims *a diagram label is no more legible than
+   a bullet*, and only the small-canvas families have ever met it. At full slide width a label reads at
+   roughly `18 × 890 / w` real points, so **w ≈ 890 is where the diagram floor meets the 18pt body
+   floor**, and everything wider is under it.
+
+   **Aspect is the second half of it.** A 16:9 slide leaves about 2.2 : 1 of usable area. A figure wider
+   than that is fitted by width; anything squarer is fitted by *height*, and every label shrinks again.
+   So adding a row of content to a wide figure costs legibility twice. That is why the four Integration
+   Styles figures went **1200 → 1000 wide** rather than simply gaining a bigger number: the width change
+   is what took their commentary from ~12 real points to ~16.
+
+   **☐ Not swept.** Narrowing `queues_streams` and `flow_reactive` to ~900 would re-lay out 36 figures,
+   including ones on sheets Ian has already approved. It is a real job and a real decision, and it is
+   his. Recorded here rather than done.
+
+   **The sweep that *was* done cost three fixes and found four defects** — `eip-publish-subscribe`'s
+   subscriber boxes had been cut to fit 15pt text; `eip-polling-consumer` and `eip-event-driven-consumer`
+   had no room between pipe and pump for a label at 18pt and went 460 → 580 wide; and three foot comments
+   had grown off their canvases, one of which (`bpmn-hotel-p3-join`) was already off before the sweep.
+   **`lint_figures.py` gained two checks for exactly those classes** — free notes against the canvas
+   edges, and edge labels against container borders — and the second immediately found a third
+   pre-existing defect in `flow-soa-service`. Neither class had ever been checked.
+
+11. **✅ File Transfer and Messaging take back the "out of the box" argument — 2026-09-07.** Ian:
+   *"Messaging repeats File Transfer's composition, but the fix is asking what does the locking,
+   partitioning etc. However, we have lost some of that information, which we probably should take back,
+   to improve the idea that messaging simply provides 'out of the box' solutions to many file transfer
+   questions."*
+
+   Both figures now end on the **same four questions in the same four columns**, and only the answers
+   change: *none · you do · nothing says · you decide* against *the channel · the broker · an ack · poll,
+   or be pushed*. `QUESTIONS` and `_strip()` are module-level so the two cannot drift, because the two
+   strips being identical bar one row **is** the comparison.
+
+   **This makes the repeated composition deliberate.** Two slides that look alike with one row of words
+   different is a comparison; two slides that look alike for no reason is a mistake. Ian confirmed the
+   boundary stays on all four in the same note, so the shared stage is settled.
+
+   **It restores what the rewrite dropped.** The 2021 exports carried this in their blue commentary
+   boxes — *"the consumer has to decide how often to poll"*, *"if there are multiple consumers, then the
+   consumer needs to lock the file"* — and D1-7 moved that reasoning into the slides' bullets and out of
+   the pictures. The bullets carry the *coupling* argument; nothing carried the *services* argument in
+   picture form until now.
+
+   **☐ One thing not done: Kafka.** Ian's aside — *"Kafka shows its file transfer origins clearly with
+   offsets and records"* — is a genuinely good line, but §3 is nine slides before *Queues and Streams*
+   and the section's own `#note:` already forbids naming Reactive early for the same reason. **It belongs
+   in a presenter note on §4.5's Kafka material, as the call-back**, not on the §3 figure. Not written
+   yet; do it when §4.5 is next touched.
+
+   **The three coupling glosses came out of the Messaging figure to make room** — *a command is control
+   coupled*, and so on. They restated the slide's own bullets word for word, which is the failure the
+   2021 exports were full of, and `grid-integration-styles` already makes that point better by drawing
+   Messaging as a span rather than a point.
+
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 
 **Ian: *"Agree"*** — one figure of the six that matter; the full legends go to the delegate reference card.

@@ -178,7 +178,8 @@ def soa_service():
     d.attach(ops, store, sides=("r", "l"))
 
     con = d.box(110, 198, 200, 96, "Consumer", size=17)
-    d.arrow(con, ops, "input message", sides=("r", "l"), ly=-12)
+    # centred, this label lands on the Service container's own border
+    d.arrow(con, ops, "input message", sides=("r", "l"), lx=-48, ly=-12)
     d.arrow(ops, con, "output message", sides=("b", "b"),
             via=[(560, 400), (210, 400)], ly=24)
 

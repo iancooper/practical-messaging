@@ -22,7 +22,7 @@
         <mxCell id="t3" value="you cannot roll back across desks, so for every do you write an undo" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="220" y="242" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#8A8578;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#2F5D3A;html=1;dashed=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e2" target="t3">
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#8A8578;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;html=1;dashed=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e2" target="t3">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="210" y="198" />

@@ -16,19 +16,19 @@
         <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="180" y="168" width="820" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t4" value="what it carries" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t4" value="what it carries" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="460" y="206" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="a task —&#10;do this" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t5" value="a task —&#10;do this" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="640" y="200" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t6" value="a fact —&#10;this happened" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t6" value="a fact —&#10;this happened" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="860" y="200" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="180" y="256" width="820" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="ordering" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t7" value="ordering" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="460" y="306" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="k3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
@@ -40,7 +40,7 @@
         <mxCell id="r5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="180" y="346" width="820" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="archive and replay" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t8" value="archive and replay" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="460" y="374" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="k6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
@@ -52,7 +52,7 @@
         <mxCell id="r8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="180" y="414" width="820" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t9" value="requeue, and delay" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t9" value="requeue, and delay" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="460" y="442" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="k9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
@@ -64,7 +64,7 @@
         <mxCell id="r11" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="180" y="482" width="820" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t10" value="lock and read past" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t10" value="lock and read past" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="460" y="510" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="k12" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
@@ -73,7 +73,7 @@
         <mxCell id="k13" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="907" y="503" width="26" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="t11" value="a queue is work that has not been done; a stream is a record of what happened. Everything else follows." style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
+        <mxCell id="t11" value="a queue is work that has not been done; a stream is a record of what happened. Everything else follows." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="500" y="548" width="120" height="20" as="geometry" />
         </mxCell>
       </root>

@@ -19,13 +19,13 @@
         <mxCell id="t1" value="no gateway: the paths were never concurrent, so there is nothing to synchronise" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="240" y="222" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e1" target="t3">
+        <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=14;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e1" target="t3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e2" target="t3">
+        <mxCell id="e1" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=14;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e2" target="t3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e2" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3" target="t4">
+        <mxCell id="e2" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=14;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3" target="t4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>

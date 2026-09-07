@@ -86,7 +86,7 @@ def p3_join():
     d.flow(a, gw, via=[(268, 56)], sides=("r", "t"))
     d.flow(b, gw, via=[(268, 154)], sides=("r", "b"))
     d.flow(gw, c, sides=("r", "l"))
-    d.note(280, 214, "the join waits for both — the guest is not told until payment has "
+    d.note(280, 214, "the join waits for both — the guest is not told\nuntil payment has "
                      "cleared and the confirmation is ready", COMMENT, 13)
     return d
 

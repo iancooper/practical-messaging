@@ -22,13 +22,13 @@
         <mxCell id="t1" value="IN" style="text;html=1;align=center;fontFamily=Caveat;fontSize=20;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="138" y="344" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="f6" value="the file" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+        <mxCell id="f6" value="the file" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="322" y="254" width="84" height="60" as="geometry" />
         </mxCell>
         <mxCell id="h7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=mxgraph.telecom.telephone;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="478" y="244" width="130" height="88" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="a telephone, for when it cannot wait" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
+        <mxCell id="t2" value="a telephone, for when it cannot wait" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="483" y="346" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="y8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">

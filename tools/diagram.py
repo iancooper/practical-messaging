@@ -64,8 +64,8 @@ _FONT_FILES = {
 # would make the BPMN family a third larger than the deck around it.
 X_HEIGHT = {HAND: 0.400, PLAIN: 0.516}
 
-CONTENT_PT = 17   # anything a delegate reads off the slide and uses
-ASIDE_PT   = 16   # our own remarks -- subordinate by HUE, not by being faint,
+CONTENT_PT = 18   # anything a delegate reads off the slide and uses
+ASIDE_PT   = 18   # our own remarks -- subordinate by HUE, not by being faint,
                   # so they no longer have to be small as well
 
 

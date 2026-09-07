@@ -69,6 +69,25 @@ def check(families=FAMILIES):
                                f'{n["kind"]} label "{line}" is {adv:.0f} wide in '
                                f'{n["w"]}')
 
+            # free text against the canvas edges. `note` is the only element whose
+            # width is not declared, so it is the only one that can quietly grow off
+            # the page -- and raising a floor is exactly when it does. The 18pt sweep
+            # pushed three foot comments off their canvases and nothing caught it,
+            # because every other check measures a label against a *shape*.
+            for n in d.nodes:
+                if n["kind"] != "note" or not n.get("label"):
+                    continue
+                face = n.get("font") or d.font
+                anchor = n.get("anchor", "middle")
+                for line in str(n["label"]).split("\n"):
+                    adv = _advance(line, face, n["size"])
+                    x0 = {"middle": n["x"] - adv / 2, "start": n["x"],
+                          "end": n["x"] - adv}[anchor]
+                    if x0 < MARGIN or x0 + adv > d.w - MARGIN:
+                        yield (fam, name, "off-canvas",
+                               f'note "{line}" spans {x0:.0f}..{x0 + adv:.0f} '
+                               f'in a canvas {d.w} wide')
+
             for e in d.edges:
                 if not e.get("label"):
                     continue
@@ -82,6 +101,7 @@ def check(families=FAMILIES):
                 base = my - (6 if bpmn else 7) + e.get("ly", 0)
                 # the outline's own box: roughly the ascender down to the descender
                 y0, y1 = base - size * 0.78, base + size * 0.22
+                hit = False
                 for n in d.nodes:
                     if n["kind"] in ("note", "rule") or not n.get("w"):
                         continue
@@ -91,7 +111,29 @@ def check(families=FAMILIES):
                         what = str(n.get("label", "")).replace("\n", " ") or n["kind"]
                         yield (fam, name, "collision",
                                f'edge label "{e["label"]}" lands on {what}')
+                        hit = True
                         break
+                if hit:
+                    continue
+                # a container's own border. Sitting INSIDE a group is normal -- that is
+                # what a group is for -- so only the two vertical edges are a defect,
+                # and they are exactly where an arrow label between a box and the
+                # apparatus wants to land. Nothing caught this until two labels in
+                # `integration_styles` came out sitting on a dashed edge.
+                for g in d.groups:
+                    if g["kind"] in ("pool", "image") or not g.get("w"):
+                        continue
+                    if not (y0 < g["y"] + g["h"] and y1 > g["y"]):
+                        continue
+                    for ex in (g["x"], g["x"] + g["w"]):
+                        if x0 - MARGIN < ex < x1 + MARGIN:
+                            yield (fam, name, "on-border",
+                                   f'edge label "{e["label"]}" crosses the '
+                                   f'"{g["label"] or g["kind"]}" border at x={ex:.0f}')
+                            break
+                    else:
+                        continue
+                    break
 
 
 def main(argv):

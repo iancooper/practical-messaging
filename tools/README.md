@@ -84,24 +84,33 @@ the diagram is about** — if two things are red, the diagram is doing two jobs.
 
 ### Label sizes are a floor, not a per-call decision
 
-`Diagram._legible()` runs at the top of **both** serialisers and raises every label to the floor for what
-it is — **17pt** for anything that names something in the drawing, **14pt** for a muted remark of ours.
-Pass a smaller `size=` and it will be raised; pass a larger one and it is kept. It is idempotent, so the
-`.drawio` and the `.png` can never disagree about a size.
+`Diagram._legible()` runs at the top of **both** serialisers and raises every label to **18pt** — one
+floor for content and commentary alike, matching the deck's body floor. Pass a smaller `size=` and it
+will be raised; pass a larger one and it is kept. It is idempotent, so the `.drawio` and the `.png` can
+never disagree about a size.
+
+**The two constants are still separate** (`CONTENT_PT`, `ASIDE_PT`) because they answer different
+questions and may part company again; they are simply equal now. Size no longer distinguishes a remark
+from a name — **colour does**, which is the whole point of the four text colours.
+
+**⚑ A floor in canvas units is not a legibility guarantee.** The figure is scaled to fit its slide, so
+18pt on a 460-unit canvas reads at ~32 real points and the same 18 on a 1200-unit canvas reads at ~13.
+At full slide width a label reads at roughly `18 × 890 / w` real points. **Choosing `w` is a legibility
+decision**, and a wide figure with a lot in it is the combination to avoid — see `styles.md`.
 
 **The floor is per-face, and that is the whole point.** IBM Plex Sans's x-height is `0.516`em against
-Caveat's `0.400` (OS/2 `sxHeight`, both at 1000upm), so **13pt of Plex reads across a room as 17pt of
+Caveat's `0.400` (OS/2 `sxHeight`, both at 1000upm), so **14pt of Plex reads across a room as 18pt of
 Caveat**. Comparing the two registers by their point numbers is what let the labels drift in the first
 place: the BPMN family looked like the worst offender when it was the one family already at the floor.
 `_pt(caveat_pt, face)` does the conversion, and `_legible()` sweeps only the hand-drawn register — a BPMN
 figure keeps the scale it was drawn at, including the two crowded ones that squeeze a task to 10–11pt.
 
 Edge labels are the one text a figure cannot override, and they were the smallest thing on the slide.
-`_edge_pt(e)` puts them at the floor too: **17pt** on a hand-drawn arrow, **13pt** on a BPMN flow.
+`_edge_pt(e)` puts them at the floor too: **18pt** on a hand-drawn arrow, **14pt** on a BPMN flow.
 
-The floor a note gets depends on its **colour**, which is how the two are kept in step: a note in
-`COMMENT` is a remark and floors at `ASIDE_PT`; anything else is content and floors at `CONTENT_PT`. So
-the way to make a note bigger is to say what it *is*, not to pass a number.
+The floor a note gets still depends on its **colour** — a note in `COMMENT` floors at `ASIDE_PT`,
+anything else at `CONTENT_PT` — even though the two numbers are equal today. Keep saying what a note *is*
+rather than passing a number: that is what will hold if they diverge again.
 
 ### `MUTED` is for lines, not letters
 
@@ -125,8 +134,15 @@ python3 tools/lint_figures.py                    # all nine families
 python3 tools/lint_figures.py bpmn_hotel paper_flow
 ```
 
-Measures every centred label against the shape it sits in, and every edge label against every node
-rect — including the node the edge *ends at*, which is where a right-angled route usually puts it.
+Three checks. Every centred label against the shape it sits in; every free `note` against the **canvas
+edges**, which is the only element whose width is not declared and so the only one that can quietly grow
+off the page; and every edge label against every node rect — including the node the edge *ends at*, which
+is where a right-angled route usually puts it — and against every **container border**, because the gap
+between a box and the apparatus beside it is exactly where an arrow label wants to land.
+
+**The last two were added by the 18pt sweep, and each found a defect nobody had gone looking for**: three
+foot comments had grown off their canvases (one of them before the sweep), and two arrow labels were
+sitting on a dashed container edge in `integration_styles` and one in `flow_reactive`.
 Both checks found real defects during the 2026-09-07 label sweep that were invisible in the source:
 `Pay for the Booking` stopped fitting its task box; `room free` landed on the message marker of the
 task it labels; `the payment` sat on the boundary bar it crosses.
@@ -181,6 +197,12 @@ python3 tools/integration_styles.py --list
 either side; each figure adds only its own apparatus. The section scores four answers to one question, so
 four differently-composed drawings would make a reader re-learn the layout before they could compare
 anything. It is `coupling_grids._frame()`'s device, for the same reason.
+
+**File Transfer and Messaging end on the same four questions**, in the same four columns, with only the
+answers changed — *none / you do / nothing says / you decide* against *the channel / the broker / an ack /
+poll, or be pushed*. `QUESTIONS` and `_strip()` are module-level so the two cannot drift, because the two
+strips being identical bar one row **is** the comparison. That is why Messaging repeating File Transfer's
+composition is the point of it rather than a problem with it.
 
 **How far the boundary rule runs is the figure's call — `_frame(bb=)`.** A 2.6pt ink rule down the middle
 strikes through anything centred on `MID`, so the rule stops above the caption that names the apparatus,
