@@ -135,6 +135,10 @@ not because green is easy for them, but because to a deuteranope annotation red 
   Anything wider than that is fitted by width; anything squarer is fitted by *height*, and then every
   label in it shrinks again. Adding a row of content to a wide figure costs legibility twice over — once
   for the height, once for the aspect. **Cut content or cut width; do not just raise the number.**
+- **Spend distance, not type.** What makes a figure wide is usually the gap between things, and a gap
+  carries no information. `Diagram.compact(890)` shrinks the geometry and leaves the labels alone; the
+  two Day 1 / Day 2 redraw runs are built through it. A shape may not shrink below its own label, and a
+  long line of text does not shrink at all — so a caveat that will not fit is a caveat to reword.
 - **That number is Caveat points, and the two faces are not on the same scale.** IBM Plex Sans's
   x-height is `0.516`em against Caveat's `0.400`, so **14pt of Plex reads across a room as 18pt of
   Caveat**. The BPMN register is therefore already at the floor at the sizes it was drawn at, and a flat

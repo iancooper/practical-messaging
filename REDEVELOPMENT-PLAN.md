@@ -888,6 +888,42 @@ than a blank canvas.
    2021 exports were full of, and `grid-integration-styles` already makes that point better by drawing
    Messaging as a span rather than a point.
 
+12. **✅ The narrowing — done 2026-09-07.** Ian, answering item 10's open offer: *"We should review them
+   as we already noted that the In/Out labels were too small."* **`queues_streams` (11) and
+   `flow_reactive` (25) are compacted to 890 units** and their labels now read at **17–19 real points**
+   against 12–15 before.
+
+   **The reason he gave is the point.** `43ecdd7` had already raised `flow_reactive`'s port names to the
+   floor and the file recorded that finding as closed — but the floor was in canvas units, so raising it
+   never reached the room. **A finding closed against a floor that does not hold is not closed.** He
+   remembered; we had not.
+
+   **The mechanism is `Diagram.compact(target)`.** Measured first: there are almost no internal gaps to
+   reclaim, and compressing the empty runs alone would have made six figures *wider*, so the shapes had
+   to shrink. But the box labels had roughly 3× slack, so 35 of the 36 could reach 890 with no label
+   outgrowing its shape. It scales the **geometry**, leaves the type alone, and crops. Three bounds:
+   a shape may not go below its own label (`flow-fbp-component` stops at 950 for its `IP` packet); one
+   long line of text does not scale at all, so `compact` **names it on stderr** rather than shrinking the
+   drawing to nothing around it; and `K_FLOOR = 0.55`. Marks — lock, clock, tick, cross — are moved but
+   not resized, because shrinking a mark is the same error as shrinking a label.
+
+   **What it cost, and what that says about the linter.** Ten labels needed re-nudging, because `lx`/`ly`
+   are text-space offsets that do not scale. Five notes needed more clearance, because a fixed gap
+   between a note and a shape shrinks while the text does not. **`lint_figures.py` went from three checks
+   to six** and found defects in four other families on the way — three arrow labels struck through by a
+   vertical arrow in `bpmn_shopping`, `eip_figures`, `if_later` and `paper_flow`, **two of them on sheets
+   Ian had already approved**. The new checks are `note-on-shape` (a note *across* a stroke — a note
+   *inside* a shape is a technique, not a defect), `on-its-line`, `on-a-line` and `on-border`.
+
+   **And one structural lesson: the compaction belongs in the family's `figure` decorator, not in
+   `main()`.** With it in `main()`, `lint_figures.py` measured the geometry as written rather than as
+   rendered, and a note lying across a hexagon was invisible for as long as the two disagreed.
+
+   **☐ Still wide, and not swept.** `if_later` (1120, 14.3pt), `coupling_grids` (980–1060, 15–16pt) and
+   `integration_styles` (1000, 16.1pt) are hand-drawn and could take the same treatment — 11 figures.
+   `paper_flow` embeds rasters and feeds printables, and the BPMN pair is a different register at its own
+   scale, so neither should be swept without a separate look. **Offer, do not assume.**
+
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 
 **Ian: *"Agree"*** — one figure of the six that matter; the full legends go to the delegate reference card.

@@ -34,10 +34,29 @@ from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK, CARBON      # noqa
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
 
+# Every figure in this run is compacted to this width before it is written. The label
+# floor is in canvas units and the figure is scaled to fit its slide, so a wide canvas
+# is not more detail -- it is smaller type in the room. 890 is where the 18pt diagram
+# floor meets the deck's 18pt body floor at full slide width. `Diagram.compact` shrinks
+# the distances and leaves the type alone; see its docstring.
+TARGET_W = 890
+
 
 def figure(name):
+    """Register a figure -- and compact it on the way out.
+
+    **The compaction belongs here, not in `main()`.** Put it in `main()` and
+    `lint_figures.py` measures the geometry as it was written rather than as it is
+    rendered, which is exactly what happened: a note lying across a hexagon was
+    invisible to the linter for as long as the two disagreed. One definition, and
+    everything downstream sees the same drawing.
+    """
     def wrap(fn):
-        FIGURES[name] = fn
+        def build():
+            return fn().compact(TARGET_W)
+        build.__doc__ = fn.__doc__
+        build.__name__ = fn.__name__
+        FIGURES[name] = build
         return fn
     return wrap
 
@@ -123,15 +142,18 @@ def queue_lifecycle():
 
     pipe, cells = queue(d, 60, 148, w=340, n=3, hold=2, locks=(2,))
     con = d.box(470, 254, 190, 72, "Consumer")
-    d.arrow(cells[2], con, "locks", sides=("b", "l"), via=[(273, 290)], lx=64, ly=-16)
+    d.arrow(cells[2], con, "locks", sides=("b", "l"), via=[(273, 290)], lx=42, ly=-16)
 
     ok = d.box(830, 140, 200, 68, "delete it")
     again = d.box(830, 254, 200, 68, "unlock it")
     dlq = d.box(830, 402, 200, 68, "dead letter", accent=True)
 
-    d.arrow(con, ok, "done", sides=("r", "l"), via=[(745, 290), (745, 174)], ly=-14)
-    d.arrow(con, again, "failed", sides=("r", "l"), ly=-14)
-    d.arrow(again, dlq, "after N tries", accent=True, sides=("b", "t"), lx=86)
+    d.arrow(con, ok, "done", sides=("r", "l"), via=[(745, 290), (745, 174)],
+            lx=-40, ly=-14)
+    # the "done" riser leaves from the same x, so a centred "failed" is struck
+    # through by the arrow above it rather than by its own
+    d.arrow(con, again, "failed", sides=("r", "l"), lx=-32, ly=-14)
+    d.arrow(again, dlq, "after N tries", accent=True, sides=("b", "t"), lx=112)
     # icons sit on their box's top-left corner, as locks sit on their envelope's
     d.icon(830, 118, "tick", r=11)
     d.icon(830, 232, "clock", r=11)
@@ -389,7 +411,7 @@ def requeue_with_delay():
 
     pipe, cells = queue(d, 70, 152, w=400, n=3, hold=2, locks=(2,))
     con = d.box(590, 154, 200, 72, "Consumer")
-    d.arrow(cells[2], con, "locks", sides=("r", "l"), ly=-16)
+    d.arrow(cells[2], con, "locks", sides=("r", "l"), lx=4, ly=-16)
 
     d.arrow(con, pipe, "not acked — unlock, and hold it back", accent=True,
             via=[(690, 340), (270, 340)], sides=("b", "b"), ly=24)

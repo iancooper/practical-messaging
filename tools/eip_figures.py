@@ -243,7 +243,9 @@ def dead_letter_channel():
     d.arrow(pipe, rcv, "never arrives", dashed=True, muted=True, sides=("r", "l"), lx=-24, ly=-18)
     dlq = d.pipe(156, 210, 164, 28, accent=True)
     d.msg(184, 217, w=18, h=13, accent=True)
-    d.arrow(pipe, dlq, "gave up after N tries", accent=True, sides=("b", "t"), lx=-62)
+    # the divert runs vertically, so a centred label is struck through by its own
+    # arrow -- push it clear rather than nudge it
+    d.arrow(pipe, dlq, "gave up after N tries", accent=True, sides=("b", "t"), lx=-88)
     d.note(238, 264, "dead letter channel", INK, 14)
     d.note(235, 34, "the broker could not deliver it, so the broker puts it aside",
            ANNOTATION, 17)

@@ -111,7 +111,7 @@ def if_later_queue():
     store = d.cylinder(785, 424, 160, 78, "the replica\n12345 is at v2")
     # A's write has to go round the outside: straight down would cut through B
     d.arrow(a, store, "writes v1", sides=("r", "r"),
-            via=[(1035, 154), (1035, 463)], lx=-8)
+            via=[(1035, 154), (1035, 463)], lx=44)
     d.arrow(b, store, "writes v2", sides=("b", "t"), lx=52)
     d.note(865, 538, "whichever of them finishes last, v2 is what remains",
            COMMENT, 15)

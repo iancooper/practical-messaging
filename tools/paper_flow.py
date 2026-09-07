@@ -233,7 +233,7 @@ def departure():
     rooms = d.folder(1086, 722, 84, 60, "Room List")
 
     # -- the sequence, in the order the arrows run -------------------------------
-    d.arrow(guest, fda, "asks to check out", sides=("r", "l"), lx=-58, ly=44)
+    d.arrow(guest, fda, "asks to check out", sides=("r", "l"), lx=-152, ly=44)
     d.step(452, 470, 1)
 
     # reading the file is part of step 2, so it is this flow's red, not context grey
@@ -256,7 +256,7 @@ def departure():
     d.arrow(fdb, sf, "the receipt", dashed=True,
             sides=("r", "b"), ly=-14)
     d.arrow(b_out, h_in, "room vacated", dashed=True,
-            sides=("b", "t"), lx=64)
+            sides=("b", "t"), lx=142)
     d.step(1012, 502, 4)
 
     d.arrow(hk, rooms, "free again", dashed=True,

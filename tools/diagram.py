@@ -627,6 +627,169 @@ class Diagram:
                      else CONTENT_PT)
             n["size"] = max(n.get("size", floor), floor)
 
+    # ---- fitting a figure to the room, not to the canvas ----
+    def _advance(self, n):
+        """The widest line of a note, in units, at the size it will render."""
+        face = (n.get("font") or self.font) if n["kind"] == "note" else self.font
+        w = 0.0
+        for line in str(n.get("label") or "").split("\n"):
+            if line:
+                w = max(w, _Outliner.outline(line, face, n["size"], 0, 0, "middle")[1])
+        return w
+
+    def _extent(self, k=1.0, ox=0.0, oy=0.0):
+        """Bounding box of everything drawn, with geometry scaled by `k` about
+        (ox, oy) but **text left at its own size** -- which is the whole point of
+        `compact`, and the reason this cannot be a simple multiply."""
+        xs, ys = [], []
+
+        def text(n, cx, cy, anchor, size):
+            a = self._advance(n)
+            if not a:
+                return
+            x0 = {"middle": cx - a / 2, "start": cx, "end": cx - a}[anchor]
+            lines = str(n["label"]).count("\n") + 1
+            lead = size * 1.05
+            xs.extend((x0, x0 + a))
+            ys.extend((cy - (lines - 1) * lead / 2 - size * 0.9,
+                       cy + (lines - 1) * lead / 2 + size * 0.3))
+
+        for n in self.groups + self.nodes:
+            if n["kind"] == "image":
+                continue
+            if n["kind"] == "note":
+                text(n, (n["x"] - ox) * k, (n["y"] - oy) * k,
+                     n.get("anchor", "middle"), n["size"])
+                continue
+            if not n.get("w"):
+                continue
+            x, y = (n["x"] - ox) * k, (n["y"] - oy) * k
+            w, h = n["w"] * k, n["h"] * k
+            xs.extend((x, x + w))
+            ys.extend((y, y + h))
+            if not n.get("label"):
+                continue
+            size = n.get("size", 14)
+            pos = n.get("label_pos")
+            if pos == "below":
+                text(n, x + w / 2, y + h + size + 3, "middle", size)
+            elif pos == "above":
+                text(n, x + w / 2, y - 7, "middle", size)
+            elif pos == "top":
+                text(n, x + 10, y + size + 2, "start", size)
+
+        for e in self.edges:
+            pts = self._points(e)
+            for px, py in pts:
+                xs.append((px - ox) * k)
+                ys.append((py - oy) * k)
+            if e.get("label"):
+                mx, my = self._mid(pts)
+                a = _Outliner.outline(e["label"], self.font if e.get("bpmn") else HAND,
+                                      self._edge_pt(e), 0, 0, "middle")[1]
+                cx = (mx - ox) * k + e.get("lx", 0)
+                cy = (my - oy) * k - 7 + e.get("ly", 0)
+                xs.extend((cx - a / 2, cx + a / 2))
+                ys.extend((cy - self._edge_pt(e), cy + 4))
+        return min(xs), max(xs), min(ys), max(ys)
+
+    K_FLOOR = 0.55        # a figure shrunk by more than this is a mistake, not a compaction
+    MARKS = ("icon",)     # kinds `compact` moves but does not resize -- see below
+
+    def compact(self, target, margin=40):
+        """Shrink the **geometry** until the canvas is `target` units wide, leaving
+        every label at the size the floor gave it, then crop to what is left.
+
+        **Why this exists.** The label floor is in canvas units and a figure is scaled
+        to fit its slide, so the same 18pt reads at 32 real points on a 460-unit canvas
+        and at 13 on a 1300-unit one. A wide figure is not more detailed, it is just
+        less legible. What makes these families wide is *distance* -- long arrow runs
+        between a queue and its consumers -- and distance carries no information, so it
+        is the thing to spend.
+
+        **Type does not scale, and that is the point.** Boxes are sized for their text
+        with a lot of slack (typically 3x), so a 20% shrink brings the label closer to
+        filling its box, which is what you want anyway. `lint_figures.py` is the check
+        that it has not gone too far.
+
+        Text also sets a floor on how narrow the figure can get: a foot comment 700
+        units wide does not shrink, so `target` is a request, not a promise. The search
+        is over `k`, and the widest single label wins if it has to.
+        """
+        self._legible()
+        # A shape may not shrink below its own label. Type does not scale, so a
+        # packet 24 units wide carrying a 16-unit "IP" is the binding constraint on
+        # the whole figure -- and it should be, because the alternative is a label
+        # hanging out of the shape it names.
+        fit = self.K_FLOOR
+        for n in self.nodes:
+            if (n["kind"] == "note" or not n.get("label") or not n.get("w")
+                    or n.get("label_pos") not in (None, "center")):
+                continue
+            a = self._advance(n)
+            if a:
+                fit = max(fit, (a + 12) / n["w"])
+        fit = min(fit, 1.0)
+
+        lo, hi, ty, by = self._extent()
+        if hi - lo + 2 * margin <= target:
+            k = 1.0
+        else:
+            k, lo_k, hi_k = 1.0, fit, 1.0
+            for _ in range(40):                 # width(k) is monotonic, so bisect
+                k = (lo_k + hi_k) / 2
+                a, b, _t, _b = self._extent(k, lo, ty)
+                if b - a + 2 * margin > target:
+                    hi_k = k
+                else:
+                    lo_k = k
+            k = lo_k
+            a, b, _t, _b = self._extent(k, lo, ty)
+            if b - a + 2 * margin > target + 1 and k <= fit + 1e-6:
+                pass          # the label-fit clamp bound it, not a long line
+            elif b - a + 2 * margin > target + 1:
+                # Text does not scale, so one long line can be wider than the whole
+                # target and no amount of shrinking will reach it. Without the floor
+                # the search happily drives the drawing to nothing around that line --
+                # which it did, to five figures, before this existed. Name the line
+                # instead: wrapping it is the fix, and it is a fix worth making anyway
+                # at 18pt, because a 1000-unit measure is far too long to read.
+                worst = max((n for n in self.groups + self.nodes
+                             if n["kind"] == "note" and n.get("label")),
+                            key=self._advance, default=None)
+                print(f"  ! {self.title}: cannot reach {target} wide; the longest label "
+                      f"is {self._advance(worst):.0f} units — wrap it\n"
+                      f'    "{str(worst["label"])[:72]}"', file=sys.stderr)
+        a, b, t, c = self._extent(k, lo, ty)
+        dx, dy = margin - a, margin - t
+
+        def move(px, py):
+            return (px - lo) * k + dx, (py - ty) * k + dy
+
+        for n in self.groups + self.nodes:
+            if n["kind"] == "image":
+                continue
+            if n["kind"] in self.MARKS:
+                # a lock, a clock, a tick, a cross: these are marks *about* the
+                # drawing, like text, and they are already small. Shrinking them with
+                # the geometry is the same mistake as shrinking the labels. Move the
+                # centre, keep the size.
+                cx, cy = move(n["x"] + n["w"] / 2, n["y"] + n["h"] / 2)
+                n["x"], n["y"] = cx - n["w"] / 2, cy - n["h"] / 2
+                continue
+            n["x"], n["y"] = move(n["x"], n["y"])
+            for key in ("w", "h", "slant", "band", "dx", "dy"):
+                if isinstance(n.get(key), (int, float)):
+                    n[key] = n[key] * k
+        for e in self.edges:
+            e["via"] = [move(px, py) for px, py in e.get("via") or []]
+            for end in ("src", "dst"):
+                if isinstance(e[end], tuple):
+                    e[end] = move(*e[end])
+        self.w = round(b - a + 2 * margin)
+        self.h = round(c - t + 2 * margin)
+        return self
+
     def _edge_pt(self, e):
         """Edge labels are the one text no figure can override, and they were the
         smallest thing on the slide: 15pt Caveat, 12pt Plex on a BPMN sequence

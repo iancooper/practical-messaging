@@ -46,10 +46,29 @@ OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                    "resources")
 FIGURES = {}
 
+# Every figure in this run is compacted to this width before it is written. The label
+# floor is in canvas units and the figure is scaled to fit its slide, so a wide canvas
+# is not more detail -- it is smaller type in the room. 890 is where the 18pt diagram
+# floor meets the deck's 18pt body floor at full slide width. `Diagram.compact` shrinks
+# the distances and leaves the type alone; see its docstring.
+TARGET_W = 890
+
 
 def figure(name):
+    """Register a figure -- and compact it on the way out.
+
+    **The compaction belongs here, not in `main()`.** Put it in `main()` and
+    `lint_figures.py` measures the geometry as it was written rather than as it is
+    rendered, which is exactly what happened: a note lying across a hexagon was
+    invisible to the linter for as long as the two disagreed. One definition, and
+    everything downstream sees the same drawing.
+    """
     def wrap(fn):
-        FIGURES[name] = fn
+        def build():
+            return fn().compact(TARGET_W)
+        build.__doc__ = fn.__doc__
+        build.__name__ = fn.__name__
+        FIGURES[name] = build
         return fn
     return wrap
 
@@ -61,9 +80,43 @@ def idea(d, text):
     d.note(d.w / 2, 44, text, ANNOTATION, 19)
 
 
+# a foot comment longer than this is wrapped. Text does not scale when `compact()`
+# shrinks a figure, so one long line sets the floor on how narrow the figure can get --
+# five of these were wide enough to block the whole run. 640 units is about 90
+# characters of Caveat at the 18pt floor, which is a sane measure to read anyway.
+CAVEAT_MEASURE = 640
+
+
 def caveat(d, text, y=None):
-    """The muted note at the foot: what the figure does not say."""
-    d.note(d.w / 2, y if y is not None else d.h - 26, text, COMMENT, 15)
+    """The muted note at the foot: what the figure does not say.
+
+    **It wraps itself**, because every figure in this run gets `compact()`ed and a
+    caveat is the longest text on most of them. Wrapping here rather than by hand in
+    thirty-odd call sites means a reworded caveat cannot quietly re-block the run.
+    """
+    def wrap(measure):
+        lines, line = [], ""
+        for word in text.split(" "):
+            trial = f"{line} {word}".strip()
+            if line and d._advance(dict(kind="note", label=trial, size=18)) > measure:
+                lines.append(line)
+                line = word
+            else:
+                line = trial
+        return lines + [line]
+
+    n = len(wrap(CAVEAT_MEASURE))
+    # ...then pull the measure in as far as it will go without needing another line,
+    # so the lines come out even. A greedy wrap at a fixed width leaves a two-word
+    # orphan on the last line often enough to be worth the four lines of search.
+    lo, hi = 0, CAVEAT_MEASURE
+    while hi - lo > 4:
+        mid = (lo + hi) / 2
+        if len(wrap(mid)) > n:
+            lo = mid
+        else:
+            hi = mid
+    d.note(d.w / 2, y if y is not None else d.h - 26, "\n".join(wrap(hi)), COMMENT, 15)
 
 
 def pkt_on(d, x, port, label="", accent=False, w=30, h=26):
@@ -179,7 +232,7 @@ def soa_service():
 
     con = d.box(110, 198, 200, 96, "Consumer", size=17)
     # centred, this label lands on the Service container's own border
-    d.arrow(con, ops, "input message", sides=("r", "l"), lx=-48, ly=-12)
+    d.arrow(con, ops, "input message", sides=("r", "l"), lx=-32, ly=-12)
     d.arrow(ops, con, "output message", sides=("b", "b"),
             via=[(560, 400), (210, 400)], ly=24)
 
@@ -187,7 +240,7 @@ def soa_service():
     # x=210, which is exactly where a note anchored at the Consumer's left edge sits
     d.note(110, 452, "endpoint — where it lives\nbinding — how you talk to it",
            COMMENT, 15, anchor="start")
-    d.note(948, 412, "an implementation detail:\nyou reach it only through\nan operation",
+    d.note(948, 429, "an implementation detail:\nyou reach it only through\nan operation",
            COMMENT, 14)
     caveat(d, "“a service should represent a self-contained functionality that "
               "corresponds to a real-world business activity” — and a desk is a "
@@ -665,7 +718,7 @@ def message_passing():
 
     d.note(590, 176, "a mailbox", ANNOTATION, 16)
     d.note(195, 336, "sends, and carries on —\nit does not wait", COMMENT, 15)
-    d.note(995, 336, "collects when it is\nready, not when the\nsender was", COMMENT, 15)
+    d.note(995, 347, "collects when it is\nready, not when the\nsender was", COMMENT, 15)
     d.note(590, 340, "mail is delivered to a mailbox of some form,\n"
                      "for later retrieval — the frame, from this morning", COMMENT, 15)
     caveat(d, "an asynchronous method of communication: the invoker sends, and "
@@ -867,7 +920,7 @@ def circuit_breaker():
     d.arrow(pipe, cons["ports"]["in0"], sides=("r", "l"), accent=True)
     d.arrow(cons["ports"]["out0"], prov["ports"]["in0"], sides=("r", "l"))
     d.icon(455, 214, "lock", accent=True, r=15)
-    d.note(455, 322, "open — we have stopped\nreading altogether", ANNOTATION, 15)
+    d.note(455, 364, "open — we have stopped\nreading altogether", ANNOTATION, 15)
     d.icon(850, 214, "clock", r=14)
     d.note(850, 322, "one trial call, every\nso often", COMMENT, 15)
 
@@ -903,7 +956,7 @@ def scale_out():
            anchor="start")
     d.note(1010, 452, "add one, and throughput goes up.\nNothing else changes.",
            ANNOTATION, 15, anchor="start")
-    d.note(220, 402, "fans work out — it does\nnot know how many\nworkers there are",
+    d.note(220, 428, "fans work out — it does\nnot know how many\nworkers there are",
            COMMENT, 15)
     caveat(d, "scale out, not up: twelve-factor, and the same competing consumers "
               "the queue gave you yesterday")
@@ -943,7 +996,7 @@ def scale_out_fault():
     d.note(1010, 230, "still working, still delivering", COMMENT, 15, anchor="start")
     d.note(980, 480, "its work goes back on the\nqueue and another worker\ntakes it",
            COMMENT, 15, anchor="start")
-    d.note(220, 402, "the Supervisor replaces it —\nit was never holding\n"
+    d.note(220, 425, "the Supervisor replaces it —\nit was never holding\n"
                      "anything the worker knew", COMMENT, 15)
     caveat(d, "resilient and elastic are not aspirations. They are message passing, "
               "backpressure, a circuit breaker and this.", y=616)

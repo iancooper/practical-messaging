@@ -172,15 +172,17 @@ def shopping_collaboration():
         d.flow(a, b, sides=("r", "l"))
     d.flow(shop[-1], se, sides=("r", "l"))
 
-    # the five messages, and they are the only things that cross
-    for src, dst, label, ly in (
-            (cust[1], shop[0], "Begin Shopping", 0),
-            (cust[2], shop[1], "Add Item to Basket", -28),
-            (shop[2], cust[2], "Basket Price", 28),
-            (cust[3], shop[3], "Checkout Basket", -28),
-            (shop[4], cust[3], "Valid Basket", 28)):
+    # the five messages, and they are the only things that cross. `lx` is not
+    # decoration: a message flow between the two pools routes vertically, so a label
+    # centred on it is drawn straight through its own line.
+    for src, dst, label, lx, ly in (
+            (cust[1], shop[0], "Begin Shopping", -60, 0),
+            (cust[2], shop[1], "Add Item to Basket", -76, -28),
+            (shop[2], cust[2], "Basket Price", 46, 28),
+            (cust[3], shop[3], "Checkout Basket", 74, -28),
+            (shop[4], cust[3], "Valid Basket", 48, 28)):
         d.flow(src, dst, label, message=True, accent=True,
-               sides=("b", "t") if src in cust else ("t", "b"), ly=ly)
+               sides=("b", "t") if src in cust else ("t", "b"), lx=lx, ly=ly)
     return d
 
 

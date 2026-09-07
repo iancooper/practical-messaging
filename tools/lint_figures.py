@@ -88,10 +88,55 @@ def check(families=FAMILIES):
                                f'note "{line}" spans {x0:.0f}..{x0 + adv:.0f} '
                                f'in a canvas {d.w} wide')
 
+            # free notes against the shapes. A note is placed in open ground by hand,
+            # so anything it overlaps is a mistake -- and until `compact()` moved the
+            # shapes out from under them, nothing measured it. Groups are excluded:
+            # a note inside a container is normal and is what a container is for.
+            for n in d.nodes:
+                if n["kind"] != "note" or not n.get("label"):
+                    continue
+                face = n.get("font") or d.font
+                lines = str(n["label"]).split("\n")
+                lead = n["size"] * 1.05
+                top = n["y"] - (len(lines) - 1) * lead / 2
+                for i, line in enumerate(lines):
+                    if not line:
+                        continue
+                    a = _advance(line, face, n["size"])
+                    anchor = n.get("anchor", "middle")
+                    x0 = {"middle": n["x"] - a / 2, "start": n["x"],
+                          "end": n["x"] - a}[anchor]
+                    base = top + i * lead
+                    y0, y1 = base - n["size"] * 0.78, base + n["size"] * 0.22
+                    for m in d.nodes:
+                        if m is n or m["kind"] in ("note", "rule") or not m.get("w"):
+                            continue
+                        if not (x0 < m["x"] + m["w"] - MARGIN
+                                and x0 + a > m["x"] + MARGIN
+                                and y0 < m["y"] + m["h"] - MARGIN
+                                and y1 > m["y"] + MARGIN):
+                            continue
+                        # writing a note INSIDE a shape is a technique, not a defect --
+                        # the exchange-pattern cells, the UML class body, the IN and
+                        # OUT on a desk are all done that way. What is always wrong is
+                        # a note lying ACROSS the shape's stroke, so only report a note
+                        # that is not wholly contained.
+                        if (x0 >= m["x"] and x0 + a <= m["x"] + m["w"]
+                                and y0 >= m["y"] and y1 <= m["y"] + m["h"]):
+                            continue
+                        what = str(m.get("label", "")).replace("\n", " ") or m["kind"]
+                        yield (fam, name, "note-on-shape",
+                               f'note "{line}" crosses the edge of {what}')
+                        break
+                    else:
+                        continue
+                    break
+
             for e in d.edges:
                 if not e.get("label"):
                     continue
-                mx, my = d._mid(d._points(e))
+                pts = d._points(e)
+                mx, my = d._mid(pts)
                 size = d._edge_pt(e)
                 bpmn = e.get("bpmn")
                 face = d.font if bpmn else HAND
@@ -112,6 +157,42 @@ def check(families=FAMILIES):
                         yield (fam, name, "collision",
                                f'edge label "{e["label"]}" lands on {what}')
                         hit = True
+                        break
+                if hit:
+                    continue
+                # an edge label sitting across its OWN line. A label on a horizontal
+                # run sits above the stroke and is fine -- that is how every figure in
+                # the deck is drawn. On a vertical run there is no "above", so `_mid`
+                # puts the text straight through the line. Nothing caught this until
+                # `compact()` moved two fan-out labels onto their own risers.
+                sx0, sy0 = pts[max(0, (len(pts) - 1) // 2)]
+                sx1, sy1 = pts[max(0, (len(pts) - 1) // 2) + 1]
+                if abs(sx1 - sx0) < abs(sy1 - sy0) and x0 - MARGIN < sx0 < x1 + MARGIN:
+                    yield (fam, name, "on-its-line",
+                           f'edge label "{e["label"]}" sits across its own vertical '
+                           f'run at x={sx0:.0f}')
+                    continue
+                # ...and across ANY OTHER edge's vertical run, which is the same
+                # defect with a different owner: "failed" cleared its own line and
+                # landed on the riser of the arrow above it. Only vertical segments are
+                # checked, because a horizontal stroke under a label is how every
+                # figure in the deck is drawn and would be all noise.
+                for o in d.edges:
+                    if o is e:
+                        continue
+                    op = d._points(o)
+                    for (ax, ay), (bx, by) in zip(op, op[1:]):
+                        if abs(bx - ax) >= abs(by - ay):
+                            continue
+                        if not (min(ay, by) - MARGIN < y1 and max(ay, by) + MARGIN > y0):
+                            continue
+                        if x0 - MARGIN < ax < x1 + MARGIN:
+                            yield (fam, name, "on-a-line",
+                                   f'edge label "{e["label"]}" sits across the '
+                                   f'"{o["label"] or "unlabelled"}" arrow at x={ax:.0f}')
+                            hit = True
+                            break
+                    if hit:
                         break
                 if hit:
                     continue

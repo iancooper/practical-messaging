@@ -1,77 +1,77 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="Bulkheads">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1220" pageHeight="540" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="449" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="the outage became a delay, not a failure — the work simply waits" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="550.0" y="32" width="120" height="20" as="geometry" />
+          <mxGeometry x="384.93810795445194" y="45.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="x1" value="Checkout" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="90" y="220" width="220" height="132" as="geometry" />
+          <mxGeometry x="61.0628806818159" y="187.02699999996912" width="162.40874999996137" height="97.44524999997682" as="geometry" />
         </mxCell>
         <mxCell id="o2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="83" y="279.0" width="14" height="14" as="geometry" />
+          <mxGeometry x="55.89532954545349" y="230.58207386359513" width="10.335102272724814" height="10.335102272724814" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="17" y="260.0" width="120" height="20" as="geometry" />
+          <mxGeometry x="-8.534000000000006" y="213.4145227272327" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="o3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="303" y="279.0" width="14" height="14" as="geometry" />
+          <mxGeometry x="218.30407954541488" y="230.58207386359513" width="10.335102272724814" height="10.335102272724814" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="263" y="260.0" width="120" height="20" as="geometry" />
+          <mxGeometry x="173.0685113635932" y="213.4145227272327" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="x4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
-          <mxGeometry x="900" y="220" width="220" height="132" as="geometry" />
+          <mxGeometry x="659.0223693180374" y="187.02699999996912" width="162.40874999996137" height="97.44524999997682" as="geometry" />
         </mxCell>
         <mxCell id="o5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="893" y="279.0" width="14" height="14" as="geometry" />
+          <mxGeometry x="653.854818181675" y="230.58207386359513" width="10.335102272724814" height="10.335102272724814" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="827" y="260.0" width="120" height="20" as="geometry" />
+          <mxGeometry x="589.4254886362215" y="213.4145227272327" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="o6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="1113" y="279.0" width="14" height="14" as="geometry" />
+          <mxGeometry x="816.2635681816363" y="230.58207386359513" width="10.335102272724814" height="10.335102272724814" as="geometry" />
         </mxCell>
         <mxCell id="t5" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1073" y="260.0" width="120" height="20" as="geometry" />
+          <mxGeometry x="771.0279999998146" y="213.4145227272327" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t6" value="Take Payment" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="950" y="190" width="120" height="20" as="geometry" />
+          <mxGeometry x="680.2267443180181" y="161.73901136360863" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=tube;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="430" y="254" width="380" height="64" as="geometry" />
+          <mxGeometry x="312.05822159084715" y="212.12653409087224" width="280.5242045453878" height="47.246181818170584" as="geometry" />
         </mxCell>
         <mxCell id="q8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="462" y="273" width="30" height="26" as="geometry" />
+          <mxGeometry x="335.68131249993246" y="226.15274431814163" width="22.14664772726746" height="19.1937613636318" as="geometry" />
         </mxCell>
         <mxCell id="q9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="546" y="273" width="30" height="26" as="geometry" />
+          <mxGeometry x="397.6919261362813" y="226.15274431814163" width="22.14664772726746" height="19.1937613636318" as="geometry" />
         </mxCell>
         <mxCell id="q10" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="630" y="273" width="30" height="26" as="geometry" />
+          <mxGeometry x="459.70253977263025" y="226.15274431814163" width="22.14664772726746" height="19.1937613636318" as="geometry" />
         </mxCell>
         <mxCell id="q11" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="714" y="273" width="30" height="26" as="geometry" />
+          <mxGeometry x="521.7131534089791" y="226.15274431814163" width="22.14664772726746" height="19.1937613636318" as="geometry" />
         </mxCell>
         <mxCell id="k12" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="966" y="242" width="88" height="88" as="geometry" />
+          <mxGeometry x="696.2267443180181" y="191.74962499995755" width="88" height="88" as="geometry" />
         </mxCell>
         <mxCell id="t7" value="the work queues up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="560" y="214" width="120" height="20" as="geometry" />
+          <mxGeometry x="392.3203238635411" y="179.4563295454226" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t8" value="sends, and returns&#10;immediately — whether or&#10;not the receiver is up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="135" y="384" width="120" height="20" as="geometry" />
+          <mxGeometry x="78.57614772725202" y="304.9539999999382" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t9" value="down, and nothing&#10;upstream knows" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="950" y="384" width="120" height="20" as="geometry" />
+          <mxGeometry x="680.2267443180181" y="304.9539999999382" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t10" value="the failure is contained in one compartment: a bulkhead.&#10;In a synchronous conversation it would have propagated back up the chain." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="560" y="388" width="120" height="20" as="geometry" />
+          <mxGeometry x="392.3203238635411" y="307.90688636357385" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t11" value="availabilities multiply only under temporal coupling — store-and-forward breaks the chain" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="550.0" y="502" width="120" height="20" as="geometry" />
+          <mxGeometry x="384.93810795445194" y="392.06414772719023" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o3" target="n7">
           <mxGeometry relative="1" as="geometry" />

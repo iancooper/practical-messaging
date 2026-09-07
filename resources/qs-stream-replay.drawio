@@ -1,40 +1,40 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="Streams — Archive and Replay">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1080" pageHeight="440" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="379" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="replay is not a feature of the stream — it is a consumer moving its own bookmark backwards" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="480" y="32" width="120" height="20" as="geometry" />
+          <mxGeometry x="376.19565217375106" y="45.10000000000001" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="l1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=table;childLayout=tableLayout;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
-          <mxGeometry x="90" y="190" width="600" height="68" as="geometry" />
+          <mxGeometry x="40.0" y="185.643478260817" width="528.2608695650015" height="59.869565217366834" as="geometry" />
         </mxCell>
         <mxCell id="o2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="496.5" y="150" width="12" height="12" as="geometry" />
+          <mxGeometry x="397.8967391302885" y="150.42608695648357" width="10.56521739130003" height="10.56521739130003" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="was here" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="450.5" y="122" width="120" height="20" as="geometry" />
+          <mxGeometry x="350.2228260868052" y="124.33913043475022" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="o3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#C0453B;fontColor=#C0453B;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="196.5" y="150" width="12" height="12" as="geometry" />
+          <mxGeometry x="133.76630434778775" y="150.42608695648357" width="10.56521739130003" height="10.56521739130003" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="reset to here" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="134.5" y="122" width="120" height="20" as="geometry" />
+          <mxGeometry x="72.00543478257109" y="124.33913043475022" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n4" value="Consumer" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="810" y="186" width="200" height="74" as="geometry" />
+          <mxGeometry x="673.9130434780018" y="182.12173913038367" width="176.08695652166716" height="65.15217391301684" as="geometry" />
         </mxCell>
         <mxCell id="n5" value="offset store" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=cylinder3;boundedLbl=1;backgroundOutline=1;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="825" y="300" width="170" height="64" as="geometry" />
+          <mxGeometry x="687.1195652171268" y="282.49130434773394" width="149.6739130434171" height="56.34782608693349" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="nothing was deleted, so the past is still there to be read" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="330" y="320" width="120" height="20" as="geometry" />
+          <mxGeometry x="244.13043478250074" y="298.6652173912007" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="490.5" y="156" as="sourcePoint" />
-            <mxPoint x="214.5" y="156" as="targetPoint" />
+            <mxPoint x="392.61413043463847" y="155.7086956521336" as="sourcePoint" />
+            <mxPoint x="149.6141304347378" y="155.7086956521336" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="l1" target="n4">

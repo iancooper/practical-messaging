@@ -98,6 +98,39 @@ from a name — **colour does**, which is the whole point of the four text colou
 At full slide width a label reads at roughly `18 × 890 / w` real points. **Choosing `w` is a legibility
 decision**, and a wide figure with a lot in it is the combination to avoid — see `styles.md`.
 
+### `Diagram.compact(target)` — shrink the distances, not the type
+
+```python
+d.compact(890)          # in the family's `figure` decorator, not in `main()`
+```
+
+Scales the **geometry** until the canvas is `target` wide and leaves every label at the size the floor
+gave it, then crops to what is left. What makes a figure wide is *distance* — a long arrow run between a
+queue and its consumers — and distance carries no information, so it is the right thing to spend. Boxes
+are typically three times wider than their text, so a 20–30% shrink brings the label closer to filling
+its box, which is an improvement in itself.
+
+Three things bound the shrink, and each of them earned its place:
+
+- **A shape may not go below its own label.** `flow-fbp-component` stops at 950 rather than 890 because
+  its `IP` packet would otherwise be narrower than the word in it.
+- **Text does not scale**, so one long line sets a floor on the whole figure. When that binds, `compact`
+  **names the offending label on stderr** instead of quietly shrinking the drawing to nothing around it —
+  which is what it did to five figures before the guard existed. `flow_reactive.caveat()` now wraps and
+  balances its own text for the same reason.
+- **`K_FLOOR = 0.55`.** Below that it is not a compaction, it is a mistake.
+
+**`MARKS` are moved but not resized** — a lock, a clock, a tick, a cross. They are marks *about* the
+drawing, like text, and shrinking them is the same error as shrinking the labels.
+
+**Call it from the family's `figure` decorator.** Put it in `main()` and `lint_figures.py` measures the
+geometry as written rather than as rendered — which happened, and hid a note lying across a hexagon for
+as long as the two disagreed.
+
+**Expect to re-nudge some labels afterwards.** `lx` / `ly` are text-space offsets and do not scale, so a
+label tuned to clear a line at the old spacing may not clear it at the new one. Ten needed adjusting
+across the 36 figures of the first run; lint found every one.
+
 **The floor is per-face, and that is the whole point.** IBM Plex Sans's x-height is `0.516`em against
 Caveat's `0.400` (OS/2 `sxHeight`, both at 1000upm), so **14pt of Plex reads across a room as 18pt of
 Caveat**. Comparing the two registers by their point numbers is what let the labels drift in the first
@@ -134,15 +167,22 @@ python3 tools/lint_figures.py                    # all nine families
 python3 tools/lint_figures.py bpmn_hotel paper_flow
 ```
 
-Three checks. Every centred label against the shape it sits in; every free `note` against the **canvas
-edges**, which is the only element whose width is not declared and so the only one that can quietly grow
-off the page; and every edge label against every node rect — including the node the edge *ends at*, which
-is where a right-angled route usually puts it — and against every **container border**, because the gap
-between a box and the apparatus beside it is exactly where an arrow label wants to land.
+Six checks, and every one of them was added because something shipped:
 
-**The last two were added by the 18pt sweep, and each found a defect nobody had gone looking for**: three
-foot comments had grown off their canvases (one of them before the sweep), and two arrow labels were
-sitting on a dashed container edge in `integration_styles` and one in `flow_reactive`.
+| check | what it measures |
+|---|---|
+| overflow | a centred label wider than the shape it sits in |
+| off-canvas | a free `note` running past the canvas edge — the only element whose width is not declared |
+| note-on-shape | a note lying **across** a shape's stroke. A note *inside* a shape is a technique, not a defect, so only a straddle is reported |
+| collision | an edge label landing on a node rect — including the node the edge *ends at* |
+| on-its-line | an edge label across its **own** vertical run. On a horizontal run the label sits above the stroke, which is how the whole deck is drawn; on a vertical run there is no "above" |
+| on-a-line | an edge label across **another** arrow's vertical run — the same defect with a different owner |
+| on-border | an edge label across a container's border, which is exactly where a label between a box and the apparatus wants to land |
+
+**The last five were added during the 18pt sweep and the compaction, and each found a defect nobody had
+gone looking for** — three foot comments off their canvases (one from before the sweep), three arrow
+labels on dashed container edges, six labels struck through by a vertical arrow across four families, and
+a note lying over a hexagon. Two of those figures were on sheets Ian had already approved.
 Both checks found real defects during the 2026-09-07 label sweep that were invisible in the source:
 `Pay for the Booking` stopped fitting its task box; `room free` landed on the message marker of the
 task it labels; `the payment` sat on the boundary bar it crosses.
