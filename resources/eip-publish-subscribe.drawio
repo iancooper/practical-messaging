@@ -40,10 +40,10 @@
         <mxCell id="n12" value="Subscriber 3" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="370" y="212" width="84" height="54" as="geometry" />
         </mxCell>
-        <mxCell id="t1" value="one input" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t1" value="one input" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="136" y="106" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="an output channel per subscriber" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t2" value="an output channel per subscriber" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="246" y="276" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="a copy for every subscriber" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">

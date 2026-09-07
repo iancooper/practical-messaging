@@ -37,10 +37,10 @@
         <mxCell id="t7" value="private — nobody&#10;outside reaches in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="614" y="288" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="the responsibilities&#10;the role carries" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t8" value="the responsibilities&#10;the role carries" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="614" y="382" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t9" value="the behaviour that answers a message&#10;may come from the base class:&#10;dynamic dispatch" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t9" value="the behaviour that answers a message&#10;may come from the base class:&#10;dynamic dispatch" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="564" y="104" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n5" value="another object" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
@@ -49,7 +49,7 @@
         <mxCell id="t10" value="a message — the behaviour to run,&#10;and what to run it on" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;" vertex="1" parent="1">
           <mxGeometry x="120" y="324" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t11" value="this is the tool everyone reaches for first, and nothing here is wrong yet — the next three slides scale it up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t11" value="this is the tool everyone reaches for first, and nothing here is wrong yet — the next three slides scale it up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="470.0" y="508" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="inherits" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n2" target="n1">

@@ -28,7 +28,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, MUTED, INK          # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK          # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
@@ -56,12 +56,12 @@ def if_later_stream():
     d.note(560, 44, "the late message is discarded, not repaired — "
                     "v3 already says everything v2 says", ANNOTATION, 19)
 
-    d.note(430, 108, "the consumer reads left to right", MUTED, 14)
+    d.note(430, 108, "the consumer reads left to right", COMMENT, 14)
     pipe = d.pipe(110, 150, 660, 72)
 
     for x, ver, verdict, col in (
-            (190, "12345 v1", "read 1st — apply", MUTED),
-            (400, "12345 v3", "read 2nd — apply,\nit is later", MUTED),
+            (190, "12345 v1", "read 1st — apply", INK),
+            (400, "12345 v3", "read 2nd — apply,\nit is later", INK),
             (610, "12345 v2", "read 3rd — discard,\nit is earlier", ANNOTATION)):
         d.note(x + 26, 138, ver, INK, 15)
         d.msg(x, 168, "", w=52, h=36, accent=col is ANNOTATION)
@@ -73,7 +73,7 @@ def if_later_stream():
     d.arrow(con, store, sides=("b", "t"))
 
     d.note(430, 320, "a Summary Event is complete in itself, so a version\n"
-                     "that arrives late is not a gap — it is just old", MUTED, 15)
+                     "that arrives late is not a gap — it is just old", COMMENT, 15)
     return d
 
 
@@ -95,7 +95,7 @@ def if_later_queue():
     d.note(560, 44, "the second consumer reads past and takes v2 — "
                     "it does not wait for the first", ANNOTATION, 19)
 
-    d.note(360, 108, "the consumer reads left to right", MUTED, 14)
+    d.note(360, 108, "the consumer reads left to right", COMMENT, 14)
     pipe = d.pipe(90, 150, 540, 72)
     for x, ver, accent in ((150, "12345 v1", False), (330, "12345 v2", True),
                            (510, "12345 v3", False)):
@@ -113,11 +113,11 @@ def if_later_queue():
             via=[(1035, 154), (1035, 463)], lx=-8)
     d.arrow(b, store, "writes v2", sides=("b", "t"), lx=52)
     d.note(865, 538, "whichever of them finishes last, v2 is what remains",
-           MUTED, 15)
+           COMMENT, 15)
 
     d.note(300, 330, "this is a queue, not a stream — it carries messages,\n"
                      "and a message that must be ordered cannot use it.\n"
-                     "For those, requeue with delay, or a sequencer.", MUTED, 15)
+                     "For those, requeue with delay, or a sequencer.", COMMENT, 15)
     return d
 
 

@@ -4,7 +4,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="g1" value="main — the entry point" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#8A8578;fontSize=17;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
+        <mxCell id="g1" value="main — the entry point" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=17;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
           <mxGeometry x="250" y="92" width="740" height="56" as="geometry" />
         </mxCell>
         <mxCell id="t1" value="every step of the use case passes through one object — so it changes whenever any step does" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
@@ -31,10 +31,10 @@
         <mxCell id="n8" value="Delivery" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="1030" y="458" width="160" height="74" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="each arrow is a call, and control&#10;returns the way it came" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t2" value="each arrow is a call, and control&#10;returns the way it came" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="136" y="204" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="no desk in this morning's takeaway knew the whole process. Cart knows all of it." style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t3" value="no desk in this morning's takeaway knew the whole process. Cart knows all of it." style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="560.0" y="602" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" target="n2">

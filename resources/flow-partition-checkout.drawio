@@ -49,19 +49,19 @@
         <mxCell id="q9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="1180" y="313.0" width="30" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="t6" value="purchase" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t6" value="purchase" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="75" y="270" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="priced" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t7" value="priced" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="645" y="270" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="payment due" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t8" value="payment due" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="1135" y="270" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t9" value="no gateway. no `main`. nothing here is in charge." style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="660" y="148" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t10" value="entity services divide by noun — Cart, Payment, Order — and then the verbs have&#10;nowhere to live but the gateway. Every desk in the paper office was a verb." style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t10" value="entity services divide by noun — Cart, Payment, Order — and then the verbs have&#10;nowhere to live but the gateway. Every desk in the paper office was a verb." style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="560" y="430" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q7" target="o2">

@@ -13,10 +13,10 @@
         <mxCell id="n3" value="Message&#10;Pump" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="292" y="100" width="128" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="t1" value="channel" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t1" value="channel" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="33" y="156" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="holds a thread even when the channel is empty -- but needs no connection held open" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t2" value="holds a thread even when the channel is empty -- but needs no connection held open" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="170" y="200" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="the consumer asks" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">

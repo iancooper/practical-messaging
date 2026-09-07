@@ -17,7 +17,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, MUTED, INK, CARBON      # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK, CARBON      # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 
@@ -45,8 +45,8 @@ def point_to_point():
     d.arrow(snd, pipe, sides=("r", "l"))
     d.arrow(pipe, rcv, sides=("r", "l"))
     d.note(234, 68, "each message goes to exactly one receiver", ANNOTATION, 17)
-    d.note(234, 160, "point-to-point channel", MUTED, 14)
-    d.note(234, 196, "add receivers and they still do not need to coordinate", MUTED, 14)
+    d.note(234, 160, "point-to-point channel", INK, 14)
+    d.note(234, 196, "add receivers and they still do not need to coordinate", COMMENT, 14)
     return d
 
 
@@ -67,8 +67,8 @@ def publish_subscribe():
         subs.append(sub)
         d.arrow(inp, out, sides=("r", "l"))
         d.arrow(out, sub, sides=("r", "l"))
-    d.note(196, 118, "one input", MUTED, 14)
-    d.note(306, 288, "an output channel per subscriber", MUTED, 14)
+    d.note(196, 118, "one input", INK, 14)
+    d.note(306, 288, "an output channel per subscriber", INK, 14)
     d.note(300, 22, "a copy for every subscriber", ANNOTATION, 17)
     return d
 
@@ -84,10 +84,10 @@ def datatype_channel():
         d.msg(206, y + 6, w=18, h=13)
         d.arrow(snd, pipe, sides=("r", "l"))
         d.arrow(pipe, rcv, sides=("r", "l"))
-        d.note(236, y + 44, label, MUTED, 15)
+        d.note(236, y + 44, label, COMMENT, 15)
     d.note(236, 30, "one schema per channel", ANNOTATION, 17)
     d.note(236, 272, "so the consumer never has to inspect a message to know how to read it",
-           MUTED, 14)
+           COMMENT, 14)
     return d
 
 
@@ -101,11 +101,11 @@ def message_endpoint():
     pipe = d.pipe(370, 122, 84, 26)
     d.arrow(app, end, sides=("r", "l"))
     d.arrow(end, pipe, sides=("r", "l"))
-    d.note(412, 166, "channel", MUTED, 14)
+    d.note(412, 166, "channel", INK, 14)
     d.note(235, 42, "the endpoint is where the application\n"
                     "interoperates with others via messaging", ANNOTATION, 17)
     d.note(278, 226, "it makes the message and sends it -- and on the way back,\n"
-                     "takes the contents out and hands them over", MUTED, 14)
+                     "takes the contents out and hands them over", COMMENT, 14)
     return d
 
 
@@ -124,7 +124,7 @@ def messaging_gateway():
     d.note(244, 38, "the only component that knows which broker this is",
            ANNOTATION, 17)
     d.note(244, 226, "swap the broker and nothing to the left of the gateway changes",
-           MUTED, 14)
+           COMMENT, 14)
     return d
 
 
@@ -140,9 +140,9 @@ def polling_consumer():
     d.arrow(pump, pipe, "receive()", accent=True,
             via=[(356, 58), (93, 58)], sides=("t", "t"))
     d.arrow(pipe, pump, "a message, or nothing", sides=("r", "l"), ly=-2)
-    d.note(93, 168, "channel", MUTED, 14)
+    d.note(93, 168, "channel", INK, 14)
     d.note(230, 212, "holds a thread even when the channel is empty -- "
-                     "but needs no connection held open", MUTED, 14)
+                     "but needs no connection held open", COMMENT, 14)
     d.note(230, 26, "the consumer asks", ANNOTATION, 17)
     return d
 
@@ -157,9 +157,9 @@ def event_driven_consumer():
     d.arrow(pump, pipe, "register callback", dashed=True, muted=True,
             via=[(356, 58), (93, 58)], sides=("t", "t"))
     d.arrow(pipe, pump, "on message", accent=True, sides=("r", "l"), ly=-2)
-    d.note(93, 168, "channel", MUTED, 14)
+    d.note(93, 168, "channel", INK, 14)
     d.note(230, 212, "no thread while idle -- but the connection stays open, "
-                     "and the broker sets the pace", MUTED, 14)
+                     "and the broker sets the pace", COMMENT, 14)
     d.note(230, 26, "the broker calls", ANNOTATION, 17)
     return d
 
@@ -179,10 +179,10 @@ def service_activator():
     d.arrow(pump, mapper, sides=("r", "l"))
     d.arrow(mapper, act, sides=("r", "l"))
     d.arrow(act, handler, sides=("r", "l"))
-    d.note(43, 158, "channel", MUTED, 14)
+    d.note(43, 158, "channel", INK, 14)
     d.note(400, 40, "the handler never learns it was a message", ANNOTATION, 17)
     d.note(300, 228, "a domain type in, a return or a throw out -- "
-                     "no channel, no headers, no ack", MUTED, 14)
+                     "no channel, no headers, no ack", COMMENT, 14)
     return d
 
 
@@ -199,11 +199,11 @@ def message_dispatcher():
     d.arrow(pipe, a, "1", sides=("r", "l"), ly=-2)
     d.arrow(pipe, b, "2", sides=("r", "l"), ly=-2)
     d.arrow(pipe, c, "3", accent=True, sides=("r", "l"), ly=-2)
-    d.note(103, 208, "arriving faster than one\nconsumer can drain", MUTED, 14)
+    d.note(103, 208, "arriving faster than one\nconsumer can drain", COMMENT, 14)
     d.note(240, 24, "add consumers until you consume faster than they arrive",
            ANNOTATION, 17)
     d.note(240, 292, "the cost: lock-and-read-past means order is no longer preserved",
-           MUTED, 14)
+           COMMENT, 14)
     return d
 
 
@@ -223,11 +223,11 @@ def invalid_message_channel():
     inv = d.pipe(288, 210, 164, 28, accent=True)
     d.msg(316, 217, w=18, h=13, accent=True)
     d.arrow(rcv, inv, "cannot read it", accent=True, sides=("b", "t"), lx=-62)
-    d.note(370, 264, "invalid message channel", MUTED, 14)
+    d.note(370, 264, "invalid message channel", INK, 14)
     d.note(235, 34, "it arrived -- the receiver just cannot understand it",
            ANNOTATION, 17)
     d.note(150, 188, "a well-formed message that\nmerely fails is an application\n"
-                     "error, not an invalid one", MUTED, 14)
+                     "error, not an invalid one", COMMENT, 14)
     return d
 
 
@@ -244,10 +244,10 @@ def dead_letter_channel():
     dlq = d.pipe(156, 210, 164, 28, accent=True)
     d.msg(184, 217, w=18, h=13, accent=True)
     d.arrow(pipe, dlq, "gave up after N tries", accent=True, sides=("b", "t"), lx=-62)
-    d.note(238, 264, "dead letter channel", MUTED, 14)
+    d.note(238, 264, "dead letter channel", INK, 14)
     d.note(235, 34, "the broker could not deliver it, so the broker puts it aside",
            ANNOTATION, 17)
-    d.note(385, 150, "the receiver never\nsaw this one", MUTED, 14)
+    d.note(385, 150, "the receiver never\nsaw this one", COMMENT, 14)
     return d
 
 
@@ -266,10 +266,10 @@ def content_enricher():
     d.arrow(enr, out, sides=("r", "l"))
     d.arrow(enr, db, "read the address", accent=True, sides=("b", "t"), lx=64)
     d.note(242, 34, "the lookup did not go away -- it moved here", ANNOTATION, 17)
-    d.note(74, 180, "incomplete", MUTED, 14)
-    d.note(410, 180, "complete", MUTED, 14)
+    d.note(74, 180, "incomplete", INK, 14)
+    d.note(410, 180, "complete", INK, 14)
     d.note(240, 300, "and now the shipping consumer depends on the enricher too --\n"
-                     "the same availability sum, one hop further away", MUTED, 14)
+                     "the same availability sum, one hop further away", COMMENT, 14)
     return d
 
 

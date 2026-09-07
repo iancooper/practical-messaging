@@ -99,6 +99,17 @@ figure keeps the scale it was drawn at, including the two crowded ones that sque
 Edge labels are the one text a figure cannot override, and they were the smallest thing on the slide.
 `_edge_pt(e)` puts them at the floor too: **17pt** on a hand-drawn arrow, **13pt** on a BPMN flow.
 
+The floor a note gets depends on its **colour**, which is how the two are kept in step: a note in
+`COMMENT` is a remark and floors at `ASIDE_PT`; anything else is content and floors at `CONTENT_PT`. So
+the way to make a note bigger is to say what it *is*, not to pass a number.
+
+### `MUTED` is for lines, not letters
+
+`MUTED` measures 3.6:1 on the paper — the only colour in the palette under 4.5:1 — so it is reserved for
+`rule()` hairlines, gridlines and dashed ties. Text that used to be muted is `COMMENT` (`#2F5D3A`), which
+is 7.5:1. A muted *edge* still draws a grey stroke, but its **label** is set in `COMMENT`, because the
+stroke is a guide and the label is text.
+
 ### How it works
 
 - **Shapes** are wobbled by an SVG turbulence-displacement filter, matching draw.io's `sketch=1`.

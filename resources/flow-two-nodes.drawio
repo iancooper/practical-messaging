@@ -49,10 +49,10 @@
         <mxCell id="t6" value="a packet" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="530" y="262" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="just data: a primitive or a compound value, and it may&#10;carry other packets inside it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t7" value="just data: a primitive or a compound value, and it may&#10;carry other packets inside it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="530" y="330" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="neither node knows who wrote the packet or who will read the next one — it knows the name of a port" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t8" value="neither node knows who wrote the packet or who will read the next one — it knows the name of a port" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="530.0" y="402" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q7" target="o2">

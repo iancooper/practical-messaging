@@ -25,10 +25,10 @@
         <mxCell id="t1" value="each message goes to exactly one receiver" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="174" y="56" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="point-to-point channel" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t2" value="point-to-point channel" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="174" y="148" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="add receivers and they still do not need to coordinate" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t3" value="add receivers and they still do not need to coordinate" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="174" y="184" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n1" target="n2">

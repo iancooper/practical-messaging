@@ -40,16 +40,16 @@
         <mxCell id="k11" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="819" y="221" width="22" height="22" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="nobody else can&#10;process it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t2" value="nobody else can&#10;process it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="994" y="166" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="available to lock again,&#10;often after a delay — the&#10;failure may be transient" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t3" value="available to lock again,&#10;often after a delay — the&#10;failure may be transient" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="994" y="264" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t4" value="nobody actioned it in a&#10;reasonable time, which is a&#10;different problem from a&#10;bad message" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t4" value="nobody actioned it in a&#10;reasonable time, which is a&#10;different problem from a&#10;bad message" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="994" y="418" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="three endings, and only one of them&#10;is the end of the message" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t5" value="three endings, and only one of them&#10;is the end of the message" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="240" y="418" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="locks" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="m4" target="n6">

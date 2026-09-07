@@ -84,10 +84,25 @@ editable `resources/*.drawio` diagrams.
 | `annotation` | `#C0453B` | the red dashed arrows: paper moving between trays |
 | `manila` | `#F3EFE6` | the file, the folder, the desk — and the diagram panel |
 | `rule` | `#E0D9C8` | panel edges, hairlines |
-| `muted` | `#8A8578` | secondary diagram labels, dashed guides |
+| `muted` | `#8A8578` | hairlines, gridlines, dashed ties — **guides, never text** |
+| `comment` | `#2F5D3A` | our remarks *about* the drawing |
 
 **Annotation red is reserved.** It marks the one thing the slide is actually about — not decoration, and
 never more than one idea per diagram. Carbon blue carries flow and structure; ink carries everything else.
+
+**Four text colours, and each answers a different question.** *What is this?* → **ink**. *Where does it
+go?* → **carbon**. *What is the one thing here?* → **annotation**. *What do we say about it?* →
+**comment**. A label that names a part of the drawing is content and takes ink at the content size; a
+remark about the drawing takes comment green one step below it. Nothing readable is ever `muted` —
+**`muted` is for lines, not letters.** It measures 3.6:1 against the paper, the only colour in the palette
+under the 4.5:1 threshold, which is why it looked fine on a laptop and vanished on a projector.
+
+**The comment colour is doing the work that faintness used to do**, which is the point: the deck was
+saying "secondary" twice, in size *and* in contrast, and paying for it twice. Ian, reviewing the sweep:
+*"I think we might find this isn't just about a different font size or bold, but making it a more readable
+colour."* Green also happens to help the ~8% of a developer audience with red-green colour blindness —
+not because green is easy for them, but because to a deuteranope annotation red already reads as olive
+`#7B7B33`, which the old muted grey `#868678` sat right on top of. The green pulls the two apart.
 
 ---
 

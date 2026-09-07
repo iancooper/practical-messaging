@@ -29,7 +29,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, MUTED, INK, CARBON, PLAIN    # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK, CARBON, PLAIN    # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
@@ -57,7 +57,7 @@ def p1_sequence():
     b = d.task(286, 44, 168, 52, "Create Booking\nRequest")
     d.flow(a, b, sides=("r", "l"))
     d.note(250, 138, "one activity follows another — a sequence flow, and the token "
-                     "moves with it", MUTED, 13)
+                     "moves with it", COMMENT, 13)
     return d
 
 
@@ -72,7 +72,7 @@ def p2_parallel_split():
     d.flow(gw, a, via=[(176, 56)], sides=("t", "l"))
     d.flow(gw, b, via=[(176, 154)], sides=("b", "l"))
     d.note(300, 214, "the gateway forks: both branches run, and the token splits in two",
-           MUTED, 13)
+           COMMENT, 13)
     return d
 
 
@@ -87,7 +87,7 @@ def p3_join():
     d.flow(b, gw, via=[(268, 154)], sides=("r", "b"))
     d.flow(gw, c, sides=("r", "l"))
     d.note(280, 214, "the join waits for both — the guest is not told until payment has "
-                     "cleared and the confirmation is ready", MUTED, 13)
+                     "cleared and the confirmation is ready", COMMENT, 13)
     return d
 
 
@@ -104,7 +104,7 @@ def p4_exclusive_choice():
     d.flow(gw, a, "room free", via=[(352, 48)], sides=("t", "l"), lx=-8, ly=-2)
     d.flow(gw, b, "hotel full", via=[(352, 152)], sides=("b", "l"), lx=-8, ly=-2)
     d.note(300, 214, "one path only — this is step 7 on the flow you drew, "
-                     "Respond with Booking Accept/Reject", MUTED, 13)
+                     "Respond with Booking Accept/Reject", COMMENT, 13)
     return d
 
 
@@ -119,7 +119,7 @@ def p5_simple_merge():
     d.flow(t, a, sides=("r", "l"))
     d.flow(a, b, sides=("r", "l"))
     d.note(300, 234, "no gateway: the paths were never concurrent, so there is "
-                     "nothing to synchronise", MUTED, 13)
+                     "nothing to synchronise", COMMENT, 13)
     return d
 
 
@@ -151,7 +151,7 @@ def guest_pool():
     d.flow(ch, cf, via=[(600, 250), (600, 200), (316, 200), (316, 150)],
            sides=("r", "l"))
     d.note(400, 328, "one participant, one token, all of the control local to it — "
-                     "this is the conductor from round 4", MUTED, 13)
+                     "this is the conductor from round 4", COMMENT, 13)
     return d
 
 
@@ -178,7 +178,7 @@ def agency_pool():
     d.flow(rx, tp, via=[(556, 140), (676, 140)], sides=("t", "b"))
     d.flow(tp, cg, sides=("r", "l"))
     d.note(490, 328, "two lanes, one token: the fax operator and the booking team are "
-                     "the same participant, so control flows between them", MUTED, 13)
+                     "the same participant, so control flows between them", COMMENT, 13)
     return d
 
 
@@ -199,7 +199,7 @@ def hotel_pool():
     d.flow(gw, ac, "room free", via=[(622, 62)], sides=("t", "l"), ly=-2)
     d.flow(gw, rj, "hotel full", sides=("r", "l"), ly=-2)
     d.note(450, 328, "the same shape a third time — which is the point of showing it "
-                     "a third time", MUTED, 13)
+                     "a third time", COMMENT, 13)
     return d
 
 
@@ -222,7 +222,7 @@ def pools_and_lanes():
     d.note(400, 34, "a message event refers to a message from outside — "
                     "and drawn this way, there is no outside", ANNOTATION, 17)
     d.note(400, 446, "some tasks here are about the interaction, others are oblivious "
-                     "to it. One token cannot be both.", MUTED, 13)
+                     "to it. One token cannot be both.", COMMENT, 13)
     return d
 
 
@@ -254,7 +254,7 @@ def collaboration():
 
     d.note(410, 32, "no token crosses a message flow", ANNOTATION, 18)
     d.note(410, 568, "sequence flow is what happens at a desk. Message flow is what "
-                     "happens between desks.", MUTED, 13)
+                     "happens between desks.", COMMENT, 13)
     return d
 
 
@@ -277,7 +277,7 @@ def choreography():
     d.note(410, 58, "no owner, no token, no shared state — only the order of the "
                     "messages", ANNOTATION, 17)
     d.note(410, 256, "the unshaded band is who speaks first. Past here the flow goes "
-                     "blind — the event horizon.", MUTED, 13)
+                     "blind — the event horizon.", COMMENT, 13)
     return d
 
 
@@ -291,10 +291,10 @@ def compensation_fragment():
     undo = d.task(330, 168, 180, 64, "Refund the Card", marker="compensate")
     d.arrow(ev, undo, dashed=True, muted=True, sides=("b", "l"),
             via=[(210, 198)])
-    d.note(112, 166, "compensation event,\nattached to the task", MUTED, 13)
+    d.note(112, 166, "compensation event,\nattached to the task", COMMENT, 13)
     d.note(280, 34, "the undo lives with the task it undoes", ANNOTATION, 17)
     d.note(280, 254, "you cannot roll back across desks, so for every do you write "
-                     "an undo", MUTED, 13)
+                     "an undo", COMMENT, 13)
     return d
 
 
@@ -335,8 +335,8 @@ def your_flow_side_by_side():
 
     d.note(620, 40, "you already had every concept — this is only the vocabulary",
            ANNOTATION, 18)
-    d.note(229, 574, "the desk, the tray, the heavy bar", MUTED, 14)
-    d.note(840, 574, "the task, the message flow, the pool", MUTED, 14)
+    d.note(229, 574, "the desk, the tray, the heavy bar", COMMENT, 14)
+    d.note(840, 574, "the task, the message flow, the pool", COMMENT, 14)
     return d
 
 

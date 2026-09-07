@@ -46,7 +46,7 @@
         <mxCell id="r10" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="180" y="312.6666666666667" width="296" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="control packets bracket a stream into groups" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t5" value="control packets bracket a stream into groups" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="268" y="328.6666666666667" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="q11" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
@@ -55,7 +55,7 @@
         <mxCell id="t6" value="configuration, or a starting value —&#10;read once, at start-up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="270" y="126" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="MQTT retained messages are the same idea: the broker holds the last value on a topic so a late subscriber gets state immediately" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t7" value="MQTT retained messages are the same idea: the broker holds the last value on a topic so a late subscriber gets state immediately" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="550.0" y="432" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q5" target="o2">

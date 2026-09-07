@@ -20,7 +20,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, MUTED, INK, CARBON      # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK, CARBON      # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
@@ -68,22 +68,22 @@ def notation_key():
     d.note(TX, 497, "numbered steps show the sequence", INK, 15, anchor="start")
 
     # ---- the desk -------------------------------------------------------------
-    d.note(752, 92, "a desk", MUTED, 15)
+    d.note(752, 92, "a desk", INK, 15)
     d.desk(560, 106, 384, 132)
     d.tray(596, 132, 64, 46, "in-tray")
     d.folder(716, 132, 64, 46, "the file")
     d.tray(844, 132, 64, 46, "out-tray", out=True)
 
     # ---- the one rule, drawn ---------------------------------------------------
-    d.note(752, 300, "and the only rule", MUTED, 15)
+    d.note(752, 300, "and the only rule", COMMENT, 15)
     d.desk(560, 318, 160, 120)
     d.desk(784, 318, 160, 120)
     ot = d.tray(648, 348, 54, 42, out=True)
     it = d.tray(800, 348, 54, 42)
     d.arrow(ot, it, accent=True, dashed=True, sides=("r", "l"))
     d.step(752, 408, 4)
-    d.note(640, 462, "one desk", MUTED, 14)
-    d.note(864, 462, "the next desk", MUTED, 14)
+    d.note(640, 462, "one desk", INK, 14)
+    d.note(864, 462, "the next desk", INK, 14)
     return d
 
 
@@ -107,7 +107,7 @@ def worked_flows_montage():
     ]
     for x, y, name in cells:
         d.image(x, y, 520, 372, os.path.join(OUT, f"{name}.drawio.png"))
-        d.note(x + 260, y + 396, name, MUTED, 16)
+        d.note(x + 260, y + 396, name, INK, 16)
     return d
 
 
@@ -135,7 +135,7 @@ def guest_cycle():
     # -- outside the loop: how a hotel is in the catalogue at all ----------------
     onb = d.box(60, 118, 190, 84, "Hotel\nOnboarding")
     d.note(155, 224, "not a guest-cycle stage —\nthe guest is not there for it",
-           MUTED, 15)
+           COMMENT, 15)
 
     # -- the cycle proper --------------------------------------------------------
     Y, W, H, GAP = 286, 190, 80, 72
@@ -159,7 +159,7 @@ def guest_cycle():
     # and the room goes back to it, which is what makes this a cycle
     d.arrow(stages[3], stages[0], via=[(xs[3] + W / 2, 440), (xs[0] + W / 2, 440)],
             sides=("b", "b"), muted=True)
-    d.note(818, 462, "the room, free again — and a guest who may rebook", MUTED, 15)
+    d.note(818, 462, "the room, free again — and a guest who may rebook", COMMENT, 15)
     return d
 
 
@@ -209,7 +209,7 @@ def departure():
     # the file the whole task is about
     sf = d.folder(1086, 292, 84, 60, "Guest Stay File")
     d.arrow((1128, 214), sf, muted=True, sides=(None, "t"))
-    d.note(1128, 180, "filed here all week —\nthat is Occupancy's flow", MUTED, 14)
+    d.note(1128, 180, "filed here all week —\nthat is Occupancy's flow", COMMENT, 14)
 
     # -- front desk, second turn: the receipt and the room -----------------------
     fdb = d.desk(570, 440, 350, 140, "Front Desk")
@@ -281,7 +281,7 @@ def document_card():
     # -- the header strip -------------------------------------------------------
     fields = (("TYPE", 52, 168), ("CORRELATION ID", 236, 168), ("REPLY-TO", 424, 128))
     for label, x, w in fields:
-        d.note(x + 6, 78, label, MUTED, 13, anchor="start")
+        d.note(x + 6, 78, label, INK, 13, anchor="start")
         d.rule(x, 92, w, INK, 1.4)
     d.note(300, 128, "one card is one document — fill the strip in before you send it",
            ANNOTATION, 15)
@@ -313,8 +313,8 @@ def tray_sheets():
         d.desk(24, y, W - 48, 390)
         d.tray(70, y + 44, 96, 70, out=out)
         d.note(210, y + 66, title, INK, 34, anchor="start")
-        d.note(210, y + 106, rule, MUTED, 16, anchor="start")
-        d.note(W / 2, y + 190, "put paper here", MUTED, 18)
+        d.note(210, y + 106, rule, INK, 16, anchor="start")
+        d.note(W / 2, y + 190, "put paper here", INK, 18)
         d.note(W / 2, y + 340, "nobody shouts across the office", ANNOTATION, 17)
     return d
 
@@ -350,7 +350,7 @@ def the_desk():
     d.folder(322, 254, 84, 60, "the file")
 
     d.phone(478, 244, 130, 88)
-    d.note(543, 358, "a telephone, for when it cannot wait", MUTED, 14)
+    d.note(543, 358, "a telephone, for when it cannot wait", COMMENT, 14)
 
     d.tray(700, 250, 104, 76, out=True)
     d.doc(718, 196, 72, 46)

@@ -44,7 +44,8 @@ CARBON     = "#1D4E6B"
 ANNOTATION = "#C0453B"
 MANILA     = "#F3EFE6"
 RULE       = "#E0D9C8"
-MUTED      = "#8A8578"
+MUTED      = "#8A8578"   # hairlines, guides, dashed ties -- NOT text
+COMMENT    = "#2F5D3A"   # our remarks about the drawing
 
 HAND = "Caveat"          # diagram labels -- never body copy
 PLAIN = "IBM Plex Sans"  # straight labels where a hand face would be wrong
@@ -64,7 +65,8 @@ _FONT_FILES = {
 X_HEIGHT = {HAND: 0.400, PLAIN: 0.516}
 
 CONTENT_PT = 17   # anything a delegate reads off the slide and uses
-ASIDE_PT   = 14   # our own muted remarks, which are allowed to be quieter
+ASIDE_PT   = 16   # our own remarks -- subordinate by HUE, not by being faint,
+                  # so they no longer have to be small as well
 
 
 # ---- text -> vector paths ----------------------------------------------------
@@ -514,7 +516,7 @@ class Diagram:
         self.groups.append(node)          # behind everything we draw ourselves
         return node
 
-    def note(self, x, y, text, color=MUTED, size=14, anchor="middle", font=None,
+    def note(self, x, y, text, color=COMMENT, size=14, anchor="middle", font=None,
              weight=None):
         """Free text. Always Caveat unless `font` says otherwise, because a note is
         *our annotation on top of* a diagram -- which is exactly what Caveat means in
@@ -621,7 +623,7 @@ class Diagram:
             face = (n.get("font") or self.font) if n["kind"] == "note" else self.font
             if face != HAND:
                 continue
-            floor = (ASIDE_PT if n["kind"] == "note" and n.get("color") == MUTED
+            floor = (ASIDE_PT if n["kind"] == "note" and n.get("color") == COMMENT
                      else CONTENT_PT)
             n["size"] = max(n.get("size", floor), floor)
 
@@ -931,7 +933,7 @@ class Diagram:
             if not g["label"] or g["kind"] == "image":
                 continue
             col = ANNOTATION if g.get("accent") else (
-                INK if g["kind"] == "pool" else MUTED)
+                INK if g["kind"] == "pool" else COMMENT)
             if g["kind"] == "pool":
                 # the band label runs up the side, as BPMN draws a participant
                 cy = g["y"] + g["h"] / 2
@@ -987,11 +989,11 @@ class Diagram:
             mx, my = self._mid(self._points(e))
             if e.get("bpmn"):
                 col = ANNOTATION if e["accent"] else (
-                    CARBON if e.get("message") else MUTED)
+                    CARBON if e.get("message") else COMMENT)
                 self._text(o, e["label"], mx + e.get("lx", 0), my - 6 + e.get("ly", 0),
                            self._edge_pt(e), col, "middle", self.font)
                 continue
-            col = MUTED if e.get("muted") else (ANNOTATION if e["accent"] else CARBON)
+            col = COMMENT if e.get("muted") else (ANNOTATION if e["accent"] else CARBON)
             self._text(o, e["label"], mx + e.get("lx", 0), my - 7 + e.get("ly", 0),
                        self._edge_pt(e), col, "middle")
 
@@ -1091,9 +1093,10 @@ class Diagram:
                     oy += lh
                 continue
             col = ANNOTATION if g.get("accent") else MUTED
+            txt = ANNOTATION if g.get("accent") else COMMENT
             style = (base + "rounded=1;arcSize=8;verticalAlign=top;align=left;"
                      "spacingLeft=8;spacingTop=2;fillColor=none;"
-                     f"strokeColor={col};strokeWidth=1.4;fontColor={col};"
+                     f"strokeColor={col};strokeWidth=1.4;fontColor={txt};"
                      f"fontSize={g.get('size',14)};")
             if g.get("dashed"):
                 style += "dashed=1;dashPattern=6 5;"
@@ -1105,7 +1108,7 @@ class Diagram:
         for n in self.nodes:
             if n["kind"] == "note":
                 style = (f"text;html=1;align=center;fontFamily={n.get('font') or HAND};"
-                         f"fontSize={n.get('size',14)};fontColor={n.get('color',MUTED)};")
+                         f"fontSize={n.get('size',14)};fontColor={n.get('color',COMMENT)};")
                 if (n.get("weight") or 400) >= 600:
                     style += "fontStyle=1;"
                 note_no += 1
@@ -1173,15 +1176,17 @@ class Diagram:
         for i, e in enumerate(self.edges):
             col = MUTED if (e.get("plain") or e.get("muted")) else (
                 ANNOTATION if e["accent"] else CARBON)
+            txt = COMMENT if col == MUTED else col
             style = (f"sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;"
                      f"strokeColor={col};strokeWidth=1.8;fontFamily={HAND};"
                      f"fontSize={self._edge_pt(e)};"
-                     f"fontColor={col};html=1;")
+                     f"fontColor={txt};html=1;")
             if e.get("bpmn"):
                 col = ANNOTATION if e["accent"] else (
                     CARBON if e.get("message") else INK)
                 style = (f"edgeStyle=none;rounded=0;html=1;"
-                         f"strokeColor={col};strokeWidth=1.5;fontColor={col};"
+                         f"strokeColor={col};strokeWidth=1.5;"
+                         f"fontColor={COMMENT if col == INK else col};"
                          f"fontFamily={self.font};fontSize={self._edge_pt(e)};")
                 style += ("dashed=1;dashPattern=6 5;startArrow=oval;startFill=0;"
                           "endArrow=open;endFill=0;" if e.get("message")

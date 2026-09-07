@@ -52,10 +52,10 @@
         <mxCell id="k11" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="521" y="279" width="28" height="28" as="geometry" />
         </mxCell>
-        <mxCell id="t6" value="A knows something B will need,&#10;and there is no arc that brings it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t6" value="A knows something B will need,&#10;and there is no arc that brings it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="740" y="288" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="two answers, and it is the same choice as Day 1's reference data: ask for it on demand, or hold a copy made in advance" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t7" value="two answers, and it is the same choice as Day 1's reference data: ask for it on demand, or hold a copy made in advance" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="520.0" y="482" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q7" target="o2">

@@ -37,13 +37,13 @@
         <mxCell id="n9" value="Delivery" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="1030" y="552" width="160" height="72" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="entity services: a resource each,&#10;and CRUD on it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t3" value="entity services: a resource each,&#10;and CRUD on it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="136" y="464" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t4" value="the domain logic has to live&#10;somewhere, and it is not here" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t4" value="the domain logic has to live&#10;somewhere, and it is not here" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="984" y="464" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="this is what call and return becomes when you distribute it — and it hands back the independent deployability this morning called the prize" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t5" value="this is what call and return becomes when you distribute it — and it hands back the independent deployability this morning called the prize" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="560.0" y="688" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" target="n2">

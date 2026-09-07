@@ -34,10 +34,10 @@
         <mxCell id="t1" value="must we both be up?" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="178" y="114" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="no —&#10;both can be down" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t2" value="no —&#10;both can be down" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="178" y="206" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="yes —&#10;both must be up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t3" value="yes —&#10;both must be up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="178" y="380" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="Content" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
@@ -55,10 +55,10 @@
         <mxCell id="t8" value="Data" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="848.0" y="504" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t9" value="tightest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t9" value="tightest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="272.0" y="528" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t10" value="loosest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t10" value="loosest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="848.0" y="528" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t11" value="what are we coupled about?" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">

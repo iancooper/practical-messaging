@@ -34,19 +34,19 @@
         <mxCell id="e6" value="Checked Out" style="shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;outline=end;symbol=message;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="1083" y="79" width="34" height="34" as="geometry" />
         </mxCell>
-        <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e1" target="t2">
+        <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e1" target="t2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t2" target="t3">
+        <mxCell id="e1" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t2" target="t3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e2" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3" target="t4">
+        <mxCell id="e2" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3" target="t4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e3" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t4" target="t5">
+        <mxCell id="e3" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t4" target="t5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e4" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t5" target="e6">
+        <mxCell id="e4" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=13;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t5" target="e6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>

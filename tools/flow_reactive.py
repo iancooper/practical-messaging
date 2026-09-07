@@ -40,7 +40,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, MUTED, INK, CARBON      # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK, CARBON      # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                    "resources")
@@ -63,7 +63,7 @@ def idea(d, text):
 
 def caveat(d, text, y=None):
     """The muted note at the foot: what the figure does not say."""
-    d.note(d.w / 2, y if y is not None else d.h - 26, text, MUTED, 15)
+    d.note(d.w / 2, y if y is not None else d.h - 26, text, COMMENT, 15)
 
 
 def pkt_on(d, x, port, label="", accent=False, w=30, h=26):
@@ -107,10 +107,10 @@ def oo_class():
     d.note(X + W + 30, Y + 74, "private — nobody\noutside reaches in",
            ANNOTATION, 15, anchor="start")
     d.note(X + W + 30, Y + 168, "the responsibilities\nthe role carries",
-           MUTED, 15, anchor="start")
+           COMMENT, 15, anchor="start")
     d.note(624, 116, "the behaviour that answers a message\n"
                      "may come from the base class:\ndynamic dispatch",
-           MUTED, 15, anchor="start")
+           COMMENT, 15, anchor="start")
 
     caller = d.box(80, 386, 200, 76, "another object", size=17)
     d.arrow(caller, (X, Y + 176))
@@ -152,7 +152,7 @@ def call_and_return():
     d.arrow(ring["Order"], ring["Delivery"], sides=("r", "l"))
 
     d.note(196, 216, "each arrow is a call, and control\n"
-                     "returns the way it came", MUTED, 15, anchor="start")
+                     "returns the way it came", COMMENT, 15, anchor="start")
     caveat(d, "no desk in this morning's takeaway knew the whole process. "
               "Cart knows all of it.")
     return d
@@ -173,7 +173,7 @@ def soa_service():
 
     d.group(450, 132, 620, 340, "Service")
     ops = d.box(500, 190, 300, 112, "operations", size=17)
-    d.note(650, 282, "placeOrder · cancelOrder · trackOrder", MUTED, 14)
+    d.note(650, 282, "placeOrder · cancelOrder · trackOrder", INK, 14)
     store = d.cylinder(858, 300, 180, 88, "its own data", accent=True)
     d.attach(ops, store, sides=("r", "l"))
 
@@ -185,9 +185,9 @@ def soa_service():
     # below the return path, not beside it: the riser out of the service crosses
     # x=210, which is exactly where a note anchored at the Consumer's left edge sits
     d.note(110, 452, "endpoint — where it lives\nbinding — how you talk to it",
-           MUTED, 15, anchor="start")
+           COMMENT, 15, anchor="start")
     d.note(948, 412, "an implementation detail:\nyou reach it only through\nan operation",
-           MUTED, 14)
+           COMMENT, 14)
     caveat(d, "“a service should represent a self-contained functionality that "
               "corresponds to a real-world business activity” — and a desk is a "
               "business activity")
@@ -228,9 +228,9 @@ def entity_services():
     d.arrow(ring["Order"], ring["Delivery"], sides=("r", "l"))
 
     d.note(196, 476, "entity services: a resource each,\nand CRUD on it",
-           MUTED, 15, anchor="start")
+           COMMENT, 15, anchor="start")
     d.note(1044, 476, "the domain logic has to live\nsomewhere, and it is not here",
-           MUTED, 15, anchor="end")
+           COMMENT, 15, anchor="end")
     caveat(d, "this is what call and return becomes when you distribute it — "
               "and it hands back the independent deployability this morning "
               "called the prize", y=700)
@@ -262,8 +262,8 @@ def dataflow_graph():
     d.arrow(e["ports"]["out0"], f["ports"]["in0"], sides=("r", "l"))
 
     d.note(440, 196, "fires when its input arrives", ANNOTATION, 15)
-    d.note(190, 358, "a node —\nan operation", MUTED, 15)
-    d.note(600, 484, "an arc — where the data moves", MUTED, 15)
+    d.note(190, 358, "a node —\nan operation", INK, 15)
+    d.note(600, 484, "an arc — where the data moves", INK, 15)
     d.arrow((586, 462), (566, 352), muted=True)
     caveat(d, "in call and return, control moves and data sits still. Here it is the "
               "other way round — and you already use one: pipes and filters.")
@@ -287,18 +287,18 @@ def node_ports():
     d.arrow(n["ports"]["out"], p_out, sides=("r", "l"))
 
     d.note(570, 254, "you do not see inside it,\nand it does not see out",
-           MUTED, 14)
+           COMMENT, 14)
 
     for x0, w0, label in ((196, 240, "activation — it fires"),
                           (452, 236, "process, and make an answer"),
                           (716, 236, "push the answer out")):
         d.rule(x0, 356, w0, MUTED, 1.6)
         d.note(x0 + w0 / 2, 382, label,
-               ANNOTATION if "activation" in label else MUTED, 15)
+               ANNOTATION if "activation" in label else INK, 15)
 
     d.note(570, 442, "generally a node is single-threaded: one clerk does one "
                      "document at a time.\nThroughput comes from having many "
-                     "nodes, not from one node doing many things.", MUTED, 15)
+                     "nodes, not from one node doing many things.", COMMENT, 15)
     return d
 
 
@@ -324,7 +324,7 @@ def two_nodes():
 
     d.note(590, 274, "a packet", ANNOTATION, 15)
     d.note(590, 342, "just data: a primitive or a compound value, and it may\n"
-                     "carry other packets inside it", MUTED, 15)
+                     "carry other packets inside it", COMMENT, 15)
     caveat(d, "neither node knows who wrote the packet or who will read the next "
               "one — it knows the name of a port")
     return d
@@ -351,11 +351,11 @@ def arc_buffers():
     d.note(595, 190, "the arc: a pipe with a capacity, and it is full",
            ANNOTATION, 15)
     d.note(160, 366, "push — something arrived\nand there is work to do",
-           MUTED, 15)
-    d.note(1010, 366, "pull — a sink asked\nfor work", MUTED, 15)
+           INK, 15)
+    d.note(1010, 366, "pull — a sink asked\nfor work", INK, 15)
     d.note(595, 372, "buffers are what let the two run at once: price can push\n"
                      "while total is still busy. Throughput is then the slowest node.",
-           MUTED, 15)
+           COMMENT, 15)
     caveat(d, "links with infinite capacity exist only in theory, so when the buffer "
               "fills there are exactly two answers: slow the producer, or drop data")
     return d
@@ -380,15 +380,15 @@ def fbp_component():
     d.arrow(p_in, n["ports"]["in"], sides=("r", "l"))
     d.arrow(n["ports"]["out"], p_out, sides=("r", "l"))
 
-    d.note(600, 384, "the component — where the behaviour lives", MUTED, 15)
+    d.note(600, 384, "the component — where the behaviour lives", INK, 15)
     d.note(190, 336, "an information packet:\nan independent, structured\n"
-                     "piece of information", MUTED, 15)
-    d.note(1000, 336, "a connector:\na bounded pipe\nof packets", MUTED, 15)
+                     "piece of information", INK, 15)
+    d.note(1000, 336, "a connector:\na bounded pipe\nof packets", INK, 15)
     # the ports carry the red themselves rather than a note with a leader line:
     # every pointer aimed at a port either crossed the hexagon or struck through the
     # port's own label, which sits immediately above the dot
     d.note(600, 152, "the port — a named point where a connection makes contact",
-           MUTED, 15)
+           INK, 15)
     caveat(d, "in OO the object holds the state; in FBP the state is in the packet, "
               "and it is out there on a connector rather than in storage")
     return d
@@ -414,16 +414,16 @@ def fbp_lifetime():
     # each bracket runs from the packet to the port that ends it, so the gap between
     # them is exactly the component's own span — which is the point of the figure
     d.rule(190, 132, 260, MUTED, 1.6)
-    d.note(320, 118, "this packet's lifetime", MUTED, 15)
+    d.note(320, 118, "this packet's lifetime", INK, 15)
     d.rule(750, 132, 300, MUTED, 1.6)
-    d.note(900, 118, "and this one's — a different packet", MUTED, 15)
+    d.note(900, 118, "and this one's — a different packet", INK, 15)
 
     d.rule(450, 372, 300, ANNOTATION, 2.0)
     d.note(600, 400, "process, then wait", ANNOTATION, 16)
     d.icon(600, 352, "clock", accent=True, r=12)
 
     d.note(600, 448, "consuming a packet destroys it; sending one creates a new "
-                     "one. The component outlives both.", MUTED, 15)
+                     "one. The component outlives both.", COMMENT, 15)
     caveat(d, "this is the message pump from Day 1, described from the other side "
               "of the loop")
     return d
@@ -454,7 +454,7 @@ def fbp_ports():
         d.arrow(port, dst, sides=("r", "l"), accent=True)
 
     d.note(240, 420, "multiple connections may arrive\non one in-port — that is how\n"
-                     "you sequence work", MUTED, 15)
+                     "you sequence work", COMMENT, 15)
     d.note(1010, 430, "one connection each,\nand only one", ANNOTATION, 15)
     caveat(d, "a component may have as many ports as it needs; the rule is about "
               "writers, not about how many ports there are")
@@ -480,7 +480,7 @@ def fbp_iip():
         d.packet(180 + i * 74, y - 13, w=44, h=26, label=lab)
     d.arrow((476, y), n["ports"]["in"], sides=(None, "l"))
     d.rule(180, y + 30, 296, MUTED, 1.6)
-    d.note(328, y + 58, "control packets bracket a stream into groups", MUTED, 15)
+    d.note(328, y + 58, "control packets bracket a stream into groups", COMMENT, 15)
 
     p_out = pkt_on(d, 980, n["ports"]["out"])
     d.arrow(n["ports"]["out"], p_out, sides=("r", "l"))
@@ -517,7 +517,7 @@ def lookup_question():
     d.arrow(a, b, accent=True, dashed=True, sides=("b", "t"))
     d.icon(535, 293, "cross", accent=True, r=14)
     d.note(800, 300, "A knows something B will need,\nand there is no arc that "
-                     "brings it", MUTED, 15)
+                     "brings it", COMMENT, 15)
     caveat(d, "two answers, and it is the same choice as Day 1's reference data: "
               "ask for it on demand, or hold a copy made in advance")
     return d
@@ -594,13 +594,13 @@ def lookup_build():
     d.arrow(tbl, b, "read locally — no pause", accent=True, sides=("b", "t"),
             via=[(900, 320), (545, 320)], ly=-8)
 
-    d.note(235, 268, "A publishes what it\nknows, as it changes", MUTED, 15)
-    d.note(545, 268, "listens to A, and keeps\nthe table current", MUTED, 15)
+    d.note(235, 268, "A publishes what it\nknows, as it changes", COMMENT, 15)
+    d.note(545, 268, "listens to A, and keeps\nthe table current", COMMENT, 15)
     # above the cylinder, not below it: the read leaves the cylinder's bottom centre
     # and any note under it is on the line
-    d.note(900, 104, "the copy, held where B needs it", MUTED, 15)
+    d.note(900, 104, "the copy, held where B needs it", COMMENT, 15)
     d.note(545, 540, "not a packet on a port — a table B reads, so nothing waits",
-           MUTED, 15)
+           COMMENT, 15)
     caveat(d, "in advance rather than on demand: no temporal coupling, and the copy "
               "is behind by one broker hop — which is the trade you are making",
            y=578)
@@ -637,7 +637,7 @@ def nodes_as_processes():
     d.note(640, 386, "message-oriented middleware", ANNOTATION, 16)
     d.note(640, 424, "the connector was always external — the component only ever "
                      "knew a port name,\nso making it a broker changes nothing "
-                     "inside the component", MUTED, 15)
+                     "inside the component", COMMENT, 15)
     caveat(d, "everything the room drew on paper this morning, and as a graph an "
               "hour ago, is the thing Day 1 spent a day building")
     return d
@@ -663,10 +663,10 @@ def message_passing():
     d.arrow(box, b["ports"]["in0"], sides=("r", "l"))
 
     d.note(590, 176, "a mailbox", ANNOTATION, 16)
-    d.note(195, 336, "sends, and carries on —\nit does not wait", MUTED, 15)
-    d.note(995, 336, "collects when it is\nready, not when the\nsender was", MUTED, 15)
+    d.note(195, 336, "sends, and carries on —\nit does not wait", COMMENT, 15)
+    d.note(995, 336, "collects when it is\nready, not when the\nsender was", COMMENT, 15)
     d.note(590, 340, "mail is delivered to a mailbox of some form,\n"
-                     "for later retrieval — the frame, from this morning", MUTED, 15)
+                     "for later retrieval — the frame, from this morning", COMMENT, 15)
     caveat(d, "an asynchronous method of communication: the invoker sends, and "
               "relies on the receiver to select and run the code that answers it")
     return d
@@ -692,13 +692,13 @@ def command_event_ports():
     p = pkt_on(d, 970, n["ports"]["out-result"], accent=True)
     d.arrow(n["ports"]["out-result"], p, sides=("r", "l"), accent=True)
 
-    d.note(210, 330, "a command: something\nI am being told to do", MUTED, 15)
-    d.note(985, 208, "a request to somebody else —\nstill nobody is called", MUTED,
+    d.note(210, 330, "a command: something\nI am being told to do", INK, 15)
+    d.note(985, 208, "a request to somebody else —\nstill nobody is called", COMMENT,
            15, anchor="start")
     d.note(985, 382, "a fact: something I know,\nfor whoever cares", ANNOTATION, 15,
            anchor="start")
     d.note(610, 436, "separate the data from the behaviour, act on what is on the "
-                     "queue,\nand send what happened", MUTED, 15)
+                     "queue,\nand send what happened", COMMENT, 15)
     caveat(d, "that is a node with ports. That is a desk with trays. Nobody holds "
               "the whole process, and there is no gateway `main`.")
     return d
@@ -727,9 +727,9 @@ def partition_checkout():
 
     # the packet names sit a row above the port labels, not level with them: at 17pt
     # bold the last "out" runs straight into "payment due"
-    d.note(135, 282, "purchase", MUTED, 15, anchor="middle")
-    d.note(705, 282, "priced", MUTED, 15, anchor="middle")
-    d.note(1195, 282, "payment due", MUTED, 15, anchor="middle")
+    d.note(135, 282, "purchase", INK, 15, anchor="middle")
+    d.note(705, 282, "priced", INK, 15, anchor="middle")
+    d.note(1195, 282, "payment due", INK, 15, anchor="middle")
 
     d.group(320, 128, 800, 60, "", dashed=True, accent=True)
     d.note(720, 160, "no gateway. no `main`. nothing here is in charge.",
@@ -737,7 +737,7 @@ def partition_checkout():
 
     d.note(620, 442, "entity services divide by noun — Cart, Payment, Order — and "
                      "then the verbs have\nnowhere to live but the gateway. Every "
-                     "desk in the paper office was a verb.", MUTED, 15)
+                     "desk in the paper office was a verb.", COMMENT, 15)
     return d
 
 
@@ -764,11 +764,11 @@ def bulkhead():
 
     d.note(620, 226, "the work queues up", ANNOTATION, 16)
     d.note(195, 396, "sends, and returns\nimmediately — whether or\n"
-                     "not the receiver is up", MUTED, 15)
-    d.note(1010, 396, "down, and nothing\nupstream knows", MUTED, 15)
+                     "not the receiver is up", COMMENT, 15)
+    d.note(1010, 396, "down, and nothing\nupstream knows", COMMENT, 15)
     d.note(620, 400, "the failure is contained in one compartment: a bulkhead.\n"
                      "In a synchronous conversation it would have propagated back "
-                     "up the chain.", MUTED, 15)
+                     "up the chain.", COMMENT, 15)
     caveat(d, "availabilities multiply only under temporal coupling — "
               "store-and-forward breaks the chain")
     return d
@@ -793,14 +793,14 @@ def backpressure():
 
     d.arrow(b, a, "slow down", accent=True, sides=("b", "b"),
             via=[(1015, 404), (195, 404)], ly=26)
-    d.note(610, 196, "full", MUTED, 15)
+    d.note(610, 196, "full", INK, 15)
 
     d.note(195, 470, "push — the middleware calls\nus as messages arrive",
-           MUTED, 15)
-    d.note(1015, 470, "pull — we poll, so we\ncontrol the rate", MUTED, 15)
+           INK, 15)
+    d.note(1015, 470, "pull — we poll, so we\ncontrol the rate", INK, 15)
     d.note(610, 470, "blocking retry creates it as a side effect: retrying a\n"
                      "connection slows consumption, which fills the queue",
-           MUTED, 15)
+           COMMENT, 15)
     caveat(d, "choose it when data loss is unacceptable and the extra latency is "
               "tolerable")
     return d
@@ -831,10 +831,10 @@ def load_shedding():
     d.note(830, 400, "dropped, on purpose", ANNOTATION, 16, anchor="start")
 
     d.note(195, 470, "still sending at full rate —\nnobody asked it to stop",
-           MUTED, 15)
-    d.note(1015, 470, "keeps up, on a sample\nof the traffic", MUTED, 15)
+           COMMENT, 15)
+    d.note(1015, 470, "keeps up, on a sample\nof the traffic", COMMENT, 15)
     d.note(560, 470, "and it can discriminate: prioritise,\nand throw away only "
-                     "the cheap data", MUTED, 15)
+                     "the cheap data", COMMENT, 15)
     caveat(d, "choose it when volume is high and a sample will do — a thousand "
               "metrics a second when ten meets the SLA")
     return d
@@ -868,9 +868,9 @@ def circuit_breaker():
     d.icon(455, 214, "lock", accent=True, r=15)
     d.note(455, 322, "open — we have stopped\nreading altogether", ANNOTATION, 15)
     d.icon(850, 214, "clock", r=14)
-    d.note(850, 322, "one trial call, every\nso often", MUTED, 15)
+    d.note(850, 322, "one trial call, every\nso often", COMMENT, 15)
 
-    d.note(245, 196, "the work waits, as it did on the bulkhead", MUTED, 15)
+    d.note(245, 196, "the work waits, as it did on the bulkhead", COMMENT, 15)
     caveat(d, "the bulkhead answers a downstream that is down; the circuit breaker "
               "answers one that is down and being retried into the ground")
     return d
@@ -898,12 +898,12 @@ def scale_out():
                 sides=("r", "l"))
 
     # anchored start, clear of the out packet: centred here they sat on top of it
-    d.note(1010, 230, "identical: same code,\nsame in-port name", MUTED, 15,
+    d.note(1010, 230, "identical: same code,\nsame in-port name", COMMENT, 15,
            anchor="start")
     d.note(1010, 452, "add one, and throughput goes up.\nNothing else changes.",
            ANNOTATION, 15, anchor="start")
     d.note(220, 402, "fans work out — it does\nnot know how many\nworkers there are",
-           MUTED, 15)
+           COMMENT, 15)
     caveat(d, "scale out, not up: twelve-factor, and the same competing consumers "
               "the queue gave you yesterday")
     return d
@@ -939,11 +939,11 @@ def scale_out_fault():
             d.arrow(w["ports"]["out0"], pkt_on(d, 950, w["ports"]["out0"]),
                     sides=("r", "l"))
 
-    d.note(1010, 230, "still working, still delivering", MUTED, 15, anchor="start")
+    d.note(1010, 230, "still working, still delivering", COMMENT, 15, anchor="start")
     d.note(980, 480, "its work goes back on the\nqueue and another worker\ntakes it",
-           MUTED, 15, anchor="start")
+           COMMENT, 15, anchor="start")
     d.note(220, 402, "the Supervisor replaces it —\nit was never holding\n"
-                     "anything the worker knew", MUTED, 15)
+                     "anything the worker knew", COMMENT, 15)
     caveat(d, "resilient and elastic are not aspirations. They are message passing, "
               "backpressure, a circuit breaker and this.", y=616)
     return d

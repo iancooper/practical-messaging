@@ -35,7 +35,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, MUTED, INK, PLAIN          # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK, PLAIN          # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
@@ -96,7 +96,7 @@ def bpmn_elements():
     for x, y, t in ((96, 212, "start event"), (209, 210, "task — work gets done"),
                     (320, 134, "event"), (400, 258, "gateway"),
                     (734, 212, "end event"), (662, 90, "sequence flow")):
-        d.note(x, y, t, MUTED, 12)
+        d.note(x, y, t, INK, 12)
     return d
 
 
@@ -252,23 +252,23 @@ def the_six():
             (182, "service", "Service", "calls something that is not a person"),
             (352, "receive", "Receive", "waits for a message to arrive")):
         d.task(101, y, 190, 56, name, marker=marker)
-        d.note(196, y + 104, gloss, MUTED, 14)
+        d.note(196, y + 104, gloss, COMMENT, 14)
 
     # events and gateways label themselves underneath, so the gloss drops further
     for cy, symbol, name, gloss in (
             (210, "message", "Message", "something arrived from\nanother participant"),
             (380, "timer", "Timer", "enough time passed,\nand nothing arrived")):
         d.event(600, cy, "intermediate", symbol, name)
-        d.note(600, cy + 76, gloss, MUTED, 14)
+        d.note(600, cy + 76, gloss, COMMENT, 14)
 
     for cy, kind, name, gloss in (
             (210, "exclusive", "Exclusive", "one path is taken,\nand only one"),
             (380, "parallel", "Parallel", "every path is taken,\nand the token splits")):
         d.gateway(992, cy, kind, name)
-        d.note(992, cy + 76, gloss, MUTED, 14)
+        d.note(992, cy + 76, gloss, COMMENT, 14)
 
     d.note(600, 548, "every other task type, event and gateway is on the reference card "
-                     "in your pack", MUTED, 15)
+                     "in your pack", COMMENT, 15)
     return d
 
 

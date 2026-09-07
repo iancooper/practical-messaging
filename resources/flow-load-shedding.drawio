@@ -61,16 +61,16 @@
         <mxCell id="t6" value="dropped, on purpose" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="770" y="388" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="still sending at full rate —&#10;nobody asked it to stop" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t7" value="still sending at full rate —&#10;nobody asked it to stop" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="135" y="458" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="keeps up, on a sample&#10;of the traffic" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t8" value="keeps up, on a sample&#10;of the traffic" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="955" y="458" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t9" value="and it can discriminate: prioritise,&#10;and throw away only the cheap data" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t9" value="and it can discriminate: prioritise,&#10;and throw away only the cheap data" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="500" y="458" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t10" value="choose it when volume is high and a sample will do — a thousand metrics a second when ten meets the SLA" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t10" value="choose it when volume is high and a sample will do — a thousand metrics a second when ten meets the SLA" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="550.0" y="522" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o3" target="n7">

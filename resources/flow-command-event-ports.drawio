@@ -37,19 +37,19 @@
         <mxCell id="q7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="970" y="309.6666666666667" width="30" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="a command: something&#10;I am being told to do" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t5" value="a command: something&#10;I am being told to do" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="150" y="318" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t6" value="a request to somebody else —&#10;still nobody is called" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t6" value="a request to somebody else —&#10;still nobody is called" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="925" y="196" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t7" value="a fact: something I know,&#10;for whoever cares" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="925" y="370" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="separate the data from the behaviour, act on what is on the queue,&#10;and send what happened" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t8" value="separate the data from the behaviour, act on what is on the queue,&#10;and send what happened" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="550" y="424" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t9" value="that is a node with ports. That is a desk with trays. Nobody holds the whole process, and there is no gateway `main`." style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t9" value="that is a node with ports. That is a desk with trays. Nobody holds the whole process, and there is no gateway `main`." style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="550.0" y="482" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q5" target="o2">

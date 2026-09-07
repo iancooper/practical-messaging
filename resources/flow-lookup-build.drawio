@@ -64,19 +64,19 @@
         <mxCell id="q13" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="760" y="423.0" width="30" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="A publishes what it&#10;knows, as it changes" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t8" value="A publishes what it&#10;knows, as it changes" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="175" y="256" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t9" value="listens to A, and keeps&#10;the table current" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t9" value="listens to A, and keeps&#10;the table current" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="485" y="256" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t10" value="the copy, held where B needs it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t10" value="the copy, held where B needs it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="840" y="92" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t11" value="not a packet on a port — a table B reads, so nothing waits" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t11" value="not a packet on a port — a table B reads, so nothing waits" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="485" y="528" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t12" value="in advance rather than on demand: no temporal coupling, and the copy is behind by one broker hop — which is the trade you are making" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t12" value="in advance rather than on demand: no temporal coupling, and the copy is behind by one broker hop — which is the trade you are making" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="520.0" y="566" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q11" target="o2">

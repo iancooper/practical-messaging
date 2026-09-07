@@ -29,7 +29,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, MUTED, INK, CARBON      # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK, CARBON      # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
@@ -108,7 +108,7 @@ def queue_tasks():
 
     d.note(330, 424, "a message being worked on is locked, so nobody else can\n"
                      "action it — and a task is done once, so a receiver of a\n"
-                     "done task discards it", MUTED, 15)
+                     "done task discards it", COMMENT, 15)
     return d
 
 
@@ -136,14 +136,14 @@ def queue_lifecycle():
     d.icon(830, 118, "tick", r=11)
     d.icon(830, 232, "clock", r=11)
 
-    d.note(1054, 178, "nobody else can\nprocess it", MUTED, 14, anchor="start")
+    d.note(1054, 178, "nobody else can\nprocess it", COMMENT, 14, anchor="start")
     d.note(1054, 276, "available to lock again,\noften after a delay — the\n"
-                      "failure may be transient", MUTED, 14, anchor="start")
+                      "failure may be transient", COMMENT, 14, anchor="start")
     d.note(1054, 430, "nobody actioned it in a\nreasonable time, which is a\n"
-                      "different problem from a\nbad message", MUTED, 14,
+                      "different problem from a\nbad message", COMMENT, 14,
            anchor="start")
     d.note(300, 430, "three endings, and only one of them\n"
-                     "is the end of the message", MUTED, 15)
+                     "is the end of the message", COMMENT, 15)
     return d
 
 
@@ -163,9 +163,9 @@ def queue_competing():
     d.arrow(cells[2], cons[1], sides=("b", "l"), via=[(345, 336)])
     d.arrow(cells[1], cons[2], sides=("b", "l"), via=[(242, 436)])
 
-    d.note(230, 150, "three held, one still waiting", MUTED, 15)
+    d.note(230, 150, "three held, one still waiting", COMMENT, 15)
     d.note(340, 510, "add a consumer and throughput goes up — "
-                     "nothing about the queue itself changes", MUTED, 15)
+                     "nothing about the queue itself changes", COMMENT, 15)
     return d
 
 
@@ -184,7 +184,7 @@ def queue_no_replay():
     con = d.box(790, 178, 200, 72, "Consumer")
     d.arrow(pipe, con, sides=("r", "l"))
     d.note(540, 372, "a queue holds work that has not been done yet — "
-                     "it was never a record of anything", MUTED, 15)
+                     "it was never a record of anything", COMMENT, 15)
     return d
 
 
@@ -200,7 +200,7 @@ def stream_facts():
                     "record, and each remembers how far it got", ANNOTATION, 19)
 
     log = stream(d, 70, 210, w=560, h=68, n=7)
-    d.note(350, 176, "the stream — nothing is ever removed", MUTED, 14)
+    d.note(350, 176, "the stream — nothing is ever removed", INK, 14)
 
     for i, (name, off, y) in enumerate((("Consumer One", "4", 100),
                                         ("Consumer Two", "2", 324))):
@@ -211,9 +211,9 @@ def stream_facts():
 
     d.note(330, 380, "an offset is a consumer's own bookmark. On restart\n"
                      "it reads the store to find the last record it processed.",
-           MUTED, 15)
+           COMMENT, 15)
     d.note(330, 470, "facts are an inverse database — how the current\n"
-                     "state was arrived at", MUTED, 15)
+                     "state was arrived at", COMMENT, 15)
     return d
 
 
@@ -230,14 +230,14 @@ def stream_partitions():
     for i in range(3):
         y = 110 + i * 118
         log = stream(d, 190, y, w=420, h=52, n=6)
-        d.note(176, y + 30, f"partition {i}", MUTED, 14, anchor="end")
+        d.note(176, y + 30, f"partition {i}", INK, 14, anchor="end")
         con = d.box(750, y - 4, 190, 64, f"Consumer {i + 1}")
         st = d.cylinder(1000, y - 2, 140, 60, "offset")
         d.arrow(log, con, sides=("r", "l"))
         d.arrow(con, st, sides=("r", "l"), muted=True)
 
     d.note(590, 470, "each consumer manages the offsets for its own partition — "
-                     "there is no shared position", MUTED, 15)
+                     "there is no shared position", COMMENT, 15)
     return d
 
 
@@ -255,7 +255,7 @@ def stream_consumer_groups():
     for i in range(2):
         y = 132 + i * 130
         log = stream(d, 150, y, w=420, h=52, n=6)
-        d.note(136, y + 30, f"partition {i}", MUTED, 14, anchor="end")
+        d.note(136, y + 30, f"partition {i}", INK, 14, anchor="end")
         con = d.box(740, y - 8, 230, 68, f"Consumer {i + 1}")
         d.arrow(log, con, sides=("r", "l"))
         d.icon(676, y + 26, "lock")
@@ -264,7 +264,7 @@ def stream_consumer_groups():
     d.note(855, 452, "holding nothing, and that is correct", ANNOTATION, 14)
 
     d.note(430, 528, "a consumer may hold more than one of the group's partitions — "
-                     "but a partition is never held by two at once", MUTED, 15)
+                     "but a partition is never held by two at once", COMMENT, 15)
     return d
 
 
@@ -281,7 +281,7 @@ def stream_replay():
     cw = W / N
     was, back = X0 + 5.5 * cw, X0 + 1.5 * cw
     d.point(was, Y - 34, "", r=6)
-    d.note(was + 8, Y - 56, "was here", MUTED, 14, anchor="start")
+    d.note(was + 8, Y - 56, "was here", INK, 14, anchor="start")
     d.point(back, Y - 34, "", r=6, accent=True)
     d.note(back - 8, Y - 56, "reset to here", ANNOTATION, 14, anchor="end")
     d.arrow((was - 12, Y - 34), (back + 12, Y - 34), accent=True)
@@ -291,7 +291,7 @@ def stream_replay():
     d.arrow(log, con, sides=("r", "l"))
     d.arrow(con, st, sides=("b", "t"), muted=True)
     d.note(390, 332, "nothing was deleted, so the past is still there to be read",
-           MUTED, 15)
+           COMMENT, 15)
     return d
 
 
@@ -319,11 +319,11 @@ def stream_no_requeue():
         y = 372 + i * 46
         d.icon(116, y, "cross", accent=True, r=12)
         d.note(142, y + 6, label, ANNOTATION, 16, anchor="start")
-        d.note(392, y + 6, why, MUTED, 14, anchor="start")
+        d.note(392, y + 6, why, COMMENT, 14, anchor="start")
 
     d.note(900, 392, "instead: ignore and continue (shed load),\n"
                      "retry in place (backpressure), or copy\n"
-                     "to a delay or dead-letter stream", MUTED, 15)
+                     "to a delay or dead-letter stream", COMMENT, 15)
     return d
 
 
@@ -354,8 +354,8 @@ def capability_matrix():
     d.rule(180, 168, 820, INK, 2.0)
 
     d.note(LX, 218, "what it carries", INK, 17, anchor="end")
-    d.note(QX, 212, "a task —\ndo this", MUTED, 15)
-    d.note(SX, 212, "a fact —\nthis happened", MUTED, 15)
+    d.note(QX, 212, "a task —\ndo this", INK, 15)
+    d.note(SX, 212, "a fact —\nthis happened", INK, 15)
     d.rule(180, 256, 820)
 
     rows = (("ordering", False, True),
@@ -371,7 +371,7 @@ def capability_matrix():
             d.rule(180, y + 34, 820)
 
     d.note(560, 560, "a queue is work that has not been done; a stream is a record "
-                     "of what happened. Everything else follows.", MUTED, 15)
+                     "of what happened. Everything else follows.", COMMENT, 15)
     return d
 
 
@@ -400,7 +400,7 @@ def requeue_with_delay():
 
     d.note(580, 436, "per-message acknowledgement, a redelivery mechanism, and a way "
                      "to hold a message back —\nask your broker for all three",
-           MUTED, 15)
+           COMMENT, 15)
     return d
 
 

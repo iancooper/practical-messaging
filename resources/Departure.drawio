@@ -37,7 +37,7 @@
         <mxCell id="f7" value="Guest Stay File" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="1086" y="292" width="84" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="filed here all week —&#10;that is Occupancy's flow" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t5" value="filed here all week —&#10;that is Occupancy's flow" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="1068" y="168" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="d8" value="Front Desk" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=top;verticalAlign=bottom;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
@@ -79,7 +79,7 @@
         <mxCell id="s18" value="5" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="999" y="675" width="26" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#8A8578;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#8A8578;html=1;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" target="f7">
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#8A8578;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#2F5D3A;html=1;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" target="f7">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1128" y="214" as="sourcePoint" />
           </mxGeometry>

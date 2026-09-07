@@ -29,7 +29,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from diagram import Diagram, ANNOTATION, MUTED, INK, CARBON      # noqa: E402
+from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK, CARBON      # noqa: E402
 
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
@@ -65,14 +65,14 @@ def _frame(title_note):
 
     # y axis -- named to the left, because the bands are the answer, not a scale
     d.note(238, 126, "must we both be up?", INK, 16, anchor="end")
-    d.note(238, 218, "no —\nboth can be down", MUTED, 14, anchor="end")
-    d.note(238, 392, "yes —\nboth must be up", MUTED, 14, anchor="end")
+    d.note(238, 218, "no —\nboth can be down", INK, 14, anchor="end")
+    d.note(238, 392, "yes —\nboth must be up", INK, 14, anchor="end")
 
     # x axis
     for name in COLS:
         d.note(X[name], B + 26, name, INK, 15)
-    d.note(X["Content"], B + 50, "tightest", MUTED, 13)
-    d.note(X["Data"], B + 50, "loosest", MUTED, 13)
+    d.note(X["Content"], B + 50, "tightest", INK, 13)
+    d.note(X["Data"], B + 50, "loosest", INK, 13)
     d.note(620, B + 88, "what are we coupled about?", INK, 16)
     return d
 
@@ -150,7 +150,7 @@ def grid_exchange_2x2():
     for r, (row, rgloss) in enumerate((("In", "the requestor speaks first"),
                                        ("Out", "the provider speaks first"))):
         d.note(280, CT + r * CH + 64, row, ANNOTATION, 22, anchor="end")
-        d.note(280, CT + r * CH + 92, rgloss, MUTED, 13, anchor="end")
+        d.note(280, CT + r * CH + 92, rgloss, INK, 13, anchor="end")
     for c, col in enumerate(("no message back", "a message back")):
         d.note(CL + c * CW + CW / 2, CT - 20, col, INK, 16)
 
@@ -161,10 +161,10 @@ def grid_exchange_2x2():
             x, y = CL + c * CW, CT + r * CH
             d.box(x, y, CW - 20, CH - 20, "")
             d.note(x + (CW - 20) / 2, y + 60, name, INK, 21)
-            d.note(x + (CW - 20) / 2, y + 90, gloss, MUTED, 14)
+            d.note(x + (CW - 20) / 2, y + 90, gloss, INK, 14)
 
     d.note(610, 498, "everything else in this section is one of these four, "
-                     "or a composition of them", MUTED, 15)
+                     "or a composition of them", COMMENT, 15)
     return d
 
 
@@ -183,7 +183,7 @@ def coupling_scale_boundary():
                     "any more — that is what you bought", ANNOTATION, 19)
 
     NAME_X, GLOSS_X, BOUNDARY_Y = 250, 380, 258
-    d.note(NAME_X, 104, "tightest", MUTED, 13)
+    d.note(NAME_X, 104, "tightest", INK, 13)
 
     rows = ((132, "Content", "one party reaches into the other's internals", True),
             (200, "Common", "both parties share the same mutable store", True),
@@ -191,19 +191,22 @@ def coupling_scale_boundary():
             (394, "Stamp", "a whole structure is passed, and part of it used", False),
             (462, "Data", "exactly what is needed is passed, and nothing else", False))
     for y, name, gloss, prevented in rows:
-        col = MUTED if prevented else INK
-        d.note(NAME_X, y + 7, name, col, 22)
-        d.note(GLOSS_X, y + 6, gloss, MUTED, 14, anchor="start")
+        # the two prevented kinds are what the slide is ABOUT, so they are not the
+        # faintest thing on it. The red rule through them and the red "prevented"
+        # beside them carry that; greying the name as well said it twice and cost
+        # the two most important words on the figure their legibility.
+        d.note(NAME_X, y + 7, name, INK, 22)
+        d.note(GLOSS_X, y + 6, gloss, COMMENT, 14, anchor="start")
         if prevented:
             d.rule(NAME_X - 62, y, 124, ANNOTATION, 2.4)
             d.note(NAME_X - 82, y + 6, "prevented", ANNOTATION, 14, anchor="end")
 
-    d.note(NAME_X, 506, "loosest", MUTED, 13)
+    d.note(NAME_X, 506, "loosest", INK, 13)
 
     d.rule(70, BOUNDARY_Y, 850, INK, 3.4)
     d.note(920, BOUNDARY_Y - 12, "the process boundary", INK, 16, anchor="end")
     d.note(920, BOUNDARY_Y + 30, "separate processes, private data,\n"
-                                 "no shared transaction", MUTED, 14, anchor="end")
+                                 "no shared transaction", COMMENT, 14, anchor="end")
     return d
 
 

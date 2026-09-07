@@ -1062,6 +1062,39 @@ figure is about.
    `.drawio` and the `.png` cannot disagree about a size. `_edge_pt` does the same for edge labels, which
    were the one text no figure could override and the smallest thing on the slide.
 
+7. **✅ The commentary colour — settled 2026-09-07, second review pass.** Ian, on the swept figures:
+   *"The gray text which tells you what is going on, such as 'this is a queue, not a stream', is small,
+   but also feint. I think we might find this isn't just about a different font size or bold, but making
+   it a more readable colour such as green."* He was right on both counts, and it is measurable: `muted`
+   `#8A8578` is **3.59:1** against the paper — the only colour in the palette under the 4.5:1 threshold,
+   where ink is 16.9, carbon 8.7 and annotation 4.9.
+
+   **`muted` is now for lines, not letters.** All 220 grey notes, plus group names and the labels on
+   muted edges, move to a new `COMMENT` token — **`#2F5D3A`, 7.45:1**. `muted` keeps the hairlines,
+   gridlines and dashed ties, where being faint is the job.
+
+   **The size half of the fix is the same insight one step further.** The deck was saying "secondary"
+   twice — small *and* faint — and paying for it twice. With hue carrying it, the aside floor rises
+   **14 → 16**, one step under content's 17 rather than three.
+
+   **52 notes turned out not to be commentary at all** and are now ink at 17. The test applied was:
+   *would removing this note leave something in the picture unnamed?* `tightest` and `loosest` are the
+   ends of the scale; `fire and forget` / `notification` / `solicit-response` are the names of the four
+   patterns in the cells; `partition 0`, `TYPE / CORRELATION ID / REPLY-TO`, `a desk`, the FBP
+   vocabulary labels and the channel names all name something. Borderline cases were **left** as
+   commentary on purpose: commentary is legible now, so leaving one there costs little, while promoting
+   a sentence to ink makes the figure shout.
+
+   **A side effect worth recording.** To a deuteranope, annotation red already renders as olive
+   `#7B7B33` and the old muted grey as `#868678` — 1.21:1 apart, effectively the same colour. The deck
+   already had a red-green problem and nobody had looked; the comment green pulls the pair to 1.77:1.
+   It is an improvement, not a regression, but the separation that actually carries is **position and
+   size** — the red idea is 19pt at the top of the figure — not hue.
+
+   **`coupling-scale-boundary` also gave its two struck-out names their weight back.** *Content* and
+   *Common* are what that slide is about, and greying them as well as ruling them through in red said it
+   twice and cost the two most important words on the figure their legibility.
+
 ---
 
 ## 9. Decision and rationale log
