@@ -32,7 +32,7 @@ You have a key. It is six things:
 | an **out-tray** | work finished here, not yet collected |
 | a **file** | what this desk knows, written down, because the clerk goes home at five |
 | a **heavy bar** | an organisational boundary — a different company, or a different building |
-| **red dashed** / **solid** arrows | paper moving / a phone call or a fax |
+| **dashed** / **solid** arrows | paper moving / a phone call or a fax |
 
 **Number your steps** in one ascending sequence — 1, 2, 3 — in the order the *arrows* run, not per desk.
 No repeats and no gaps. If two things genuinely happen at the same time, draw **one number branching to

@@ -31,7 +31,7 @@
         <mxCell id="t5" value="a heavy bar — an organisational boundary" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="126" y="346" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t6" value="red dashed — paper moving" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
+        <mxCell id="t6" value="dashed — paper moving" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;" vertex="1" parent="1">
           <mxGeometry x="126" y="398" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t7" value="solid — a phone call or a fax" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;" vertex="1" parent="1">
@@ -82,7 +82,7 @@
         <mxCell id="t12" value="the next desk" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="804" y="450" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;html=1;dashed=1;" edge="1" parent="1">
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;dashed=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="88" y="412" as="sourcePoint" />
             <mxPoint x="150" y="412" as="targetPoint" />
@@ -94,7 +94,7 @@
             <mxPoint x="150" y="444" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e2" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;html=1;dashed=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="y12" target="y13">
+        <mxCell id="e2" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;dashed=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="y12" target="y13">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>

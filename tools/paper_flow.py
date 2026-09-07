@@ -7,8 +7,14 @@
 `resources/Paper Office.drawio` (2021, editable, not currently linked from any
 outline) already defines the phone / inbox / outbox / fax / chair / desk glyphs and
 three role cards. It does NOT cover the three things the slide actually leans on --
-**the file**, the **organisational boundary bar**, and **red-dashed vs. solid
-arrows** -- so this key is a build, not a relink. The glyph vocabulary is matched to
+**the file**, the **organisational boundary bar**, and **dashed vs. solid
+arrows** -- so this key is a build, not a relink.
+
+Paper moving and a phone call are separated by the DASH, not by hue. They were red
+and blue until 2026-09-07, which said it twice and cost this family its red: Departure
+carried seven red arrows and none of them was the figure's idea. Carbon now carries
+paper and the phone alike, and red is spent once per figure, as everywhere else. The
+one exception is `paper-guest-cycle`, where the hand-offs ARE the single red idea. The glyph vocabulary is matched to
 it deliberately: a desk is a rectangle with corner brackets, a tray is a document
 sitting in a shallow tray, so the legend and the ~15 worked flows read as one hand.
 
@@ -59,9 +65,12 @@ def notation_key():
     d.bar(112, 330, 48)
     d.note(TX, 358, "a heavy bar — an organisational boundary", INK, 15, anchor="start")
 
-    d.arrow((88, 412), (150, 412), accent=True, dashed=True)
+    # Paper moving and a phone call are separated by the DASH, not by hue. They used
+    # to be red and blue, which said it twice and cost the family its red: Departure
+    # had seven red arrows on it and none of them was the idea.
+    d.arrow((88, 412), (150, 412), dashed=True)
     d.arrow((88, 444), (150, 444))
-    d.note(TX, 410, "red dashed — paper moving", ANNOTATION, 15, anchor="start")
+    d.note(TX, 410, "dashed — paper moving", CARBON, 15, anchor="start")
     d.note(TX, 444, "solid — a phone call or a fax", CARBON, 15, anchor="start")
 
     d.step(116, 492, 2)
@@ -80,7 +89,7 @@ def notation_key():
     d.desk(784, 318, 160, 120)
     ot = d.tray(648, 348, 54, 42, out=True)
     it = d.tray(800, 348, 54, 42)
-    d.arrow(ot, it, accent=True, dashed=True, sides=("r", "l"))
+    d.arrow(ot, it, dashed=True, sides=("r", "l"))
     d.step(752, 408, 4)
     d.note(640, 462, "one desk", INK, 14)
     d.note(864, 462, "the next desk", INK, 14)
@@ -229,28 +238,28 @@ def departure():
 
     # reading the file is part of step 2, so it is this flow's red, not context grey
     d.arrow(sf, fda, "take the stay file", accent=True, dashed=True,
-            sides=("l", "r"), lx=-30, ly=30)
+            sides=("l", "r"), lx=-30, ly=30)   # the one idea: see the docstring
 
-    d.arrow(a_out, g_in, "the bill", accent=True, dashed=True,
+    d.arrow(a_out, g_in, "the bill", dashed=True,
             sides=("l", "t"), lx=196, ly=-8)
     d.step(620, 292, 2)
 
     # step 3 branches: settling the bill and handing the key back are one turn
     # this arrow crosses the boundary bar at its midpoint, so the label cannot sit
     # there: it goes up and to the right, into the gap between the bar and the desk
-    d.arrow(g_out, b_in, "the payment", accent=True, dashed=True,
+    d.arrow(g_out, b_in, "the payment", dashed=True,
             sides=("r", "l"), lx=52, ly=-38)
-    d.arrow(g_out, b_in, "the key", accent=True, dashed=True,
+    d.arrow(g_out, b_in, "the key", dashed=True,
             sides=("b", "b"), via=[(342, 636), (638, 636)], lx=142, ly=20)
     d.step(250, 556, 3)
 
-    d.arrow(fdb, sf, "the receipt", accent=True, dashed=True,
+    d.arrow(fdb, sf, "the receipt", dashed=True,
             sides=("r", "b"), ly=-14)
-    d.arrow(b_out, h_in, "room vacated", accent=True, dashed=True,
+    d.arrow(b_out, h_in, "room vacated", dashed=True,
             sides=("b", "t"), lx=64)
     d.step(1012, 502, 4)
 
-    d.arrow(hk, rooms, "free again", accent=True, dashed=True,
+    d.arrow(hk, rooms, "free again", dashed=True,
             sides=("r", "l"), ly=-14)
     d.step(1012, 688, 5)
     return d

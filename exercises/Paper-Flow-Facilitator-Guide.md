@@ -116,7 +116,7 @@ verbatim: *Departure is how I get my bill. Show how the flow of bills reaches my
 - *You just told them. Show me the tray.* (enforces the rule)
 - *That desk is in a different building. Draw the bar.* (finds the boundary)
 
-**What good looks like at 20 minutes:** desks as boxes with a labelled in-tray and out-tray, red-dashed
+**What good looks like at 20 minutes:** desks as boxes with a labelled in-tray and out-tray, dashed
 arrows for paper, solid arrows for phone or fax, a heavy bar wherever the flow crosses an organisational
 boundary, and steps numbered in one ascending sequence. Do not chase perfection — round 2 will find the
 holes faster than you can.

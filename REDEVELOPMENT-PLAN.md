@@ -1095,6 +1095,29 @@ figure is about.
    *Common* are what that slide is about, and greying them as well as ruling them through in red said it
    twice and cost the two most important words on the figure their legibility.
 
+8. **✅ Paper Flow's red — settled 2026-09-07.** Ian, on the commentary colour: *"we might want a
+   different colour for artefacts (blue?) over comments (green)"*. The artefact half ran into something
+   the deck already teaches: `paper-notation-key`, `Paper-Flow-Delegate-Brief.md` and the facilitator
+   guide all said **red dashed = paper moving, solid = a phone call or a fax**, so blue was already the
+   phone call and red was a *notation* rather than an idea. The cost of that was concrete —
+   **`Departure` carried seven red arrows**, so red marked nothing on it.
+
+   **Settled: paper moves in carbon, and red is spent once.** The dash already separates paper from a
+   phone call; the hue was saying it twice. Departure's red now sits on *take the stay file*, which is
+   what its red sentence is about. `paper-notation-key`'s legend, the delegate brief and the facilitator
+   guide are updated together — the convention is taught, so it cannot change in the figures alone.
+
+   **`paper-guest-cycle` keeps four red arrows on purpose.** Its single red idea *is* the hand-offs —
+   *every stage hands the next one a piece of paper* — so one idea is drawn four times. Dash carries the
+   notation, red carries the emphasis, and the two compose.
+
+   **⚑ Knock-on for Ian, checked not assumed.** The four worked-flow images on
+   `paper-worked-flows-montage` are 2021 draw.io exports that still draw paper in red, so they now
+   disagree with the key beside them. This is **not** blocked on a re-export: in those PNGs the arrows
+   are `#CC0000` and the commentary text `#FF6666`, two distinct values, so a colour remap can separate
+   them here in the way `repatch_steps.py` already repaints step numbers. It is left undone because
+   recolouring the delegates' own 2021 session artefacts is a content decision, not a tidy-up.
+
 ---
 
 ## 9. Decision and rationale log
