@@ -239,7 +239,7 @@ def departure():
     # this arrow crosses the boundary bar at its midpoint, so the label cannot sit
     # there: it goes up and to the right, into the gap between the bar and the desk
     d.arrow(g_out, b_in, "the payment", accent=True, dashed=True,
-            sides=("r", "l"), lx=46, ly=-38)
+            sides=("r", "l"), lx=52, ly=-38)
     d.arrow(g_out, b_in, "the key", accent=True, dashed=True,
             sides=("b", "b"), via=[(342, 636), (638, 636)], lx=142, ly=20)
     d.step(250, 556, 3)

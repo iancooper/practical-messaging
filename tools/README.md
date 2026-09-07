@@ -107,6 +107,22 @@ Edge labels are the one text a figure cannot override, and they were the smalles
   install**. This is necessary rather than clever: librsvg here ignores `@font-face` data URIs (verified),
   and Caveat/Plex are not installed, so anything else silently falls back to Helvetica.
 
+## `lint_figures.py`
+
+```
+python3 tools/lint_figures.py                    # all eight families
+python3 tools/lint_figures.py bpmn_hotel paper_flow
+```
+
+Measures every centred label against the shape it sits in, and every edge label against every node
+rect — including the node the edge *ends at*, which is where a right-angled route usually puts it.
+Both checks found real defects during the 2026-09-07 label sweep that were invisible in the source:
+`Pay for the Booking` stopped fitting its task box; `room free` landed on the message marker of the
+task it labels; `the payment` sat on the boundary bar it crosses.
+
+**Run it after any size or geometry change**, then still look at the PNG. It measures overlap; it does
+not have taste.
+
 ## `bpmn_hotel.py`
 
 The Day 2 Process Automation figures — the eleven hotel BPMN redraws plus the compensation fragment.
