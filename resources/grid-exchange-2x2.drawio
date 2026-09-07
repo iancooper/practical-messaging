@@ -1,68 +1,68 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="The Four Exchange Patterns">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1000" pageHeight="560" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="876" pageHeight="552" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="In and Out are named from the provider's side — In = a message arrives, Out = a message leaves" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="440" y="36" width="120" height="20" as="geometry" />
+          <mxGeometry x="356.33000000000004" y="45.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="In" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="220" y="202" width="120" height="20" as="geometry" />
+          <mxGeometry x="136.33" y="211.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="the requestor speaks first" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="220" y="230" width="120" height="20" as="geometry" />
+          <mxGeometry x="136.33" y="239.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="Out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="220" y="352" width="120" height="20" as="geometry" />
+          <mxGeometry x="136.33" y="361.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t5" value="the provider speaks first" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="220" y="380" width="120" height="20" as="geometry" />
+          <mxGeometry x="136.33" y="389.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t6" value="no message back" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="400.0" y="118" width="120" height="20" as="geometry" />
+          <mxGeometry x="316.33000000000004" y="127.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t7" value="a message back" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="720.0" y="118" width="120" height="20" as="geometry" />
+          <mxGeometry x="636.33" y="127.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="300" y="150" width="300" height="130" as="geometry" />
+          <mxGeometry x="216.33" y="159.1" width="300.0" height="130.0" as="geometry" />
         </mxCell>
         <mxCell id="t8" value="In-Only" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="390.0" y="198" width="120" height="20" as="geometry" />
+          <mxGeometry x="306.33000000000004" y="207.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t9" value="fire and forget" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="390.0" y="228" width="120" height="20" as="geometry" />
+          <mxGeometry x="306.33000000000004" y="237.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="620" y="150" width="300" height="130" as="geometry" />
+          <mxGeometry x="536.33" y="159.1" width="300.0" height="130.0" as="geometry" />
         </mxCell>
         <mxCell id="t10" value="In-Out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="710.0" y="198" width="120" height="20" as="geometry" />
+          <mxGeometry x="626.33" y="207.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t11" value="request-reaction" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="710.0" y="228" width="120" height="20" as="geometry" />
+          <mxGeometry x="626.33" y="237.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="300" y="300" width="300" height="130" as="geometry" />
+          <mxGeometry x="216.33" y="309.1" width="300.0" height="130.0" as="geometry" />
         </mxCell>
         <mxCell id="t12" value="Out-Only" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="390.0" y="348" width="120" height="20" as="geometry" />
+          <mxGeometry x="306.33000000000004" y="357.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t13" value="notification" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="390.0" y="378" width="120" height="20" as="geometry" />
+          <mxGeometry x="306.33000000000004" y="387.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="620" y="300" width="300" height="130" as="geometry" />
+          <mxGeometry x="536.33" y="309.1" width="300.0" height="130.0" as="geometry" />
         </mxCell>
         <mxCell id="t14" value="Out-In" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="710.0" y="348" width="120" height="20" as="geometry" />
+          <mxGeometry x="626.33" y="357.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t15" value="solicit-response" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="710.0" y="378" width="120" height="20" as="geometry" />
+          <mxGeometry x="626.33" y="387.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t16" value="everything else in this section is one of these four, or a composition of them" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="550" y="486" width="120" height="20" as="geometry" />
+          <mxGeometry x="466.33000000000004" y="495.1" width="120" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

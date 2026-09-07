@@ -923,6 +923,38 @@ than a blank canvas.
    `integration_styles` (1000, 16.1pt) are hand-drawn and could take the same treatment — 11 figures.
    `paper_flow` embeds rasters and feeds printables, and the BPMN pair is a different register at its own
    scale, so neither should be swept without a separate look. **Offer, do not assume.**
+   — **✅ the 11 are done, item 13.**
+
+13. **✅ The narrowing, finished — 2026-09-07.** Ian set the order: *"when we restart let's do the 11
+   figures then class D."* `coupling_grids` (5), `integration_styles` (4) and `if_later` (2) now carry
+   `TARGET_W = 890` and compact in their own `figure` decorator, exactly as item 12's two families do.
+   **All five hand-drawn families are at 890 and read at 18 real points**; `grid-exchange-2x2` stops at
+   876, bound by its own row glosses, which is `compact` doing what it is meant to do. The two BPMN
+   families and `paper_flow` are untouched and still want a separate decision.
+
+   **The recipe transferred with no surprises, and the warning in the hand-off was wrong about which
+   figure would bind.** `integration_styles._strip()` was expected to be the constraint — four absolute
+   columns at `COL_X` with unscalable question text between them — and it was not: the four columns are
+   220 units apart and the longest answer is 100 wide, so 0.85 of the distance still leaves a gap.
+   `COL_X` and the strip rule are untouched.
+
+   **Three labels needed moving afterwards, and all three were the same defect item 12 names:** a fixed
+   gap in canvas units, closing while the type stays put.
+   - `style-rpc` — `PlaceOrder(order)` had `lx=-94` to clear the boundary rule at `MID`, and at 890 that
+     pushed it onto the Stub it starts from. Now `-75`, mid-way between the two things it must clear.
+     **`lint_figures.py` found this one**; the other two it cannot see, because neither check measures a
+     label against a `rule`.
+   - `grid-coupling` — *with a what-to-do flag*'s descenders came down through the 2.4pt *must we both be
+     up?* rule. The point moved 268 → 248: **where a point sits inside a band carries nothing**, so
+     height is free to spend and the label is not. It had been one unit clear at 1060, which is to say
+     it was already wrong and the compaction only made it visible.
+   - `grid-coupling` — *gRPC with a flat DTO* reached the Data column's own border, so it wraps to two
+     lines. Every other plotted label already fits its column.
+
+   **The linter's blind spot is now known and worth writing down: `note-on-shape` skips `rule`s**, so a
+   label lying across a gridline, a boundary or an axis is invisible to it — which is precisely the
+   defect a compaction produces on a figure whose structure *is* rules. On these five families, look at
+   the PNG for the rules specifically.
 
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 

@@ -33,10 +33,28 @@ from diagram import Diagram, ANNOTATION, COMMENT, MUTED, INK          # noqa: E4
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
 FIGURES = {}
 
+# Every figure in this run is compacted to this width before it is written. The label
+# floor is in canvas units and the figure is scaled to fit its slide, so a wide canvas
+# is not more detail -- it is smaller type in the room. 890 is where the 18pt diagram
+# floor meets the deck's 18pt body floor at full slide width. `Diagram.compact` shrinks
+# the distances and leaves the type alone; see its docstring.
+TARGET_W = 890
+
 
 def figure(name):
+    """Register a figure -- and compact it on the way out.
+
+    **The compaction belongs here, not in `main()`.** Put it in `main()` and
+    `lint_figures.py` measures the geometry as it was written rather than as it is
+    rendered, and a label sitting on a stroke stays invisible for as long as the two
+    disagree. One definition, and everything downstream sees the same drawing.
+    """
     def wrap(fn):
-        FIGURES[name] = fn
+        def build():
+            return fn().compact(TARGET_W)
+        build.__doc__ = fn.__doc__
+        build.__name__ = fn.__name__
+        FIGURES[name] = build
         return fn
     return wrap
 

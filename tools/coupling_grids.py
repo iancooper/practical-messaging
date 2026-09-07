@@ -41,9 +41,28 @@ STEP = (R - L) / len(COLS)
 X = {name: L + STEP / 2 + i * STEP for i, name in enumerate(COLS)}
 
 
+# Every figure in this script is compacted to this width before it is written. The
+# label floor is in canvas units and the figure is scaled to fit its slide, so a wide
+# canvas is not more detail -- it is smaller type in the room. 890 is where the 18pt
+# diagram floor meets the deck's 18pt body floor at full slide width. `Diagram.compact`
+# shrinks the distances and leaves the type alone; see its docstring.
+TARGET_W = 890
+
+
 def figure(name):
+    """Register a figure -- and compact it on the way out.
+
+    **The compaction belongs here, not in `main()`.** Put it in `main()` and
+    `lint_figures.py` measures the geometry as it was written rather than as it is
+    rendered, and a label sitting on a stroke stays invisible for as long as the two
+    disagree. One definition, and everything downstream sees the same drawing.
+    """
     def wrap(fn):
-        FIGURES[name] = fn
+        def build():
+            return fn().compact(TARGET_W)
+        build.__doc__ = fn.__doc__
+        build.__name__ = fn.__name__
+        FIGURES[name] = build
         return fn
     return wrap
 
@@ -86,8 +105,12 @@ def grid_coupling():
 
     d.point(X["Common"], 208, "a shared database")
     d.point(X["Stamp"], 208, "an event carrying\na whole entity")
-    d.point(X["Control"], 268, "a command message\nwith a what-to-do flag")
-    d.point(X["Data"], 398, "gRPC with a flat DTO")
+    # 268 put the second line's descenders through the "must we both be up?" rule
+    # once the frame was compacted -- it was a unit clear at 1060 and is not at 890.
+    # Where a point sits *within* a band carries nothing, so the fix is to raise it.
+    d.point(X["Control"], 248, "a command message\nwith a what-to-do flag")
+    # wrapped, because at 890 one line of it reached the Data column's own border
+    d.point(X["Data"], 398, "gRPC with\na flat DTO")
     return d
 
 
