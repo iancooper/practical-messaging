@@ -1011,8 +1011,9 @@ than a blank canvas.
    **And a defect in Ian's own code screenshot, which is his call and not ours.** See the item under
    *For Ian* below.
 
-15. **☐ For Ian — the `Handlers + Activity State Updates` code screenshot.** `day2-s152-1.png`, now
-   linked as `resources/screenshot-code-handler-outbox.png`, has three things wrong with it, and the
+15. **⚑ For Ian — the `Handlers + Activity State Updates` code screenshot. Superseded by item 17, which
+   is the fix he asked for; kept because it is what was found.** `day2-s152-1.png` had three things
+   wrong with it, and the
    presenter note says *walk the transaction and the postbox on the code screenshot*:
    - both branches of the `if (canMake)` deposit **`OrderAccepted`**; the `else` presumably wants
      `OrderRejected`, and as drawn the slide teaches a bug;
@@ -1022,10 +1023,9 @@ than a blank canvas.
    - the `return` inside the `catch` makes `ClearOutboxAsync` unreachable on the failure path, which is
      arguably right but reads as an accident next to the second `return` below it.
 
-   **Linked as it is, because re-authoring the code on a slide is a content decision and Ian has already
-   said the coding changes are a separate work item.** If he wants it fixed, the right answer is probably
-   to re-render it as a Plex Mono figure in the Field Guide palette rather than to re-screenshot a dark
-   IDE — `styles.md` already says Plex Mono replaces Consolas for code.
+   **Left linked at the time, because re-authoring code on a slide is a content decision.** Ian asked for
+   it the same day; **item 17 is what that turned into**, and the answer was not a prettier picture — it
+   was that code on a slide is *text*, and that no rendering saves a 39-line listing on a 16:9 slide.
 
 16. **✅ The 2021 §Conversations exports are redrawn — 2026-09-07.** Ian asked for item 14's first
    finding. `Practical Messaging - Day 2 - 2024 - 25/27/29.png` are unlinked and
@@ -1283,7 +1283,8 @@ keeps eleven drawings looking like one set:
 
 **✅ Run 2 done — Day 2 §*Flow and Reactive Programming*, 2026-09-03.** `tools/flow_reactive.py`,
 **25 figures**, which is every unannotated marker in the section. Day 2 unannotated falls 28 → 3, and the
-three that remain are the order-taking photograph (Ian's export) and the two C# code screenshots.
+three that remained were the order-taking photograph (Ian's export, still open) and the two C# code
+screenshots, which became fenced code blocks in item 17 rather than pictures.
 
 **The run has two vocabularies, and the split is the section's own argument.** Movement B — the wrong
 answer — is **boxes joined by call arrows**: somebody is in charge and you can see who, because every
