@@ -13,7 +13,7 @@
         <mxCell id="n1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=tube;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
           <mxGeometry x="110" y="150" width="660" height="72" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="12345 v1" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t3" value="12345 v1" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="156" y="126" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="m2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
@@ -22,7 +22,7 @@
         <mxCell id="t4" value="read 1st — apply" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="156" y="246" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="12345 v3" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t5" value="12345 v3" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="366" y="126" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="m3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
@@ -31,28 +31,28 @@
         <mxCell id="t6" value="read 2nd — apply,&#10;it is later" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="366" y="246" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="12345 v2" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t7" value="12345 v2" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="576" y="126" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="m4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
           <mxGeometry x="610" y="168" width="52" height="36" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="read 3rd — discard,&#10;it is earlier" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#C0453B;" vertex="1" parent="1">
+        <mxCell id="t8" value="read 3rd — discard,&#10;it is earlier" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="576" y="246" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="n5" value="Consumer&#10;applying write-if-later" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+        <mxCell id="n5" value="Consumer&#10;applying write-if-later" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="830" y="152" width="220" height="84" as="geometry" />
         </mxCell>
-        <mxCell id="n6" value="the replica&#10;12345 is at v3" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=cylinder3;boundedLbl=1;backgroundOutline=1;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+        <mxCell id="n6" value="the replica&#10;12345 is at v3" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=cylinder3;boundedLbl=1;backgroundOutline=1;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
           <mxGeometry x="860" y="318" width="160" height="78" as="geometry" />
         </mxCell>
         <mxCell id="t9" value="a Summary Event is complete in itself, so a version&#10;that arrives late is not a gap — it is just old" style="text;html=1;align=center;fontFamily=Caveat;fontSize=15;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="370" y="308" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n1" target="n5">
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n1" target="n5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=15;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n5" target="n6">
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n5" target="n6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>

@@ -82,6 +82,23 @@ d.arrow(rcv, dlq, "cannot read it", lx=-62)              # nudge a label off the
 **`accent=True`** paints an element or arrow in annotation red. Per `styles.md`, **red marks the one thing
 the diagram is about** — if two things are red, the diagram is doing two jobs.
 
+### Label sizes are a floor, not a per-call decision
+
+`Diagram._legible()` runs at the top of **both** serialisers and raises every label to the floor for what
+it is — **17pt** for anything that names something in the drawing, **14pt** for a muted remark of ours.
+Pass a smaller `size=` and it will be raised; pass a larger one and it is kept. It is idempotent, so the
+`.drawio` and the `.png` can never disagree about a size.
+
+**The floor is per-face, and that is the whole point.** IBM Plex Sans's x-height is `0.516`em against
+Caveat's `0.400` (OS/2 `sxHeight`, both at 1000upm), so **13pt of Plex reads across a room as 17pt of
+Caveat**. Comparing the two registers by their point numbers is what let the labels drift in the first
+place: the BPMN family looked like the worst offender when it was the one family already at the floor.
+`_pt(caveat_pt, face)` does the conversion, and `_legible()` sweeps only the hand-drawn register — a BPMN
+figure keeps the scale it was drawn at, including the two crowded ones that squeeze a task to 10–11pt.
+
+Edge labels are the one text a figure cannot override, and they were the smallest thing on the slide.
+`_edge_pt(e)` puts them at the floor too: **17pt** on a hand-drawn arrow, **13pt** on a BPMN flow.
+
 ### How it works
 
 - **Shapes** are wobbled by an SVG turbulence-displacement filter, matching draw.io's `sketch=1`.

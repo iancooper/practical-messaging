@@ -10,19 +10,19 @@
         <mxCell id="t2" value="In" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="220" y="202" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="the requestor speaks first" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t3" value="the requestor speaks first" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="220" y="230" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="Out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="220" y="352" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="the provider speaks first" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t5" value="the provider speaks first" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="220" y="380" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t6" value="no message back" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t6" value="no message back" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="400.0" y="118" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t7" value="a message back" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t7" value="a message back" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="720.0" y="118" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">

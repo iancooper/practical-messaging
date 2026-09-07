@@ -1029,6 +1029,39 @@ figure is about.
    choreography those names are the notation's own content, not our annotation on top of it. And a
    multi-line `"above"` label now stacks upward instead of half over the element it names.
 
+6. **✅ The label-size sweep — settled 2026-09-07, and the floor is now enforced in code.**
+   Ian, closing the previous session: *"I think a number of labels have come out too small, which makes
+   them hard to read and it looks like a general problem that we might want to adjust."* He was right, and
+   two instances had already been fixed one at a time — the stream offsets (12 → 17 bold ink) and the port
+   names (14 → 17 bold). The sizes had been set per element as each family was built and never reconciled.
+
+   **The finding that decided it: the two registers were never on the same scale.** IBM Plex Sans's
+   x-height is `0.516`em against Caveat's `0.400` (OS/2 `sxHeight`, both faces at 1000upm), so **13pt of
+   Plex reads across a room as 17pt of Caveat**. The survey that framed this as "BPMN has the smallest
+   labels in the deck" was comparing point numbers across two faces; measured by x-height, BPMN was the
+   one family already at the floor, and the hand-drawn register was the one that had drifted. Re-surveyed
+   in Caveat-equivalent points, **255 labels across 58 figures** sat under the rule — including **46 pieces
+   of diagram content written as ink `note`s at 15–16pt** (the grid axis names, *Settle Up*, *File the
+   Receipt*, *Total the Invoices*), which the per-element survey could not see at all because they are not
+   element labels.
+
+   **Both sweeps were trialled across all 81 figures before anything was changed**, and measured rather
+   than eyeballed: a sweep of *both* registers cost 3 labels wider than their own shape and 5 new
+   edge-label collisions (4 of them BPMN — *Pay for the Booking* stops fitting its task box, *room free*
+   and *hotel full* land on the message markers); the hand-register sweep cost 1 and 2.
+
+   **Ian chose the hand register only.** BPMN keeps the scale it was drawn at, including the two crowded
+   figures that squeeze a task to 10–11pt on purpose; only its **edge labels move, 12 → 13pt**, which is
+   its own face's equivalent of the 17pt floor. Four figures needed a geometry nudge afterwards
+   (`flow-fbp-iip`, `qs-queue-tasks`, `Departure`, `bpmn-hotel-guest-pool`), and **62 of the 81 figures
+   moved.**
+
+   **The rule is now enforced rather than remembered.** `Diagram._legible()` runs at the top of both
+   serialisers and raises every label to its floor — 17pt for anything that names something in the
+   drawing, 14pt for a muted remark of ours — so a figure cannot quietly ship at 13pt again, and the
+   `.drawio` and the `.png` cannot disagree about a size. `_edge_pt` does the same for edge labels, which
+   were the one text no figure could override and the smallest thing on the slide.
+
 ---
 
 ## 9. Decision and rationale log

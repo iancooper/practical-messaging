@@ -101,8 +101,8 @@ def p4_exclusive_choice():
     b = d.task(414, 128, 166, 48, "Reject Booking", marker="send")
     d.flow(ev, t, sides=("r", "l"))
     d.flow(t, gw, sides=("r", "l"))
-    d.flow(gw, a, "room free", via=[(352, 48)], sides=("t", "l"), ly=-2)
-    d.flow(gw, b, "hotel full", via=[(352, 152)], sides=("b", "l"), ly=-2)
+    d.flow(gw, a, "room free", via=[(352, 48)], sides=("t", "l"), lx=-8, ly=-2)
+    d.flow(gw, b, "hotel full", via=[(352, 152)], sides=("b", "l"), lx=-8, ly=-2)
     d.note(300, 214, "one path only — this is step 7 on the flow you drew, "
                      "Respond with Booking Accept/Reject", MUTED, 13)
     return d
@@ -133,8 +133,10 @@ def guest_pool():
     ph = d.task(130, 124, 148, 52, "Phone the Agency", marker="send")
     cf = d.event(348, 150, "intermediate", "message", "Confirmation")
     gw = d.gateway(432, 150, "exclusive")
-    pay = d.task(508, 124, 148, 52, "Pay for the Booking")
-    end = d.event(712, 150, "end", None, "Trip Booked")
+    # 14 units further right than the first pass: at the legibility floor
+    # "accepted" is 54 wide and the gateway left only 55 for it
+    pay = d.task(522, 124, 148, 52, "Pay for the Booking")
+    end = d.event(726, 150, "end", None, "Trip Booked")
     els = d.event(538, 66, "end", None, "Book Elsewhere")
     tm = d.event(348, 250, "intermediate", "timer", "no reply")
     ch = d.task(410, 226, 148, 48, "Chase the Agency", marker="send")

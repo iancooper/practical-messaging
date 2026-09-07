@@ -472,7 +472,7 @@ def fbp_iip():
 
     n = d.node(600, 176, 280, 160, "Price Order", ins=("iip_in", "in"),
                outs=("out",), accent_ports=("iip_in",))
-    iip = pkt_on(d, 330, n["ports"]["iip_in"], label="IIP", accent=True)
+    iip = pkt_on(d, 330, n["ports"]["iip_in"], label="IIP", accent=True, w=38)
     d.arrow(iip, n["ports"]["iip_in"], sides=("r", "l"), accent=True)
 
     y = n["ports"]["in"]["y"] + n["ports"]["in"]["h"] / 2

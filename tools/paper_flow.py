@@ -232,12 +232,14 @@ def departure():
             sides=("l", "r"), lx=-30, ly=30)
 
     d.arrow(a_out, g_in, "the bill", accent=True, dashed=True,
-            sides=("l", "t"), lx=196, ly=-26)
+            sides=("l", "t"), lx=196, ly=-8)
     d.step(620, 292, 2)
 
     # step 3 branches: settling the bill and handing the key back are one turn
+    # this arrow crosses the boundary bar at its midpoint, so the label cannot sit
+    # there: it goes up and to the right, into the gap between the bar and the desk
     d.arrow(g_out, b_in, "the payment", accent=True, dashed=True,
-            sides=("r", "l"), ly=-14)
+            sides=("r", "l"), lx=46, ly=-38)
     d.arrow(g_out, b_in, "the key", accent=True, dashed=True,
             sides=("b", "b"), via=[(342, 636), (638, 636)], lx=142, ly=20)
     d.step(250, 556, 3)

@@ -7,7 +7,7 @@
         <mxCell id="t1" value="the two worst kinds of coupling are the two you cannot have any more — that is what you bought" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="430" y="32" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t2" value="tightest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t2" value="tightest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="190" y="92" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="Content" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#8A8578;" vertex="1" parent="1">
@@ -19,7 +19,7 @@
         <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="188" y="132" width="124" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t5" value="prevented" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#C0453B;" vertex="1" parent="1">
+        <mxCell id="t5" value="prevented" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="108" y="126" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t6" value="Common" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#8A8578;" vertex="1" parent="1">
@@ -31,7 +31,7 @@
         <mxCell id="r2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="188" y="200" width="124" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t8" value="prevented" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#C0453B;" vertex="1" parent="1">
+        <mxCell id="t8" value="prevented" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
           <mxGeometry x="108" y="194" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t9" value="Control" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#181B1F;" vertex="1" parent="1">
@@ -52,13 +52,13 @@
         <mxCell id="t14" value="exactly what is needed is passed, and nothing else" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="320" y="456" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t15" value="loosest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#8A8578;" vertex="1" parent="1">
+        <mxCell id="t15" value="loosest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">
           <mxGeometry x="190" y="494" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
           <mxGeometry x="70" y="258" width="850" height="1" as="geometry" />
         </mxCell>
-        <mxCell id="t16" value="the process boundary" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#181B1F;" vertex="1" parent="1">
+        <mxCell id="t16" value="the process boundary" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
           <mxGeometry x="860" y="234" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t17" value="separate processes, private data,&#10;no shared transaction" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#8A8578;" vertex="1" parent="1">

@@ -102,9 +102,9 @@ def queue_tasks():
     one = d.box(790, 100, 210, 74, "Consumer One")
     two = d.box(790, 300, 210, 74, "Consumer Two")
     d.arrow(cells[3], one, "locks the one at the head", sides=("t", "l"),
-            via=[(447, 137)], lx=100, ly=-14)
+            via=[(447, 137)], lx=64, ly=-14)
     d.arrow(cells[2], two, "reads past it, locks the next", accent=True,
-            sides=("b", "l"), via=[(345, 337)], lx=130, ly=18)
+            sides=("b", "l"), via=[(345, 337)], lx=92, ly=18)
 
     d.note(330, 424, "a message being worked on is locked, so nobody else can\n"
                      "action it — and a task is done once, so a receiver of a\n"

@@ -55,6 +55,17 @@ _FONT_FILES = {
     "IBM Plex Mono": "IBMPlexMono-Regular.ttf",
 }
 
+# The two registers are NOT on the same scale, and comparing their point numbers
+# is what let the labels drift. Plex Sans's x-height is 0.516em against Caveat's
+# 0.400 (OS/2 sxHeight, both faces at 1000upm), so 13pt of Plex reads across a
+# room as 17pt of Caveat. Floors are therefore quoted in CAVEAT points and
+# converted for whichever face a figure is set in -- a flat "17pt everywhere"
+# would make the BPMN family a third larger than the deck around it.
+X_HEIGHT = {HAND: 0.400, PLAIN: 0.516}
+
+CONTENT_PT = 17   # anything a delegate reads off the slide and uses
+ASIDE_PT   = 14   # our own muted remarks, which are allowed to be quieter
+
 
 # ---- text -> vector paths ----------------------------------------------------
 
@@ -583,8 +594,46 @@ class Diagram:
         (x1, y1), (x2, y2) = pts[i], pts[i + 1]
         return (x1 + x2) / 2, (y1 + y2) / 2
 
+    # ---- legibility ----
+    def _pt(self, caveat_pt, face=None):
+        """A size quoted in Caveat points, in the points of the face in use."""
+        return round(caveat_pt * X_HEIGHT[HAND] / X_HEIGHT[face or self.font])
+
+    def _legible(self):
+        """Raise every label to the floor for what it is, in place.
+
+        A label that names something in the drawing is CONTENT and gets 17pt; a
+        muted remark of ours is an ASIDE and gets 14. Getting that backwards is
+        what made the stream offsets and the port names unreadable on a projector,
+        and it recurred everywhere because the sizes were set per element as each
+        family was built and never reconciled.
+
+        Only the hand-drawn register is swept. The BPMN figures keep the scale
+        they were drawn at: Plex Sans's x-height is 1.29x Caveat's, so their 13pt
+        labels already clear the floor, and the two crowded ones squeeze tasks to
+        10-11pt (13-14pt of Caveat) because the boxes are small on purpose.
+
+        Idempotent, and called from BOTH serialisers so the .drawio and the .png
+        can never disagree about a size."""
+        for n in self.groups + self.nodes:
+            if not n.get("label"):
+                continue
+            face = (n.get("font") or self.font) if n["kind"] == "note" else self.font
+            if face != HAND:
+                continue
+            floor = (ASIDE_PT if n["kind"] == "note" and n.get("color") == MUTED
+                     else CONTENT_PT)
+            n["size"] = max(n.get("size", floor), floor)
+
+    def _edge_pt(self, e):
+        """Edge labels are the one text no figure can override, and they were the
+        smallest thing on the slide: 15pt Caveat, 12pt Plex on a BPMN sequence
+        flow. A gateway condition is read and used, so both go to the floor."""
+        return self._pt(CONTENT_PT, self.font if e.get("bpmn") else HAND)
+
     # ---- SVG preview ----
     def to_svg(self):
+        self._legible()
         W, H = self.w, self.h
         o = []
         o.append(f'<svg xmlns="http://www.w3.org/2000/svg" '
@@ -940,11 +989,11 @@ class Diagram:
                 col = ANNOTATION if e["accent"] else (
                     CARBON if e.get("message") else MUTED)
                 self._text(o, e["label"], mx + e.get("lx", 0), my - 6 + e.get("ly", 0),
-                           12, col, "middle", self.font)
+                           self._edge_pt(e), col, "middle", self.font)
                 continue
             col = MUTED if e.get("muted") else (ANNOTATION if e["accent"] else CARBON)
             self._text(o, e["label"], mx + e.get("lx", 0), my - 7 + e.get("ly", 0),
-                       15, col, "middle")
+                       self._edge_pt(e), col, "middle")
 
         o.append('</svg>')
         return "\n".join(o)
@@ -994,6 +1043,7 @@ class Diagram:
 
     # ---- draw.io source ----
     def to_drawio(self):
+        self._legible()
         mx = ET.Element("mxfile", host="practical-messaging", type="device")
         dia = ET.SubElement(mx, "diagram", name=self.title)
         model = ET.SubElement(dia, "mxGraphModel", dx="800", dy="600", grid="1",
@@ -1124,14 +1174,15 @@ class Diagram:
             col = MUTED if (e.get("plain") or e.get("muted")) else (
                 ANNOTATION if e["accent"] else CARBON)
             style = (f"sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;"
-                     f"strokeColor={col};strokeWidth=1.8;fontFamily={HAND};fontSize=15;"
+                     f"strokeColor={col};strokeWidth=1.8;fontFamily={HAND};"
+                     f"fontSize={self._edge_pt(e)};"
                      f"fontColor={col};html=1;")
             if e.get("bpmn"):
                 col = ANNOTATION if e["accent"] else (
                     CARBON if e.get("message") else INK)
                 style = (f"edgeStyle=none;rounded=0;html=1;"
                          f"strokeColor={col};strokeWidth=1.5;fontColor={col};"
-                         f"fontFamily={self.font};fontSize=12;")
+                         f"fontFamily={self.font};fontSize={self._edge_pt(e)};")
                 style += ("dashed=1;dashPattern=6 5;startArrow=oval;startFill=0;"
                           "endArrow=open;endFill=0;" if e.get("message")
                           else "endArrow=block;endFill=1;")

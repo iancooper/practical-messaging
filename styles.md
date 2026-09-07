@@ -109,6 +109,13 @@ never more than one idea per diagram. Carbon blue carries flow and structure; in
 - **Nothing in a diagram below 14pt**, and 17 for anything a delegate has to read off the slide and use.
   The 18pt body floor exists because the old deck was unreadable four rows back; a diagram label is no
   more legible than a bullet.
+- **Those numbers are Caveat points, and the two faces are not on the same scale.** IBM Plex Sans's
+  x-height is `0.516`em against Caveat's `0.400`, so **13pt of Plex reads across a room as 17pt of
+  Caveat**. The BPMN register is therefore already at the floor at the sizes it was drawn at, and a flat
+  "17pt everywhere" would make it a third larger than the deck around it. Compare the two registers by
+  x-height, never by point number — comparing point numbers is what let the labels drift.
+- **The floor is enforced, not remembered.** `Diagram._legible()` raises every label at render time, so a
+  figure cannot quietly ship at 13pt again. Set a size only to go *above* the floor.
 
 ### Building them
 
