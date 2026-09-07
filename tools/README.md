@@ -121,7 +121,7 @@ stroke is a guide and the label is text.
 ## `lint_figures.py`
 
 ```
-python3 tools/lint_figures.py                    # all eight families
+python3 tools/lint_figures.py                    # all nine families
 python3 tools/lint_figures.py bpmn_hotel paper_flow
 ```
 
@@ -166,6 +166,31 @@ puts the condition label on top of a task box.
 > **The draw.io BPMN styles were written without being opened.** There is no drawio CLI here, and the PNG
 > is rendered from our own SVG, so it does *not* check them. If a `.drawio` opens with the wrong glyph in
 > a circle or a diamond, `Diagram._drawio_bpmn` is the place to look.
+
+## `integration_styles.py`
+
+The four Day 1 §3 figures that replace the 2021 Integration Styles exports (s32–s35).
+
+```
+python3 tools/integration_styles.py              # rebuild all four into resources/
+python3 tools/integration_styles.py style-rpc
+python3 tools/integration_styles.py --list
+```
+
+**One stage, four figures.** `_frame()` draws the process boundary down the middle and a dashed container
+either side; each figure adds only its own apparatus. The section scores four answers to one question, so
+four differently-composed drawings would make a reader re-learn the layout before they could compare
+anything. It is `coupling_grids._frame()`'s device, for the same reason.
+
+**How far the boundary rule runs is the figure's call — `_frame(bb=)`.** A 2.6pt ink rule down the middle
+strikes through anything centred on `MID`, so the rule stops above the caption that names the apparatus,
+and each style crosses the line at a different depth: a file at the arrows' own height, a database below
+them, an RPC return path lower still. Nothing is centred on `MID` inside the rule's span.
+
+**Red is the grid.** Three figures red what the two sides agree *about* (the file, the schema, the
+message); RPC reds the clock, because it is the only style that also loses on *when*. Its control coupling
+rides in carbon on the `PlaceOrder(order)` label instead. Messaging repeats File Transfer's composition on
+purpose — the two land in the same cell of `grid-integration-styles`, and the next slide says so.
 
 ## `eip_figures.py`
 

@@ -186,7 +186,7 @@ One application writes a file; another reads it later. **The file is the contrac
 **And the file is a message.** A batch of them, in a channel that happens to be a filesystem. Hold that
 thought — the last slide of this section is about everything you did *not* get with it.
 
-#image: (s32) File Transfer integration diagram — producer writes a file, consumer reads it
+#image: (s32) File Transfer — a file sitting on the process boundary; the producer writes it, the consumer reads it later, and the file is the whole of the contract  [→ resources/style-file-transfer.png]
 
 ### Slide: Shared Database
 
@@ -200,7 +200,7 @@ Both applications read and write the same schema, typically through an ORM.
 **Nobody owns the schema.** A change propagates to every reader whether they wanted it or not, and you
 are back to agreeing release dates across teams — which is exactly what the boundary was for.
 
-#image: (s33) Shared Database integration diagram — producer and consumer share a database via an ORM
+#image: (s33) Shared Database — both applications on one schema, an ORM each, the schema straddling the process boundary and owned by neither side  [→ resources/style-shared-database.png]
 
 Presenter notes: The sharpest verdict in the section, and it is worth being blunt: a shared database is
 not a shortcut past the boundary, it is a decision to un-draw it. Note it is **not** temporally coupled —
@@ -215,7 +215,7 @@ One application invokes an operation on another and waits for the result.
 
 ▎ The only style that loses on both axes at once.
 
-#image: (s34) Remote Procedure Call diagram — client stub to server proxy, request/response
+#image: (s34) Remote Procedure Call — stub to proxy across the boundary and the result back, with the client blocked until it comes  [→ resources/style-rpc.png]
 
 Presenter notes: You are telling the other party *what to do* — control coupling — and waiting while it
 does it, which is where §Coupling's arithmetic bites: 0.999⁴ = 0.996. Be fair to it: RPC is the right answer when
@@ -232,7 +232,7 @@ One application writes a message to a channel; another consumes it.
 
 ▎ Messaging is the only style where the coupling is a decision, not a property of the style.
 
-#image: (s35) Messaging integration diagram — producer writes a message to a channel, consumer reads it
+#image: (s35) Messaging — a message on a channel across the boundary, and the three things you might put in it, each with the coupling it buys  [→ resources/style-messaging.png]
 
 Presenter notes: **The verdict cell used to read "data coupling", which was wrong and contradicted
 §Coupling's own examples** — that section plots a command message as control coupled and a whole-entity

@@ -176,8 +176,8 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
 | 1 | **The Process Boundary** *(was Distributed Systems)* | **2** | ✅ **T-0 (2026-09-01): 7 → 2.** The *why* went to Day 2; the boundary + guaranteed delivery compressed into an opener | ☐ | ☐ |
-| 2 | Coupling | **4** | ✅ D1-7; **T-0 dropped *Why It Matters*** and moved the 0.999⁴ arithmetic into *Must We Both Be Up?* | ☐ 1 new grid + 1 new scale-with-boundary | ☐ |
-| 3 | Integration Styles | 5 | ✅ D1-7: each style scored on what it hands back; closes on *Why Messaging* | ☐ reuse §2 grid artwork | ☐ |
+| 2 | Coupling | **4** | ✅ D1-7; **T-0 dropped *Why It Matters*** and moved the 0.999⁴ arithmetic into *Must We Both Be Up?* | ✅ `grid-coupling` + `coupling-scale-boundary` | ☐ |
+| 3 | Integration Styles | 5 | ✅ D1-7: each style scored on what it hands back; closes on *Why Messaging* | ✅ §2 grid re-plotted + 4 `style-*` figures (item 9) | ☐ |
 | 4 | **Messaging Patterns** | **46** | ✅ build order; −9 §4.6, +2 task queue, +1 D1-8 | ☐ 12 EIP redraws | ☐ merge scripts |
 | 4a | · The Big Picture | 1 | ☐ reframe as build order | | |
 | 4b | · 4.1 What Is a Message? | 6 | | | |
@@ -773,6 +773,45 @@ than a blank canvas.
    gateway legends, whose three drawio sources already exist. Its own outline note calls it a Phase 3
    item, so it stays there.
 
+9. **✅ The 4 Integration Styles figures — built 2026-09-07.** `tools/integration_styles.py`;
+   `style-file-transfer`, `style-shared-database`, `style-rpc`, `style-messaging`, Day 1 §3, replacing the
+   2021 exports s32–s35. **This closes class C** of the annotation survey below.
+
+   **They share a stage, because the section is a scoring and not a tour.** `_frame()` draws the same set
+   every time — the process boundary down the middle, a process container either side — and each figure
+   only puts its own apparatus on it. That is the same device as `coupling_grids._frame()`, and for the
+   same reason: §3 does not compare four mechanisms, it asks all four the same question and then plots the
+   answers on §2's grid. Four differently-composed drawings would make the reader re-learn the layout
+   before they could compare anything.
+
+   **The boundary is drawn, not implied**, and it is §2's line turned on its side — `coupling-scale-boundary`
+   runs it across Myers' scale to take Content and Common off the table; here it runs between two
+   processes. It is what makes Shared Database an argument rather than an illustration: its cylinder is
+   the only apparatus a *reader* on the far side reaches through, and the rule runs visibly through it.
+
+   **The reds are the two axes.** File Transfer reds the file, Shared Database the schema, Messaging the
+   message — three figures reddening what the two sides agree *about*. RPC reds the **clock**, because it
+   is the only one that also loses on *when*. So the family's red, read across four slides, is the grid the
+   section ends on. RPC's control coupling is carried in carbon instead, on the arrow label
+   `PlaceOrder(order)` and the comment under it, which is where it actually lives.
+
+   **Messaging is deliberately File Transfer's drawing again** — same two boxes in the same places — because
+   the two land in the same cell of the grid and *Why Messaging* is about to say so. What differs is the
+   three lines under the channel: a command, a whole-entity event, or only what the receiver needs, each
+   with the coupling it buys. That is the section's punchline, and it is the one style where the drawing
+   has a choice in it.
+
+   **The 2021 originals each carried three paragraphs of blue commentary** because the slides underneath
+   them were bare. D1-7 rewrote those slides to carry the argument as bullets, so the figures do not repeat
+   it; what the drawings keep is only what a picture can say better than a line of text.
+
+   **What only showed up in the PNG**, per rule 2: a 2.6pt ink rule down the middle strikes through *any*
+   centred label, so every mechanism caption had to move below the rule's end and `_frame(bb=)` became a
+   per-figure decision; `_mid()` takes the middle *segment* of a polyline, so Shared Database's `reads`
+   label sat on the vertical run while `writes` sat on the horizontal one, and the pair stopped mirroring
+   until a redundant waypoint was added purely to move the label; and `writes a message` landed inside the
+   pipe's mouth ellipse — the same defect run 2 hit — and was shortened to `writes it`.
+
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 
 **Ian: *"Agree"*** — one figure of the six that matter; the full legends go to the delegate reference card.
@@ -821,15 +860,14 @@ makes it too.
 
 ### `#image:` annotation state
 
-**Re-measured 2026-09-02, after the grids.** **Both days now have zero pending markers.** Day 1's four
-`NEW —` lines and the §5 grid re-plot are linked (19 → 24 linked); Day 2 fell 90 → 88 when
-`bpmn-the-six` replaced three legend lines with one, and gained a link when the watermarked desk photo
-was replaced by a drawing (41 → 38 unannotated across that and the order wheel and carbon pad).
+**Re-measured 2026-09-07, after the Integration Styles four.** **Both days have zero pending markers**,
+and have had since 2026-09-02. The counts below are the ones the hand-off's verification block prints;
+**re-measure rather than trusting them**, because this table has gone stale between sessions before.
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
-| `outlines/DayOne.md` | **49** | 39 | 0 | **0** | **10** |
-| `outlines/DayTwo.md` | **88** | 60 | 0 | **0** | **28** |
+| `outlines/DayOne.md` | **49** | 43 | 0 | **0** | **6** |
+| `outlines/DayTwo.md` | **88** | 85 | 0 | **0** | **3** |
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
@@ -852,8 +890,8 @@ different answers**, and only one of them is mechanical.
 |---|---:|---:|---|
 | **A — link only** | ~18 | **1** | photos, book covers, screenshots, the *DON'T PANIC* motif, an icon. Find the master, copy to `resources/`, link. No visual decision. The one left is the order-taking photograph — **Ian's export**. |
 | **B — the two hand-drawn families** | ~36 | **0** | Day 1 §4.5 *Queues and Streams* (11, run 1) and Day 2's OO/FBP run (25, run 2). **Both done.** |
-| **C — Integration Styles, s32–s35** | 4 | 4 | conceptual diagrams sitting immediately beside the new coupling grid. **Next.** |
-| **D — the rest** | ~9 | ~9 | Day 1's process-boundary pair, the messaging-concepts diagram, the message-pump pair, a stopwatch icon; Day 2's two C# code screenshots. |
+| **C — Integration Styles, s32–s35** | 4 | **0** | ✅ **built 2026-09-07** — `tools/integration_styles.py`, four figures on one shared stage. Item 9 above. |
+| **D — the rest** | ~9 | **9** | Day 1's process-boundary pair, the messaging-concepts diagram, the message-pump pair, a stopwatch icon; Day 2's two C# code screenshots. **Next.** |
 
 **✅ A is under way. 7 done 2026-09-02** — Day 2 §Next Steps' four (`cover-reactive-microservices`,
 `cover-practical-process-automation`, `screenshot-eda-visuals`,
@@ -972,8 +1010,9 @@ figure is about.
    enough to want a **hard review**, which is a different thing from being undrawable.
 
    **Everything in §8 is now built.** Both days have zero pending `#image:` markers, and what remains
-   of Phase 2 is **13 unannotated `#image:` lines** — 10 Day 1, 3 Day 2 — done per section. (It was 61
-   when this was written; runs 1 and 2 of the redraw took 36 of them, and the class-A sweep the rest.)
+   of Phase 2 is **9 unannotated `#image:` lines** — 6 Day 1, 3 Day 2 — done per section. (It was 61
+   when this was written; runs 1 and 2 of the redraw took 36 of them, the class-A sweep and the
+   Integration Styles four took most of the rest.)
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.

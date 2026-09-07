@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Measure every figure's labels against the shapes around them.
 
-    python3 tools/lint_figures.py            # all eight families
+    python3 tools/lint_figures.py            # all nine families
     python3 tools/lint_figures.py bpmn_hotel paper_flow
 
 Two checks, both of which found real defects the eye did not, during the label-size
@@ -32,7 +32,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from diagram import _Outliner, HAND, PLAIN                       # noqa: E402
 
 FAMILIES = ("eip_figures", "coupling_grids", "if_later", "queues_streams",
-            "bpmn_hotel", "bpmn_shopping", "paper_flow", "flow_reactive")
+            "integration_styles", "bpmn_hotel", "bpmn_shopping", "paper_flow",
+            "flow_reactive")
 
 # node kinds that belong to the BPMN vocabulary and so are set in Plex Sans
 BPMN_KINDS = {"task", "event", "gateway", "choreo", "pool", "lane"}

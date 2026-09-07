@@ -1,0 +1,73 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Messaging">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1200" pageHeight="530" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="g2" value="producer process" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=17;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="400" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="g3" value="consumer process" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=17;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
+          <mxGeometry x="740" y="140" width="400" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="the coupling is a decision here, not a property of the style — it is whatever you put in the message" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="540" y="36" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="the process boundary" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="540" y="100" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="600" y="128" width="1" height="168" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="Application" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry x="110" y="196" width="280" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" value="Application" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry x="810" y="196" width="280" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=tube;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="530" y="208" width="140" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="m7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="546" y="226" width="28" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="m8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="586" y="226" width="28" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="m9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="626" y="226" width="28" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="a channel" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="540" y="310" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="a command" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="516" y="360" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="control coupled" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="564" y="360" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="a whole-entity event" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="516" y="392" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="stamp coupled" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="564" y="392" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" value="only what the receiver needs" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="516" y="424" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" value="data coupled" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="564" y="424" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" value="the other three styles fix where you sit on the coupled-about axis; this is the one that leaves it open" style="text;html=1;align=center;fontFamily=Caveat;fontSize=16;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="540" y="482" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="writes it" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n4" target="n6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="reads it" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=17;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n6" target="n5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
