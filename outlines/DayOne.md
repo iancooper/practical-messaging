@@ -31,8 +31,8 @@ drawing that boundary decide for you?**
 ▎ No transaction spans two services. Consistency stops being something you declare and becomes something
 you design.
 
-#image: hand-drawn diagram — a microservice with private data receiving messages over a channel; database inside
-#image: hand-drawn diagram — two microservices exchanging messages over channels, each with its own database
+#image: diagram — one service behind the process boundary: a message crosses on a channel, and a direct read of its tables is refused at the line  [→ resources/boundary-one-service.png]
+#image: diagram — two services either side of the boundary, a channel each way, and a transaction drawn across both stores and crossed out  [→ resources/boundary-two-services.png]
 
 Presenter notes: **This is the load-bearing slide of both days, and it is the first one.** Everything
 the course teaches — outbox, sagas, idempotence, choreography, compensation — exists because the third
@@ -281,7 +281,7 @@ slides during the rebuild.
 #note: Ordered as a **build order**, not a catalogue order — the sequence someone from an HTTP
 background needs in order to write messaging code and make it reliable. What is the unit? → how do I
 send and receive one? → how do I keep receiving? → how do I stop losing them? → what kind of broker am
-I on? → how do I process in stages?
+I on? The five questions are the five sub-topics, and `resources/eip-the-big-picture.png` draws them.
 
 ### Slide: The Big Picture
 
@@ -289,7 +289,7 @@ I on? → how do I process in stages?
 A map of the messaging patterns we will cover across the day.
 
 
-#image: messaging concepts diagram — application/gateway, channel adapter, channel, endpoint, and a message with header + body
+#image: map — domain code, a messaging gateway, a channel with a message on it, and an endpoint at the far end; the message opened up into header and body, and §4's five questions in the order we meet them  [→ resources/eip-the-big-picture.png]
 
 ---
 
@@ -535,7 +535,7 @@ work is not lost — it waits.
 
 ▎ One team, one service, one queue. Robustness without reorganising the company.
 
-#image: hand-drawn architecture diagram — browser/web server enqueues work onto a channel; a backend Sender/Receiver maps messages to data; databases at each end
+#image: architecture diagram — browser, web server and three competing consumers inside one service boundary, sharing one database, with the work waiting on a channel between them  [→ resources/task-queue-shape.png]
 
 Presenter notes: The opener kept the *want* — *Robust — Guaranteed Delivery* — and this is the mechanism,
 which belongs here, where the parts have names. Everything that slide gestured at vaguely in the first ten
@@ -553,7 +553,7 @@ How this looks over HTTP — and most delegates have not used it.
   is created — and a link to a progress page backed by a KV store where we note progress.
 - The backend does the work at a sustainable pace and updates the KV store as it goes.
 
-#image: hand-drawn diagram of the task-queue HTTP flow — client, queue channel, backend worker, and a KV/progress store
+#image: diagram — the same shape over HTTP: the work path runs client → web server → channel → worker, and the client's read path returns to a progress KV store it never posted to  [→ resources/task-queue-http.png]
 
 ▎ 202 says *we have your work and we will not lose it*. §4.4 is how you keep that promise.
 
@@ -1081,7 +1081,7 @@ The requestor may not receive the expected response at all. What can it do?
 
 ▎ A timeout does not tell you the request failed. It tells you that you do not know.
 
-#image: icon — a stopwatch/timer (the retry timeout)
+#image: sequence — the requestor sends greet(), the timeout expires with nothing back, and the three things that are all still possible at that moment; then greet() again and an acknowledge()  [→ resources/conversation-timeout.png]
 
 Presenter notes: Call back to Guaranteed Delivery — this is the Inbox pattern earning its keep. Retry is why de-duplication is not optional: at-least-once delivery and requestor-side retry are two independent sources of duplicates.
 

@@ -956,6 +956,73 @@ than a blank canvas.
    defect a compaction produces on a figure whose structure *is* rules. On these five families, look at
    the PNG for the rules specifically.
 
+14. **✅ Class D, and the end of Phase 2 drawing — 2026-09-07.** The last nine unannotated `#image:`
+   lines. **Six became figures, two became links, and the ninth is the order-taking photograph**, which
+   is class A and Ian's to export. **Day 1 is now fully annotated: 49 of 49.** Day 2 stands at 87 of 88.
+
+   **`tools/app_shapes.py` — four figures, one new family.** §1's process-boundary pair and §4.3's
+   task-queue pair. They are one family because they are the only Day 1 drawings that show an
+   *application you could build* rather than a pattern, and they share `service()`: a dashed container,
+   the application, and the store only it can reach.
+
+   **The boundary vocabulary was already taught twice, so this family borrowed it rather than inventing
+   a third.** `coupling-scale-boundary` draws it as an ink rule across Myers' scale;
+   `integration_styles._frame()` as a vertical ink rule between two dashed containers. **Dashed box = a
+   process, ink rule = the boundary.** §1 runs before §3 in the deck, so these two figures are where the
+   room now meets the glyph and §3 reuses it without re-teaching it — which is the right way round, and
+   was not true before.
+
+   **§4.3 then says the opposite thing with the same vocabulary, deliberately.** `task-queue-shape` puts
+   browser, web server, channel and three competing consumers inside **one** container over **one**
+   database, because the slide's callout is *one team, one service, one queue — robustness without
+   reorganising the company*. Drawing a boundary there would teach the room to cut a new service every
+   time a request is slow, which is exactly what the callout denies. **The same glyphs arguing both ways
+   is the point**; it is why the four are one script.
+
+   **`eip-the-big-picture`** joins `eip_figures.py` as §4's opener. It is a composition over that
+   family's own vocabulary and invents nothing: the 2021 marker also named a *channel adapter*, which is
+   **not drawn**, because the deck never teaches the pattern and a shape on the map that no later slide
+   picks up is a promise the section does not keep. It also carries §4's build order, because the slide's
+   entire body is one sentence, and the message is opened into header and body **because §4.1's own
+   slide has no picture at all**.
+
+   **`tools/conversations.py` — one figure, and it names its own gap.** The marker asked for a stopwatch
+   icon; the slide's callout is *a timeout does not tell you the request failed, it tells you that you do
+   not know*, and an icon cannot say that. What says it is the three things still possible when the clock
+   runs out, which is also why the next bullet demands idempotence. **Time runs down the page** — a
+   vocabulary choice, not a register one; the lifelines are muted 1.1pt hairlines and deliberately
+   nothing like the 2.6pt ink boundary.
+
+   **Two findings came out of the sweep, both of them stale content nobody had re-read:**
+   - **§Messaging Patterns' `#note` advertised a cut sub-topic.** Its build order listed **six**
+     questions — the sixth *how do I process in stages?* — against §4's **five** sub-topics. §4.6
+     Pipelines left for the routing handout (§10) and the note was never updated. Fixed, and the figure
+     draws the five. *Counts in prose go stale silently.*
+   - **§Conversations still shows three 2021 whole-slide exports** —
+     `Practical Messaging - Day 2 - 2024 - 25/27/29.png`, complete with their old titles, red commentary
+     boxes and a footer. They are *linked*, so they never appeared as work outstanding, and they are the
+     last three pictures on Day 1 that are not ours. **`tools/conversations.py` is where their redraws
+     would go. Offer, do not assume.**
+
+   **And a defect in Ian's own code screenshot, which is his call and not ours.** See the item under
+   *For Ian* below.
+
+15. **☐ For Ian — the `Handlers + Activity State Updates` code screenshot.** `day2-s152-1.png`, now
+   linked as `resources/screenshot-code-handler-outbox.png`, has three things wrong with it, and the
+   presenter note says *walk the transaction and the postbox on the code screenshot*:
+   - both branches of the `if (canMake)` deposit **`OrderAccepted`**; the `else` presumably wants
+     `OrderRejected`, and as drawn the slide teaches a bug;
+   - the `catch` logs *"Exception thrown handling Add Greeting request"* and both `return`s call
+     `base.HandleAsync(addGreeting, …)`, where `addGreeting` is not a parameter of this method — leftovers
+     from a different sample, so it would not compile;
+   - the `return` inside the `catch` makes `ClearOutboxAsync` unreachable on the failure path, which is
+     arguably right but reads as an accident next to the second `return` below it.
+
+   **Linked as it is, because re-authoring the code on a slide is a content decision and Ian has already
+   said the coding changes are a separate work item.** If he wants it fixed, the right answer is probably
+   to re-render it as a Plex Mono figure in the Field Guide palette rather than to re-screenshot a dark
+   IDE — `styles.md` already says Plex Mono replaces Consolas for code.
+
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 
 **Ian: *"Agree"*** — one figure of the six that matter; the full legends go to the delegate reference card.
@@ -1010,8 +1077,11 @@ and have had since 2026-09-02. The counts below are the ones the hand-off's veri
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
-| `outlines/DayOne.md` | **49** | 43 | 0 | **0** | **6** |
-| `outlines/DayTwo.md` | **88** | 85 | 0 | **0** | **3** |
+| `outlines/DayOne.md` | **49** | **49** | 0 | **0** | **0** |
+| `outlines/DayTwo.md` | **88** | **87** | 0 | **0** | **1** |
+
+**Re-measured again after class D, 2026-09-07. Day 1 is fully annotated**, and the one line left on Day 2
+is the order-taking photograph, which is Ian's export.
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
@@ -1035,7 +1105,7 @@ different answers**, and only one of them is mechanical.
 | **A — link only** | ~18 | **1** | photos, book covers, screenshots, the *DON'T PANIC* motif, an icon. Find the master, copy to `resources/`, link. No visual decision. The one left is the order-taking photograph — **Ian's export**. |
 | **B — the two hand-drawn families** | ~36 | **0** | Day 1 §4.5 *Queues and Streams* (11, run 1) and Day 2's OO/FBP run (25, run 2). **Both done.** |
 | **C — Integration Styles, s32–s35** | 4 | **0** | ✅ **built 2026-09-07** — `tools/integration_styles.py`, four figures on one shared stage. Item 9 above. |
-| **D — the rest** | ~9 | **9** | Day 1's process-boundary pair, the messaging-concepts diagram, the message-pump pair, a stopwatch icon; Day 2's two C# code screenshots. **Next.** |
+| **D — the rest** | ~9 | **0** | ✅ **done 2026-09-07** — item 14 below. Six drawn (`app_shapes` ×4, `eip-the-big-picture`, `conversation-timeout`), two linked, and the last one is class A's. |
 
 **✅ A is under way. 7 done 2026-09-02** — Day 2 §Next Steps' four (`cover-reactive-microservices`,
 `cover-practical-process-automation`, `screenshot-eda-visuals`,
@@ -1153,10 +1223,15 @@ figure is about.
    none. **All five are built.** The honest residue of the old reasoning is that they are conceptual
    enough to want a **hard review**, which is a different thing from being undrawable.
 
-   **Everything in §8 is now built.** Both days have zero pending `#image:` markers, and what remains
-   of Phase 2 is **9 unannotated `#image:` lines** — 6 Day 1, 3 Day 2 — done per section. (It was 61
-   when this was written; runs 1 and 2 of the redraw took 36 of them, the class-A sweep and the
-   Integration Styles four took most of the rest.)
+   **Everything in §8 is now built, and Phase 2's drawing is finished.** Both days have zero pending
+   `#image:` markers; **Day 1 is fully annotated at 49 of 49** and Day 2 stands at **87 of 88**, the one
+   line left being the order-taking photograph, which is Ian's export. (Unannotated was 61 when this was
+   written; runs 1 and 2 of the redraw took 36, the class-A sweep and Integration Styles took most of
+   the rest, and class D — item 14 — took the last nine.)
+
+   **91 figures across eleven families**, all of them linted clean: 13 EIP · 5 conceptual grids · 2
+   If-Later · 11 Queues and Streams · 4 Integration Styles · 4 application shapes · 1 conversation
+   (Day 1) · 13 hotel BPMN · 6 legacy-BPMN redraws · 7 Paper Flow · 25 Flow and Reactive (Day 2).
 2. **Format and pipeline — settled.** `tools/diagram.py` emits **both** the editable `.drawio` and a `.png`
    preview from one definition, so the two cannot drift. That answers the trap in the original options:
    `.drawio` alone had no local renderer, and SVG alone was not editable. See `tools/README.md`.

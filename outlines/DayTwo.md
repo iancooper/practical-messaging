@@ -1022,7 +1022,7 @@ Handlers process events (change resources) and update activity state.
 - Becomes complex with split/join/choice/merge (not a sequence), and with retry / circuit breakers / compensation.
 - Relies on **guaranteed delivery** (store work for retry unless ack'd) and **Transactional Messaging (Outbox)**.
 
-#image: C# code screenshot — an async order handler using a transaction, postbox and the outbox pattern
+#image: C# code screenshot — an async order handler using a transaction, postbox and the outbox pattern  [→ resources/screenshot-code-handler-outbox.png]
 
 Presenter notes: Baseline automation. E.g. a `BookingRequestedHandler` looks up the booking and sets state = AwaitingHotel. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers. **Walk the transaction and the postbox on the code screenshot**, because the outbox is Day 1 §4.4 arriving with a job to do.
 
@@ -1035,7 +1035,7 @@ When handler interaction becomes complex, make the activity **explicit**.
 - The handler loads the state machine for the conversation id, triggers the transition denoted by the message, and runs the associated code.
 - Save the new state and ack the message.
 
-#image: C# code screenshot — an OrderStateMachine (MassTransit) with Initially/During states and transitions
+#image: C# code screenshot — an OrderStateMachine (MassTransit) with Initially/During states and transitions  [→ resources/screenshot-code-state-machine.png]
 
 Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic. **Walk the Initially/During states on the code screenshot.**
 

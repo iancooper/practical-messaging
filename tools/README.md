@@ -163,7 +163,7 @@ stroke is a guide and the label is text.
 ## `lint_figures.py`
 
 ```
-python3 tools/lint_figures.py                    # all nine families
+python3 tools/lint_figures.py                    # all eleven families
 python3 tools/lint_figures.py bpmn_hotel paper_flow
 ```
 
@@ -254,13 +254,78 @@ message); RPC reds the clock, because it is the only style that also loses on *w
 rides in carbon on the `PlaceOrder(order)` label instead. Messaging repeats File Transfer's composition on
 purpose — the two land in the same cell of `grid-integration-styles`, and the next slide says so.
 
-## `eip_figures.py`
+## `app_shapes.py`
 
-The 12 EIP figures that replaced the Hohpe & Woolf illustrations in `outlines/DayOne.md`, as one script,
-so the set stays a family — same canvas widths, same label voice, same convention for what red means.
+The four Day 1 drawings that show an **application** rather than a pattern: §1's process-boundary pair and
+§4.3's task-queue pair.
 
 ```
-python3 tools/eip_figures.py                    # rebuild all 12 into resources/
+python3 tools/app_shapes.py                     # rebuild all four into resources/
+python3 tools/app_shapes.py boundary-one-service
+python3 tools/app_shapes.py --list
+```
+
+**One helper, `service()`** — a dashed container, the application inside it, and the store only it can
+reach. The store goes **inside** the container, always: a figure that draws a database outside the process
+that owns it has conceded §1's argument before the presenter opens their mouth.
+
+**The boundary vocabulary is borrowed, not invented.** `coupling_grids` draws it as an ink rule across
+Myers' scale and `integration_styles._frame()` as a vertical ink rule between two dashed containers, so
+the settled reading is **dashed box = a process, ink rule = the boundary**. §1 comes first in the deck, so
+these two figures are where the room meets the glyph; §3 then reuses it.
+
+**The §1 pair contrasts through red.** `one-service` reds the reach into private data, and the cross sits
+**on the rule** rather than on the database — what refuses the reach is the boundary, and a cross on the
+store says only *this database is locked*. `two-services` reds the shared transaction, drawn as a scope,
+because that is what a transaction is.
+
+**§4.3 says the opposite thing with the same vocabulary, on purpose.** `task-queue-shape` puts everything
+inside **one** container over **one** database, because the slide's callout is *one team, one service, one
+queue — robustness without reorganising the company*. Drawing a boundary there would teach the room to cut
+a new service every time a request is slow.
+
+**The gaps between the boxes are load-bearing.** Every arrow is labelled, an arrow label is centred on its
+own run and does not scale under `compact`, so a 150-unit label needs roughly a 190-unit gap or
+`lint_figures.py` reports it sitting on the box it leaves. That is what set the x positions.
+
+## `conversations.py`
+
+§Conversations' one drawn figure — `conversation-timeout`, for *In-Out — When Nothing Comes Back at All*.
+
+```
+python3 tools/conversations.py
+```
+
+**A family of one, and it should not stay that way.** That section still carries three 2021 pictures —
+`Practical Messaging - Day 2 - 2024 - 25/27/29.png` — which are whole exported slides, old titles, red
+commentary boxes and a footer included. They are *linked*, so they do not appear as work outstanding, and
+they are the last three pictures on Day 1 that are not ours. **This module is where their redraws would
+go.** It is an offer, not a decision taken.
+
+**Time runs down the page**, which is a vocabulary choice and not a register one: everything is hand-drawn
+Caveat like the rest of Day 1, and what is new is that vertical position means *when*. The lifelines are
+`MUTED` 1.1pt hairlines — guides, which is what muted is for — and deliberately nothing like the 2.6pt ink
+rule §1 and §3 use for a boundary.
+
+## `eip_figures.py`
+
+Day 1's pattern figures — the 12 that replaced the Hohpe & Woolf illustrations in `outlines/DayOne.md`,
+plus `eip-the-big-picture`, §4's opener. One script, so the set stays a family: same label voice, same
+convention for what red means.
+
+**The opener is the odd one out and knows it.** The twelve are 460–600 units wide and already read at
+27–35 real points, so they are not compacted; the map is denser, so it calls `.compact(890)` itself, at
+the end of its own builder rather than in `figure()` — which keeps the linter and the renderer looking at
+the same geometry. It is a *composition over this family's vocabulary*: domain code, a gateway, a channel,
+an endpoint with a pump, all of them drawn elsewhere in the twelve. It must not invent a shape the section
+never picks up again, which is why the 2021 marker's *channel adapter* is not on it.
+
+**It also carries §4's build order, as a list rather than a strip of columns.** Text does not scale when
+`compact` runs, so five columns inside 890 units leaves 178 units each and the shortest of the five
+questions is wider than that. The list is not a compromise; it is the only shape that fits the floor.
+
+```
+python3 tools/eip_figures.py                    # rebuild all 13 into resources/
 python3 tools/eip_figures.py eip-dead-letter-channel   # just one
 python3 tools/eip_figures.py --list
 ```

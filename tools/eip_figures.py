@@ -31,6 +31,83 @@ def figure(name):
     return wrap
 
 
+# ---- the section opener ------------------------------------------------------
+
+@figure("eip-the-big-picture")
+def the_big_picture():
+    """§4's opener, *The Big Picture* -- the map the other twelve figures hang off.
+
+    **It is a composition over this family's vocabulary, not new vocabulary.** Domain
+    code, a messaging gateway, a channel, an endpoint with a pump: every one of those
+    is drawn somewhere in the twelve, and this figure's whole job is to put them on one
+    line so the room can see where each of the day's questions lands. Nothing here may
+    invent a shape the rest of the section does not use.
+
+    **It carries §4's build order, because the slide has nothing else on it.** The body
+    is one sentence -- *a map of the messaging patterns we will cover across the day* --
+    and the section's own `#note` says the ordering is the point: what is the unit, how
+    do I send and receive one, how do I keep receiving, how do I stop losing them, what
+    kind of broker am I on. So the itinerary is drawn, as a list rather than as a strip
+    of columns: **five columns of 18pt text do not fit in 890 units.** Text does not
+    scale when `compact` runs, so a five-column strip leaves 178 units a column and the
+    shortest of these questions is wider than that. A list is not a compromise here, it
+    is the only shape that fits the floor.
+
+    **The message is opened up, because §4.1's own slide has no picture at all.**
+    *Message Construction* is body text and a presenter note, so header-and-body is
+    introduced here or nowhere.
+
+    The marker this replaces also named a *channel adapter*. It is not drawn: the deck
+    never teaches the pattern, and a shape on the map that no later slide picks up is a
+    promise the section does not keep.
+    """
+    d = Diagram("The Big Picture", w=1440, h=700)
+    d.note(720, 46, "every pattern today hangs off this one line", ANNOTATION, 21)
+
+    d.group(40, 140, 440, 190, "the sending application")
+    dom1 = d.box(68, 190, 175, 100, "Domain\ncode")
+    gw = d.box(277, 190, 175, 100, "Messaging\nGateway")
+    pipe = d.pipe(570, 216, 300, 76)
+    msg = d.msg(700, 238, w=40, h=32)
+    d.group(960, 140, 440, 190, "the receiving application")
+    ep = d.box(988, 190, 175, 100, "Endpoint\n+ pump")
+    dom2 = d.box(1197, 190, 175, 100, "Domain\ncode")
+
+    d.arrow(dom1, gw, sides=("r", "l"))
+    d.arrow(gw, pipe, sides=("r", "l"))
+    d.arrow(pipe, ep, sides=("r", "l"))
+    d.arrow(ep, dom2, sides=("r", "l"))
+    d.note(720, 186, "a channel", INK, 18)
+
+    # the unit, opened up. Tied to the envelope it magnifies rather than floated near
+    # it, because a blow-up that is not joined to its original is just a second message
+    header = d.box(150, 440, 220, 52, "header")
+    d.box(150, 492, 220, 74, "body")
+    # down the outside and in from the left, not straight down onto the box: a riser
+    # landing on the header's top edge runs through the caption that names it, and a
+    # tie is one of the things `lint_figures.py` cannot measure a note against
+    d.attach(msg, header, sides=("b", "l"),
+             via=[(720, 380), (100, 380), (100, 466)])
+    d.note(260, 420, "a message", INK, 18)
+
+    d.note(620, 436, "and this is the order we meet it in", COMMENT, 18,
+           anchor="start")
+    for i, (num, q) in enumerate((
+            ("4.1", "what is a message?"),
+            ("4.2", "how do I send one, and receive one?"),
+            ("4.3", "how do I keep receiving?"),
+            ("4.4", "how do I stop losing them?"),
+            ("4.5", "what kind of broker am I on?"))):
+        y = 486 + i * 36
+        d.note(620, y, num, INK, 18, anchor="start")
+        d.note(700, y, q, COMMENT, 18, anchor="start")
+
+    # compacted here rather than in `figure()`: the other twelve are 460-600 units wide
+    # and already read at 27-35 real points, so this is the one figure in the family
+    # that needs it. 890 is where the 18pt diagram floor meets the 18pt body floor.
+    return d.compact(890)
+
+
 # ---- 4.2 Channels and endpoints ---------------------------------------------
 
 @figure("eip-point-to-point")

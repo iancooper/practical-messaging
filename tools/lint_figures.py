@@ -32,8 +32,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from diagram import _Outliner, HAND, PLAIN                       # noqa: E402
 
 FAMILIES = ("eip_figures", "coupling_grids", "if_later", "queues_streams",
-            "integration_styles", "bpmn_hotel", "bpmn_shopping", "paper_flow",
-            "flow_reactive")
+            "integration_styles", "app_shapes", "conversations", "bpmn_hotel",
+            "bpmn_shopping", "paper_flow", "flow_reactive")
 
 # node kinds that belong to the BPMN vocabulary and so are set in Plex Sans
 BPMN_KINDS = {"task", "event", "gateway", "choreo", "pool", "lane"}
