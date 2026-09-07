@@ -1022,9 +1022,31 @@ Handlers process events (change resources) and update activity state.
 - Becomes complex with split/join/choice/merge (not a sequence), and with retry / circuit breakers / compensation.
 - Relies on **guaranteed delivery** (store work for retry unless ack'd) and **Transactional Messaging (Outbox)**.
 
-#image: C# code screenshot — an async order handler using a transaction, postbox and the outbox pattern  [→ resources/screenshot-code-handler-outbox.png]
+```csharp
+var tx = await _uow.BeginOrGetTransactionAsync(ct);
+try
+{
+    orderRepository.Received(_uow, order);            // the state change
+    var canMake = await stock.Check(order);
+    var reply = canMake ? new OrderAccepted(order.Id)
+                        : new OrderRejected(order.Id);
+    posts.Add(await _postBox.DepositPostAsync(reply, ct));   // and the message
+    await tx.CommitAsync(ct);                         // both, or neither
+}
+catch (Exception)
+{
+    await tx.RollbackAsync(ct);
+    throw;                                            // so it can be retried
+}
+await _postBox.ClearOutboxAsync(posts, ct);           // only now does it leave
+```
 
-Presenter notes: Baseline automation. E.g. a `BookingRequestedHandler` looks up the booking and sets state = AwaitingHotel. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers. **Walk the transaction and the postbox on the code screenshot**, because the outbox is Day 1 §4.4 arriving with a job to do.
+#note: Code on a slide is **text in Plex Mono**, not a screenshot — `styles.md` settles that, and a
+39-line listing shrunk to fit a 16:9 slide reads at about seven points across a room. Cut to the
+sixteen lines the presenter actually walks: the transaction, the deposit inside it, the commit, and
+the outbox cleared outside it.
+
+Presenter notes: Baseline automation. E.g. a `BookingRequestedHandler` looks up the booking and sets state = AwaitingHotel. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers. **Walk the transaction and the postbox line by line**, because the outbox is Day 1 §4.4 arriving with a job to do: the state change and the message that announces it commit together, and the message only leaves the process afterwards. The `throw` matters — roll back and rethrow is what lets guaranteed delivery retry the whole thing.
 
 ### Slide: State Machine + Activity State Updates
 
@@ -1035,9 +1057,27 @@ When handler interaction becomes complex, make the activity **explicit**.
 - The handler loads the state machine for the conversation id, triggers the transition denoted by the message, and runs the associated code.
 - Save the new state and ack the message.
 
-#image: C# code screenshot — an OrderStateMachine (MassTransit) with Initially/During states and transitions  [→ resources/screenshot-code-state-machine.png]
+```csharp
+public OrderStateMachine(ILogger<OrderStateMachine> logger)
+{
+    InstanceState(x => x.CurrentState);
 
-Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic. **Walk the Initially/During states on the code screenshot.**
+    Initially(
+        When(OnOrderSubmitted)                        // a message arrives...
+            .Then(x => logger.LogInformation("Order submitted"))
+            .SendAsync(new Uri("queue:stock-check"), Init<CheckStock>())
+            .TransitionTo(PendingStock));             // ...and the state moves
+
+    During(PendingStock,
+        When(OnHasStock)
+            .SendAsync(new Uri("queue:order-accepted"), Init<CallPartner>())
+            .TransitionTo(AwaitingKitchen),
+        When(OnLackStock)
+            .TransitionTo(RejectOrder));
+}
+```
+
+Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic. **Walk `Initially` and `During` on the listing** — they are the two states the room needs, and every arrow between them is a message arriving.
 
 ### Slide: Routing Slip + Activity State Updates
 

@@ -975,8 +975,7 @@ The first question, before any pattern: **are you expressing intent, or reportin
 
 ▎ A message asks for something. An event announces something.
 
-#image: two UML-style pattern diagrams — In-Only (fire-and-forget) and In-Out (request-reaction), requestor/provider  [→ resources/'Practical Messaging - Day 2 - 2024 - 25.png' + '...- 29.png' — exported slide images]
-#image: UML-style diagram — the Out-Only (notification) pattern, requestor to provider  [→ resources/'Practical Messaging - Day 2 - 2024 - 27.png' — exported slide image]
+#image: one pair of participants and three exchanges down them — In-Only and In-Out above the line, Out-Only below it with its arrow reversed, because the provider speaks first and is addressing nobody  [→ resources/conversation-messaging-or-eventing.png]
 
 Presenter notes: This is the first fork in the decision and it decides most of the rest. If you are expressing intent you are addressing someone — you know who should act, and that is behavioural coupling. If you are reporting a fact you are not addressing anyone — the subscriber list is not your concern, which is why eventing is the loosest coupling available. Tie back to Integration Styles: the same trade, one level down.
 

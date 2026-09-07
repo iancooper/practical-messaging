@@ -35,6 +35,10 @@ is planned here.
 - `Presenter notes:` label = speaker notes carried over from the deck
 - `#image: <description>  [<source annotation>]` = the slide was mainly an image
 - `#note: ...` = a non-image annotation
+- a fenced ```` ```csharp ```` block = code shown **on the slide**, set as text in Plex Mono per
+  `styles.md`, never as a screenshot. A listing has to be cut to what a room can read: a 39-line
+  screenshot scaled to a 16:9 slide comes out at about seven points. First used in Day 2
+  §Process Automation.
 - `#group: <title>` = a group divider *within* a sub-topic — a run of slides that belong together. Not a
   slide, so it is not counted; `###` stays reserved for entries. First used in Day 1 §4.4 (D1-8).
 
@@ -1022,6 +1026,117 @@ than a blank canvas.
    said the coding changes are a separate work item.** If he wants it fixed, the right answer is probably
    to re-render it as a Plex Mono figure in the Field Guide palette rather than to re-screenshot a dark
    IDE — `styles.md` already says Plex Mono replaces Consolas for code.
+
+16. **✅ The 2021 §Conversations exports are redrawn — 2026-09-07.** Ian asked for item 14's first
+   finding. `Practical Messaging - Day 2 - 2024 - 25/27/29.png` are unlinked and
+   **`conversation-messaging-or-eventing` replaces all three**. Day 1 falls 49 → **48** `#image:` lines,
+   all linked.
+
+   **Three images became one, and that is a legibility decision rather than a tidy-up.** Two figures side
+   by side on a 16:9 slide are each fitted to about half its width, so an 890-unit canvas would read at
+   **nine** real points instead of eighteen. **Splitting a figure across a slide halves its type** —
+   the same arithmetic as item 10, applied to figure *count* rather than canvas width. `bpmn-the-six`
+   made the same trade for the same reason.
+
+   **One pair of participants, three exchanges down them.** The 2021 set drew the same two boxes three
+   times on three slides, so the reader had to re-establish who was who before comparing anything. Here
+   they are established once. **Requestor stays on the left in all three, including Out-Only** — it is
+   tempting to swap the boxes so the eventing arrow still points right, and that would destroy the
+   figure, because the claim is that *the arrow turns round* and an arrow only turns round against
+   something that does not. Red is on the notification for the same reason.
+
+   **`participants()` moved into the module**, so both figures draw the two boxes and their lifelines the
+   same way. It is a pure extraction: `conversation-timeout` re-rendered byte-identical.
+
+   **☐ A fourth 2021 export is sitting in `resources/` linked to nothing** —
+   `Practical Messaging - Day 2 - 2024 - 34.png`, *Out-In (Solicit-Response)*. The **Out-In slide has no
+   picture**, and Out-In is deliberately not on this figure, because *Messaging or Eventing?*'s own table
+   does not list it. Whether that slide wants one is a separate question. The three replaced files are
+   left in `resources/` rather than deleted — they are the 2021 originals, and unlinking them is
+   reversible in a way that deleting is not.
+
+17. **✅ Code on a slide is text, not a screenshot — 2026-09-07.** Ian asked for item 15. The fix turned
+   out to be larger than the bugs, and the arithmetic is why.
+
+   **A 39-line screenshot on a 16:9 slide reads at about seven points.** `day2-s152-1.png` is 2112×1674,
+   an aspect of 1.26:1 against the roughly 2.2:1 a slide gives you, so it is fitted by **height** and
+   uses about half the width. Item 10's rule, one step further: **aspect can cost more than width.** No
+   amount of re-rendering fixes that — the only fix is fewer lines.
+
+   **And `styles.md` had already settled the register**: *Plex Mono replaces Consolas for code*. So code
+   belongs in the outline as **text**, where Phase 3 sets it at the body floor and it never gets scaled
+   like a picture at all. Both `#image:` lines are now fenced ```` ```csharp ```` blocks; §1's outline
+   conventions carry the new rule; Day 2 falls 88 → **86** `#image:` lines. The two copies added to
+   `resources/` are removed, and the masters stay in `session-work/imgs/`.
+
+   **⚑ Re-authoring the listings is a content change, and here is every edit, because Ian should be able
+   to veto any of them:**
+   - **`OrderAccepted` in the `else` branch → `OrderRejected`.** The original deposited the same message
+     on both branches of `if (canMake)`. Unambiguous.
+   - **`addGreeting` → `order`, and the log message with it.** The `catch` logged *"Exception thrown
+     handling Add Greeting request"* and both `return`s called `base.HandleAsync(addGreeting, …)`, which
+     is not a parameter of the method. Leftovers from another sample; it would not compile.
+   - **The `catch` now rolls back and `throw`s** rather than returning down the handler pipeline. This is
+     the one **judgement call**: the slide's own bullet is *relies on guaranteed delivery — store work
+     for retry unless ack'd*, and a handler that swallows the exception and returns normally gets the
+     message ack'd and the work lost. Returning was arguably a fourth bug; it is at least a
+     contradiction of the bullet above it.
+   - **`cancellationToken` → `ct`,** so the longest line fits a slide measure.
+   - **Cut from 39 lines to 16** — the transaction, the state change, the deposit inside it, the commit,
+     the rollback, and the outbox cleared outside. The `cookRequests` / `deliveryRequests` writes came
+     out: they sat after the commit inside the `try` and are a different subject.
+   - **State machine: `Init<DebitAccount>` on `queue:stock-check` → `Init<CheckStock>`.** A debit on a
+     stock-check queue between `OnOrderSubmitted` and `PendingStock` is incoherent; the original's
+     `// Calls debit` comment suggests it was pasted from a payments sample. **Least certain of these —
+     if the flow really does debit there, the queue name is what is wrong instead.** Cut from 35 lines
+     to 16.
+
+   **Both presenter notes said *"on the code screenshot"* and have been rewritten**, because presenter
+   notes ship to whoever delivers the course and would have pointed at something that no longer exists.
+
+18. **⚑ "Compacted to 890" is not the same as "reads at 18", and 65 of 92 figures are under the floor.**
+   Measured 2026-09-07, with `tools/reads_at.py`, which is committed so this is checkable rather than
+   asserted. **This is the sixth finding's shape for the third time: a floor closed against a rule that
+   only half held.**
+
+   **The rule has two halves and the sweep only used one.** Item 9 gave the width half — a label reads at
+   `size × 890 / w`. Item 10 gave the other half and it was never put into the target: **a 16:9 slide
+   leaves about 2.2 : 1 of usable area, and a figure squarer than that is fitted by HEIGHT**, so the
+   width it was drawn at stops mattering. The number that counts is
+
+       reads_at  =  caveat-equivalent size  ×  890 / max(w, 2.2 × h)
+
+   and 890 is only "the floor" for a figure that is already wider than 2.2:1. Every family swept to 890
+   contains figures that are not.
+
+   | family | figs | worst label | | family | figs | worst label |
+   |---|---:|---:|---|---|---:|---:|
+   | `eip_figures` | 13 | 16.1 pt | | `bpmn_hotel` | 13 | **8.7 pt** |
+   | `coupling_grids` | 5 | 12.3 pt | | `bpmn_shopping` | 6 | 10.1 pt |
+   | `if_later` | 2 | 14.9 pt | | `paper_flow` | 7 | **7.7 pt** |
+   | `queues_streams` | 11 | 11.9 pt | | `flow_reactive` | 25 | 11.3 pt |
+   | `integration_styles` | 4 | 13.4 pt | | `app_shapes` | 4 | 12.5 pt |
+   | `conversations` | 2 | 14.1 pt | | | | |
+
+   **The sweep was still worth doing** — `grid-coupling` was at 8.4 before it and is at 12.3 now, and Ian
+   approved the result by eye. What is wrong is the *claim*, which this file and the hand-off both made:
+   890 buys 18 points only for a wide figure.
+
+   **☐ So the answer on the three unswept families is "not this way" — Ian, 2026-09-07: leave it if it
+   does not make sense to fix.** Compacting them to 890 would help and would not be enough:
+   `bpmn_shopping`'s worst goes 10.1 → about 15.5, `bpmn_hotel`'s 8.7 → about 12.1, and two `paper_flow`
+   figures cannot move at all — `paper-worked-flows-montage` embeds rasters `compact` does not scale, and
+   `paper-tray-sheets` is **0.70 : 1**, taller than it is wide, where width is not the variable in the
+   first place. **The lever for a height-fitted figure is rows, not units**, and cutting rows is a content
+   decision per figure rather than a sweep.
+
+   **What a real fix looks like, when it is wanted.** Change `Diagram.compact` to target the *effective*
+   width — `max(w, 2.2 × h)` — rather than `w`, then re-sweep all eleven families and re-nudge. That is
+   the same job as item 12 at two and a half times the size, and it is Ian's call, not a tidy-up. **Do
+   not start it without asking.**
+
+   **Run `python3 tools/reads_at.py` before saying a family is done.** `lint_figures.py` measures labels
+   against shapes; this measures them against the room, and nothing else does.
 
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 

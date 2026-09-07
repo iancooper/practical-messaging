@@ -190,6 +190,32 @@ task it labels; `the payment` sat on the boundary bar it crosses.
 **Run it after any size or geometry change**, then still look at the PNG. It measures overlap; it does
 not have taste.
 
+## `reads_at.py`
+
+What every label actually reads at **in the room**, on a 16:9 slide. `lint_figures.py` measures labels
+against shapes; this measures them against the audience, and nothing else does.
+
+```
+python3 tools/reads_at.py                    # every family, worst figure each
+python3 tools/reads_at.py --all              # every figure
+python3 tools/reads_at.py bpmn_hotel paper_flow
+python3 tools/reads_at.py --floor 14
+```
+
+    reads_at  =  caveat-equivalent size  x  890 / max(w, 2.2 x h)
+
+**Two corrections, and both of them have caught us out.**
+
+- **x-height, not point size.** Plex Sans and Plex Mono are 0.516em against Caveat's 0.400, so 13pt of
+  Plex reads as 17pt of Caveat. A survey that ranks families by the number in `size=` names BPMN as the
+  worst offender when it is the only family already at the floor.
+- **Aspect, not width.** A 16:9 slide leaves about 2.2:1 of usable area. Wider than that is fitted by
+  width; **anything squarer is fitted by height, and the width it was drawn at stops mattering.**
+
+**⚑ Which is why "compacted to 890" is not the same as "reads at 18".** The 2026-09-07 sweep targeted
+width alone, and width is half the rule — 65 of 92 figures are still under the floor. Plan §8 item 18 has
+the numbers and what a real fix would cost. **Run this before saying a family is done.**
+
 ## `bpmn_hotel.py`
 
 The Day 2 Process Automation figures — the eleven hotel BPMN redraws plus the compensation fragment.
