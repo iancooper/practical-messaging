@@ -261,6 +261,16 @@ def plan_table(raw_rows, head, w):
 
 # ---- layout ------------------------------------------------------------------
 
+# Phase 2 measured every label with the figure displayed this wide. `reads_at.py`'s
+# 890-unit reference is the same number seen from the other side: 890 canvas units
+# across 12.4 inches. Plan §8 items 9 and 10.
+REFERENCE_IN = 12.4
+
+
+def path_of(b):
+    return os.path.join(REPO, b.src)
+
+
 class Laid:
     """A laid-out slide: its ops, plus what did not fit."""
 
@@ -270,6 +280,17 @@ class Laid:
         self.ops = []
         self.overflow = 0.0      # inches the body wanted beyond the room it had
         self.notes = []
+        self.split = False       # True when one outline entry became two slides
+        self.figures = []        # (src, rendered_w_in, canvas_w, canvas_h)
+
+    def reads_at(self):
+        """For each drawn figure, the fraction of its Phase 2 label size that
+        survives at the size it is actually rendered here."""
+        out = []
+        for src, pw, cw, ch in self.figures:
+            eff = max(cw, 2.2 * ch)
+            out.append((src, pw, (pw / cw) * eff / REFERENCE_IN))
+        return out
 
     def __iadd__(self, op):
         self.ops.append(op)
@@ -294,6 +315,7 @@ class Deck:
         self.deck = deck
         self.day = day
         self.slides = []          # list[Laid]
+        self.compare = []         # entries whose figures were shown one at a time
 
     # -- chrome ----------------------------------------------------------------
     def _ground(self, laid, colour=PAPER):
@@ -342,26 +364,130 @@ class Deck:
                 laid += o
         self.slides.append(laid)
 
-    def content_slide(self, sl):
-        laid = Laid(sl, "content")
-        self._ground(laid)
-        imgs = [b for b in sl.images if b.src]
-        y = self._kicker(laid, sl.group or sl.section)
-        w = TEXT_W if imgs else CONTENT_W
-        y = self._title(laid, sl.title, y, w)
+    # A photograph tolerates being small; a drawing with labels in it does not. That
+    # is the whole distinction the layout turns on, and the file extension carries it:
+    # every photograph in `resources/` is a `.jpg` and every drawing is a `.png`.
+    @staticmethod
+    def _is_photo(b):
+        return b.src.lower().endswith((".jpg", ".jpeg"))
 
+    # Below this, a body is short enough to sit above a full-width figure without
+    # squeezing it; above it, the slide becomes a text slide and a figure slide.
+    FIGURE_SLIDE_BODY_MAX = 1.15
+
+    def content_slide(self, sl):
+        """One outline entry becomes one slide -- or two, when it carries both an
+        argument and a labelled figure.
+
+        **Why a figure gets its own slide.** `styles.md`'s panel gives a drawing about
+        4.6 inches. Phase 2 sized every label so the figure reads at 18pt displayed
+        about 12.4 inches wide (plan §8 items 9, 10, 18, 19), so a figure in the panel
+        reads at 37-53% of the size it was measured at -- 7 to 9 real points. Ian's
+        call, 2026-09-08: **the figure leads.** Full content width restores it to about
+        97%, which is the number Phase 2 spent three passes earning.
+
+        **The callout travels with the picture and the bullets do not.** A callout is
+        the one line the presenter says aloud about what is on the screen; the bullets
+        are the argument that gets to it. So when an entry has to split, the argument
+        goes on the first slide and the callout stands with the figure on the second.
+
+        Photographs stay in the panel. They are not carrying 18pt labels."""
+        imgs = [b for b in sl.images if b.src]
+        figs = [b for b in imgs if not self._is_photo(b)]
+        photos = [b for b in imgs if self._is_photo(b)]
+        if not figs:
+            self._text_slide(sl, sl.blocks, photos)
+            return
+
+        callouts = [b for b in sl.blocks if b.kind == "callout"]
+        argument = [b for b in sl.blocks
+                    if b.kind not in ("image", "callout")]
+        # measure the argument against a throw-away slide to decide whether it fits
+        probe = Laid(sl, "probe")
+        h = self._body(probe, argument, M_L, 0.0, CONTENT_W)
+
+        # **One labelled figure per slide.** Two figures sharing the stage each get
+        # about half its linear size, which is the same 50% tax the panel charged and
+        # the reason `conversations.py` merged three 2021 exports into ONE figure
+        # rather than showing three. Where a slide really needs two pictures compared,
+        # the answer is a composed figure -- a Phase 2 job -- so those are reported.
+        first = True
+        if h <= self.FIGURE_SLIDE_BODY_MAX and len(figs) == 1:
+            self._figure_slide(sl, figs, argument + callouts, photos)
+            return
+        if argument or photos:
+            self._text_slide(sl, argument, photos, split=True)
+            first = False
+        for i, f in enumerate(figs):
+            self._figure_slide(sl, [f], callouts if i == 0 else [], [],
+                               split=not (first and len(figs) == 1))
+        if len(figs) > 1:
+            self.compare.append((sl, len(figs)))
+
+    def _text_slide(self, sl, blocks, photos, split=False):
+        laid = Laid(sl, "content")
+        laid.split = split
+        self._ground(laid)
+        y = self._kicker(laid, sl.group or sl.section)
+        w = TEXT_W if photos else CONTENT_W
+        y = self._title(laid, sl.title, y, w)
         avail = H_IN - M_B - y
-        used = self._body(laid, sl, M_L, y, w)
+        used = self._body(laid, blocks, M_L, y, w)
         if used > avail + 0.01:
             laid.overflow = used - avail
-        if imgs:
-            self._panel(laid, imgs, sl)
+        if photos:
+            self._panel(laid, photos, sl)
         self.slides.append(laid)
 
+    def _figure_slide(self, sl, figs, above, photos, split=False):
+        """Title, whatever short text belongs with the picture, then the picture --
+        as wide as the slide will allow."""
+        laid = Laid(sl, "figure")
+        laid.split = split
+        self._ground(laid)
+        y = self._kicker(laid, sl.group or sl.section)
+        y = self._title(laid, sl.title, y, CONTENT_W)
+        if above:
+            y += self._body(laid, above, M_L, y, CONTENT_W) + 0.10
+        self._stage(laid, figs + photos, y)
+        self.slides.append(laid)
+
+    def _stage(self, laid, imgs, y):
+        """The full-width figure stage. One picture fills it; several share it, and
+        the report says what that costs."""
+        x, w = M_L, CONTENT_W
+        h = H_IN - M_B - y
+        if h < 1.0:                       # nothing left to draw in
+            laid.notes.append(f"no room for the figure: {h:.2f}in left under the text")
+            return
+        n = len(imgs)
+        cols = 1 if n == 1 else (2 if n <= 4 else 3)
+        rows = (n + cols - 1) // cols
+        cw = (w - PANEL_PAD * (cols - 1)) / cols
+        ch = (h - PANEL_PAD * (rows - 1)) / rows
+        placed = []
+        for i, b in enumerate(imgs):
+            path = os.path.join(REPO, b.src)
+            from PIL import Image as PImage, UnidentifiedImageError
+            try:
+                with PImage.open(path) as im:
+                    iw, ih = im.size
+            except (FileNotFoundError, UnidentifiedImageError):
+                laid.notes.append(f"missing render: {b.src}")
+                continue
+            k = min(cw / iw, ch / ih)
+            placed.append((b, iw * k, ih * k, k, iw, ih))
+        for i, (b, pw, ph, k, iw, ih) in enumerate(placed):
+            c, r = i % cols, i // cols
+            laid += Image(x + c * (cw + PANEL_PAD) + (cw - pw) / 2,
+                          y + r * (ch + PANEL_PAD) + (ch - ph) / 2, pw, ph, path_of(b))
+            if not self._is_photo(b):
+                laid.figures.append((b.src, pw, iw / 3.0, ih / 3.0))
+
     # -- body ------------------------------------------------------------------
-    def _body(self, laid, sl, x, y, w):
+    def _body(self, laid, blocks, x, y, w):
         cy = y
-        for b in sl.blocks:
+        for b in blocks:
             if b.kind == "image":
                 continue
             if b.kind == "bullet":
@@ -460,6 +586,8 @@ class Deck:
             laid += Image(px + PANEL_PAD + c * (cw + PANEL_PAD) + (cw - w) / 2,
                           py + PANEL_PAD + r * (ch + PANEL_PAD) + (ch - h) / 2,
                           w, h, path)
+            if not b.src.lower().endswith((".jpg", ".jpeg")):
+                laid.figures.append((b.src, w, iw / 3.0, ih / 3.0))
         if n > 1:
             k = 1.0 / max(cols, rows)
             laid.notes.append(
@@ -703,9 +831,34 @@ def main(argv):
                 print(f"      {l.overflow:5.2f}in over   "
                       f"{l.slide.section[:22]:<24} {l.slide.title[:46]}")
         if multi:
-            print(f"    ⚑ {len(multi)} slides share the panel between figures:")
+            print(f"    {len(multi)} slides group photographs in a panel:")
             for l, n in multi:
-                print(f"      {l.slide.section[:22]:<24} {l.slide.title[:38]}  — {n}")
+                print(f"      {l.slide.section[:22]:<24} {l.slide.title[:38]}")
+        if deck.compare:
+            print(f"    ⚑ {len(deck.compare)} entries carry more than one figure and "
+                  f"now show them one per slide — a composed figure would be better "
+                  f"where the reader has to compare:")
+            for sl, n in deck.compare:
+                print(f"      {n} figures   {sl.section[:22]:<24} {sl.title[:40]}")
+
+        # what the room actually gets, against what Phase 2 measured
+        small = []
+        for l in deck.slides:
+            for src, pw, frac in l.reads_at():
+                if frac < 0.85:
+                    small.append((l, src, pw, frac))
+        splits = sum(1 for l in deck.slides if l.split) // 2
+        best = [frac for l in deck.slides for _s, _w, frac in l.reads_at()]
+        if best:
+            print(f"    figures: {len(best)} placed, "
+                  f"{sum(1 for f in best if f >= 0.85)} at 85%+ of their Phase 2 "
+                  f"label size (median {sorted(best)[len(best)//2]*100:.0f}%)"
+                  + (f"; {splits} entries became two slides" if splits else ""))
+        if small:
+            print(f"    ⚑ {len(small)} figures still land under 85%:")
+            for l, src, pw, frac in sorted(small, key=lambda t: t[3])[:12]:
+                print(f"      {frac*100:3.0f}%  {pw:4.1f}in  "
+                      f"{os.path.basename(src)[:34]:<36} {l.slide.title[:30]}")
         for l, n in missing:
             print(f"    ! {l.slide.title[:50]}: {n}")
 
