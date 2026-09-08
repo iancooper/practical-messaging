@@ -1235,6 +1235,81 @@ un-blended against the paper and re-blended with the new colour at the same alph
 shape instead of growing a fringe — 0.3–2.0% of pixels per file. `paper-worked-flows-montage` was rebuilt
 after, since it embeds them as data URIs.
 
+### 23. Phase 3 — the deck builds, the figure leads, and seven slides are over the floor
+
+**2026-09-08.** `tools/outline.py` parses the outlines; `tools/build_deck.py` lays them out to
+`styles.md` and writes both `.pptx`. Day 1 **135 slides**, Day 2 **151**, from 88 + 86 entries.
+Commits `ef3f720`, `6009add`, `e095ad7`.
+
+#### 23a. ✅ The figure leads — the panel and the floor were incompatible
+
+**Two decisions settled with Ian months apart, and nobody had put them side by side.** `styles.md`
+§Canvas puts the diagram in a panel at 0.85 of 2.0 of the content width — **4.6 inches**. Items 9, 10,
+18 and 19 sized every label so the figure reads at 18pt displayed **12.4 inches** wide. Measured, a
+figure in the panel reads at **37–53%** of the size it was measured at: an 18.0pt label at 7–9 real
+points, on **84 of the 106 slides that carry a picture**. That is the whole legibility programme undone.
+
+**Ian's call: the figure leads.** A slide whose picture is a *drawing* gives it the full content width;
+**photographs keep the panel**, because a photograph tolerates being small and a labelled drawing does
+not — and the file extension carries the distinction, every photograph in `resources/` being a `.jpg`
+and every drawing a `.png`.
+
+| | in the panel | figure-led |
+|---|---:|---:|
+| Day 1 figures at 85%+ of their Phase 2 size | — | **44 of 47**, median 91% |
+| Day 2 figures at 85%+ | — | **71 of 74**, median 96% |
+| slides over the 18pt body floor | 22 | **7** |
+
+**The callout travels with the picture; the bullets do not.** A callout is the one line the presenter
+says aloud about what is on screen, so when an entry splits it stands with the figure and the argument
+goes on the first slide. Both keep the same title. **An entry only splits when its argument will not fit
+in 1.15in above the figure** — past that the figure drops below 85% and the split has bought nothing.
+**No content moves and none is lost, so §11's timings are untouched:** the presenter advances once more,
+they do not say more.
+
+**One labelled figure per slide.** Two on a stage each take about half its linear size — the same tax the
+panel charged, and the reason `conversations.py` merged three 2021 exports into one figure. **17 entries
+carry more than one figure and now show them in sequence; ☐ which of those are genuine comparisons is
+Ian's call**, and where the reader must hold two side by side the answer is a composed figure, which is
+Phase 2 work.
+
+Six figures still land under 85%, between 74 and 82. **Three of the six are in the BPMN families Ian
+asked us to leave unswept** (item 18), so they were short of the floor before this layout existed.
+
+#### 23b. ✅ Seven slides overflow, and Ian approved a fix for each
+
+`styles.md`: *"Expect the floor to force content off crowded slides. That is intended."* So the builder
+**never shrinks type** — it lays out at the floor, measures the overshoot and reports it. Ian reviewed
+the seven and **agreed to all seven, 2026-09-08**. Four splits, three cuts; only one takes content out of
+the deck.
+
+| slide | over | agreed |
+|---|---:|---|
+| D1 *Get It In Advance — ECST* | 3.56in | split into three entries at its own seams — the mechanism, *Why it holds up in practice*, *Be honest about the trade*. Nothing cut |
+| D1 *Faults, by Pattern* | 1.81in | the *Examples.* paragraph moves to presenter notes |
+| D1 *Must We Both Be Up?* | 1.26in | drop the second callout; the table's **Options** row moves to the delegate reference card; fold the lead-in into the first bullet |
+| D2 *The Desk — In-Tray, Out-Tray, File* | 3.68in | split; *Two Devices You Already Know* takes the order wheel and the carbon-copy memo, and their two photographs go with them |
+| D2 *Handlers + Activity State Updates* | 1.85in | split: bullets, then the listing. The listing is already trimmed to the sixteen lines its own `#note:` specifies |
+| D2 *State Machine + Activity State Updates* | 1.50in | the same split |
+| D2 *The Reactive Manifesto* | 1.02in | the author list moves to presenter notes |
+
+**☐ Not applied yet.** They are outline edits, and items 1, 4, 5 and 6 add four `### Slide:` entries, so
+§3's counts and §8's image budget move with them (rule 11).
+
+#### 23c. ✅ Two defects only a consumer could find
+
+**`#note:` blocks were leaking into slides.** The parser skipped the marker line but not its
+continuation lines, so three slides carried build instructions to ourselves at 18pt — *Service Activator*
+ended with *"wire the specific file references in during Phase 3"*. §12 exists to stop exactly this, and
+it had been failing from the other direction: the provenance was correctly marked and the reader was
+wrong. `grep '#note:'` finds the marker and reads as clean; **the leak is on the lines after it.**
+
+**`flowbased_order_food` had no render.** Two Day 2 slides linked the `.excalidraw` **source**, so every
+count in the repo read them as linked and Phase 2 never saw them outstanding — the same blindness the
+three 2021 exports exploited. Rule 4: the picture was already in the old deck as `day2-s170-1.png`, so
+it was a copy and a relink rather than a job for Ian. **Five further markers name two paths**, the render
+and its editable source; the parser takes the first.
+
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 
 **Ian: *"Agree"*** — one figure of the six that matter; the full legends go to the delegate reference card.

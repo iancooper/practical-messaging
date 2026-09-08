@@ -31,11 +31,34 @@ typographically serious — not replacing it with a corporate template.
 
 **16:9 — 13.333 × 7.5 in** (12192000 × 6858000 EMU).
 
-**Layout.** Text left, **diagram in a fixed manila panel on the right**, roughly **1.15 : 0.85**. Every
-diagram gets a consistent home rather than floating in whitespace. A **kicker** — the section name, Plex
-Mono, uppercase, tracked — sits above the title.
+**Layout.** A **kicker** — the section name, Plex Mono, uppercase, tracked — sits above the title on
+every slide. Below it there are three arrangements, and **what decides between them is whether the
+picture carries type**:
 
-Slides with no diagram use the full width but keep the same left margin and kicker.
+| the slide has | layout |
+|---|---|
+| a **drawing** (`.png`) | **the figure leads.** Title, the callout if there is one, then the figure at the **full content width**. |
+| **photographs** (`.jpg`) | text left, photographs in a fixed **manila panel** on the right, **1.15 : 0.85**. |
+| no picture | full width, same left margin and kicker. |
+
+**⚑ Amended 2026-09-08, and the amendment is load-bearing.** This originally put *every* diagram in the
+manila panel. The panel gives a figure **4.6in**; Phase 2 sized every label so the figure reads at 18pt
+displayed **12.4in** wide (plan §8 items 9, 10, 18, 19). Measured, a figure in the panel read at **37–53%**
+of the size it had been measured at — an 18.0pt label landing at 7–9 real points, on 84 of the 106 slides
+carrying a picture. **Two settled decisions, months apart, that cancelled each other.** Ian chose the
+figure. Full width restores ~97%; the built decks measure 91% (Day 1) and 96% (Day 2), median.
+
+**A photograph tolerates being small; a labelled drawing does not.** That is the whole distinction, and
+the file extension carries it — every photograph in `resources/` is a `.jpg` and every drawing a `.png`.
+
+**One labelled figure per slide.** Two sharing a stage each take about half its linear size, which is the
+tax the panel charged in the first place. Where the reader genuinely has to compare two pictures, the
+answer is a **composed figure**, not two small ones — see `tools/conversations.py`, which merged three
+2021 exports into one for exactly this reason.
+
+**An entry may become two slides**: the argument, then the picture. The **callout goes with the picture**
+— it is the line the presenter says aloud about what is on screen — and both slides keep the same title,
+so the pair reads as one thought with the picture revealed. Plan §8 item 23a.
 
 ---
 
@@ -173,8 +196,25 @@ touch the 16pt slide floor).
 ## Open
 
 - ☑ **Plex Mono confirmed** for kickers, labels and code (2026-09-01).
-- ☐ **System font install.** `tools/fonts/` holds the OFL files for the preview renderer, which outlines
-  glyphs to paths and needs no install. **PowerPoint does need them installed** for Phase 3:
-  `cp tools/fonts/*.ttf ~/Library/Fonts/`. Not done — Ian's machine, Ian's call.
-- ☐ **IBM Plex Serif** is not yet in `tools/fonts/`; only Sans, Mono and Caveat are. Add it when the first
-  diagram needs a serif label, or in Phase 3.
+- ☑ **IBM Plex Serif** is in `tools/fonts/` — Regular and SemiBold, from Google Fonts, OFL 1.1
+  (2026-09-08). Titles are set in **`IBM Plex Serif SemiBold`**, which is the face name the OS exposes
+  for the 600 weight; naming the family and asking for bold reaches for a Bold we do not ship.
+- ☐ **System font install — now live, not future.** `tools/fonts/` holds the OFL files for the preview
+  renderer, which outlines glyphs to paths and needs no install. **PowerPoint does need them installed**,
+  and the built decks name all four faces, so until `cp tools/fonts/*.ttf ~/Library/Fonts/` has been run
+  PowerPoint substitutes and the first thing Ian sees is not the deck we built. Ian's machine, Ian's call.
+- **⚑ Two registers, two scales — on slides as well as in figures.** Caveat's x-height is 0.400em against
+  Plex Sans's 0.516, so **18pt of Plex reads as 23pt of Caveat**. The 18pt body floor above is a *Plex*
+  measure: a callout set at 18pt Caveat would sit a fifth below the floor while appearing to obey it.
+  Callouts are therefore **24pt**. Same trap as `PROMPT.md` rule 14.
+
+### Sizes as built (`tools/build_deck.py`)
+
+| | |
+|---|---|
+| slide title | 29pt Plex Serif SemiBold |
+| kicker | 12pt Plex Mono, uppercase, 0.16em tracking, carbon |
+| body | **18pt** Plex Sans · sub-items 16pt |
+| callout | **24pt** Caveat, annotation red, with a red bar |
+| table | 15pt Plex Sans, columns proportional to content |
+| code | 15pt Plex Mono on manila |
