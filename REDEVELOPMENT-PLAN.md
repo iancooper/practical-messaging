@@ -183,7 +183,7 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
 | 1 | **The Process Boundary** *(was Distributed Systems)* | **2** | ✅ **T-0 (2026-09-01): 7 → 2.** The *why* went to Day 2; the boundary + guaranteed delivery compressed into an opener | ☐ | ☐ |
-| 2 | Coupling | **4** | ✅ D1-7; **T-0 dropped *Why It Matters*** and moved the 0.999⁴ arithmetic into *Must We Both Be Up?* | ✅ `grid-coupling` + `coupling-scale-boundary` | ☐ |
+| 2 | Coupling | **4** | ✅ D1-7; **T-0 dropped *Why It Matters*** and moved the 0.999⁴ arithmetic into *Must We Both Be Up?* | ✅ `grid-coupling` + `coupling-scale-boundary`; ☐ **integration options card** (§8 item 8) | ☐ |
 | 3 | Integration Styles | 5 | ✅ D1-7: each style scored on what it hands back; closes on *Why Messaging* | ✅ §2 grid re-plotted + 4 `style-*` figures (item 9) | ☐ |
 | 4 | **Messaging Patterns** | **46** | ✅ build order; −9 §4.6, +2 task queue, +1 D1-8 | ☐ 12 EIP redraws | ☐ merge scripts |
 | 4a | · The Big Picture | 1 | ☐ reframe as build order | | |
@@ -286,7 +286,7 @@ supervisor/scale-out — which were never taught.
 at Macro Scale* (where it is the yardstick Feature Envy fails against) **and** a standalone opening slide
 of Process Automation. One of the two has to go.
 | 2 | **Paper Flow** exercise | 9 | ✅ **run-of-show resettled (D2-4 / D2-7)** — two blocks + a closing round, ~100 min; §7 rewritten | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
-| 3 | **Process Automation** | **39** | ✅ 50 → 37 (D2-10); opens on *their* model; pizza → hotel. **P3: +2, the two listings taken off their bullets** (§8 item 23b) | ☐ ~12 BPMN redraws + reference card | ☐ |
+| 3 | **Process Automation** | **39** | ✅ 50 → 37 (D2-10); opens on *their* model; pizza → hotel. **P3: +2, the two listings taken off their bullets** (§8 item 23b) | ☐ ~12 BPMN redraws + **BPMN reference card** (§8 item 8) | ☐ |
 | 3a | · front half — notation to choreography | 22 | ✅ 28 → 22; legends 5→2, three *What is X?* merges | | |
 | 3b | · back half — durable execution | **17** | ✅ 22 → 15; four `(Fault)` → one table; 2 illustrations absorbed | | |
 | 4 | Putting It Together | 6 | ✅ reviewed with D2-10 — kept whole, 4 annotated flows + recap | ☐ | ☐ |
@@ -787,9 +787,19 @@ than a blank canvas.
    **This is the only content the seven overflow fixes took out of either deck**, so it is recorded here
    verbatim rather than left in git history.
 
-   **☐ For Ian: this card is in the Day 2 pack, and the broker list is a Day 1 slide's.** Either it
-   becomes one card in each pack, or the BPMN card grows a Day 1 side. Not a blocker — the card is
-   unbuilt either way, and the list is safe here until it is.
+   **✅ Ian's call, 2026-09-08: one card per pack.** Offered *one card in each pack* against *a Day 1
+   side on the BPMN card*, he chose **one per pack**. So there are now **two** reference cards to lay
+   out, not one:
+
+   | card | pack | carries |
+   |---|---|---|
+   | **BPMN reference card** | Day 2 | the full task / event / gateway legends, from `Task Types.drawio`, `Event Types.drawio`, `Gateway Types.drawio` |
+   | **Integration options card** | Day 1 | the broker list above, off *Must We Both Be Up?* |
+
+   A card apiece is the right shape anyway: a delegate holding the Day 1 card is being asked *which
+   integration style*, and one holding the Day 2 card is reading a BPMN diagram. **Neither is drawn
+   yet, and both are Phase 3 layout jobs.** The Day 1 card is the smaller of the two and has no
+   `.drawio` source to start from — it is a table.
 
 9. **✅ The 4 Integration Styles figures — built 2026-09-07.** `tools/integration_styles.py`;
    `style-file-transfer`, `style-shared-database`, `style-rpc`, `style-messaging`, Day 1 §3, replacing the
