@@ -1147,6 +1147,8 @@ subscriber confirms receipt of the provider's solicitation.
 - *Coupled about:* the solicitation contract. The provider must know subscribers exist, though not who they are.
 - *Must you both be up?* **No** — but the solicitation has a useful lifetime. An answer that arrives too late is worthless, which is a **timeout** problem, not an availability one.
 
+#image: one provider soliciting two couriers down three lifelines — the first ready() lands inside the solicitation's lifetime, the second arrives after the clock and is worthless  [→ resources/conversation-out-in.png]
+
 ### Slide: Choosing an Exchange Pattern
 
 The decision, in order:

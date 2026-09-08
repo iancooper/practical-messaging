@@ -1,52 +1,52 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="When Nothing Comes Back at All">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="517" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="674" pageHeight="407" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="a timeout does not tell you it failed — it tells you that you do not know" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999997544" y="46.900000000000006" width="120" height="20" as="geometry" />
+          <mxGeometry x="277.0" y="46.900000000000006" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n1" value="Requestor" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="40.0" y="121.89999999999618" width="164.99999999999" height="74.99999999999545" as="geometry" />
+          <mxGeometry x="40.0" y="105.10000000000001" width="121.00000000000001" height="55.00000000000001" as="geometry" />
         </mxCell>
         <mxCell id="n2" value="Provider" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="684.9999999999609" y="121.89999999999618" width="164.99999999999" height="74.99999999999545" as="geometry" />
+          <mxGeometry x="513.0" y="105.10000000000001" width="121.00000000000001" height="55.00000000000001" as="geometry" />
         </mxCell>
         <mxCell id="r3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="122.499999999995" y="196.89999999999162" width="0.7499999999999545" height="239.99999999998545" as="geometry" />
+          <mxGeometry x="100.5" y="160.10000000000002" width="0.55" height="176.0" as="geometry" />
         </mxCell>
         <mxCell id="r4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="767.4999999999559" y="196.89999999999162" width="0.7499999999999545" height="239.99999999998545" as="geometry" />
+          <mxGeometry x="573.5" y="160.10000000000002" width="0.55" height="176.0" as="geometry" />
         </mxCell>
         <mxCell id="k5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="103.499999999995" y="267.89999999998616" width="38" height="38" as="geometry" />
+          <mxGeometry x="81.5" y="207.1" width="38" height="38" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="the timeout expires, and nothing has come back" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="93.99999999999307" y="279.3999999999859" width="120" height="20" as="geometry" />
+          <mxGeometry x="63.60000000000001" y="217.4" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="it never arrived  ·  the answer was lost  ·  it is still being worked on" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999997544" y="321.3999999999833" width="120" height="20" as="geometry" />
+          <mxGeometry x="277.0" y="248.2" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="so the provider has to be idempotent, or de-duplicate what it has already seen" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999997544" y="459.39999999997497" width="120" height="20" as="geometry" />
+          <mxGeometry x="277.0" y="349.40000000000003" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="greet()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="122.499999999995" y="238.89999999998906" as="sourcePoint" />
-            <mxPoint x="767.4999999999559" y="238.89999999998906" as="targetPoint" />
+            <mxPoint x="100.5" y="190.9" as="sourcePoint" />
+            <mxPoint x="573.5" y="190.9" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e1" value="greet() — again" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="122.499999999995" y="376.8999999999807" as="sourcePoint" />
-            <mxPoint x="767.4999999999559" y="376.8999999999807" as="targetPoint" />
+            <mxPoint x="100.5" y="292.1" as="sourcePoint" />
+            <mxPoint x="573.5" y="292.1" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e2" value="acknowledge()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="767.4999999999559" y="421.899999999978" as="sourcePoint" />
-            <mxPoint x="122.499999999995" y="421.899999999978" as="targetPoint" />
+            <mxPoint x="573.5" y="325.1" as="sourcePoint" />
+            <mxPoint x="100.5" y="325.1" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>

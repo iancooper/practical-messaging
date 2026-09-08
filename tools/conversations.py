@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""§Conversations' two figures -- plan §8 class D, and the 2021 redraw Ian asked for.
+"""§Conversations' three figures -- plan §8 class D, and the 2021 redraw Ian asked for.
 
-    python3 tools/conversations.py                  # rebuild both
+    python3 tools/conversations.py                  # rebuild all three
     python3 tools/conversations.py conversation-timeout
     python3 tools/conversations.py --list
 
@@ -28,7 +28,7 @@ reason the next bullet demands idempotence. Rule 3: read the slide, not the mark
 **Time runs down the page, and that is a vocabulary choice rather than a register
 one.** Everything here is hand-drawn Caveat like the rest of Day 1; what is new is that
 vertical position means *when*, because a conversation is a sequence and the deck has
-nowhere else said so. The two lifelines are `MUTED` hairlines at 1.1pt, which is what
+nowhere else said so. The lifelines are `MUTED` hairlines at 1.1pt, which is what
 `muted` is for -- they are guides. They are deliberately nothing like the 2.6pt ink
 rule §1 and §3 use for a process boundary.
 """
@@ -57,23 +57,27 @@ def figure(name):
     return wrap
 
 
-def participants(d, lx, rx, top, bottom, w=220, h=96,
-                 left="Requestor", right="Provider"):
-    """The two parties and the lifelines they talk down, given as centre-lines.
+def lifelines(d, parties, top, bottom, w=220, h=96):
+    """The parties and the lifelines they talk down. `parties` is a sequence of
+    `(centre_x, name)`.
 
-    **Both figures in this module draw the same two boxes, so they are drawn here.**
-    `lx` and `rx` are the *centres*, because every exchange in the module is anchored
-    to a lifeline rather than to a box edge, and a figure that has to compute
-    `x + w / 2` at every call site will get one of them wrong.
+    **Every figure in this module draws the same boxes, so they are drawn here.**
+    The x is the *centre*, because every exchange in the module is anchored to a
+    lifeline rather than to a box edge, and a figure that has to compute `x + w / 2`
+    at every call site will get one of them wrong.
+
+    **Boxes first, then rules**, so a lifeline can never be painted over the box of
+    the party to its left -- and so that adding a third party did not reorder the two
+    figures that were here before it.
 
     The lifelines are `MUTED` hairlines: they are guides, which is what muted is for,
     and they must stay clearly unlike the 2.6pt ink rule §1 and §3 use for a process
     boundary.
     """
-    d.box(lx - w / 2, top, w, h, left)
-    d.box(rx - w / 2, top, w, h, right)
-    d.rule(lx, top + h, 0, MUTED, 1.1, h=bottom - top - h)
-    d.rule(rx, top + h, 0, MUTED, 1.1, h=bottom - top - h)
+    for cx, name in parties:
+        d.box(cx - w / 2, top, w, h, name)
+    for cx, _ in parties:
+        d.rule(cx, top + h, 0, MUTED, 1.1, h=bottom - top - h)
 
 
 @figure("conversation-timeout")
@@ -94,7 +98,7 @@ def conversation_timeout():
     d.note(600, 46, "a timeout does not tell you it failed — "
                     "it tells you that you do not know", ANNOTATION, 21)
 
-    participants(d, 170, 1030, 130, 550, h=100)
+    lifelines(d, [(170, "Requestor"), (1030, "Provider")], 130, 550, h=100)
 
     d.arrow((170, 286), (1030, 286), "greet()")
     d.icon(170, 350, "clock", accent=True, r=19)
@@ -138,7 +142,7 @@ def messaging_or_eventing():
     d.note(760, 46, "the arrow turns round — and with it, "
                     "whether you are addressing anyone", ANNOTATION, 21)
 
-    participants(d, 440, 970, 120, 630)
+    lifelines(d, [(440, "Requestor"), (970, "Provider")], 120, 630)
 
     d.note(300, 296, "In-Only", INK, 18, anchor="end")
     d.arrow((440, 290), (970, 290), "request()")
@@ -165,6 +169,68 @@ def messaging_or_eventing():
 
     d.note(760, 674, "In-Out needs two arrows because a channel only goes one way",
            COMMENT, 18)
+    return d
+
+
+@figure("conversation-out-in")
+def out_in():
+    """*Out-In (Solicit-Response).* The provider canvasses, and the question expires.
+
+    **Why this slide needed a picture of its own rather than a fourth row on
+    `messaging_or_eventing`.** That figure's argument is the messaging/eventing fork
+    and its slide's own table does not list Out-In, so a fourth exchange there would
+    be answering a question the slide had not asked. What Out-In adds is not another
+    direction: it is a *shape*. One provider, several subscribers, and an answer with
+    a shelf life -- none of which fits on a single pair of lifelines.
+
+    **Three lifelines, because two would make this In-Out with the roles swapped.**
+    Mechanically that is exactly what it is, and drawing it that way would teach
+    nothing the previous slide has not. The reason a provider speaks first *and* wants
+    an answer is that it does not know who is willing, and "who is willing" needs more
+    than one candidate on the page to be a question at all.
+
+    **The nouns are the slide's own -- Delivery and two Couriers -- not Requestor and
+    Provider.** The other two figures in this module are abstract because their slides
+    are; this slide teaches through its example, and relabelling it would make the
+    reader carry the mapping. The roles still hold their sides: the couriers are
+    requestors and stay left, Delivery is the provider and stays right, so the arrow
+    still leaves from the right exactly as it does for Out-Only.
+
+    **Red is on the expiry, and that is one idea in three marks** -- the clock, the
+    late `ready()`, and nothing else. The slide's coupling bullet is that both parties
+    may be down and it still works, *but* a late answer is worthless; so the figure
+    must not red the second courier for being unavailable. It is not unavailable. It
+    answered. It answered after the work was gone, which is a different failure and is
+    the one the foot comment names.
+    """
+    d = Diagram("Out-In (Solicit-Response)", w=1440, h=660)
+    d.note(720, 46, "the provider asks who is willing — and the question expires",
+           ANNOTATION, 21)
+
+    lifelines(d, [(150, "Courier A"), (380, "Courier B"), (1290, "Delivery")],
+              100, 590, w=200, h=90)
+
+    # Both solicitations are the same message, so only the first is named. Labelling
+    # the second would read as a second, different call.
+    d.arrow((1290, 232), (380, 232), "solicit()")
+    d.arrow((1290, 272), (150, 272))
+    # The gloss belongs to the two solicitations above it, so it has to sit much
+    # closer to them than to the `ready()` below -- at equal spacing it reads as an
+    # annotation on the reply instead, which is the opposite of what it says.
+    d.note(840, 316, "to every subscriber — it knows they exist, not who they are",
+           COMMENT, 18)
+
+    d.arrow((150, 402), (1290, 402), "ready()")
+
+    d.icon(1290, 452, "clock", accent=True, r=19)
+    d.note(1244, 458, "the solicitation expires", ANNOTATION, 18, anchor="end")
+
+    d.arrow((380, 512), (1290, 512), "ready()", accent=True)
+    d.note(840, 562, "too late to be useful — the work is already allocated",
+           COMMENT, 18)
+
+    d.note(720, 634, "a late answer is a timeout problem, not an availability one — "
+                     "both of you were up", COMMENT, 18)
     return d
 
 

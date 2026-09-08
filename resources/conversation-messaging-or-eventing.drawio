@@ -1,73 +1,73 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="Messaging or Eventing?">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="468" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="850" pageHeight="450" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="the arrow turns round — and with it, whether you are addressing anyone" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999999545" y="46.900000000000006" width="120" height="20" as="geometry" />
+          <mxGeometry x="365.00000000000006" y="46.900000000000006" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n1" value="Requestor" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="196.21428571428396" y="101.71428571428524" width="127.28571428571286" height="55.54285714285652" as="geometry" />
+          <mxGeometry x="188.5" y="99.60000000000001" width="121.00000000000001" height="52.800000000000004" as="geometry" />
         </mxCell>
         <mxCell id="n2" value="Provider" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="502.85714285713766" y="101.71428571428524" width="127.28571428571286" height="55.54285714285652" as="geometry" />
+          <mxGeometry x="480.00000000000006" y="99.60000000000001" width="121.00000000000001" height="52.800000000000004" as="geometry" />
         </mxCell>
         <mxCell id="r3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="259.8571428571404" y="157.25714285714176" width="0.5785714285714221" height="239.52857142856874" as="geometry" />
+          <mxGeometry x="249.00000000000003" y="152.4" width="0.55" height="227.70000000000002" as="geometry" />
         </mxCell>
         <mxCell id="r4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="566.4999999999941" y="157.25714285714176" width="0.5785714285714221" height="239.52857142856874" as="geometry" />
+          <mxGeometry x="540.5" y="152.4" width="0.55" height="227.70000000000002" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="In-Only" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="118.8571428571413" y="191.5428571428555" width="120" height="20" as="geometry" />
+          <mxGeometry x="112.0" y="184.4" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="In-Out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="118.8571428571413" y="255.18571428571192" width="120" height="20" as="geometry" />
+          <mxGeometry x="112.0" y="244.90000000000003" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="the requestor speaks first —&#10;it is addressing someone" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="541.2142857142794" y="197.32857142856972" width="120" height="20" as="geometry" />
+          <mxGeometry x="513.5" y="189.9" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="40.0" y="327.3571428571399" width="809.9999999999909" height="0.5785714285714221" as="geometry" />
+          <mxGeometry x="40.0" y="314.1" width="770.0000000000001" height="0.55" as="geometry" />
         </mxCell>
         <mxCell id="t5" value="messaging" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="-20.0" y="300.3142857142829" width="120" height="20" as="geometry" />
+          <mxGeometry x="-20.0" y="287.8" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t6" value="eventing" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="-20.0" y="339.6571428571396" width="120" height="20" as="geometry" />
+          <mxGeometry x="-20.0" y="325.2" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t7" value="Out-Only" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="118.8571428571413" y="362.7999999999965" width="120" height="20" as="geometry" />
+          <mxGeometry x="112.0" y="347.2" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t8" value="the provider speaks first —&#10;it is addressing nobody" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="541.2142857142794" y="368.5857142857107" width="120" height="20" as="geometry" />
+          <mxGeometry x="513.5" y="352.7" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t9" value="In-Out needs two arrows because a channel only goes one way" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999999545" y="410.2428571428531" width="120" height="20" as="geometry" />
+          <mxGeometry x="365.00000000000006" y="392.3" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="request()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="259.8571428571404" y="200.07142857142696" as="sourcePoint" />
-            <mxPoint x="566.4999999999941" y="200.07142857142696" as="targetPoint" />
+            <mxPoint x="249.00000000000003" y="193.1" as="sourcePoint" />
+            <mxPoint x="540.5" y="193.1" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e1" value="request()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="259.8571428571404" y="254.45714285714064" as="sourcePoint" />
-            <mxPoint x="566.4999999999941" y="254.45714285714064" as="targetPoint" />
+            <mxPoint x="249.00000000000003" y="244.8" as="sourcePoint" />
+            <mxPoint x="540.5" y="244.8" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e2" value="reaction()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="566.4999999999941" y="283.38571428571174" as="sourcePoint" />
-            <mxPoint x="259.8571428571404" y="283.38571428571174" as="targetPoint" />
+            <mxPoint x="540.5" y="272.3" as="sourcePoint" />
+            <mxPoint x="249.00000000000003" y="272.3" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e3" value="notification()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="566.4999999999941" y="371.32857142856795" as="sourcePoint" />
-            <mxPoint x="259.8571428571404" y="371.32857142856795" as="targetPoint" />
+            <mxPoint x="540.5" y="355.90000000000003" as="sourcePoint" />
+            <mxPoint x="249.00000000000003" y="355.90000000000003" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
