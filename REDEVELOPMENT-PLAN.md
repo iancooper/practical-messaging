@@ -1130,13 +1130,110 @@ than a blank canvas.
    first place. **The lever for a height-fitted figure is rows, not units**, and cutting rows is a content
    decision per figure rather than a sweep.
 
-   **What a real fix looks like, when it is wanted.** Change `Diagram.compact` to target the *effective*
-   width — `max(w, 2.2 × h)` — rather than `w`, then re-sweep all eleven families and re-nudge. That is
-   the same job as item 12 at two and a half times the size, and it is Ian's call, not a tidy-up. **Do
-   not start it without asking.**
-
    **Run `python3 tools/reads_at.py` before saying a family is done.** `lint_figures.py` measures labels
    against shapes; this measures them against the room, and nothing else does.
+
+### ✅ 19. `compact` targets the effective width, and the eight swept families were re-swept
+
+**Ian, 2026-09-08, asked which scope:** *swept eight only* — change the rule, re-sweep the families that
+were already claimed done, and leave `bpmn_hotel`, `bpmn_shopping` and `paper_flow` alone as he had
+already said. **Done, and item 18's warning is now discharged for those eight.**
+
+**`Diagram.compact(target)` now means the effective width**, `max(w, 2.2 × h)`, which is the number
+`tools/reads_at.py` measures. The bisection predicate and the "cannot reach" diagnostic both moved with
+it, and the diagnostic now tells the two failures apart: a **width-bound** figure names its longest label
+and says wrap it; a **height-bound** one says *cut rows, not units*, because naming a label there would
+send the next reader to fix the wrong thing.
+
+**The result, measured, not asserted:**
+
+| | before | after |
+|---|---:|---:|
+| figures under the 18pt floor | 65 of 92 | **33 of 93** |
+| worst label in the swept eight | 11.3 pt | **14.1 pt** |
+| figures in the swept eight at exactly 18.0 | — | **32 of 47** |
+| `lint_figures.py` | clean | **clean** |
+
+The 33 remaining are 15 in the swept eight — mostly 16–18 pt, bound by the label-fit clamp, which is the
+honest floor — and 18 in the three families he asked us to leave. **A figure that lands short now is
+short because its own type will not let it shrink further, not because the target was the wrong number.**
+
+**⚑ What the harder compaction cost, and it is the number to expect next time.** `k` went from about 0.85
+to about 0.6, and **lint went from clean to 19 findings in 11 figures** — every one a label that no longer
+fitted a gap the geometry had closed around it. All 19 are fixed. Two more were invisible to lint and
+found by eye on the PNGs. The four ways they were fixed, in the order to reach for them:
+
+1. **Spend width on a height-fitted figure — it is free.** Once the target is `max(w, 2.2 × h)`, a figure
+   squarer than 2.2:1 is bound by its height, so widening it costs *no legibility at all*. `task-queue-http`
+   opened its Client→Web Server gap from 170 to 250 units, `qs-queue-tasks` moved its consumers 80 further
+   out, `flow-soa-service` moved the Service 70 right and widened `operations` by 80. **Reach for this
+   before shortening a label.**
+2. **Nudge `lx` / `ly`, in post-compaction units.** They are text-space and do not scale, so they are the
+   one thing that must be re-measured every time the target changes — `style-rpc`'s `PlaceOrder(order)`
+   has now moved on all three sweeps (−94 → −75 → −60) and carries a comment saying so.
+3. **Move a note away from the shape it had been sitting politely beside.** Five in `flow_reactive`: the
+   gap shrank, the type did not.
+4. **Fix the shape, where the shape was wrong.** See item 20.
+
+### ✅ 20. A cylinder's label belongs in its body, not across its rim
+
+Found by eye on `task-queue-http` after the re-sweep, and it was **never right** — the compaction only
+made it visible, which is item 13's lesson again: *a compaction is a good detector of a layout that was
+never right.*
+
+`Diagram` centred every node label on the whole shape. A cylinder's interior starts **below its top
+ellipse**, at `y + 2ry`, so a two-line label's first line ran straight through the rim. Three figures
+were doing it: `task-queue-http`'s *progress / (a KV store)* and both `if_later` replicas.
+
+**`lint_figures.py` cannot see this and still cannot.** It measures a label against its shape's *box*, and
+a rim is not one — the same blind spot as `kind == "rule"`. **Look at the PNG.**
+
+Fixed in `diagram.py`, so it holds for every cylinder ever drawn; `task-queue-http`'s went 92 → 124 tall
+as well, because at the target its body was 35 units for 38 units of type. All eleven families rebuilt and
+re-linted after the change.
+
+### ✅ 21. Out-In has a picture, and it is a third `conversations` figure
+
+**Ian, 2026-09-08: draw it** rather than link the unused 2021 export
+(`resources/Practical Messaging - Day 2 - 2024 - 34.png`, still unlinked) or leave the slide bare.
+
+`conversation-out-in` — one provider soliciting **two** couriers down three lifelines. Two would have made
+it In-Out with the roles swapped, which is mechanically true and teaches nothing the previous slide has
+not; *who is willing* needs more than one candidate on the page to be a question at all. The first
+`ready()` lands inside the solicitation's lifetime, the second after the clock, and **red is on the expiry
+only** — the second courier is not red for being unavailable, because it was not: it answered, after the
+work was gone, which is the slide's own *timeout, not availability* distinction.
+
+The nouns are the slide's (Delivery, Courier A/B) rather than Requestor/Provider, because this slide
+teaches through its example; the roles still hold their sides, so the arrow still leaves from the right
+exactly as it does for Out-Only. `participants()` became `lifelines()`, taking any number of parties —
+boxes first, then rules, so adding a third did not reorder the two figures already there.
+
+**Day 1 is 49 images, 49 linked.**
+
+### ✅ 22. The four 2021 worked flows no longer draw paper in red
+
+**Ian, 2026-09-08: recolour them.** `tools/repaint_paper_reds.py`, and it needed no draw.io re-export —
+which is what made it an offer rather than a blocker (rules §4).
+
+The two red layers are two distinct pixel values, so they separate cleanly:
+
+| was | is | what it is |
+|---|---|---|
+| `#CC0000` — `strokeColor` on `endArrow=open;dashed=1` | `CARBON` | paper moving — **the notation conflict itself** |
+| `#ff6666` — `<font color>` on text cells | `COMMENT` | the commentary layer the delegates wrote on top |
+
+**Checked before choosing the second mapping:** the role names — *Hungry Customer*, *Order Taker* — are
+already **black** in these files, and every salmon string is a remark or an action gloss sitting on a desk
+rather than the desk's own name. So *a name is ink, a remark is comment green* is satisfied by mapping the
+whole salmon layer to green; there is no name hiding in it. **`#FF3333` is deliberately untouched** — it is
+a `fillColor` on `mxgraph.citrix.document` glyphs and does not read as red in the export at all.
+
+**Both the `.drawio` and the `.png` are patched**, so the editable master and the render agree; without
+that, the next person to open the file in draw.io and export it would put the red back. Antialiasing is
+un-blended against the paper and re-blended with the new colour at the same alpha, so strokes keep their
+shape instead of growing a fringe — 0.3–2.0% of pixels per file. `paper-worked-flows-montage` was rebuilt
+after, since it embeds them as data URIs.
 
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 
