@@ -76,6 +76,9 @@ Day 1 is **the message**; Day 2 is **the flow**.
 
 Current (**Phase 1 complete on both days**, 2026-08-29): **Day 1 = 96 entries** with two code
 exercises; **Day 2 = 84** with one paper exercise, run in two blocks and a closing round *inside* §1.
+**After T-0/T-1 and the Phase 3 overflow splits (2026-09-08): Day 1 = 90, Day 2 = 89.** The splits moved
+no content and added no images — the image budget stands at **49 (Day 1) + 86 (Day 2)** — so §11's
+timings are untouched: the presenter advances more often, they do not say more.
 
 **✅ The timing pass is done (2026-09-01) — see §11.** It found the opposite of what the entry counts
 suggested. Day 2, the day we spent D2-10 cutting, **fits with room to spare**. **Day 1 was over by ~53
@@ -172,7 +175,7 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 
 ---
 
-## 4. Day 1 work queue — `outlines/DayOne.md`, 7 sections, 96 entries
+## 4. Day 1 work queue — `outlines/DayOne.md`, 7 sections, **90 entries**
 
 > **§9 (review queue, 2026-08-28) is fully applied to Day 1 — D1-1 … D1-11 are all done.** The rows below
 > are current. Everything still outstanding in §9 is on Day 2.
@@ -190,22 +193,22 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | 4e | · **4.4 Guaranteed Delivery** | **11** | ✅ D1-8: producer / consumer / broker, +*Ack and Nack* | | |
 | 4f | · 4.5 Queues and Streams | 13 | +Kafka Quick Start | | |
 | 5 | **Conversations** *(moved from Day 2)* | **13** | ✅ 25 → 15, rebuilt as a decision; **T-1: fault slides 3 → 1** | ☐ 1 new grid + reuse §2 grid | ☐ |
-| 6 | **Designing Messages** *(moved from Day 2)* | **16** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
+| 6 | **Designing Messages** *(moved from Day 2)* | **18** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
 | 6a | · 6.1 Fat and Skinny Messages | 5 | ✅ rebuilt on the lifetime rule | | |
-| 6b | · 6.2 Reference Data | 5 | ✅ D1-10: ECST rewritten as **the recommendation**; +*Content Enricher* | | |
+| 6b | · 6.2 Reference Data | **7** | ✅ D1-10: ECST rewritten as **the recommendation**; +*Content Enricher*. **P3: ECST split into three at its own seams** (§8 item 23b) | | |
 | 6c | · 6.3 Event Shape | 6 | ✅ +*Why ECST Needs Snapshots* | | |
 | 7 | Closing | 2 | ☐ | ☐ | ☐ |
 | — | ~~4.6 Pipelines~~ | 9 | ✅ **→ routing handout (§10)**; *Content Enricher* kept, → §6.2 | | |
 | — | ~~Observability~~ | 3 | ✅ **dropped**; one pointer slide in Day 2 `## Next Steps` | | |
 | — | ~~Managing Asynchronous APIs~~ | 31 | ✅ **→ handout (§6)** | | |
 
-Day 1 is **Messaging Patterns (46, 52%)**, then the two decisions — **Conversations (13)** and
-**Designing Messages (16)** — with **11** slides of framing in front and 2 of wrap-up behind. **88 entries**
-after T-0 and T-1.
+Day 1 is **Messaging Patterns (46, 51%)**, then the two decisions — **Conversations (13)** and
+**Designing Messages (18)** — with **11** slides of framing in front and 2 of wrap-up behind. **90 entries**
+after T-0, T-1 and the Phase 3 overflow splits.
 
 ---
 
-## 5. Day 2 work queue — `outlines/DayTwo.md`, 4 sections, 86 entries
+## 5. Day 2 work queue — `outlines/DayTwo.md`, 5 sections, **89 entries**
 
 > **Superseded by §9 (review queue, 2026-08-28/29). All of D2-1 … D2-10 are done.** Day 2 is **84
 > entries**: Process Automation cut 50 → 37, the pizza example redrawn to the hotel, and the Josuttis
@@ -216,8 +219,8 @@ after T-0 and T-1.
 | 0 | **Why Event-Driven?** | **2** | ✅ **new, T-0 (2026-09-01)** — the *why* moved off Day 1; opens the day ahead of Flow | ☐ | ☐ |
 | — | ~~Designing Messages~~ | 15 | ✅ **→ Day 1 §6** (D1-9) | | |
 | — | ~~Versioning~~ | 4 | ✅ **dropped**; one pointer slide in `## Next Steps` | | |
-| 1 | **Flow and Reactive Programming** | **34** | ✅ 32 → 28 → 34; movements reordered, exercise split across it (D2-3…D2-8) | ☐ 3 new/redrawn | ☐ |
-| 1a | · A — How the Office Did It | 9 | paper; the **see one**, four flows one slide each; ends in **exercise block 1** | | |
+| 1 | **Flow and Reactive Programming** | **35** | ✅ 32 → 28 → 34; movements reordered, exercise split across it (D2-3…D2-8). **P3: +1, *The Desk* split** (§8 item 23b) | ☐ 3 new/redrawn | ☐ |
+| 1a | · A — How the Office Did It | **10** | paper; the **see one**, four flows one slide each; ends in **exercise block 1** | | |
 | 1b | · B — How Would You Build That? | 4 | OO / SOA / Feature Envy — the **failed answer**, offered second | | |
 | 1c | · C — The Formalism | 10 | dataflow → FBP; both flows as graphs; ends in **exercise block 2** | | |
 | 1d | · D — The Name | 10 | ✅ all three Day 1 debts paid; closes on **round 4** into Process Automation | | |
@@ -283,9 +286,9 @@ supervisor/scale-out — which were never taught.
 at Macro Scale* (where it is the yardstick Feature Envy fails against) **and** a standalone opening slide
 of Process Automation. One of the two has to go.
 | 2 | **Paper Flow** exercise | 9 | ✅ **run-of-show resettled (D2-4 / D2-7)** — two blocks + a closing round, ~100 min; §7 rewritten | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
-| 3 | **Process Automation** | **37** | ✅ 50 → 37 (D2-10); opens on *their* model; pizza → hotel | ☐ ~12 BPMN redraws + reference card | ☐ |
+| 3 | **Process Automation** | **39** | ✅ 50 → 37 (D2-10); opens on *their* model; pizza → hotel. **P3: +2, the two listings taken off their bullets** (§8 item 23b) | ☐ ~12 BPMN redraws + reference card | ☐ |
 | 3a | · front half — notation to choreography | 22 | ✅ 28 → 22; legends 5→2, three *What is X?* merges | | |
-| 3b | · back half — durable execution | 15 | ✅ 22 → 15; four `(Fault)` → one table; 2 illustrations absorbed | | |
+| 3b | · back half — durable execution | **17** | ✅ 22 → 15; four `(Fault)` → one table; 2 illustrations absorbed | | |
 | 4 | Putting It Together | 6 | ✅ reviewed with D2-10 — kept whole, 4 annotated flows + recap | ☐ | ☐ |
 | 5 | Next Steps | **7** | ✅ +2 pointer slides (D2-1); reviewed with D2-10 | ☐ | ☐ |
 
@@ -776,6 +779,17 @@ than a blank canvas.
    **☐ And one layout job:** the BPMN **delegate reference card**, one A4 side carrying the task / event /
    gateway legends, whose three drawio sources already exist. Its own outline note calls it a Phase 3
    item, so it stays there.
+
+   **⚑ It now has a second thing to carry, and that thing is Day 1's.** Item 23b took the `Options` row
+   off Day 1 *Must We Both Be Up?* — the broker list, **synchronous:** OpenAPI, GraphQL, gRPC, Thrift,
+   SOAP; **asynchronous:** SQS, Kafka, AMQP 0-9-1 (RMQ), AMQP 1-0, MQTT, S3. It is a lookup table, and a
+   lookup table wants to be in the delegate's hand, which is the same test that sent the legends here.
+   **This is the only content the seven overflow fixes took out of either deck**, so it is recorded here
+   verbatim rather than left in git history.
+
+   **☐ For Ian: this card is in the Day 2 pack, and the broker list is a Day 1 slide's.** Either it
+   becomes one card in each pack, or the BPMN card grows a Day 1 side. Not a blocker — the card is
+   unbuilt either way, and the list is safe here until it is.
 
 9. **✅ The 4 Integration Styles figures — built 2026-09-07.** `tools/integration_styles.py`;
    `style-file-transfer`, `style-shared-database`, `style-rpc`, `style-messaging`, Day 1 §3, replacing the
@@ -1276,25 +1290,42 @@ Phase 2 work.
 Six figures still land under 85%, between 74 and 82. **Three of the six are in the BPMN families Ian
 asked us to leave unswept** (item 18), so they were short of the floor before this layout existed.
 
-#### 23b. ✅ Seven slides overflow, and Ian approved a fix for each
+#### 23b. ✅ Applied — six of the seven are clear, and the seventh is 0.40in short
 
 `styles.md`: *"Expect the floor to force content off crowded slides. That is intended."* So the builder
 **never shrinks type** — it lays out at the floor, measures the overshoot and reports it. Ian reviewed
 the seven and **agreed to all seven, 2026-09-08**. Four splits, three cuts; only one takes content out of
 the deck.
 
-| slide | over | agreed |
-|---|---:|---|
-| D1 *Get It In Advance — ECST* | 3.56in | split into three entries at its own seams — the mechanism, *Why it holds up in practice*, *Be honest about the trade*. Nothing cut |
-| D1 *Faults, by Pattern* | 1.81in | the *Examples.* paragraph moves to presenter notes |
-| D1 *Must We Both Be Up?* | 1.26in | drop the second callout; the table's **Options** row moves to the delegate reference card; fold the lead-in into the first bullet |
-| D2 *The Desk — In-Tray, Out-Tray, File* | 3.68in | split; *Two Devices You Already Know* takes the order wheel and the carbon-copy memo, and their two photographs go with them |
-| D2 *Handlers + Activity State Updates* | 1.85in | split: bullets, then the listing. The listing is already trimmed to the sixteen lines its own `#note:` specifies |
-| D2 *State Machine + Activity State Updates* | 1.50in | the same split |
-| D2 *The Reactive Manifesto* | 1.02in | the author list moves to presenter notes |
+| slide | over | agreed | applied |
+|---|---:|---|---|
+| D1 *Get It In Advance — ECST* | 3.56in | split into three entries at its own seams — the mechanism, *Why it holds up in practice*, *Be honest about the trade*. Nothing cut | ✅ **+2 entries.** The two bold lead-ins became the titles; the entry's single presenter note was split three ways along the same seams |
+| D1 *Faults, by Pattern* | 1.81in | the *Examples.* paragraph moves to presenter notes | ✅ |
+| D1 *Must We Both Be Up?* | 1.26in | drop the second callout; the table's **Options** row moves to the delegate reference card; fold the lead-in into the first bullet | ✅ all three |
+| D2 *The Desk — In-Tray, Out-Tray, File* | 3.68in | split; *Two Devices You Already Know* takes the order wheel and the carbon-copy memo, and their two photographs go with them | ✅ **+1 entry**, and the photographs divided 1 / 2 as agreed |
+| D2 *Handlers + Activity State Updates* | 1.85in | split: bullets, then the listing. The listing is already trimmed to the sixteen lines its own `#note:` specifies | ✅ **+1 entry**, same title, the `#note:` travelling with the listing |
+| D2 *State Machine + Activity State Updates* | 1.50in | the same split | ✅ **+1 entry** |
+| D2 *The Reactive Manifesto* | 1.02in | the author list moves to presenter notes | ⚑ applied, **still 0.40in over** — see below |
 
-**☐ Not applied yet.** They are outline edits, and items 1, 4, 5 and 6 add four `### Slide:` entries, so
-§3's counts and §8's image budget move with them (rule 11).
+**Day 1 is clear at 137 slides; Day 2 is at 154 with one slide left.** Six of the seven left the report.
+Entries went 88 → **90** and 86 → **89**; no content moved out of either deck except the broker list, and
+no image moved, so the budget stands at 49 + 86 and §11's timings are untouched.
+
+**⚑ The one that did not clear, and why the arithmetic missed.** The ruling costed *The Reactive
+Manifesto* at **1.05in**, which is the height of the whole opening **paragraph**. The author list is only
+the paragraph's first sentence; the rest of it — *"It defines an architectural style — **Reactive
+Applications**. Write applications that:"* — is the slide's own definition **and** the grammatical stem of
+the four `react to` bullets, so it cannot follow the names into the notes. Moving the names alone
+recovered **0.62in** of the 1.02 needed. **A block's measured height is not the cost of the sentence
+inside it** — when a ruling prices a cut, check whether the thing being cut is the whole block.
+
+**☐ 0.40in still to find on that slide, and it is a second decision, not a retry of the first.** The
+measured blocks are: the *Four traits* paragraph **1.05in** (three lines, and it glosses Resilient and
+Elastic that the bullets below then gloss again), the manifesto-quote bullet **0.72in**, the callout
+**0.59in**, and nine one-line blocks at 0.41–0.43in. **The recommendation is the move Ian took four times
+already: split it.** The seam is written into the slide — *"You have met two of these already, under
+other names."* is where the manifesto stops and our mapping onto Day 1 starts, and the callout (*two
+properties, one mechanism*) belongs with the mapping. That moves no content at all.
 
 #### 23c. ✅ Two defects only a consumer could find
 

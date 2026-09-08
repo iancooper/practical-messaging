@@ -121,19 +121,14 @@ becomes the availability of the other.
 | Shape | Request → Reply | Store and forward |
 | Both present? | Yes | No — pick it up later |
 | Analogy | A phone call | Snail mail |
-| Options | OpenAPI, GraphQL, gRPC, Thrift, SOAP | SQS, Kafka, AMQP 0-9-1 (RMQ), AMQP 1-0, MQTT, S3 |
 | Temporal coupling | **Introduces it** | **Avoids it** |
 
-**And it is the axis that multiplies your outages:**
-
-- **Call a service and wait, and your availabilities multiply.** Four services at 99.9% leaves you at
-  **99.6%** — before anything has actually failed.
+- **It is the axis that multiplies your outages.** Call a service and wait, and your availabilities
+  multiply: four services at 99.9% leaves you at **99.6%**, before anything has actually failed.
 - **Send a message and don't wait, and they don't.** Guaranteed delivery means the message outlives their
   outage and is processed when they come back.
 
 ▎ If my availability depends on yours, I have bought your outages.
-
-▎ Messaging doesn't remove the outage. It converts a failure into a delay.
 
 Presenter notes: **Do the arithmetic on the board — 0.999⁴ = 0.996** — then be honest
 about the trade: the messaging version does not make the downstream outage vanish, it buys an availability
@@ -1054,18 +1049,17 @@ You have three patterns. **You do not get to choose their fault stories — the 
 
 ▎ The question is never "should we handle faults?" It is **"is there an action the requestor would take?"**
 
-**Examples.** Search cannot add a store after `changedstore()` and makes no attempt to tell Store
-Information — repair is Search's problem. The cashier sends `place order()`; if order placement fails it
-raises `fault()`, because the cashier may need to issue a **refund**. The Pricer sends `take payment()`;
-the payment provider signals `payment error()` — and the fault must say **why** (provider issue, invalid
-card, insufficient funds), because the requestor has to choose between an alternate payment method and
-cancelling the order.
-
 **Out-In**, when you meet it, inherits In-Out's story: fault replaces the response.
 
 Presenter notes: **The fault story falls out of the coupling you already chose** — which is the payoff of putting a coupling verdict on
 every pattern slide. Teach it top-down, loosest first, so the room sees the fault path *appear* as the
-coupling tightens. **The decision rule is the load-bearing line** — teams reach for fault channels
+coupling tightens. **There is an example for each row, and they are yours to tell, not the room's to
+read.** Search cannot add a store after `changedstore()` and makes no attempt to tell Store Information —
+repair is Search's problem. The cashier sends `place order()`; if order placement fails it raises
+`fault()`, because the cashier may need to issue a **refund**. The Pricer sends `take payment()`; the
+payment provider signals `payment error()` — and the fault must say **why** (provider issue, invalid card,
+insufficient funds), because the requestor has to choose between an alternate payment method and
+cancelling the order. **The decision rule is the load-bearing line** — teams reach for fault channels
 reflexively, and if there is no action the requestor would take, a fault message is noise and a log line
 is the right answer. No Fault is "good enough" far more often than people admit; say so. Repair on the
 Out-Only row happens subscriber-side — retries, DLQs and the reconciliation they met in §4.4.
@@ -1313,21 +1307,32 @@ synchronous call to read it.
 
 ▎ This is the default. Prefer it to the synchronous lookup.
 
-**Why it holds up in practice**
+Presenter notes: **Teach this as the recommendation, not a warning.** Land the mechanism first and let
+the room notice what is missing from it: there is no miss path at all, so there is no synchronous call
+anywhere in the flow. The two slides that follow are the *why* and the *cost* — do not pre-empt them here.
+
+### Slide: Why It Holds Up in Practice
 
 - **Latency is not the problem people expect it to be.** Propagation is a broker hop — you are behind by
   milliseconds to seconds. And this is *reference* data: restaurants, customers, price lists. It changes
   rarely, and rarely in a way the next message depends on.
 - **Versioning is what makes it safe.** Carry **id and version**. Then "I have not seen this yet" is
   distinguishable from "I have it", and a missing version becomes a **wait** rather than a wrong answer —
-  which is the next slide.
+  which the worked example shows.
 - **You removed the temporal coupling rather than relocating it.** A stays up when B is down. Day 1
   §Coupling's *Must We Both Be Up?* arriving inside message design.
 
-**Be honest about the trade, and about which way it runs.** ECST is **availability over consistency**,
-deliberately and *boundedly*: you read a copy that is behind by the propagation delay, and you can measure
-that number. The synchronous lookup is not the consistent option — it makes the same trade on a cache hit,
-and then **reverses it on a miss**, when B is down and you are not.
+Presenter notes: In practice ECST is reliable, latency rarely causes an actual problem, and versioning
+the reference data closes the gap that remains. Do not hedge it with "replicas go stale, go wrong, and
+need rebuilding" — that over-states the risk. Reference data is the case where the numbers are on our
+side, and each bullet is one of the three reasons why.
+
+### Slide: Be Honest About the Trade — and Which Way It Runs
+
+ECST is **availability over consistency**, deliberately and *boundedly*: you read a copy that is behind
+by the propagation delay, and you can measure that number. The synchronous lookup is not the consistent
+option — it makes the same trade on a cache hit, and then **reverses it on a miss**, when B is down and
+you are not.
 
 **What it actually costs:** you are running a replica, so you own a subscription and you must be able to
 **rebuild** it — replay the stream from the beginning. That is operational work, not a correctness risk.
@@ -1336,7 +1341,7 @@ and then **reverses it on a miss**, when B is down and you are not.
 sensitive, or it must be fresh at the instant you read it (an authorisation or a balance check). Then take
 the coupling knowingly, and put a circuit breaker on it.
 
-Presenter notes: **Teach this as the recommendation, not a warning.** In practice ECST is reliable, latency rarely causes an actual problem, and versioning the reference data closes the gap that remains. Do not hedge it with "replicas go stale, go wrong, and need rebuilding" — that over-states the risk. The sharpest line in the room is the one about which way the trade runs — delegates arrive believing the synchronous lookup is the "correct" option and the cache is the shortcut, and it is the other way round. Ask what their p99 is on a cache miss when the upstream is degraded; nobody knows, which is the point.
+Presenter notes: The sharpest line in the room is the one about which way the trade runs — delegates arrive believing the synchronous lookup is the "correct" option and the cache is the shortcut, and it is the other way round. Ask what their p99 is on a cache miss when the upstream is degraded; nobody knows, which is the point.
 
 ### Slide: Reference Data — Worked Example
 

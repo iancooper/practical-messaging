@@ -152,7 +152,14 @@ Rules of the notation:
 - Numbered steps show sequence. Red dashed arrows are paper moving; solid arrows are phone or fax.
 - **Every hand-off goes out-tray to in-tray.** Nobody shouts across the office.
 
-Two devices worth naming, because they are patterns you already know:
+#image: notation key — the desk (in-tray, out-tray, file), the boundary bar, red-dashed vs. solid arrows, numbered steps, and the out-tray-to-in-tray rule drawn as two desks  [→ resources/paper-notation-key.png]
+#image: photo — a large stack of manila file folders and papers  [→ resources/photo-manila-folders.jpg]
+
+Presenter notes: **New slide.** The notation was previously never taught — it was demonstrated in passing across a dozen unlabelled photographs. It has to be explicit now, because delegates draw in it within the hour and the exercise's hard rule (*every hand-off through a tray*) is what makes the fracture planes visible. The out-tray-to-in-tray rule is the whole exercise in one line.
+
+### Slide: Two Devices You Already Know
+
+Two devices on that desk are worth naming, because they are patterns you already know:
 
 - **The order wheel.** A new order is clipped on and the wheel turned from the server's side to the
   kitchen's; completed orders turn back. Orders are made and returned **in sequence** — a queue, with
@@ -161,12 +168,13 @@ Two devices worth naming, because they are patterns you already know:
   send; and you can read a file's message history to reconstruct its current state. That is the
   **outbox**, and it is event sourcing.
 
-#image: notation key — the desk (in-tray, out-tray, file), the boundary bar, red-dashed vs. solid arrows, numbered steps, and the out-tray-to-in-tray rule drawn as two desks  [→ resources/paper-notation-key.png]
-#image: photo — a large stack of manila file folders and papers  [→ resources/photo-manila-folders.jpg]
 #image: photo — an order wheel in a restaurant kitchen, tickets clipped round the rim and one being clipped on  [→ resources/photo-order-wheel.jpg]
 #image: photo — a multi-part carbon-copy (NCR) form pad, top sheet peeled back to show the copies beneath  [→ resources/photo-carbon-copy-pad.jpg]
 
-Presenter notes: **New slide.** The notation was previously never taught — it was demonstrated in passing across a dozen unlabelled photographs. It has to be explicit now, because delegates draw in it within the hour and the exercise's hard rule (*every hand-off through a tray*) is what makes the fracture planes visible. The out-tray-to-in-tray rule is the whole exercise in one line.
+Presenter notes: **Name the pattern only after they have recognised the object.** Both are things the room
+has handled, and both are mechanisms they will meet again under a different name — the wheel when queues
+come back, the memo when we get to keeping a copy of what you sent. Ask what happens if the wheel is
+turned before the ticket is clipped on.
 
 #group: The Worked Flows — Just Paper Takeaway
 
@@ -563,9 +571,7 @@ Movement D adds no new mechanism — it supplies the name, and shows that somebo
 
 ### Slide: The Reactive Manifesto
 
-Published September 2014 by Jonas Bonér, with Erik Meijer, Martin Odersky, Greg Young, Martin Thompson,
-Roland Kuhn, James Ward and Guillaume Bort. It defines an architectural style — **Reactive
-Applications**. Write applications that:
+Published 2014. It defines an architectural style — **Reactive Applications**. Write applications that:
 
 - **react to events** — the event-driven nature enables everything else;
 - **react to load** — scalability rather than single-user performance;
@@ -587,7 +593,7 @@ on asynchronous message passing). — reactivemanifesto.org
 
 ▎ Two properties, one mechanism. Somebody wrote it down in 2014.
 
-Presenter notes: **This is the payoff of *Easy to Change, and Robust*, and neither day has said the word "Reactive" before now, so it lands as recognition rather than repetition.** One caveat since the timing pass: the two properties are now named **this morning** rather than yesterday, so the gap is ninety minutes, not a day — the recognition is weaker and you have to work for it. **Ask the room to give you the two properties back from memory before you show the mapping**, and do not re-read the opener's wording. Present the manifesto as their own two properties, already published, with two more added. Also: **not just the actor model** — these ideas have expression well beyond it, and following Helland, many implementations are possible.
+Presenter notes: Published September 2014 by Jonas Bonér, with Erik Meijer, Martin Odersky, Greg Young, Martin Thompson, Roland Kuhn, James Ward and Guillaume Bort — say the names, do not put them on the screen. **This is the payoff of *Easy to Change, and Robust*, and neither day has said the word "Reactive" before now, so it lands as recognition rather than repetition.** One caveat since the timing pass: the two properties are now named **this morning** rather than yesterday, so the gap is ninety minutes, not a day — the recognition is weaker and you have to work for it. **Ask the room to give you the two properties back from memory before you show the mapping**, and do not re-read the opener's wording. Present the manifesto as their own two properties, already published, with two more added. Also: **not just the actor model** — these ideas have expression well beyond it, and following Helland, many implementations are possible.
 
 ### Slide: Reactive Traits — Value, Form, Means
 
@@ -1022,6 +1028,10 @@ Handlers process events (change resources) and update activity state.
 - Becomes complex with split/join/choice/merge (not a sequence), and with retry / circuit breakers / compensation.
 - Relies on **guaranteed delivery** (store work for retry unless ack'd) and **Transactional Messaging (Outbox)**.
 
+Presenter notes: Baseline automation. E.g. a `BookingRequestedHandler` looks up the booking and sets state = AwaitingHotel. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers. The listing on the next slide is what the last bullet looks like in code.
+
+### Slide: Handlers + Activity State Updates
+
 ```csharp
 var tx = await _uow.BeginOrGetTransactionAsync(ct);
 try
@@ -1046,7 +1056,7 @@ await _postBox.ClearOutboxAsync(posts, ct);           // only now does it leave
 sixteen lines the presenter actually walks: the transaction, the deposit inside it, the commit, and
 the outbox cleared outside it.
 
-Presenter notes: Baseline automation. E.g. a `BookingRequestedHandler` looks up the booking and sets state = AwaitingHotel. Handlers process events and update persistent state; durable via stored state, but control flow is implicit — logic scatters across handlers. **Walk the transaction and the postbox line by line**, because the outbox is Day 1 §4.4 arriving with a job to do: the state change and the message that announces it commit together, and the message only leaves the process afterwards. The `throw` matters — roll back and rethrow is what lets guaranteed delivery retry the whole thing.
+Presenter notes: **Walk the transaction and the postbox line by line**, because the outbox is Day 1 §4.4 arriving with a job to do: the state change and the message that announces it commit together, and the message only leaves the process afterwards. The `throw` matters — roll back and rethrow is what lets guaranteed delivery retry the whole thing.
 
 ### Slide: State Machine + Activity State Updates
 
@@ -1056,6 +1066,10 @@ When handler interaction becomes complex, make the activity **explicit**.
 - Transitions are caused by receiving a message.
 - The handler loads the state machine for the conversation id, triggers the transition denoted by the message, and runs the associated code.
 - Save the new state and ack the message.
+
+Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic.
+
+### Slide: State Machine + Activity State Updates
 
 ```csharp
 public OrderStateMachine(ILogger<OrderStateMachine> logger)
@@ -1077,7 +1091,7 @@ public OrderStateMachine(ILogger<OrderStateMachine> logger)
 }
 ```
 
-Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic. **Walk `Initially` and `During` on the listing** — they are the two states the room needs, and every arrow between them is a message arriving.
+Presenter notes: **Walk `Initially` and `During` on the listing** — they are the two states the room needs, and every arrow between them is a message arriving.
 
 ### Slide: Routing Slip + Activity State Updates
 
