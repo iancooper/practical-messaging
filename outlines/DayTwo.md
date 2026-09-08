@@ -497,7 +497,7 @@ compose into a single network — which is the thing paper could not show you.
 
 ▎ Three flows on paper. One graph. The composition was always there — paper just could not draw it.
 
-#image: hand-drawn FBP 'Order Food' flow  [→ resources/flowbased_order_food.excalidraw, resources/FBP Order Food.drawio]
+#image: hand-drawn FBP 'Order Food' flow  [→ resources/flowbased_order_food.png, resources/FBP Order Food.drawio]
 #image: hand-drawn FBP 'Order Placement' flow  [→ resources/flowbased_order_placement.png, resources/FBP Order Placement.drawio]
 #image: hand-drawn FBP overall 'Order Flow'  [→ resources/flowbased_order_all.png]
 
@@ -1173,7 +1173,7 @@ The flow-based fax workflow, now labelled with exchange patterns:
 Building a lookup store from IPs raised by another component, annotated: Messaging (Out-Only, In-Only, In-Only, In-Out) and Eventing.
 
 #image: (s169) collaboration diagram — order taking (phone order, card machine, eventual consistency)  [→ resources/Customer Order.drawio.png]
-#image: (s170) FBP 'Order Food' flow, annotated with exchange patterns  [→ resources/flowbased_order_food.excalidraw]
+#image: (s170) FBP 'Order Food' flow, annotated with exchange patterns  [→ resources/flowbased_order_food.png]
 
 ### Slide: Fault Path — Annotated
 

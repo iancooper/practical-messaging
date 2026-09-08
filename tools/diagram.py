@@ -54,6 +54,11 @@ _FONT_FILES = {
     HAND:  "Caveat.ttf",
     PLAIN: "IBMPlexSans-Variable.ttf",
     "IBM Plex Mono": "IBMPlexMono-Regular.ttf",
+    # Phase 3 only -- slide titles. No figure sets a serif label, so adding these
+    # cannot move any existing drawing; `tools/build_deck.py` previews through the
+    # same outliner and needs them registered here rather than keeping its own map.
+    "IBM Plex Serif": "IBMPlexSerif-Regular.ttf",
+    "IBM Plex Serif SemiBold": "IBMPlexSerif-SemiBold.ttf",
 }
 
 # The two registers are NOT on the same scale, and comparing their point numbers

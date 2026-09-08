@@ -8,3 +8,6 @@
 
 # python bytecode from tools/
 __pycache__/
+
+# Phase 3 build output — generated from outlines/, never edited by hand
+/build/
