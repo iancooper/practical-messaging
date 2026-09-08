@@ -1291,11 +1291,10 @@ in 1.15in above the figure** — past that the figure drops below 85% and the sp
 **No content moves and none is lost, so §11's timings are untouched:** the presenter advances once more,
 they do not say more.
 
-**One labelled figure per slide.** Two on a stage each take about half its linear size — the same tax the
+**One labelled figure per slide.** Two on a stage each take about half its linear size -- the same tax the
 panel charged, and the reason `conversations.py` merged three 2021 exports into one figure. **17 entries
-carry more than one figure and now show them in sequence; ☐ which of those are genuine comparisons is
-Ian's call**, and where the reader must hold two side by side the answer is a composed figure, which is
-Phase 2 work.
+carry more than one figure and now show them in sequence; ✅ which of those are genuine comparisons was
+Ian's call and he made it** -- item 23e has the ruling and the four composed figures it produced.
 
 Six figures still land under 85%, between 74 and 82. **Three of the six are in the BPMN families Ian
 asked us to leave unswept** (item 18), so they were short of the floor before this layout existed.
