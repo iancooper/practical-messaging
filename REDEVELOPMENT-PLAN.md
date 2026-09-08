@@ -76,7 +76,7 @@ Day 1 is **the message**; Day 2 is **the flow**.
 
 Current (**Phase 1 complete on both days**, 2026-08-29): **Day 1 = 96 entries** with two code
 exercises; **Day 2 = 84** with one paper exercise, run in two blocks and a closing round *inside* §1.
-**After T-0/T-1 and the Phase 3 overflow splits (2026-09-08): Day 1 = 90, Day 2 = 89.** The splits moved
+**After T-0/T-1 and the Phase 3 overflow splits (2026-09-08): Day 1 = 90, Day 2 = 90.** The splits moved
 no content and added no images — the image budget stands at **49 (Day 1) + 86 (Day 2)** — so §11's
 timings are untouched: the presenter advances more often, they do not say more.
 
@@ -208,7 +208,7 @@ after T-0, T-1 and the Phase 3 overflow splits.
 
 ---
 
-## 5. Day 2 work queue — `outlines/DayTwo.md`, 5 sections, **89 entries**
+## 5. Day 2 work queue — `outlines/DayTwo.md`, 5 sections, **90 entries**
 
 > **Superseded by §9 (review queue, 2026-08-28/29). All of D2-1 … D2-10 are done.** Day 2 is **84
 > entries**: Process Automation cut 50 → 37, the pizza example redrawn to the hotel, and the Josuttis
@@ -219,11 +219,11 @@ after T-0, T-1 and the Phase 3 overflow splits.
 | 0 | **Why Event-Driven?** | **2** | ✅ **new, T-0 (2026-09-01)** — the *why* moved off Day 1; opens the day ahead of Flow | ☐ | ☐ |
 | — | ~~Designing Messages~~ | 15 | ✅ **→ Day 1 §6** (D1-9) | | |
 | — | ~~Versioning~~ | 4 | ✅ **dropped**; one pointer slide in `## Next Steps` | | |
-| 1 | **Flow and Reactive Programming** | **35** | ✅ 32 → 28 → 34; movements reordered, exercise split across it (D2-3…D2-8). **P3: +1, *The Desk* split** (§8 item 23b) | ☐ 3 new/redrawn | ☐ |
+| 1 | **Flow and Reactive Programming** | **36** | ✅ 32 → 28 → 34; movements reordered, exercise split across it (D2-3…D2-8). **P3: +2, *The Desk* and *The Reactive Manifesto* split** (§8 item 23b) | ☐ 3 new/redrawn | ☐ |
 | 1a | · A — How the Office Did It | **10** | paper; the **see one**, four flows one slide each; ends in **exercise block 1** | | |
 | 1b | · B — How Would You Build That? | 4 | OO / SOA / Feature Envy — the **failed answer**, offered second | | |
 | 1c | · C — The Formalism | 10 | dataflow → FBP; both flows as graphs; ends in **exercise block 2** | | |
-| 1d | · D — The Name | 10 | ✅ all three Day 1 debts paid; closes on **round 4** into Process Automation | | |
+| 1d | · D — The Name | **11** | ✅ all three Day 1 debts paid; closes on **round 4** into Process Automation | | |
 
 **It now leads the day** (D2-2), so its opener has to open Day 2. **D2-3 … D2-8 reworked it** — see §9.
 
@@ -1290,7 +1290,7 @@ Phase 2 work.
 Six figures still land under 85%, between 74 and 82. **Three of the six are in the BPMN families Ian
 asked us to leave unswept** (item 18), so they were short of the floor before this layout existed.
 
-#### 23b. ✅ Applied — six of the seven are clear, and the seventh is 0.40in short
+#### 23b. ✅ Applied — all seven are clear, and no slide in either deck is over the floor
 
 `styles.md`: *"Expect the floor to force content off crowded slides. That is intended."* So the builder
 **never shrinks type** — it lays out at the floor, measures the overshoot and reports it. Ian reviewed
@@ -1305,11 +1305,11 @@ the deck.
 | D2 *The Desk — In-Tray, Out-Tray, File* | 3.68in | split; *Two Devices You Already Know* takes the order wheel and the carbon-copy memo, and their two photographs go with them | ✅ **+1 entry**, and the photographs divided 1 / 2 as agreed |
 | D2 *Handlers + Activity State Updates* | 1.85in | split: bullets, then the listing. The listing is already trimmed to the sixteen lines its own `#note:` specifies | ✅ **+1 entry**, same title, the `#note:` travelling with the listing |
 | D2 *State Machine + Activity State Updates* | 1.50in | the same split | ✅ **+1 entry** |
-| D2 *The Reactive Manifesto* | 1.02in | the author list moves to presenter notes | ⚑ applied, **still 0.40in over** — see below |
+| D2 *The Reactive Manifesto* | 1.02in | the author list moves to presenter notes | ✅ applied, then **split** for the last 0.40in — see below |
 
-**Day 1 is clear at 137 slides; Day 2 is at 154 with one slide left.** Six of the seven left the report.
-Entries went 88 → **90** and 86 → **89**; no content moved out of either deck except the broker list, and
-no image moved, so the budget stands at 49 + 86 and §11's timings are untouched.
+**Both decks are clear: Day 1 137 slides, Day 2 155, and the overflow report is empty.** Entries went
+88 → **90** and 86 → **90**; no content moved out of either deck except the broker list, and no image
+moved, so the budget stands at 49 + 86 and §11's timings are untouched.
 
 **⚑ The one that did not clear, and why the arithmetic missed.** The ruling costed *The Reactive
 Manifesto* at **1.05in**, which is the height of the whole opening **paragraph**. The author list is only
@@ -1319,13 +1319,12 @@ the four `react to` bullets, so it cannot follow the names into the notes. Movin
 recovered **0.62in** of the 1.02 needed. **A block's measured height is not the cost of the sentence
 inside it** — when a ruling prices a cut, check whether the thing being cut is the whole block.
 
-**☐ 0.40in still to find on that slide, and it is a second decision, not a retry of the first.** The
-measured blocks are: the *Four traits* paragraph **1.05in** (three lines, and it glosses Resilient and
-Elastic that the bullets below then gloss again), the manifesto-quote bullet **0.72in**, the callout
-**0.59in**, and nine one-line blocks at 0.41–0.43in. **The recommendation is the move Ian took four times
-already: split it.** The seam is written into the slide — *"You have met two of these already, under
-other names."* is where the manifesto stops and our mapping onto Day 1 starts, and the callout (*two
-properties, one mechanism*) belongs with the mapping. That moves no content at all.
+**✅ Ian took the split, 2026-09-08**, offered against two cuts (drop the manifesto-quote bullet, 0.72in;
+or trim the *Four traits* glosses, ~0.70in) and chosen because **it moves no content at all** — the fifth
+split of the seven. The seam was already written into the slide: *"You have met two of these already,
+under other names."* is where the manifesto stops and our mapping onto Day 1 starts. The manifesto and
+its four traits take the first slide, **the mapping and the callout the second**, both under the same
+title, which is the same pairing rule 23a set for a figure and its argument. The glosses stay.
 
 #### 23d. ✅ A third, found by looking at the picture — table columns were clipping labels
 

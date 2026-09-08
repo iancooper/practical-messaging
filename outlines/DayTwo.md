@@ -582,6 +582,10 @@ Four traits: **Responsive** (responds in a timely manner), **Resilient** (stays 
 presence of failure), **Elastic** (stays responsive under varying workload), **Message Driven** (relies
 on asynchronous message passing). — reactivemanifesto.org
 
+Presenter notes: Published September 2014 by Jonas Bonér, with Erik Meijer, Martin Odersky, Greg Young, Martin Thompson, Roland Kuhn, James Ward and Guillaume Bort — say the names, do not put them on the screen. **Ask the room to give you the two properties back from memory before you turn the slide**, because the next one is the mapping and it only lands if they got there first. Also: **not just the actor model** — these ideas have expression well beyond it, and following Helland, many implementations are possible.
+
+### Slide: The Reactive Manifesto
+
 **You have met two of these already, under other names.**
 
 - **Resilient** is what we called **robust** on Day 1: stay working when something you depend on is not.
@@ -593,7 +597,7 @@ on asynchronous message passing). — reactivemanifesto.org
 
 ▎ Two properties, one mechanism. Somebody wrote it down in 2014.
 
-Presenter notes: Published September 2014 by Jonas Bonér, with Erik Meijer, Martin Odersky, Greg Young, Martin Thompson, Roland Kuhn, James Ward and Guillaume Bort — say the names, do not put them on the screen. **This is the payoff of *Easy to Change, and Robust*, and neither day has said the word "Reactive" before now, so it lands as recognition rather than repetition.** One caveat since the timing pass: the two properties are now named **this morning** rather than yesterday, so the gap is ninety minutes, not a day — the recognition is weaker and you have to work for it. **Ask the room to give you the two properties back from memory before you show the mapping**, and do not re-read the opener's wording. Present the manifesto as their own two properties, already published, with two more added. Also: **not just the actor model** — these ideas have expression well beyond it, and following Helland, many implementations are possible.
+Presenter notes: **This is the payoff of *Easy to Change, and Robust*, and neither day has said the word "Reactive" before now, so it lands as recognition rather than repetition.** One caveat since the timing pass: the two properties are now named **this morning** rather than yesterday, so the gap is ninety minutes, not a day — the recognition is weaker and you have to work for it. Do not re-read the opener's wording. Present the manifesto as their own two properties, already published, with two more added.
 
 ### Slide: Reactive Traits — Value, Form, Means
 
