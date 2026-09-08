@@ -145,6 +145,7 @@ def parse(path):
     buf, buf_kind, buf_kw = [], "prose", {}
     in_code, code_lang, code_lines = False, "", []
     in_notes = False
+    skip_note = False        # inside a multi-line `#note:` -- see below
     table = None
 
     def target():
@@ -193,9 +194,20 @@ def parse(path):
 
         if not line.strip():
             close()
+            skip_note = False
             continue
 
         starts = bool(_STARTERS.match(line))
+
+        # **A `#note:` runs to the blank line, not to the end of its first line.**
+        # Skipping only the marker line let every continuation fall through as body
+        # prose, so build state shipped INTO the deck -- "wire the specific file
+        # references in during Phase 3" was on a slide. That is the exact failure plan
+        # §12 and rule 1 exist to prevent, and it was invisible until something tried
+        # to render the outlines.
+        if skip_note and not starts:
+            continue
+        skip_note = False
 
         # ---- structure ----------------------------------------------------------
         if line.startswith("# "):
@@ -231,6 +243,7 @@ def parse(path):
             # build state, never the deck. Plan §12.
             close()
             in_notes = False
+            skip_note = True
             continue
 
         if line.startswith("#image:"):
