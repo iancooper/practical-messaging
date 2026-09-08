@@ -156,7 +156,10 @@ def oo_class():
     for i, m in enumerate(("+ addItem(line)", "+ checkout()")):
         d.note(X + 22, Y + 160 + i * 28, m, INK, 16, anchor="start")
 
-    d.arrow(cls, base, "inherits", sides=("t", "b"), lx=42)
+    # the label rides in the gap between the class and its base: `ly` is text-space and
+    # does not scale, so at the effective-width target a centred label sat on the base
+    # class's own bottom edge
+    d.arrow(cls, base, "inherits", sides=("t", "b"), lx=42, ly=8)
     d.note(X + W + 30, Y + 74, "private — nobody\noutside reaches in",
            ANNOTATION, 15, anchor="start")
     d.note(X + W + 30, Y + 168, "the responsibilities\nthe role carries",
@@ -220,27 +223,38 @@ def soa_service():
     **The store sits to the right of the operations, not below them**, so the return
     message can be routed under the service without crossing the tie between a
     service and its own data."""
-    d = Diagram("SOA Is OO at Macro Scale", w=1160, h=540)
+    # **The service stands 70 units further right, and `operations` is 80 wider, than
+    # the drawing needs.** Both are legibility, not layout. The gap between the
+    # Consumer and the Service's dashed edge has to hold `input message` -- 84 units of
+    # type that does not shrink -- with clearance at both ends, and the operation list
+    # has to sit wholly INSIDE its box or it reads as lying across the stroke. At the
+    # effective-width target neither was true. This figure is fitted by its height, so
+    # the width it spends to fix both is free.
+    d = Diagram("SOA Is OO at Macro Scale", w=1240, h=540)
     idea(d, "same idea, a bigger unit: operations, and the data those operations "
             "need, shut away behind them")
 
-    d.group(450, 132, 620, 340, "Service")
-    ops = d.box(500, 190, 300, 112, "operations", size=17)
-    d.note(650, 282, "placeOrder · cancelOrder · trackOrder", INK, 14)
-    store = d.cylinder(858, 300, 180, 88, "its own data", accent=True)
+    d.group(520, 132, 680, 340, "Service")
+    ops = d.box(570, 190, 380, 112, "operations", size=17)
+    d.note(760, 282, "placeOrder · cancelOrder · trackOrder", INK, 14)
+    # 18 units higher than the operations box's own mid-line, to open the gap the
+    # note below it needs. Pushing the NOTE down instead put its third line across the
+    # Service container's dashed foot -- which `lint_figures.py` does not see, because
+    # a note inside a container is normally exactly what a container is for.
+    store = d.cylinder(970, 282, 180, 88, "its own data", accent=True)
     d.attach(ops, store, sides=("r", "l"))
 
     con = d.box(110, 198, 200, 96, "Consumer", size=17)
     # centred, this label lands on the Service container's own border
     d.arrow(con, ops, "input message", sides=("r", "l"), lx=-32, ly=-12)
     d.arrow(ops, con, "output message", sides=("b", "b"),
-            via=[(560, 400), (210, 400)], ly=24)
+            via=[(670, 400), (210, 400)], ly=24, lx=-6)
 
     # below the return path, not beside it: the riser out of the service crosses
     # x=210, which is exactly where a note anchored at the Consumer's left edge sits
     d.note(110, 452, "endpoint — where it lives\nbinding — how you talk to it",
            COMMENT, 15, anchor="start")
-    d.note(948, 429, "an implementation detail:\nyou reach it only through\nan operation",
+    d.note(1060, 429, "an implementation detail:\nyou reach it only through\nan operation",
            COMMENT, 14)
     caveat(d, "“a service should represent a self-contained functionality that "
               "corresponds to a real-world business activity” — and a desk is a "
@@ -507,7 +521,7 @@ def fbp_ports():
         dst = pkt_on(d, 1000, port, accent=True)
         d.arrow(port, dst, sides=("r", "l"), accent=True)
 
-    d.note(240, 420, "multiple connections may arrive\non one in-port — that is how\n"
+    d.note(240, 430, "multiple connections may arrive\non one in-port — that is how\n"
                      "you sequence work", COMMENT, 15)
     d.note(1010, 430, "one connection each,\nand only one", ANNOTATION, 15)
     caveat(d, "a component may have as many ports as it needs; the rule is about "
@@ -648,8 +662,8 @@ def lookup_build():
     d.arrow(tbl, b, "read locally — no pause", accent=True, sides=("b", "t"),
             via=[(900, 320), (545, 320)], ly=-8)
 
-    d.note(235, 268, "A publishes what it\nknows, as it changes", COMMENT, 15)
-    d.note(545, 268, "listens to A, and keeps\nthe table current", COMMENT, 15)
+    d.note(235, 282, "A publishes what it\nknows, as it changes", COMMENT, 15)
+    d.note(545, 282, "listens to A, and keeps\nthe table current", COMMENT, 15)
     # above the cylinder, not below it: the read leaves the cylinder's bottom centre
     # and any note under it is on the line
     d.note(900, 104, "the copy, held where B needs it", COMMENT, 15)
@@ -746,7 +760,7 @@ def command_event_ports():
     p = pkt_on(d, 970, n["ports"]["out-result"], accent=True)
     d.arrow(n["ports"]["out-result"], p, sides=("r", "l"), accent=True)
 
-    d.note(210, 330, "a command: something\nI am being told to do", INK, 15)
+    d.note(210, 342, "a command: something\nI am being told to do", INK, 15)
     d.note(985, 208, "a request to somebody else —\nstill nobody is called", COMMENT,
            15, anchor="start")
     d.note(985, 382, "a fact: something I know,\nfor whoever cares", ANNOTATION, 15,
@@ -887,7 +901,7 @@ def load_shedding():
     d.note(195, 470, "still sending at full rate —\nnobody asked it to stop",
            COMMENT, 15)
     d.note(1015, 470, "keeps up, on a sample\nof the traffic", COMMENT, 15)
-    d.note(560, 470, "and it can discriminate: prioritise,\nand throw away only "
+    d.note(560, 488, "and it can discriminate: prioritise,\nand throw away only "
                      "the cheap data", COMMENT, 15)
     caveat(d, "choose it when volume is high and a sample will do — a thousand "
               "metrics a second when ten meets the SLA")

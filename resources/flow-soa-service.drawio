@@ -1,35 +1,35 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="SOA Is OO at Macro Scale">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="509" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="759" pageHeight="405" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="g1" value="Service" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=18;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
-          <mxGeometry x="326.87499999993815" y="131.349999999984" width="523.1249999998872" height="286.87499999993815" as="geometry" />
+          <mxGeometry x="295.2428433267273" y="111.8838297872" width="423.32959381018185" height="211.66479690509092" as="geometry" />
         </mxCell>
         <mxCell id="t1" value="same idea, a bigger unit: operations, and the data those operations need, shut away behind them" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="376.5624999999145" y="45.1" width="120" height="20" as="geometry" />
+          <mxGeometry x="297.49719535763643" y="45.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n2" value="operations" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="369.06249999992906" y="180.28749999997342" width="253.12499999994543" height="94.49999999997964" as="geometry" />
+          <mxGeometry x="326.3700193421819" y="147.99135396512727" width="236.56653771745457" height="69.72487427461819" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="placeOrder · cancelOrder · trackOrder" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="435.6249999999018" y="245.9124999999567" width="120" height="20" as="geometry" />
+          <mxGeometry x="384.6532882009091" y="193.26535783356366" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n3" value="its own data" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=cylinder3;boundedLbl=1;backgroundOutline=1;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="671.1249999998639" y="273.09999999995347" width="151.87499999996726" height="74.249999999984" as="geometry" />
+          <mxGeometry x="575.3874274658183" y="205.26535783356366" width="112.05783365563637" height="54.783829787200006" as="geometry" />
         </mxCell>
         <mxCell id="n4" value="Consumer" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="40.0" y="187.037499999972" width="168.74999999996362" height="80.99999999998255" as="geometry" />
+          <mxGeometry x="40.0" y="152.9717021276" width="124.5087040618182" height="59.764177949672735" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="endpoint — where it lives&#10;binding — how you talk to it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="-20.0" y="389.34999999992584" width="120" height="20" as="geometry" />
+          <mxGeometry x="-20.0" y="299.09775628610913" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="an implementation detail:&#10;you reach it only through&#10;an operation" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="687.0624999998477" y="369.94374999993005" width="120" height="20" as="geometry" />
+          <mxGeometry x="571.4163442936365" y="284.779255319" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t5" value="“a service should represent a self-contained functionality that corresponds&#10;to a real-world business activity” — and a desk is a business activity" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="376.5624999999145" y="441.6624999999146" width="120" height="20" as="geometry" />
+          <mxGeometry x="297.49719535763643" y="337.6954545452728" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#8A8578;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;html=1;dashed=1;endArrow=none;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n2" target="n3">
           <mxGeometry relative="1" as="geometry" />
@@ -40,8 +40,8 @@
         <mxCell id="e2" value="output message" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n2" target="n4">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="419.68749999991815" y="357.4749999999353" />
-              <mxPoint x="124.37499999998181" y="357.4749999999353" />
+              <mxPoint x="388.624371373091" y="278.7254932300364" />
+              <mxPoint x="102.2543520309091" y="278.7254932300364" />
             </Array>
           </mxGeometry>
         </mxCell>

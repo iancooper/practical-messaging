@@ -1,47 +1,47 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="Messages In, Private Data">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="488" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="714" pageHeight="405" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="g2" value="another process" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=18;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
-          <mxGeometry x="40.0" y="129.33478260866684" width="334.5652173911676" height="154.95652173906709" as="geometry" />
+          <mxGeometry x="40.0" y="113.99090909089355" width="261.6818181817444" height="121.19999999996583" as="geometry" />
         </mxCell>
         <mxCell id="g4" value="the Orders service" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=18;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
-          <mxGeometry x="515.4347826085013" y="129.33478260866684" width="334.5652173911676" height="264.13043478250074" as="geometry" />
+          <mxGeometry x="411.8636363635315" y="113.99090909089355" width="261.6818181817444" height="206.59090909085083" as="geometry" />
         </mxCell>
         <mxCell id="t1" value="the only thing that crosses is a message" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="384.9999999998344" y="46.9" width="120" height="20" as="geometry" />
+          <mxGeometry x="296.77272727263795" y="46.900000000000006" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="the process boundary" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="384.9999999998344" y="96.20434782606681" width="120" height="20" as="geometry" />
+          <mxGeometry x="296.77272727263795" y="85.46363636362548" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="444.9999999998344" y="115.24782608693349" width="0.8804347826083357" height="257.086956521634" as="geometry" />
+          <mxGeometry x="356.77272727263795" y="102.97272727271485" width="0.6886363636361694" height="201.08181818176146" as="geometry" />
         </mxCell>
         <mxCell id="n3" value="Application" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="66.41304347825007" y="169.8347826086503" width="281.73913043466746" height="77.47826086953354" as="geometry" />
+          <mxGeometry x="60.65909090908508" y="145.66818181815734" width="220.36363636357422" height="60.59999999998291" as="geometry" />
         </mxCell>
         <mxCell id="n5" value="Application" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="541.8478260867514" y="169.8347826086503" width="281.73913043466746" height="77.47826086953354" as="geometry" />
+          <mxGeometry x="432.5227272726166" y="145.66818181815734" width="220.36363636357422" height="60.59999999998291" as="geometry" />
         </mxCell>
         <mxCell id="n6" value="Orders" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=cylinder3;boundedLbl=1;backgroundOutline=1;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="603.4782608693349" y="289.5739130433839" width="158.47826086950045" height="70.43478260866686" as="geometry" />
+          <mxGeometry x="480.72727272714843" y="239.3227272726764" width="123.9545454545105" height="55.090909090893554" as="geometry" />
         </mxCell>
         <mxCell id="n7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=tube;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="392.1739130433343" y="183.92173913038368" width="105.65217391300028" height="49.3043478260668" as="geometry" />
+          <mxGeometry x="315.4545454544678" y="156.68636363633607" width="82.63636363634033" height="38.56363636362549" as="geometry" />
         </mxCell>
         <mxCell id="m8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="433.5543478259261" y="196.24782608690037" width="22.891304347816728" height="17.608695652166716" as="geometry" />
+          <mxGeometry x="347.82045454536774" y="166.32727272724242" width="17.904545454540404" height="13.772727272723388" as="geometry" />
         </mxCell>
         <mxCell id="k9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="427.9999999998344" y="320.11739130423405" width="34" height="34" as="geometry" />
+          <mxGeometry x="339.77272727263795" y="259.5090909090295" width="34" height="34" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="the data behind the boundary is private — a request describes the work," style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="384.9999999998344" y="406.11739130420096" width="120" height="20" as="geometry" />
+          <mxGeometry x="296.77272727263795" y="327.86363636355713" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="not the shape of the data inside" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="384.9999999998344" y="430.76956521723434" width="120" height="20" as="geometry" />
+          <mxGeometry x="296.77272727263795" y="347.1454545453699" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#8A8578;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;html=1;dashed=1;endArrow=none;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n5" target="n6">
           <mxGeometry relative="1" as="geometry" />
@@ -55,7 +55,7 @@
         <mxCell id="e3" value="read its tables" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;html=1;dashed=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n3" target="n6">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="207.2826086955838" y="337.11739130423405" />
+              <mxPoint x="170.8409090908722" y="276.5090909090295" />
             </Array>
           </mxGeometry>
         </mxCell>

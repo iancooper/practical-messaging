@@ -1,64 +1,64 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="Feature Envy — You Built a Distributed Monolith">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="647" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="636" pageHeight="473" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="you distributed the objects and kept the god object — the gateway is `main`" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="325.5130784707816" y="45.1" width="120" height="20" as="geometry" />
+          <mxGeometry x="222.50649999999996" y="45.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="h1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=mxgraph.telecom.telephone;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="357.80684104623776" y="92.95513078470375" width="55.412474849087616" height="84.7484909456634" as="geometry" />
+          <mxGeometry x="263.8065" y="81.30000000000001" width="37.400000000000006" height="57.2" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="Device" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="281.50905432591793" y="124.95915492956743" width="120" height="20" as="geometry" />
+          <mxGeometry x="192.8065" y="99.0" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n2" value="API Gateway" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="84.00402414486369" y="213.55875251507092" width="603.0181086518359" height="47.26358148892767" as="geometry" />
+          <mxGeometry x="79.00649999999997" y="162.70000000000002" width="407.00000000000006" height="31.900000000000002" as="geometry" />
         </mxCell>
         <mxCell id="n3" value="Cart" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="320.32193158950207" y="324.3837022132461" width="146.680080482879" height="68.45070422534353" as="geometry" />
+          <mxGeometry x="238.5065" y="237.50000000000003" width="99.00000000000001" height="46.2" as="geometry" />
         </mxCell>
         <mxCell id="n4" value="Restaurant" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="43.25955734406398" y="319.49436619715016" width="130.3822937625591" height="58.672032193151594" as="geometry" />
+          <mxGeometry x="51.506499999999974" y="234.20000000000002" width="88.0" height="39.6" as="geometry" />
         </mxCell>
         <mxCell id="n5" value="Account" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="613.68209255526" y="319.49436619715016" width="130.3822937625591" height="58.672032193151594" as="geometry" />
+          <mxGeometry x="436.5065" y="234.20000000000002" width="88.0" height="39.6" as="geometry" />
         </mxCell>
         <mxCell id="n6" value="Menu" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="124.7484909456634" y="471.06378269612514" width="130.3822937625591" height="58.672032193151594" as="geometry" />
+          <mxGeometry x="106.50649999999997" y="336.50000000000006" width="88.0" height="39.6" as="geometry" />
         </mxCell>
         <mxCell id="n7" value="Payment" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="320.32193158950207" y="502.02957746473294" width="130.3822937625591" height="58.672032193151594" as="geometry" />
+          <mxGeometry x="238.5065" y="357.40000000000003" width="88.0" height="39.6" as="geometry" />
         </mxCell>
         <mxCell id="n8" value="Order" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="524.0442655935007" y="471.06378269612514" width="130.3822937625591" height="58.672032193151594" as="geometry" />
+          <mxGeometry x="376.0065" y="336.50000000000006" width="88.0" height="39.6" as="geometry" />
         </mxCell>
         <mxCell id="n9" value="Delivery" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="719.6177062373392" y="471.06378269612514" width="130.3822937625591" height="58.672032193151594" as="geometry" />
+          <mxGeometry x="508.0065" y="336.50000000000006" width="88.0" height="39.6" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="entity services: a resource each,&#10;and CRUD on it" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="-20.0" y="397.13219315890956" width="120" height="20" as="geometry" />
+          <mxGeometry x="-10.693500000000029" y="282.70000000000005" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="the domain logic has to live&#10;somewhere, and it is not here" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="671.0261569415632" y="397.13219315890956" width="120" height="20" as="geometry" />
+          <mxGeometry x="455.7065" y="282.70000000000005" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t5" value="this is what call and return becomes when you distribute it — and it&#10;hands back the independent deployability this morning called the prize" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="325.5130784707816" y="579.6674044264923" width="120" height="20" as="geometry" />
+          <mxGeometry x="222.50649999999996" y="405.90000000000003" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" target="n2">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="385.5130784707816" y="177.70362173036716" as="sourcePoint" />
+            <mxPoint x="282.50649999999996" y="138.5" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" target="n3">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="393.6619718309415" y="260.8223340039986" as="sourcePoint" />
+            <mxPoint x="288.00649999999996" y="194.60000000000002" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e2" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" target="n5">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="678.8732394365395" y="260.8223340039986" as="sourcePoint" />
+            <mxPoint x="480.5065" y="194.60000000000002" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e3" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n3" target="n4">
@@ -70,7 +70,7 @@
         <mxCell id="e5" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n3" target="n6">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="336.61971830982196" y="441.72776659954934" />
+              <mxPoint x="249.5065" y="316.70000000000005" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -80,7 +80,7 @@
         <mxCell id="e7" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n3" target="n8">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="450.70422535206114" y="441.72776659954934" />
+              <mxPoint x="326.5065" y="316.70000000000005" />
             </Array>
           </mxGeometry>
         </mxCell>

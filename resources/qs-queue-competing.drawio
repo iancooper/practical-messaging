@@ -1,69 +1,69 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="Scaling Queues — Competing Consumers">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="500" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="755" pageHeight="405" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="scaling a queue is the same two moves, more times over — lock, read past, lock the next" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="397.56563636357976" y="45.10000000000001" width="120" height="20" as="geometry" />
+          <mxGeometry x="356.57524229418505" y="45.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=tube;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="56.60009090916722" y="210.66127272722184" width="400.96554545441256" height="64.83698181816034" as="geometry" />
+          <mxGeometry x="111.93712290285018" y="173.76991806476653" width="304.63811939133484" height="49.26063207179032" as="geometry" />
         </mxCell>
         <mxCell id="m2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="94.13729090915479" y="227.72363636357983" width="44.362145454530754" height="30.712254545444367" as="geometry" />
+          <mxGeometry x="140.4564362075709" y="186.73324229418506" width="33.70464299648811" height="23.333983612953308" as="geometry" />
         </mxCell>
         <mxCell id="m3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="181.58190454548944" y="227.72363636357983" width="44.362145454530754" height="30.712254545444367" as="geometry" />
+          <mxGeometry x="206.89347288334073" y="186.73324229418506" width="33.70464299648811" height="23.333983612953308" as="geometry" />
         </mxCell>
         <mxCell id="k4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="168.58190454548944" y="182.30514545449967" width="26" height="26" as="geometry" />
+          <mxGeometry x="193.89347288334073" y="149.10292625828987" width="26" height="26" as="geometry" />
         </mxCell>
         <mxCell id="m5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="269.0265181818241" y="227.72363636357983" width="44.362145454530754" height="30.712254545444367" as="geometry" />
+          <mxGeometry x="273.33050955911057" y="186.73324229418506" width="33.70464299648811" height="23.333983612953308" as="geometry" />
         </mxCell>
         <mxCell id="k6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="256.0265181818241" y="182.30514545449967" width="26" height="26" as="geometry" />
+          <mxGeometry x="260.33050955911057" y="149.10292625828987" width="26" height="26" as="geometry" />
         </mxCell>
         <mxCell id="m7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="356.4711318181587" y="227.72363636357983" width="44.362145454530754" height="30.712254545444367" as="geometry" />
+          <mxGeometry x="339.7675462348804" y="186.73324229418506" width="33.70464299648811" height="23.333983612953308" as="geometry" />
         </mxCell>
         <mxCell id="k8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="343.4711318181587" y="182.30514545449967" width="26" height="26" as="geometry" />
+          <mxGeometry x="326.7675462348804" y="149.10292625828987" width="26" height="26" as="geometry" />
         </mxCell>
         <mxCell id="n9" value="Consumer One" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="670.8451818180546" y="98.04967272725915" width="179.15481818175883" height="61.42450909088873" as="geometry" />
+          <mxGeometry x="578.6167951619163" y="88.21197815060441" width="136.1149044088943" height="46.667967225906615" as="geometry" />
         </mxCell>
         <mxCell id="n10" value="Consumer Two" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="670.8451818180546" y="275.4982545453822" width="179.15481818175883" height="61.42450909088873" as="geometry" />
+          <mxGeometry x="578.6167951619163" y="223.03055013655688" width="136.1149044088943" height="46.667967225906615" as="geometry" />
         </mxCell>
         <mxCell id="n11" value="Consumer Three" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="670.8451818180546" y="360.81007272717216" width="179.15481818175883" height="61.42450909088873" as="geometry" />
+          <mxGeometry x="578.6167951619163" y="287.8471712836494" width="136.1149044088943" height="46.667967225906615" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="three held, one still waiting" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="133.09900000003108" y="135.5305272726973" width="120" height="20" as="geometry" />
+          <mxGeometry x="155.6437167381982" y="113.80561841591808" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="add a consumer and throughput goes up — nothing about the queue itself changes" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="226.942" y="442.65307272714097" width="120" height="20" as="geometry" />
+          <mxGeometry x="226.942" y="347.1454545454512" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="m7" target="n9">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="378.2256454545152" y="128.76192727270353" />
+              <mxPoint x="356.295784627389" y="111.54596176355773" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="m5" target="n10">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="291.2075909090895" y="306.2105090908266" />
+              <mxPoint x="290.18283105735463" y="246.3645337495102" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="e2" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="m3" target="n11">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="203.33641818184586" y="391.5223272726165" />
+              <mxPoint x="223.4217112758493" y="311.1811548966027" />
             </Array>
           </mxGeometry>
         </mxCell>

@@ -280,30 +280,40 @@ def task_queue_http():
     the middle segment -- so the one that needs saying gets a horizontal leg to say it
     on, and the one that does not is captioned underneath what it produces.
     """
-    d = Diagram("The Task Queue over HTTP", w=1360, h=650)
-    d.note(680, 46, "202 says: we have your work, and we will not lose it",
+    d = Diagram("The Task Queue over HTTP", w=1440, h=650)
+    d.note(720, 46, "202 says: we have your work, and we will not lose it",
            ANNOTATION, 21)
 
+    # **The client-to-web gap is 250 units and not 170 because two labels share it.**
+    # `POST the work` and `202 + Location` are each about 92 units of type that does
+    # not scale, and at the effective-width target the old gap came out 94 units wide
+    # in the render -- both labels touching both boxes. This figure is fitted by its
+    # HEIGHT (1.9 : 1), so horizontal room is the one thing it can spend for nothing:
+    # widening it costs no legibility at all. Reach for that before shortening a label.
     client = d.box(60, 176, 190, 100, "Client")
-    web = d.box(420, 176, 210, 100, "Web Server")
-    pipe = d.pipe(780, 186, 220, 84)
-    d.msg(812, 212, w=30, h=24)
-    d.msg(872, 212, w=30, h=24)
-    worker = d.box(1090, 176, 200, 100, "Worker")
-    kv = d.cylinder(700, 430, 220, 92, "progress\n(a KV store)")
-    order = d.cylinder(1080, 430, 220, 92, "the order itself")
+    web = d.box(500, 176, 210, 100, "Web Server")
+    pipe = d.pipe(860, 186, 220, 84)
+    d.msg(892, 212, w=30, h=24)
+    d.msg(952, 212, w=30, h=24)
+    worker = d.box(1170, 176, 200, 100, "Worker")
+    # 124 tall, not 92: a cylinder's rim costs 16 units of its interior and this one
+    # carries two lines. At the effective-width target the body was 35 units for 38
+    # units of type. The extra height is free -- the foot comment, not these, sets
+    # this figure's content height.
+    kv = d.cylinder(780, 414, 220, 124, "progress\n(a KV store)")
+    order = d.cylinder(1160, 414, 220, 124, "the order itself")
 
-    d.arrow((250, 200), (420, 200), "POST the work")
-    d.arrow((420, 252), (250, 252), "202 + Location", accent=True)
+    d.arrow((250, 200), (500, 200), "POST the work")
+    d.arrow((500, 252), (250, 252), "202 + Location", accent=True)
     d.arrow(web, pipe, "enqueue it", sides=("r", "l"), ly=-8)
     d.arrow(pipe, worker, sides=("r", "l"))
     d.arrow(worker, kv, "notes progress as it goes", sides=("b", "t"),
-            via=[(1120, 340), (810, 340)])
+            via=[(1200, 340), (890, 340)])
     d.arrow(worker, order, sides=("b", "t"))
     d.arrow(client, kv, "GET the progress page", sides=("b", "l"), via=[(155, 476)])
 
-    d.note(890, 168, "a work item, waiting", INK, 18)
-    d.note(1190, 560, "created at a sustainable pace —\n404 until it exists",
+    d.note(970, 168, "a work item, waiting", INK, 18)
+    d.note(1270, 582, "created at a sustainable pace —\n404 until it exists",
            COMMENT, 18)
     d.note(400, 600, "guaranteed delivery with no new infrastructure,\n"
                      "in a protocol the room already ships", COMMENT, 18)

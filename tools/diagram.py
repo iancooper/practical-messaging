@@ -696,9 +696,31 @@ class Diagram:
     K_FLOOR = 0.55        # a figure shrunk by more than this is a mistake, not a compaction
     MARKS = ("icon",)     # kinds `compact` moves but does not resize -- see below
 
+    # The usable area of a 16:9 slide once the title and the margins are off it.
+    # Wider than this is fitted by width; squarer is fitted by HEIGHT, and then the
+    # width the figure was compacted to stops mattering. Plan §8 items 10 and 18.
+    SLIDE_ASPECT = 2.2
+
+    def _effective_w(self, a, b, t, c, margin):
+        """The width the *room* sees, which is the only one legibility depends on.
+
+        A figure is scaled to fit the slide, so a squarer-than-2.2:1 drawing is
+        fitted by its height and every label shrinks by `2.2 x h / w` more than the
+        width alone predicts. `max(w, 2.2 x h)` is that number, and it is what
+        `tools/reads_at.py` measures against."""
+        return max(b - a + 2 * margin, self.SLIDE_ASPECT * (c - t + 2 * margin))
+
     def compact(self, target, margin=40):
-        """Shrink the **geometry** until the canvas is `target` units wide, leaving
-        every label at the size the floor gave it, then crop to what is left.
+        """Shrink the **geometry** until the canvas's *effective* width -- what the
+        room sees, `max(w, 2.2 x h)` -- is `target` units, leaving every label at the
+        size the floor gave it, then crop to what is left.
+
+        **⚑ `target` is the effective width, not `self.w`.** It used to be `self.w`,
+        and that was half the rule: the 2026-09-07 sweep took eight families to 890
+        and 65 of 92 figures were still under the 18pt floor, because a figure squarer
+        than 2.2:1 is fitted by height and the width it was compacted to stopped
+        mattering. A wide, flat figure will still land at `self.w == target`; a square
+        one now lands narrower, which is the point.
 
         **Why this exists.** The label floor is in canvas units and a figure is scaled
         to fit its slide, so the same 18pt reads at 32 real points on a 460-unit canvas
@@ -732,22 +754,32 @@ class Diagram:
         fit = min(fit, 1.0)
 
         lo, hi, ty, by = self._extent()
-        if hi - lo + 2 * margin <= target:
+        if self._effective_w(lo, hi, ty, by, margin) <= target:
             k = 1.0
         else:
             k, lo_k, hi_k = 1.0, fit, 1.0
-            for _ in range(40):                 # width(k) is monotonic, so bisect
+            for _ in range(40):                 # effective_w(k) is monotonic, so bisect
                 k = (lo_k + hi_k) / 2
-                a, b, _t, _b = self._extent(k, lo, ty)
-                if b - a + 2 * margin > target:
+                a, b, t, c = self._extent(k, lo, ty)
+                if self._effective_w(a, b, t, c, margin) > target:
                     hi_k = k
                 else:
                     lo_k = k
             k = lo_k
-            a, b, _t, _b = self._extent(k, lo, ty)
-            if b - a + 2 * margin > target + 1 and k <= fit + 1e-6:
+            a, b, t, c = self._extent(k, lo, ty)
+            if self._effective_w(a, b, t, c, margin) > target + 1 and k <= fit + 1e-6:
                 pass          # the label-fit clamp bound it, not a long line
-            elif b - a + 2 * margin > target + 1:
+            elif (self._effective_w(a, b, t, c, margin) > target + 1
+                  and self.SLIDE_ASPECT * (c - t + 2 * margin) > b - a + 2 * margin):
+                # Height-bound, so no amount of wrapping will reach the target: the
+                # lever for a figure fitted by its height is **rows, not units**.
+                # Naming the long label here would send the next reader to fix the
+                # wrong thing. Plan §8 item 18.
+                print(f"  ! {self.title}: height-bound at {b - a + 2 * margin:.0f}"
+                      f"x{c - t + 2 * margin:.0f} — effective width "
+                      f"{self._effective_w(a, b, t, c, margin):.0f} > {target}; "
+                      f"cut rows, not units", file=sys.stderr)
+            elif self._effective_w(a, b, t, c, margin) > target + 1:
                 # Text does not scale, so one long line can be wider than the whole
                 # target and no amount of shrinking will reach it. Without the floor
                 # the search happily drives the drawing to nothing around that line --
@@ -1143,6 +1175,17 @@ class Diagram:
                     cy = n["y"] + n["h"] + size + 3      # events and gateways label under
                 else:
                     cy = n["y"] + n["h"] / 2 + size / 3
+                    if n["kind"] == "cyl":
+                        # **A cylinder's label belongs in its body, not across its
+                        # rim.** The interior starts below the top ellipse, at
+                        # `y + 2ry`, so centring on the whole shape puts a two-line
+                        # label's first line straight through the rim -- which is
+                        # exactly what `progress / (a KV store)` and both `if_later`
+                        # replicas were doing. `lint_figures.py` cannot see it: it
+                        # measures a label against its shape's BOX, and a rim is not
+                        # one. Found by eye after `compact` took the shapes down and
+                        # left the type where it was.
+                        cy += min(8, n["h"] / 4)
                     if n.get("marker") and n["marker"] != "compensate":
                         cy += 7
                 self._text(o, n["label"], cx, cy, size, col, "middle", face)

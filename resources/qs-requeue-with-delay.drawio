@@ -1,38 +1,38 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="Requeue with Delay">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="414" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="864" pageHeight="405" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="a transient failure is not a bad message — it is the same message at a bad moment" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="373.4285714283892" y="45.1" width="120" height="20" as="geometry" />
+          <mxGeometry x="360.6726576994223" y="45.1" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="n1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=tube;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=15;" vertex="1" parent="1">
-          <mxGeometry x="40.0" y="140.41428571424711" width="308.57142857128565" height="58.62857142854427" as="geometry" />
+          <mxGeometry x="40.0" y="137.71303339517178" width="298.5667903524881" height="56.727690166972735" as="geometry" />
         </mxCell>
         <mxCell id="m2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="73.94285714284142" y="155.8428571428114" width="40.11428571426713" height="27.771428571415708" as="geometry" />
+          <mxGeometry x="72.84234693877369" y="152.6413729127962" width="38.813682745823456" height="26.87101113172393" as="geometry" />
         </mxCell>
         <mxCell id="m3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="161.37142857137235" y="155.8428571428114" width="40.11428571426713" height="27.771428571415708" as="geometry" />
+          <mxGeometry x="157.43627087197865" y="152.6413729127962" width="38.813682745823456" height="26.87101113172393" as="geometry" />
         </mxCell>
         <mxCell id="m4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=message;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="248.79999999990324" y="155.8428571428114" width="40.11428571426713" height="27.771428571415708" as="geometry" />
+          <mxGeometry x="242.03019480518358" y="152.6413729127962" width="38.813682745823456" height="26.87101113172393" as="geometry" />
         </mxCell>
         <mxCell id="k5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="235.79999999990324" y="113.52857142853927" width="26" height="26" as="geometry" />
+          <mxGeometry x="229.03019480518358" y="111.27752782930982" width="26" height="26" as="geometry" />
         </mxCell>
         <mxCell id="n6" value="Consumer" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="441.14285714267135" y="141.95714285710355" width="154.28571428564283" height="55.542857142831416" as="geometry" />
+          <mxGeometry x="428.1368274582345" y="139.2058673469342" width="149.28339517624406" height="53.74202226344786" as="geometry" />
         </mxCell>
         <mxCell id="k7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="343.2857142855678" y="250.84285714276137" width="26" height="26" as="geometry" />
+          <mxGeometry x="333.0309601113003" y="244.13974953616702" width="26" height="26" as="geometry" />
         </mxCell>
         <mxCell id="n8" value="dead letter" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="695.714285713982" y="141.95714285710355" width="154.28571428564283" height="55.542857142831416" as="geometry" />
+          <mxGeometry x="674.4544294990372" y="139.2058673469342" width="149.28339517624406" height="53.74202226344786" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="per-message acknowledgement, a redelivery mechanism, and a way to hold a message back —&#10;ask your broker for all three" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="373.4285714283892" y="347.49999999985994" width="120" height="20" as="geometry" />
+          <mxGeometry x="360.6726576994223" y="337.6954545454384" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="locks" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="m4" target="n6">
           <mxGeometry relative="1" as="geometry" />
@@ -40,8 +40,8 @@
         <mxCell id="e1" value="not acked — unlock, and hold it back" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n6" target="n1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="518.2857142854928" y="285.4428571427514" />
-              <mxPoint x="194.28571428564283" y="285.4428571427514" />
+              <mxPoint x="502.77852504635655" y="278.0394248608412" />
+              <mxPoint x="189.28339517624406" y="278.0394248608412" />
             </Array>
           </mxGeometry>
         </mxCell>

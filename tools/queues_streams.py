@@ -113,13 +113,17 @@ def consumers(d, x, names, y0=110, gap=132, w=190, h=72, accent=None):
 def queue_tasks():
     """*Queues Contain Tasks.* Lock, and read-past -- the two moves the whole queue
     half of the section is built from."""
-    d = Diagram("Queues Contain Tasks", w=1080, h=470)
-    d.note(540, 44, "the second consumer does not wait — it reads past the locked "
+    d = Diagram("Queues Contain Tasks", w=1160, h=470)
+    d.note(580, 44, "the second consumer does not wait — it reads past the locked "
                     "message and locks the next", ANNOTATION, 19)
 
+    # **The consumers stand 80 units further out than the geometry needs**, because
+    # both route labels are long and the type does not shrink with the drawing: at the
+    # effective-width target they ran into the consumer boxes. The figure is fitted by
+    # its height, so the extra width is free -- see `task-queue-http` for the same move.
     pipe, cells = queue(d, 70, 190, n=4, hold=2, locks=(2, 3))
-    one = d.box(790, 100, 210, 74, "Consumer One")
-    two = d.box(790, 300, 210, 74, "Consumer Two")
+    one = d.box(870, 100, 210, 74, "Consumer One")
+    two = d.box(870, 300, 210, 74, "Consumer Two")
     d.arrow(cells[3], one, "locks the one at the head", sides=("t", "l"),
             via=[(447, 137)], lx=64, ly=-14)
     d.arrow(cells[2], two, "reads past it, locks the next", accent=True,

@@ -1,47 +1,47 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="Remote Procedure Call">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="453" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="778" pageHeight="405" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="g2" value="client process" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=18;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
-          <mxGeometry x="40.0" y="129.3347826086782" width="264.1304347825432" height="154.956521739092" as="geometry" />
+          <mxGeometry x="40.0" y="119.55564738289655" width="227.45867768586209" height="133.44242424237243" as="geometry" />
         </mxCell>
         <mxCell id="g3" value="server process" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=18;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
-          <mxGeometry x="585.869565217256" y="129.3347826086782" width="264.1304347825432" height="154.956521739092" as="geometry" />
+          <mxGeometry x="510.08126721744827" y="119.55564738289655" width="227.45867768586209" height="133.44242424237243" as="geometry" />
         </mxCell>
         <mxCell id="t1" value="the only style that loses on both axes at once — you say what to do, and you wait while it is done" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999989956" y="46.900000000000006" width="120" height="20" as="geometry" />
+          <mxGeometry x="328.7699724516552" y="46.9" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="the process boundary" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999989956" y="96.20434782607474" width="120" height="20" as="geometry" />
+          <mxGeometry x="328.7699724516552" y="89.3589531680276" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="444.99999999989956" y="115.24782608694255" width="0.8804347826084773" height="213.0652173912515" as="geometry" />
+          <mxGeometry x="388.7699724516552" y="107.42451790631725" width="0.7581955922862069" height="183.48333333326207" as="geometry" />
         </mxCell>
         <mxCell id="n4" value="Application" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="55.847826086952594" y="169.83478260866815" width="158.4782608695259" height="77.478260869546" as="geometry" />
+          <mxGeometry x="53.647520661151724" y="154.43264462806206" width="136.47520661151725" height="66.72121212118621" as="geometry" />
         </mxCell>
         <mxCell id="n5" value="Stub" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="230.1739130434311" y="169.83478260866815" width="63.39130434781036" height="77.478260869546" as="geometry" />
+          <mxGeometry x="203.77024793382068" y="154.43264462806206" width="54.590082644606895" height="66.72121212118621" as="geometry" />
         </mxCell>
         <mxCell id="n6" value="Proxy" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="596.4347826085576" y="169.83478260866815" width="63.39130434781036" height="77.478260869546" as="geometry" />
+          <mxGeometry x="519.1796143248828" y="154.43264462806206" width="54.590082644606895" height="66.72121212118621" as="geometry" />
         </mxCell>
         <mxCell id="n7" value="Application" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="675.6739130433206" y="169.83478260866815" width="158.4782608695259" height="77.478260869546" as="geometry" />
+          <mxGeometry x="587.4172176306414" y="154.43264462806206" width="136.47520661151725" height="66.72121212118621" as="geometry" />
         </mxCell>
         <mxCell id="k8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="247.8695652173363" y="131.1826086956308" width="28" height="28" as="geometry" />
+          <mxGeometry x="217.06528925612415" y="119.20316804404828" width="28" height="28" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="blocked until it comes back" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="201.8695652173363" y="101.4869565217256" width="120" height="20" as="geometry" />
+          <mxGeometry x="171.06528925612415" y="93.90812672174484" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="an operation name, not data — you are telling the other side what to do, which is control coupling" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999989956" y="365.6173913042687" width="120" height="20" as="geometry" />
+          <mxGeometry x="328.7699724516552" y="321.3668044076069" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t5" value="and both must be up at the same moment, so an outage here is not a delay, it is a failure" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="384.99999999989956" y="395.55217391295696" width="120" height="20" as="geometry" />
+          <mxGeometry x="328.7699724516552" y="347.1454545453379" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="PlaceOrder(order)" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1" source="n5" target="n6">
           <mxGeometry relative="1" as="geometry" />
@@ -49,8 +49,8 @@
         <mxCell id="e1" value="the result" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n6" target="n5">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="628.1304347824629" y="315.9869565216753" />
-              <mxPoint x="261.8695652173363" y="315.9869565216753" />
+              <mxPoint x="546.4746556471862" y="280.2931129475724" />
+              <mxPoint x="231.06528925612415" y="280.2931129475724" />
             </Array>
           </mxGeometry>
         </mxCell>

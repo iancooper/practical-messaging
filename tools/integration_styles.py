@@ -156,8 +156,11 @@ def file_transfer():
     # reading: the file is the only thing that crosses
     f = d.doc(464, 158, 72, 112, accent=True)
 
-    d.arrow(src, f, "writes it", sides=("r", "l"), ly=-8)
-    d.arrow(f, dst, "reads it", sides=("r", "l"), ly=-8)
+    # `lx` is text-space and does NOT scale with `compact`, so these are post-compaction
+    # units: each label steps off the container's dashed edge and sits inside its own
+    # process, which is also what it means -- writing is the producer's act.
+    d.arrow(src, f, "writes it", sides=("r", "l"), ly=-8, lx=-6)
+    d.arrow(f, dst, "reads it", sides=("r", "l"), ly=-8, lx=6)
     # "later" moved off the arrow and into the caption: at 18pt it was long enough to
     # land on the consumer container's border, and it says more here anyway
     d.note(MID, 322, "a file, in a directory both can reach — "
@@ -227,11 +230,14 @@ def rpc():
     d.box(762, BOX_Y, 180, BOX_H, "Application")
 
     # Both labels are pushed off MID, because the boundary rule runs through it. The
-    # offsets are text-space and do not scale, so `compact` narrowed the gap between
-    # the call label and the Stub it starts from until they touched -- -94 was right
-    # on a 1000-unit canvas and is not on an 890-unit one. It now sits mid-way between
-    # the two things it must clear.
-    d.arrow(stub, proxy, "PlaceOrder(order)", lx=-75, ly=-8)
+    # offsets are text-space and do not scale, so every time `compact` gets a harder
+    # target this label closes on the Stub it starts from: -94 was right on a
+    # 1000-unit canvas, -75 on an 890-unit one, and -60 once the target became the
+    # *effective* width and the stage came in at 778. It has to clear two things, the
+    # Stub on its left and the client container's dashed edge, and it now sits between
+    # them. **Re-measure it after any change to `TARGET_W`** -- this is the one label
+    # in the family that has moved every single time.
+    d.arrow(stub, proxy, "PlaceOrder(order)", lx=-60, ly=-8)
     d.arrow(proxy, stub, "the result", sides=("b", "b"),
             via=[(708, 336), (292, 336)], lx=98)
 
@@ -276,8 +282,8 @@ def messaging():
 
     # short labels, because the pipe's mouth ellipse reaches 19 units back from its left
     # edge and a longer one lands in it
-    d.arrow(src, pipe, "writes it", sides=("r", "l"), ly=-8)
-    d.arrow(pipe, dst, "reads it", sides=("r", "l"), ly=-8)
+    d.arrow(src, pipe, "writes it", sides=("r", "l"), ly=-8, lx=-6)
+    d.arrow(pipe, dst, "reads it", sides=("r", "l"), ly=-8, lx=6)
     d.note(MID, 322, "a channel", INK, 18)
 
     _strip(d, 380, "the same four questions — and the broker has answered them",

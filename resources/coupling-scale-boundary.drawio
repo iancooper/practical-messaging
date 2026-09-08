@@ -1,68 +1,68 @@
 <mxfile host="practical-messaging" type="device">
   <diagram name="The Coupling Scale, with a Process Boundary Across It">
-    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="543" background="#FDFCFA">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="704" pageHeight="405" background="#FDFCFA">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="t1" value="the two worst kinds of coupling are the two you cannot have any more — that is what you bought" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="380.23529411755044" y="45.1" width="120" height="20" as="geometry" />
+          <mxGeometry x="292.1889999999999" y="45.099999999999994" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t2" value="tightest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="151.52941176466447" y="102.27647058822149" width="120" height="20" as="geometry" />
+          <mxGeometry x="135.28227036600356" y="84.32668240849907" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t3" value="Content" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="151.52941176466447" y="135.62941176468402" width="120" height="20" as="geometry" />
+          <mxGeometry x="135.28227036600356" y="107.20891381345686" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t4" value="one party reaches into the other's internals" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="275.41176470581104" y="134.67647058821368" width="120" height="20" as="geometry" />
+          <mxGeometry x="220.27341558441822" y="106.55513577331521" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="152.44705882350226" y="140.9588235293915" width="118.16470588232441" height="0.9529411764703581" as="geometry" />
+          <mxGeometry x="154.7480318772212" y="114.63246753246531" width="81.06847697756476" height="0.6537780401416513" as="geometry" />
         </mxCell>
         <mxCell id="t5" value="prevented" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="73.3882352940951" y="134.67647058821368" width="120" height="20" as="geometry" />
+          <mxGeometry x="81.67247107438817" y="106.55513577331521" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t6" value="Common" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="151.52941176466447" y="200.42941176466837" width="120" height="20" as="geometry" />
+          <mxGeometry x="135.28227036600356" y="151.66582054308915" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t7" value="both parties share the same mutable store" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="275.41176470581104" y="199.476470588198" width="120" height="20" as="geometry" />
+          <mxGeometry x="220.27341558441822" y="151.0120425029475" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="152.44705882350226" y="205.75882352937586" width="118.16470588232441" height="0.9529411764703581" as="geometry" />
+          <mxGeometry x="154.7480318772212" y="159.08937426209758" width="81.06847697756476" height="0.6537780401416513" as="geometry" />
         </mxCell>
         <mxCell id="t8" value="prevented" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
-          <mxGeometry x="73.3882352940951" y="199.476470588198" width="120" height="20" as="geometry" />
+          <mxGeometry x="81.67247107438817" y="151.0120425029475" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t9" value="Control" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="151.52941176466447" y="320.4999999999335" width="120" height="20" as="geometry" />
+          <mxGeometry x="135.28227036600356" y="234.04185360093726" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t10" value="one party tells the other what to do" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="275.41176470581104" y="319.54705882346315" width="120" height="20" as="geometry" />
+          <mxGeometry x="220.27341558441822" y="233.38807556079558" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t11" value="Stamp" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="151.52941176466447" y="385.2999999999179" width="120" height="20" as="geometry" />
+          <mxGeometry x="135.28227036600356" y="278.49876033056955" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t12" value="a whole structure is passed, and part of it used" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="275.41176470581104" y="384.3470588234475" width="120" height="20" as="geometry" />
+          <mxGeometry x="220.27341558441822" y="277.8449822904279" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t13" value="Data" style="text;html=1;align=center;fontFamily=Caveat;fontSize=22;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="151.52941176466447" y="450.09999999990225" width="120" height="20" as="geometry" />
+          <mxGeometry x="135.28227036600356" y="322.95566706020185" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t14" value="exactly what is needed is passed, and nothing else" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="275.41176470581104" y="449.14705882343185" width="120" height="20" as="geometry" />
+          <mxGeometry x="220.27341558441822" y="322.3018890200602" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t15" value="loosest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="151.52941176466447" y="485.3588235293055" width="120" height="20" as="geometry" />
+          <mxGeometry x="135.28227036600356" y="347.14545454544293" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="r3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="40.0" y="261.02941176465663" width="809.9999999998045" height="0.9529411764703581" as="geometry" />
+          <mxGeometry x="77.60222314050634" y="197.00850059031336" width="555.7113341204036" height="0.6537780401416513" as="geometry" />
         </mxCell>
         <mxCell id="t16" value="the process boundary" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
-          <mxGeometry x="789.9999999998045" y="237.59411764701233" width="120" height="20" as="geometry" />
+          <mxGeometry x="573.31355726091" y="177.16316410861356" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t17" value="separate processes, private data,&#10;no shared transaction" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
-          <mxGeometry x="789.9999999998045" y="277.61764705876743" width="120" height="20" as="geometry" />
+          <mxGeometry x="573.31355726091" y="204.62184179456295" width="120" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
