@@ -1410,7 +1410,16 @@ aspect cancels out entirely**. It is a cliff, not a slope: nothing improves unti
 wider than the stage (2.57 : 1), at which point it jumps to 96%. Two services with an app stacked
 over its store are nowhere near that, and getting there means a side-by-side `service()` variant —
 which is job 2's territory, not composition's. It was 82% as `boundary-one-service` too, so this is
-the status quo and not a regression.
+the status quo and not a regression — though the preview does show it filling the stage's height and
+leaving a third of its width empty, so it is worth doing.
+
+**The enabling fact, for whoever picks it up: `service()` now has exactly one caller.** `task-queue-shape`
+and `task-queue-http` draw their own boxes and cylinders directly, so the helper is `boundary-what-crosses`
+alone and a row layout — app and store side by side rather than stacked — can be added to it without
+touching another figure. **It is all or nothing, though:** below 2.57 : 1 nothing improves at all, and the
+arithmetic is tight. Margins are fixed while geometry scales, so a final 890 x 340 needs raw *content*
+nearer 3.1 : 1 than 2.6 : 1, and the red idea, the boundary's own name and the foot of the drawing are
+fixed heights that do not shrink with it.
 
 **A second rule fell out of the first one.** `Diagram.K_FLOOR` is 0.55 — a figure may not be shrunk by
 more than 45% — and **text does not shrink with the geometry**, so a composed figure that is one row
