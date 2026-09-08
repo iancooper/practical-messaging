@@ -231,17 +231,47 @@ def plan_table(raw_rows, head, w):
     starves the column that carries the sentence and the last one runs off the slide.
     Widths are therefore proportional to the widest natural cell in each column, and
     the cells are wrapped HERE rather than in a back end, so the PowerPoint table and
-    the preview agree about how tall the row is."""
+    the preview agree about how tall the row is.
+
+    **⚑ But proportional alone starves the label column, and it does it silently.**
+    The natural width of a prose column is the whole unwrapped sentence, so on a table
+    whose last column is a paragraph the scale factor is small -- and a *narrow* column
+    is scaled by the same factor, down past the width of the one word it holds. On
+    `Faults, by Pattern` that rendered `Out-Only` as "Out-" and **both** `In-Only` and
+    `In-Out` as "In-O", on the one slide whose entire argument is per-pattern. So every
+    column also gets a **min-content floor** -- its longest unbreakable word -- and only
+    the slack above that floor is shared out proportionally. A column can be squeezed to
+    wrapping, never to clipping."""
     ncol = max(len(r) for r in raw_rows)
-    nat = [0.0] * ncol
+    nat = [0.0] * ncol      # widest cell unwrapped -- what the column would like
+    mini = [0.0] * ncol     # longest single word  -- what it cannot go below
     for ri, row in enumerate(raw_rows):
         for ci in range(ncol):
             txt = row[ci] if ci < len(row) else ""
             bold = bool(ri == 0 and head)
             nat[ci] = max(nat[ci], Type.width(O.plain(txt), SANS, TABLE_PT, bold))
-    total = sum(nat) + 2 * CELL_PAD * ncol
-    k = (w - 2 * CELL_PAD * ncol) / max(sum(nat), 1e-6)
-    cols = [n * k + 2 * CELL_PAD for n in nat]
+            for word, b, i, m, _ in Type.tokens(O.runs(txt)):
+                mini[ci] = max(mini[ci], Type.width(word, MONO if m else SANS,
+                                                    TABLE_PT, b or bold))
+    mini = [min(mi, na) for mi, na in zip(mini, nat)]
+
+    avail = w - 2 * CELL_PAD * ncol
+    if sum(nat) <= avail or sum(mini) >= avail:
+        # everything fits at its natural width, or nothing does. The second case is a
+        # table too wide to set at all, and it is the one remaining way a word can be
+        # clipped -- so it says so rather than going quiet, because a clipped label
+        # looks like a short label and nothing downstream can tell the difference.
+        if sum(mini) >= avail:
+            sys.stderr.write(
+                f"    ⚑ table will clip: its longest words need {sum(mini):.1f}in "
+                f"of {avail:.1f}in -- shorten a heading or drop a column\n")
+        k = avail / max(sum(nat), 1e-6)
+        cols = [n * k + 2 * CELL_PAD for n in nat]
+    else:
+        slack = avail - sum(mini)
+        want = [max(na - mi, 0.0) for na, mi in zip(nat, mini)]
+        k = slack / max(sum(want), 1e-6)
+        cols = [mi + wa * k + 2 * CELL_PAD for mi, wa in zip(mini, want)]
 
     rows = []
     for ri, row in enumerate(raw_rows):

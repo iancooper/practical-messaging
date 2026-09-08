@@ -1327,6 +1327,26 @@ already: split it.** The seam is written into the slide — *"You have met two o
 other names."* is where the manifesto stops and our mapping onto Day 1 starts, and the callout (*two
 properties, one mechanism*) belongs with the mapping. That moves no content at all.
 
+#### 23d. ✅ A third, found by looking at the picture — table columns were clipping labels
+
+**Applying 23b made it visible.** `Faults, by Pattern` had been overflowing, so nobody had looked at it
+closely; once it fitted, the preview showed its first column rendering `Out-Only` as **"Out-"**, and
+**both `In-Only` and `In-Out` as "In-O"** — on the one slide in the deck whose entire argument is
+per-pattern. The sweep then found a second: Day 2 *Compensation, Four Ways* was clipping **all four** of
+its row labels. **Eight clipped words across two slides, and every one of them invisible in the outline.**
+
+**The cause is one line of arithmetic.** `plan_table` sized columns proportionally to each column's
+widest *unwrapped* cell. A prose column's natural width is its whole sentence, so the scale factor on such
+a table is small — and it was applied to the narrow label column too, shrinking a 0.87in word into a
+0.32in box. Fixed by giving every column a **min-content floor** (its longest unbreakable word) and
+sharing out only the slack above it: a column can now be squeezed to wrapping, never to clipping. All 14
+tables across both decks re-checked clean. Where even the floors will not fit, the builder now **says so
+on stderr** rather than clipping quietly — *a clipped label looks like a short label, and nothing
+downstream can tell the difference.*
+
+**The general lesson, and it is rule 2 again:** an overflowing slide is not just over-long, it is
+**unreviewed**. Fixing the overflow is what puts it in front of you for the first time.
+
 #### 23c. ✅ Two defects only a consumer could find
 
 **`#note:` blocks were leaking into slides.** The parser skipped the marker line but not its
