@@ -1383,6 +1383,17 @@ describe.
 |---|---|---|---|
 | D2 *When the Pipe Fills* | `flow-backpressure` + `flow-load-shedding` | ✅ `flow-when-the-pipe-fills` | one producer/pipe/consumer; the pressure goes back above it, the data falls out below |
 | D2 *Putting Reactive Together* | `flow-scale-out` + `flow-scale-out-fault` | ✅ `flow-scale-out` | one Supervisor, three workers: one added, one failed in a fault region, and the middle one does double duty so three shapes do the work of four |
+| D1 *Messages In, Private Data, No Shared Transaction* | `boundary-one-service` + `boundary-two-services` | ✅ `boundary-what-crosses` | two services, one rule, and the slide's three bullets: a message crosses, a read is refused, a transaction is refused — both refusals crossed **on the line**, which is the one idea |
+
+**⚑ One figure stayed at 82% and no reshaping can move it, which is worth knowing before
+someone tries.** `boundary-what-crosses` sits on a figure slide under a three-line callout, so its
+stage is 11.93 x 4.64in. Work the report's own arithmetic through: while the figure's canvas *and*
+the stage are both fitted by height, `frac` reduces to `stage_height x 2.2 / 12.4` — **the figure's
+aspect cancels out entirely**. It is a cliff, not a slope: nothing improves until the drawing is
+wider than the stage (2.57 : 1), at which point it jumps to 96%. Two services with an app stacked
+over its store are nowhere near that, and getting there means a side-by-side `service()` variant —
+which is job 2's territory, not composition's. It was 82% as `boundary-one-service` too, so this is
+the status quo and not a regression.
 
 **A second rule fell out of the first one.** `Diagram.K_FLOOR` is 0.55 — a figure may not be shrunk by
 more than 45% — and **text does not shrink with the geometry**, so a composed figure that is one row

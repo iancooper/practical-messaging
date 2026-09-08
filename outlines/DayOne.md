@@ -31,8 +31,7 @@ drawing that boundary decide for you?**
 ▎ No transaction spans two services. Consistency stops being something you declare and becomes something
 you design.
 
-#image: diagram — one service behind the process boundary: a message crosses on a channel, and a direct read of its tables is refused at the line  [→ resources/boundary-one-service.png]
-#image: diagram — two services either side of the boundary, a channel each way, and a transaction drawn across both stores and crossed out  [→ resources/boundary-two-services.png]
+#image: diagram — two services either side of the process boundary: a message crosses on a channel each way, while a direct read of the other's tables and a transaction drawn across both stores are each crossed out on the line itself  [→ resources/boundary-what-crosses.png]
 
 Presenter notes: **This is the load-bearing slide of both days, and it is the first one.** Everything
 the course teaches — outbox, sagas, idempotence, choreography, compensation — exists because the third
