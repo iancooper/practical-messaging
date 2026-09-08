@@ -1356,6 +1356,41 @@ downstream can tell the difference.*
 **The general lesson, and it is rule 2 again:** an overflowing slide is not just over-long, it is
 **unreviewed**. Fixing the overflow is what puts it in front of you for the first time.
 
+#### 23e. ☐ Which of the 17 multi-figure entries are comparisons — Ian ruled 2026-09-08
+
+**The question 23a left open, and it was put as four groups rather than seventeen slides**, grouped by
+what each slide's own text does with its figures. Ian's ruling:
+
+| group | what the slides do | ruling |
+|---|---|---|
+| **A** — 3 entries | the slide's own words set up a two-way contrast, and the figures share apparatus | **compose all three** |
+| **B** — 5 entries (*Putting It Together*) | a 2021 paper flow beside its FBP graph — the section's premise is the second reading of the first | **leave one per slide** |
+| **C** — 3 entries (*Worked Flow*) | the presenter note says *"walk the value stream first and the flow second"* — a sequence instruction | **one per slide**, confirmed |
+| **D** — 6 entries | a vocabulary built up in steps, each figure adding to the one before | **leave**, except the *scale-out* pair, which is a contrast inside a build |
+
+So **four composed figures**, and thirteen entries confirmed as one-per-slide.
+
+**⚑ The discriminator, and it is the thing worth keeping: a composed figure pays for itself only when
+the two halves share apparatus.** `compact()` shrinks the *geometry* and leaves the type alone, so two
+stages glued side by side hit the label-fit clamp and both lose about a quarter of their label size —
+which is the same tax the diagram panel charged (23a) and the same tax one-per-slide charges. The saving
+is that the apparatus is drawn **once** and only the outcomes are drawn twice. `coupling_grids` (one
+grid, three plots) and `integration_styles` (one stage, four styles) are the worked examples; group B
+fails the test precisely because a paper diagram and an FBP graph share nothing but the flow they
+describe.
+
+| entry | was | now | notes |
+|---|---|---|---|
+| D2 *When the Pipe Fills* | `flow-backpressure` + `flow-load-shedding` | ✅ `flow-when-the-pipe-fills` | one producer/pipe/consumer; the pressure goes back above it, the data falls out below |
+
+**A second rule fell out of the first one.** `Diagram.K_FLOOR` is 0.55 — a figure may not be shrunk by
+more than 45% — and **text does not shrink with the geometry**, so a composed figure that is one row
+taller than the figures it replaces can need a `k` below the floor and land just under 18pt with no
+warning of any kind. *When Pipe Fills* did: 17.6pt, and the whole difference was **104 units of dead
+vertical space** between the crosses and the foot comment. **When a composed figure lands just under the
+floor, look for dead space before touching the content** — and widening a node relaxes the label-fit
+clamp for free, because the clamp is `(advance + 12) / w` and `w` is the lever, not the word.
+
 #### 23c. ✅ Two defects only a consumer could find
 
 **`#note:` blocks were leaking into slides.** The parser skipped the marker line but not its

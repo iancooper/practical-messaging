@@ -682,8 +682,7 @@ answers, and it is a **decision**, not a default.
   consumption, which fills the queue, which slows the producer.
 - **Load-shedding** can discriminate — prioritise, and discard only the less valuable data.
 
-#image: hand-drawn message-passing diagram — backpressure: a full pipe, and the producer told to slow down  [→ resources/flow-backpressure.png]
-#image: hand-drawn message-passing diagram — load-shedding: packets dropped on purpose to keep up  [→ resources/flow-load-shedding.png]
+#image: hand-drawn message-passing diagram — one full pipe and the two answers to it: the pressure travelling back to slow the producer, and packets dropped out of the bottom on purpose  [→ resources/flow-when-the-pipe-fills.png]
 
 Presenter notes: Merged from two slides. The idea was introduced as a mechanism back in *Capacity, Backpressure and Node Lifetime*; here it becomes the choice. Worth asking the room which one their current system does — the answer is usually "neither, it falls over", which is a third option nobody chooses on purpose.
 

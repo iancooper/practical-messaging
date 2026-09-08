@@ -842,69 +842,86 @@ def bulkhead():
     return d
 
 
-@figure("flow-backpressure")
-def backpressure():
-    """*When the Pipe Fills*, first of the pair. Red is on the **signal going back
-    up the chain** -- the only thing on the slide that is not already on *Capacity,
-    Backpressure and Node Lifetime*, and the thing load-shedding does instead."""
-    d = Diagram("Backpressure", w=1220, h=560)
-    idea(d, "the producer feels the pipe pushing back, and slows down — "
-            "you pay in latency, and lose nothing")
+@figure("flow-when-the-pipe-fills")
+def when_the_pipe_fills():
+    """*When the Pipe Fills* -- **one stage, two answers.** Composed from what were
+    `flow-backpressure` and `flow-load-shedding`, because the slide is a comparison:
+    it carries a two-column table, and the reader has to hold both answers at once.
 
-    a = d.node(90, 190, 210, 132, "producer", ins=("in",), outs=("out",))
-    b = d.node(910, 190, 210, 132, "consumer", ins=("in",), outs=("out",))
-    pipe = d.pipe(420, 224, 380, 64)
+    **A composed figure is not two figures on one canvas.** `compact()` shrinks the
+    geometry and leaves the type alone, so juxtaposing two producer/pipe/consumer
+    stages side by side would have run straight into the label-fit clamp and cost
+    both of them about a quarter of their label size. The saving is that the
+    *apparatus* is drawn once -- one producer, one pipe, one consumer -- and only the
+    two outcomes are drawn twice. That is what makes this cheaper than the pair, not
+    more expensive: 1220x640 against 1220x560 for each of the two it replaces.
+
+    **The two answers are separated by direction, not by a divider.** Backpressure
+    travels *back up* the chain, so it runs above the stage; load-shedding leaves the
+    drawing altogether, so it falls out of the bottom of the pipe. A rule down the
+    middle would have been the obvious thing and the wrong one -- it would say the two
+    halves are different pictures, when the whole claim is that they are the same
+    picture answered two ways.
+
+    **The figure carries no prose, deliberately.** The slide's table already has *what
+    happens*, *what you lose*, *choose when* and *an example* for both columns, and
+    the two figures this replaces between them carried five explanatory notes that
+    restated it. What is left is only what a picture can say and a table cannot: that
+    the pressure goes backwards and the data goes out.
+
+    Red is on both outcomes because they are **one idea** -- the pipe is full and
+    something has to give -- in the way `paper-guest-cycle` reds four hand-offs for
+    one idea. Reding only one of them would say the other is the default.
+    """
+    d = Diagram("When the Pipe Fills", w=1220, h=596)
+    idea(d, "the pipe is full, so something has to give — "
+            "you give latency, or you give data")
+
+    # 260 wide, not the pair's old 210. This figure is a row taller than either of
+    # them, so `compact()` wants a smaller k -- and a shape may not shrink below its
+    # own label, so at 210 the clamp stopped it at 17.6pt. Widening the two nodes
+    # costs nothing (the figure is fitted by its height) and buys back the floor:
+    # the clamp is `(advance + 12) / w`, so the lever is w, not the word.
+    a = d.node(90, 250, 260, 132, "producer", ins=("in",), outs=("out",))
+    b = d.node(860, 250, 260, 132, "consumer", ins=("in",), outs=("out",))
+    pipe = d.pipe(420, 284, 380, 64)
     for i in range(4):
-        d.packet(452 + i * 84, 243, w=30, h=26)
+        d.packet(452 + i * 84, 303, w=30, h=26)
     d.arrow(a["ports"]["out0"], pipe, sides=("r", "l"))
     d.arrow(pipe, b["ports"]["in0"], sides=("r", "l"))
+    d.note(610, 258, "full", INK, 15)
 
-    d.arrow(b, a, "slow down", accent=True, sides=("b", "b"),
-            via=[(1015, 404), (195, 404)], ly=26)
-    d.note(610, 196, "full", INK, 15)
+    # answer one: the pressure travels back. Above the stage, so it is going the
+    # other way from everything else on the drawing.
+    #
+    # **The name sits at the end the signal leaves from, not over the middle of the
+    # run.** Centred it landed on top of the arrow's own "slow down" -- `_mid` puts a
+    # label on the middle segment, which is the same horizontal leg -- and neither
+    # `lint_figures.py` nor `_legible()` can see two notes on one another.
+    d.note(1015, 138, "Backpressure", INK, 18)
+    d.arrow(b, a, "slow down", accent=True, sides=("t", "t"),
+            via=[(1015, 176), (195, 176)], ly=-16)
 
-    d.note(195, 470, "push — the middleware calls\nus as messages arrive",
-           INK, 15)
-    d.note(1015, 470, "pull — we poll, so we\ncontrol the rate", INK, 15)
-    d.note(610, 470, "blocking retry creates it as a side effect: retrying a\n"
-                     "connection slows consumption, which fills the queue",
-           COMMENT, 15)
-    caveat(d, "choose it when data loss is unacceptable and the extra latency is "
-              "tolerable")
-    return d
-
-
-@figure("flow-load-shedding")
-def load_shedding():
-    """*When the Pipe Fills*, second of the pair, and the contrast is carried by
-    red: backpressure reds a signal travelling **back**, this reds packets leaving
-    the drawing altogether. Same geometry either side, so the difference is the only
-    thing that moves."""
-    d = Diagram("Load-Shedding", w=1220, h=560)
-    idea(d, "or discard, and keep up — you pay in data, and lose nothing else")
-
-    a = d.node(90, 190, 210, 132, "producer", ins=("in",), outs=("out",))
-    b = d.node(910, 190, 210, 132, "consumer", ins=("in",), outs=("out",))
-    pipe = d.pipe(420, 224, 380, 64)
-    for i in range(2):
-        d.packet(452 + i * 84, 243, w=30, h=26)
-    d.arrow(a["ports"]["out0"], pipe, sides=("r", "l"))
-    d.arrow(pipe, b["ports"]["in0"], sides=("r", "l"))
-
+    # answer two: the data leaves. Below the pipe, falling out of it.
     for i in range(2):
         x = 620 + i * 84
-        d.packet(x, 372, w=30, h=26, accent=True)
-        d.arrow((x + 15, 300), (x + 15, 364), accent=True)
-        d.icon(x + 15, 424, "cross", accent=True, r=13)
-    d.note(830, 400, "dropped, on purpose", ANNOTATION, 16, anchor="start")
+        d.packet(x, 432, w=30, h=26, accent=True)
+        d.arrow((x + 15, 360), (x + 15, 424), accent=True)
+        d.icon(x + 15, 490, "cross", accent=True, r=13)
+    # name to the left of the fall, remark to the right of it, both on the packets'
+    # own line -- so the pair reads across at one height instead of stacking under
+    # the crosses, where the caveat already is.
+    d.note(560, 446, "Load-shedding", INK, 18, anchor="end")
+    d.note(790, 446, "dropped, on purpose", ANNOTATION, 16, anchor="start")
 
-    d.note(195, 470, "still sending at full rate —\nnobody asked it to stop",
-           COMMENT, 15)
-    d.note(1015, 470, "keeps up, on a sample\nof the traffic", COMMENT, 15)
-    d.note(560, 488, "and it can discriminate: prioritise,\nand throw away only "
-                     "the cheap data", COMMENT, 15)
-    caveat(d, "choose it when volume is high and a sample will do — a thousand "
-              "metrics a second when ten meets the SLA")
+    # **The caveat is placed, not defaulted.** `compact()` may shrink a figure by at
+    # most `K_FLOOR`, text does not shrink with the geometry, and this drawing needed
+    # k = 0.53 to reach 890 -- so it stopped at 0.55 and every label read at 17.6pt.
+    # The 104 units of nothing between the crosses and the foot were the whole
+    # difference. When a composed figure lands just under the floor, look for dead
+    # vertical space before touching the content.
+    caveat(d, "a system that does neither falls over under load — which is the third "
+              "answer, and the only one nobody chooses on purpose", y=546)
     return d
 
 
