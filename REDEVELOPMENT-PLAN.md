@@ -1368,7 +1368,9 @@ what each slide's own text does with its figures. Ian's ruling:
 | **C** — 3 entries (*Worked Flow*) | the presenter note says *"walk the value stream first and the flow second"* — a sequence instruction | **one per slide**, confirmed |
 | **D** — 6 entries | a vocabulary built up in steps, each figure adding to the one before | **leave**, except the *scale-out* pair, which is a contrast inside a build |
 
-So **four composed figures**, and thirteen entries confirmed as one-per-slide.
+So **four composed figures**, and thirteen entries confirmed as one-per-slide. All four are
+done. Of the 17, two entries now carry a single figure, two carry two where they carried two and three,
+and the remaining thirteen are unchanged by ruling.
 
 **⚑ The discriminator, and it is the thing worth keeping: a composed figure pays for itself only when
 the two halves share apparatus.** `compact()` shrinks the *geometry* and leaves the type alone, so two
@@ -1384,6 +1386,22 @@ describe.
 | D2 *When the Pipe Fills* | `flow-backpressure` + `flow-load-shedding` | ✅ `flow-when-the-pipe-fills` | one producer/pipe/consumer; the pressure goes back above it, the data falls out below |
 | D2 *Putting Reactive Together* | `flow-scale-out` + `flow-scale-out-fault` | ✅ `flow-scale-out` | one Supervisor, three workers: one added, one failed in a fault region, and the middle one does double duty so three shapes do the work of four |
 | D1 *Messages In, Private Data, No Shared Transaction* | `boundary-one-service` + `boundary-two-services` | ✅ `boundary-what-crosses` | two services, one rule, and the slide's three bullets: a message crosses, a read is refused, a transaction is refused — both refusals crossed **on the line**, which is the one idea |
+| D2 *FBP — Where Do Lookups Live?* | `flow-lookup-question` + `flow-lookup-port` + `flow-lookup-build` | ✅ `flow-lookup-question` + `flow-lookup-two-answers` | **three figures became two, not one** — see below. One A and one B, with the query over the top and the copy under the bottom, so the two answers never share a corridor |
+
+**⚑ The lookup entry went from three figures to two, not to one, and the reason is the content
+rather than the budget.** The slide reads *"A component needs data it was not sent. **Two answers**"* —
+the question is the premise the presenter states and the two answers are what the reader holds side by
+side, so `flow-lookup-question` still leads and only the answers compose. **The premise cannot be drawn
+on the same picture as its answers:** the question figure says *no arc brings B what it needs*, and the
+composed figure draws two arcs that do exactly that. Putting the crossed-out arc beside them would have
+the drawing contradict itself. (The budget agrees — the composed answers land at 890x403, which is the
+ceiling exactly — but the argument stands without it.)
+
+**It is also the one composition that made a figure MORE legible rather than less.** `flow-lookup-port`
+was one of the 33 under the floor, at **15.9pt**: at 1240x700 it was fitted by its height and could not
+compact past `K_FLOOR`. Composed, the duplicated apparatus — two components, two port sets, two packet
+chains, drawn once each instead of twice — is gone, and the result sits at **18.0pt**. Composing is not
+only a way of spending room; where a pair duplicates its own stage it is a way of recovering it.
 
 **⚑ One figure stayed at 82% and no reshaping can move it, which is worth knowing before
 someone tries.** `boundary-what-crosses` sits on a figure slide under a three-line callout, so its

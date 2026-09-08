@@ -591,87 +591,89 @@ def lookup_question():
     return d
 
 
-@figure("flow-lookup-port")
-def lookup_port():
-    """*Where Do Lookups Live?*, second of three: the lookup port.
+@figure("flow-lookup-two-answers")
+def lookup_two_answers():
+    """*Where Do Lookups Live?*, second of two -- **both answers on one graph.**
+    Composed from what were `flow-lookup-port` and `flow-lookup-build`.
 
-    Red is the **pause** -- the walk of shame -- and the next figure reds its
-    absence. That pair is the argument, so neither figure may red anything else.
+    **The question keeps its own figure and these two do not.** The slide reads *"A
+    component needs data it was not sent. Two answers"*: the question is the premise
+    the presenter states, and the two answers are the thing the reader has to hold
+    side by side. So `flow-lookup-question` still leads -- it is the setup, not a
+    comparand -- and the comparison is drawn once.
 
-    **The response takes the long way round on purpose.** A query leaves on an
-    out-port and an answer arrives on an in-port, so with ports fixed left-in /
-    right-out the reply has to travel back across the whole drawing. That is not a
-    routing accident, it is the round trip B is paying for, and shortening it by
-    putting an in-port on the right would hide the cost."""
-    d = Diagram("FBP — the Lookup Port", w=1240, h=700)
-    idea(d, "B stops until A answers — on demand, and now B is only as available "
-            "as A is")
+    **A and B are drawn once, and the two answers are two paths between them.** That
+    is the whole saving: the pair duplicated both components, both port sets and both
+    packet chains to say two things about the same two nodes.
 
-    a = d.node(700, 128, 240, 150, "A", ins=("in", "in_lookup"),
-               outs=("out", "out_result"))
-    b = d.node(180, 400, 240, 150, "B", ins=("in", "in_result"),
-               outs=("out", "out_lookup"))
+    **The query goes over the top and the copy goes under the bottom, so the two
+    answers never share a corridor.** They cannot cross, and the reader can follow
+    either without picking it out of the other. It also puts the round trip where its
+    length is visible: B's question travels the entire width of the drawing to reach
+    A and the answer travels all the way back, which is the cost the lookup port is
+    charging and the reason the other answer exists.
 
-    d.arrow(pkt_on(d, 40, b["ports"]["in"]), b["ports"]["in"], sides=("r", "l"))
-    d.arrow(b["ports"]["out"], pkt_on(d, 470, b["ports"]["out"]), sides=("r", "l"))
-    d.arrow(pkt_on(d, 480, a["ports"]["in"]), a["ports"]["in"], sides=("r", "l"))
-    d.arrow(a["ports"]["out"], pkt_on(d, 1000, a["ports"]["out"]), sides=("r", "l"))
+    **The local read still does not arrive on a port.** It is not a packet -- it is B
+    reading a table that is already there -- so it enters the node's edge rather than
+    an in-port. Routing it into one would have made it the long way round again,
+    which is the very thing this half is contrasting with.
 
-    d.arrow(b["ports"]["out_lookup"], a["ports"]["in_lookup"], "query",
-            sides=("r", "l"), via=[(600, 500), (600, 228)], lx=44)
-    d.arrow(a["ports"]["out_result"], b["ports"]["in_result"], "response",
-            sides=("r", "l"),
-            via=[(1080, 228), (1080, 620), (100, 620), (100, 500)], ly=-10)
+    Red is the **pause**, and its absence: the clock on B against *no pause* on the
+    read. That is one idea, not two, and it is the only difference between the
+    answers that matters -- everything else is which box owns the data.
+    """
+    d = Diagram("Where Do Lookups Live?", w=1520, h=600)
+    idea(d, "ask A and wait for it, or hold a copy and never wait")
 
-    d.icon(150, 332, "clock", accent=True, r=14)
-    d.note(178, 338, "B is paused here — the walk of shame", ANNOTATION, 16,
-           anchor="start")
-    caveat(d, "use it when the data cannot be replicated. Otherwise you have just "
-              "coupled B's availability to A's, which is the thing Day 1 spent a "
-              "day undoing.", y=674)
-    return d
+    # **The port lists are what make the two answers miss each other.** A's `result`
+    # sits ABOVE its `out`, so the response leaves above the publish stream and the
+    # feed to Build Lookup can drop straight down without crossing it. Reversed --
+    # which is the order that reads more naturally in the call -- the two arcs cross
+    # in mid-air between the two answers, and the reader has to work out which line
+    # belongs to which.
+    a = d.node(220, 136, 240, 130, "A", ins=("lookup",), outs=("result", "out"))
+    b = d.node(1000, 136, 240, 130, "B", ins=("result",), outs=("lookup",))
 
+    # Answer one: the lookup port. The query goes over the top of the whole drawing
+    # and the response comes back down the middle, so the round trip encloses
+    # everything -- which is the cost, drawn at its true length.
+    d.arrow(a["ports"]["result"], b["ports"]["result"], "response",
+            sides=("r", "l"), via=[(520, 179.3), (520, 201), (820, 201)], ly=-14)
+    # **`lx` pulls the label off the middle of its own leg, and it has to.** `_mid`
+    # puts a label on the middle segment, which here is the full-width leg over the
+    # top, so "query" landed centred -- directly under the red idea, which is also
+    # centred. **Two pieces of text cannot be spaced in raw units:** their positions
+    # scale with `compact()` and their heights do not, so the 50 raw units between
+    # them came out as 29, against type 24 tall. `lx` is applied AFTER the scale, so
+    # it is the one nudge that means the same thing before and after.
+    d.arrow(b["ports"]["lookup"], a["ports"]["lookup"], "query", sides=("r", "l"),
+            via=[(1420, 201), (1420, 96), (60, 96), (60, 201)], lx=-280, ly=-14)
+    d.icon(976, 300, "clock", accent=True, r=14)
+    # anchored END, so it runs back into the empty middle instead of out under B --
+    # centred or anchored start it lay across the hexagon it is about. It sits a row
+    # below the clock rather than beside it, for the same reason "query" moved: side
+    # by side, the 16 raw units between the word and the dial came out as 9.
+    d.note(950, 362, "B stops here until\nthe answer comes back", ANNOTATION, 15,
+           anchor="end")
 
-@figure("flow-lookup-build")
-def lookup_build():
-    """*Where Do Lookups Live?*, third of three: Build Lookup.
-
-    The pair to the figure above, and the red is deliberately on the **absence of a
-    pause**: B reads a table that is already there, so there is nothing to draw
-    waiting for. Same convention as run 1's two *no such thing* figures.
-
-    **The read does not arrive on a port.** It is not a packet -- it is B reading a
-    local table -- so it enters the top of the node rather than an in-port, and the
-    note says as much. Routing it into an in-port would have made it the long way
-    round again, which is the very thing this figure is contrasting with."""
-    d = Diagram("FBP — the Build Lookup Node", w=1160, h=600)
-    idea(d, "a node whose whole job is keeping a local copy current, so nobody has "
-            "to walk — that is the Catalogue Maker")
-
-    a = d.node(140, 128, 190, 112, "A", ins=("in",), outs=("out",))
-    bl = d.node(430, 128, 230, 112, "Build Lookup", ins=("in",), outs=("out",))
-    tbl = d.cylinder(800, 132, 200, 104, "lookup table")
-    b = d.node(430, 380, 230, 112, "B", ins=("in",), outs=("out",))
-
-    d.arrow(pkt_on(d, 40, a["ports"]["in0"]), a["ports"]["in0"], sides=("r", "l"))
-    d.arrow(a["ports"]["out0"], bl["ports"]["in0"], sides=("r", "l"))
+    # Answer two: the copy, built in advance. Underneath, and it reaches B without
+    # ever touching a port.
+    bl = d.node(620, 400, 280, 120, "Build Lookup", ins=("in",), outs=("out",))
+    tbl = d.cylinder(1010, 410, 220, 100, "lookup table")
+    d.arrow(a["ports"]["out"], bl["ports"]["in0"], sides=("r", "l"),
+            via=[(540, 222.7), (540, 460)])
     d.arrow(bl["ports"]["out0"], tbl, sides=("r", "l"))
-    d.arrow(pkt_on(d, 250, b["ports"]["in0"]), b["ports"]["in0"], sides=("r", "l"))
-    d.arrow(b["ports"]["out0"], pkt_on(d, 760, b["ports"]["out0"]), sides=("r", "l"))
+    # **The read does not arrive on a port**, and it is drawn that way on purpose: it
+    # is not a packet, it is B reading a table that is already there, so it enters the
+    # hexagon's edge. Routing it into an in-port would have made it the long way round
+    # again, which is the very thing this half is contrasting with. The cylinder's
+    # centre is set to B's so the run is a true vertical rather than a slight slant.
+    d.arrow(tbl, b, accent=True, sides=("t", "b"))
+    d.note(1264, 336, "read locally — no pause", ANNOTATION, 15, anchor="start")
 
-    d.arrow(tbl, b, "read locally — no pause", accent=True, sides=("b", "t"),
-            via=[(900, 320), (545, 320)], ly=-8)
-
-    d.note(235, 282, "A publishes what it\nknows, as it changes", COMMENT, 15)
-    d.note(545, 282, "listens to A, and keeps\nthe table current", COMMENT, 15)
-    # above the cylinder, not below it: the read leaves the cylinder's bottom centre
-    # and any note under it is on the line
-    d.note(900, 104, "the copy, held where B needs it", COMMENT, 15)
-    d.note(545, 540, "not a packet on a port — a table B reads, so nothing waits",
-           COMMENT, 15)
-    caveat(d, "in advance rather than on demand: no temporal coupling, and the copy "
-              "is behind by one broker hop — which is the trade you are making",
-           y=578)
+    caveat(d, "the lookup port when the data cannot be replicated; the copy "
+              "otherwise — and the copy is behind by one hop, which is the trade",
+           y=566)
     return d
 
 
