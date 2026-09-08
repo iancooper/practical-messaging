@@ -1382,6 +1382,7 @@ describe.
 | entry | was | now | notes |
 |---|---|---|---|
 | D2 *When the Pipe Fills* | `flow-backpressure` + `flow-load-shedding` | ✅ `flow-when-the-pipe-fills` | one producer/pipe/consumer; the pressure goes back above it, the data falls out below |
+| D2 *Putting Reactive Together* | `flow-scale-out` + `flow-scale-out-fault` | ✅ `flow-scale-out` | one Supervisor, three workers: one added, one failed in a fault region, and the middle one does double duty so three shapes do the work of four |
 
 **A second rule fell out of the first one.** `Diagram.K_FLOOR` is 0.55 — a figure may not be shrunk by
 more than 45% — and **text does not shrink with the geometry**, so a composed figure that is one row

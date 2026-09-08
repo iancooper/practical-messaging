@@ -700,8 +700,7 @@ The pieces, and how they compose.
 ▎ Responsive under failure, responsive under load. The traits are these mechanisms.
 
 #image: hand-drawn message-passing diagram — circuit breaker: stop consuming, and let one trial call through  [→ resources/flow-circuit-breaker.png]
-#image: hand-drawn 'scale out not up' diagram — a Supervisor fanning work out to identical Workers  [→ resources/flow-scale-out.png]
-#image: hand-drawn 'scale out not up' diagram — one Worker in a fault region, and the other carrying on  [→ resources/flow-scale-out-fault.png]
+#image: hand-drawn 'scale out not up' diagram — a Supervisor fanning work out to identical Workers: one added, one in a fault region, and the rest carrying on regardless  [→ resources/flow-scale-out.png]
 
 Presenter notes: The circuit-breaker and scale-out diagrams used to be orphaned images under a "recap" heading and were never really taught. Give them a sentence each. Land the callout: Resilient and Elastic are not aspirations, they are the four mechanisms on this slide.
 

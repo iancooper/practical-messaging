@@ -963,74 +963,94 @@ def circuit_breaker():
 
 @figure("flow-scale-out")
 def scale_out():
-    """*Putting Reactive Together*, second of three. Red is on the **added worker**:
-    scaling out is one more identical instance and nothing else, and that is what
-    makes elasticity a property of the shape rather than a feature you build."""
-    d = Diagram("Scale Out, Not Up", w=1300, h=580)
-    idea(d, "elasticity is one more identical worker on the same in-port — "
-            "which is competing consumers, from Day 1")
+    """*Putting Reactive Together*, second of two -- **elastic and resilient on one
+    drawing.** Composed from what were `flow-scale-out` and `flow-scale-out-fault`,
+    and the figure it replaces asked for this in its own words: its red idea was
+    *"that is what resilient and elastic look like on the same drawing"*, which was a
+    sentence about a drawing that did not exist.
 
-    sup = d.node(110, 240, 220, 132, "Supervisor", ins=("in",), outs=("out",))
-    d.arrow(pkt_on(d, 30, sup["ports"]["in0"]), sup["ports"]["in0"],
+    **The two are one property seen twice, which is why they compose.** Workers are
+    interchangeable: because they are, you can add one and throughput goes up, and
+    because they are, you can lose one and the work goes back on the queue. Drawing
+    them apart made that read as two facts about scaling rather than one fact about
+    the shape.
+
+    **The middle worker does double duty, and that is what makes it fit.** Three
+    stacked workers is the obvious merge and it does not fit: the pair's nodes come
+    out 85 units tall in the finished figure and three of those with gaps wants 387
+    units of a stage that has 325 once the red idea and the foot comment are off it.
+    So the added worker is also one of the survivors -- it carries the elastic note
+    and sits outside the fault region -- and three shapes do the work of four.
+
+    **Everything the pair said in prose and the slide says too is gone.** Between them
+    they carried six explanatory notes; what is left is the two sentences a picture
+    can make and a bullet cannot: one more of these, and one fewer.
+
+    Red is on both, because they are one idea. Reding only the fault would say
+    elasticity is the default and resilience the remark, which is the wrong way round
+    for a slide called *Putting Reactive Together*.
+    """
+    d = Diagram("Scale Out, and a Fault", w=1300, h=624)
+    idea(d, "workers are interchangeable — so you can add one, and so you can "
+            "lose one")
+
+    # 300 wide, not the pair's 220: at the k this figure compacts to, the label-fit
+    # clamp is `(advance + 12) / w` and "Supervisor" is the longest name on the
+    # drawing. Widening the node is free here and shortening the word is not an
+    # option -- it is the name of the thing.
+    sup = d.node(90, 250, 300, 104, "Supervisor", ins=("in",), outs=("out",))
+    d.arrow(pkt_on(d, 20, sup["ports"]["in0"]), sup["ports"]["in0"],
             sides=("r", "l"))
 
-    for y, accent in ((172, False), (400, True)):
-        w = d.node(660, y, 220, 128, "Worker", ins=("in",), outs=("out",),
-                   accent=accent)
+    # **The fault region opens 56 units above the failed worker's hexagon, and that gap
+    # is the whole design of this corner.** Three things want the same band of the
+    # drawing: the region's dashed border, the region's own "fault" label, and the
+    # name of the hexagon inside it -- and a note lying on a group border is one of
+    # `lint_figures.py`'s three blind spots, so none of it is caught by machine.
+    # Under the hexagon the name landed on the border's other side and the foot
+    # comment ran through both. Above it, with the border opened to make room, all
+    # three clear each other and "fault" sits at the top LEFT where nothing else is.
+    #
+    # **And the region's top edge has to clear the worker ABOVE it, not just the one
+    # inside it.** At 336 the dashed border ran 2 units under the added worker's
+    # hexagon -- and both of them are red, so the two shapes read as one thing and
+    # the drawing appeared to say the elastic worker was in the fault region. Nothing
+    # measures the gap between a group border and a shape outside it.
+    d.group(618, 352, 326, 174, "fault", accent=True)
+    for y, kind in ((108, "plain"), (246, "added"), (404, "dead")):
+        w = d.node(660, y, 240, 88, "" if kind == "dead" else "Worker",
+                   ins=("in",), outs=("out",), accent=(kind == "added"))
         d.arrow(sup["ports"]["out0"], w["ports"]["in0"], sides=("r", "l"),
-                via=[(500, 306), (500, y + 64)])
-        d.arrow(w["ports"]["out0"], pkt_on(d, 950, w["ports"]["out0"]),
-                sides=("r", "l"))
-
-    # anchored start, clear of the out packet: centred here they sat on top of it
-    d.note(1010, 230, "identical: same code,\nsame in-port name", COMMENT, 15,
-           anchor="start")
-    d.note(1010, 452, "add one, and throughput goes up.\nNothing else changes.",
-           ANNOTATION, 15, anchor="start")
-    d.note(220, 428, "fans work out — it does\nnot know how many\nworkers there are",
-           COMMENT, 15)
-    caveat(d, "scale out, not up: twelve-factor, and the same competing consumers "
-              "the queue gave you yesterday")
-    return d
-
-
-@figure("flow-scale-out-fault")
-def scale_out_fault():
-    """*Putting Reactive Together*, third of three -- the same drawing with a fault
-    in it, so the pair reads as one figure and its consequence. Red is the **fault
-    region**: the point is what does *not* happen to the other worker.
-
-    The failed worker's name sits above its hexagon rather than inside it, for the
-    same reason as the bulkhead's -- a full-size cross strikes through its own
-    label."""
-    d = Diagram("Scale Out — and a Fault", w=1300, h=650)
-    idea(d, "one worker fails and the others do not notice — that is what resilient "
-            "and elastic look like on the same drawing")
-
-    sup = d.node(110, 240, 220, 132, "Supervisor", ins=("in",), outs=("out",))
-    d.arrow(pkt_on(d, 30, sup["ports"]["in0"]), sup["ports"]["in0"],
-            sides=("r", "l"))
-
-    d.group(608, 372, 336, 190, "fault", accent=True)
-    for y, dead in ((172, False), (416, True)):
-        w = d.node(660, y, 220, 128, "" if dead else "Worker",
-                   ins=("in",), outs=("out",))
-        d.arrow(sup["ports"]["out0"], w["ports"]["in0"], sides=("r", "l"),
-                via=[(500, 306), (500, y + 64)])
-        if dead:
-            d.note(770, 398, "Worker", INK, 17)
-            d.icon(770, y + 64, "cross", accent=True, r=40)
+                via=[(520, 302), (520, y + 44)])
+        if kind == "dead":
+            # above the hexagon, as `flow-circuit-breaker` and the bulkhead both do:
+            # a full-size cross strikes through a label left inside the shape, which
+            # has cost this family two rounds already
+            d.note(780, 378, "Worker", INK, 17)
+            d.icon(780, y + 44, "cross", accent=True, r=26)
         else:
-            d.arrow(w["ports"]["out0"], pkt_on(d, 950, w["ports"]["out0"]),
+            d.arrow(w["ports"]["out0"], pkt_on(d, 1010, w["ports"]["out0"]),
                     sides=("r", "l"))
 
-    d.note(1010, 230, "still working, still delivering", COMMENT, 15, anchor="start")
-    d.note(980, 480, "its work goes back on the\nqueue and another worker\ntakes it",
-           COMMENT, 15, anchor="start")
-    d.note(220, 425, "the Supervisor replaces it —\nit was never holding\n"
-                     "anything the worker knew", COMMENT, 15)
+    # **One line each, and that is a legibility fix as much as an editorial one.**
+    # These were two lines apiece, and between the pair of them, the red idea, the
+    # green aside and a two-line foot comment the drawing carried more prose than the
+    # slide does. Text does not scale when `compact()` shrinks a figure, so a note
+    # anchored out to the right sets a floor on how narrow the whole thing can get --
+    # this one stalled at 908 units and 17.6pt with nothing to say why. The slide's
+    # own bullet already has *a supervisor fans work out to worker instances; that is
+    # elasticity*, and the presenter note asks for a sentence each, not a paragraph.
+    # 1075, not 1030: at 1030 an anchored-start note began inside the out-packet it
+    # sits beside. A packet is 30 units wide and the arrow into it is not, so the
+    # clearance has to be measured from the packet, not from the arrowhead.
+    d.note(1075, 302, "add one — throughput goes up", ANNOTATION, 15,
+           anchor="start")
+    d.note(1075, 448, "lose one — the rest do not notice", ANNOTATION, 15,
+           anchor="start")
+    d.note(240, 442, "the Supervisor does not know how\nmany there are — which is "
+                     "why both\nof those are free", COMMENT, 15)
     caveat(d, "resilient and elastic are not aspirations. They are message passing, "
-              "backpressure, a circuit breaker and this.", y=616)
+              "backpressure, a circuit breaker and this.", y=572)
     return d
 
 
