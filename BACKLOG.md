@@ -6,8 +6,8 @@ workstream with its own brief**. If this file and the plan disagree, **the plan 
 is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
-Last reconciled against the repo: **2026-09-09**, after B1 and B4-B6. **§B is closed except B2/B3,
-which have no action available; §C, the two handouts, is what is left.**
+Last reconciled against the repo: **2026-09-09**, after B1 and B4-B6. **What is left is §C, the two
+handouts, plus B7** — B2 and B3 have no action available.
 
 **Where things stand.** Phases 1 and 2 are closed. Phase 3 — the deck builds — is most of the way
 through: both decks build clean from `outlines/` with an empty overflow report, Day 1 **138 slides**
@@ -47,13 +47,13 @@ died with the session. The next one written should go in `tools/` and be committ
 | # | item | why it is not done | size | detail |
 |---|---|---|---|---|
 | **B1** | ✅ Reshape `boundary-what-crosses` | **Done 2026-09-09.** Application beside store, mirrored through the line: 1.57 : 1 becomes 2.60 : 1 and **82% becomes 96%**, the stage's own width and the cap. Nothing cut — three bullets, both refusals, both crosses. The trade is that §1's boundary rule now reads shorter than §3's | — | plan §8 item 23e, *One figure was at 82%* |
-| **B2** | The other five figures under 85% | **No action available.** While a figure's canvas and its stage are both height-fitted, the percentage reduces to `stage_height × 2.2 / 12.4` and the aspect cancels out: nothing improves until the drawing is wider than ~2.57 : 1. Only a content change moves them | — | plan §8 item 23e; the list is in `PROMPT.md` |
-| **B3** | 30 of 90 figures under the 18pt floor | **18 are Ian's standing decision** — `bpmn_hotel`, `bpmn_shopping`, `paper_flow`; he scoped the re-sweep away from them. The other 12 are **clamp-bound**: a shape may not shrink below its own label, so the only lever is content, per figure | — | `PROMPT.md` *On Ian's desk* item 8 |
+| **B2** | The other five figures under 85% | **No action available.** While a figure's canvas and its stage are both height-fitted, the percentage reduces to `stage_height × 2.2 / 12.4` and the aspect cancels out: nothing improves until the drawing is wider than ~2.57 : 1. Only a content change moves them | — | plan §8 item 23e. **The builder names them by file every run**, so there is no list to keep |
+| **B3** | 30 of 90 figures under the 18pt floor | **18 are Ian's standing decision** — `bpmn_hotel`, `bpmn_shopping`, `paper_flow`; he scoped the re-sweep away from them. The other 12 are **clamp-bound**: a shape may not shrink below its own label, so the only lever is content, per figure | — | `python3 tools/reads_at.py --all`; F-items below for the standing decision |
 | **B4** | ✅ Day 1 image-dump sweep | **Done 2026-09-09, and it is a clean negative.** Day 1 carries 49 images across 91 entries and **no entry holds more than one** — the defect Day 2's *Paper Workflow Illustrations* had cannot exist here. Day 2 still has 18 multi-image entries, all of them ruled on in plan §8 item 23e | — | plan §8 item 23e |
 | **B5** | ✅ The load-bearing-line sweep, Day 1 §4 | **Done 2026-09-09.** Six candidates across §4.1–§4.4; §4.5 carries no presenter notes at all, so nothing can hide there. **Four promoted** — *Channels*, *Translate and Dispatch*, *Competing Consumers*, *Invalid Message Channel*. **Two were false positives the figures already answered**, and only rendering the slides showed it | — | plan §8 item 24 |
 | **B6** | ✅ Stale cross-references, re-run | **Done 2026-09-09**, after B5. Four wrong: two on Day 1 (*the next slide is the bill*, which pointed at the wrong slide; *the last slide of this sub-section*, which the exercise slot displaced) and two on Day 2 (a count of five that is now seven, and *the next two slides* that are the second and third). All four now **name the slide** rather than count from it. **Re-run this after any structural change** | — | plan §8 item 24 |
 | **B8** | ✅ Day 1's exercise slots | **Done 2026-09-09.** Ian ruled three slots; the RMQ pointer moved off §4.2 to close §4.3, and *Exercise Material — Failing Well* now closes §4.4. Day 1 is 91 entries, **137 slides** | — | `code-rewrites.md` §3.2 |
-| **B7** | `(sNN)` markers vs the 2025 decks | The 2025 decks in `archive/` hold the same 112 images byte-for-byte as the 2024 one the markers were derived from, **but the slide text has never been diffed** — so whether the markers are stale is open | S | `PROMPT.md`, *Checked, so do not re-report it* |
+| **B7** | `(sNN)` markers vs the 2025 decks | **Checked so far, so do not redo this part:** the 2025 decks in `archive/` (dropped 2026-09-03) do **not** hold the order-taking photograph, and `Day 2 - 2025.pptx` holds the **same 112 images byte for byte** as the `Day 2 - 2024.pptx` that `session-work/imgs/` came from — same 14 `.jpg`s, same hashes. **What is open is the slide *text*, which has never been diffed**, so whether the outlines' `(sNN)` references are stale against 2025 is unknown | S | this row is the whole record |
 
 ---
 

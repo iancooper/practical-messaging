@@ -33,6 +33,6 @@ If he has not said yes, build the file and stop with the path. Do not call `Arti
 3. **When findings come back, apply them and republish the same artifact** — pass its `url` and
    `action: "read"` it first. Scratchpads are per-session, so "republish the same path" only
    works inside one session; from a fresh one you need the URL.
-4. **Record the sheet and its state** in `PROMPT.md`'s table and `BACKLOG.md` F3.
+4. **Record the sheet and its state** in the `review-sheet` skill's own table and `BACKLOG.md` F3.
 
 **His answer often exceeds the options offered** — read it as prose, not as a selection.
