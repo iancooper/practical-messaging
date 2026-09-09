@@ -346,14 +346,31 @@ class Deck:
         self.day = day
         self.slides = []          # list[Laid]
         self.compare = []         # entries whose figures were shown one at a time
+        self._kicker_warned = set()   # one line per offending title, not per slide
 
     # -- chrome ----------------------------------------------------------------
     def _ground(self, laid, colour=PAPER):
         laid += Rect(0, 0, W_IN, H_IN, fill=colour)
 
+    # The right-hand panel starts here, and the kicker is drawn full-bleed across
+    # the top -- so a long `#group:` title runs UNDER a photograph rather than
+    # wrapping. Nothing downstream can tell: it looks like a short kicker.
+    PANEL_X = M_L + CONTENT_W * 0.52
+
     def _kicker(self, laid, text):
+        # **A squeezed layout has to say so.** Same rule the table columns learned:
+        # a clipped label looks like a short label, and no reader of the outline can
+        # see the difference. Measured against the panel edge rather than the slide,
+        # because any slide in a group may carry a figure.
+        up = text.upper()
+        adv = _Outliner.outline(up, MONO, KICKER_PT, 0, 0, "start")[1]
+        w = (adv + 0.16 * KICKER_PT * max(0, len(up) - 1)) / 72.0
+        if M_L + w > self.PANEL_X and up not in self._kicker_warned:
+            self._kicker_warned.add(up)
+            print(f"  ! kicker runs under the figure panel by "
+                  f"{M_L + w - self.PANEL_X:.2f}in: {text!r}", file=sys.stderr)
         laid += Text(M_L, M_T + _in(KICKER_PT) * 0.80,
-                     [(text.upper(), False, False, False)], MONO, KICKER_PT,
+                     [(up, False, False, False)], MONO, KICKER_PT,
                      CARBON, track=0.16)
         return M_T + _in(KICKER_PT) * 1.70
 

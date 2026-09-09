@@ -416,16 +416,6 @@ Presenter notes: Gateway vs. Endpoint: the endpoint *contains* the gateway but m
 ---
 
 
-### Slide: Exercise Material — Introduction & RMQ
-
-Readme, videos, scripts & slides. Introduction to Exercises; Quick Start RabbitMQ — the AMQP 0-9-1
-primitives (exchanges, bindings, queues) behind everything §4.2 just described abstractly.
-
-
-#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)  [→ resources/dont-panic.jpg]
-
----
-
 ---
 
 ## 4.3 The Message Pump
@@ -558,6 +548,26 @@ sub-topic is the fact that nothing so far actually guarantees it.
 
 ---
 
+### Slide: Exercise Material — Introduction & RMQ
+
+Readme, videos, scripts & slides. Introduction to Exercises; Quick Start RabbitMQ — the AMQP 0-9-1
+primitives (exchanges, bindings, queues) behind the channels of §4.2.
+
+**Then build the thing you have just been shown:** a producer, and a consumer with a message pump —
+mapper, handler registry, and a handler that knows nothing about messaging.
+
+#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)  [→ resources/dont-panic.jpg]
+
+Presenter notes: **Get RMQ up before they need it** — the compose file is in the pack and the pull is
+slow on venue wifi, so say this before the break, not after it. The Quick Start covers exchanges,
+bindings and queues, which is §4.2's channel material in AMQP's own vocabulary; it is precursor
+reading, not an exercise. The exercise itself is this sub-topic made real, and the piece to watch for
+is the last one: **a handler that takes a domain type and returns**, with the messaging kept on the
+other side of the mapper. If their handler has a broker type in its signature, the mapper is not
+finished.
+
+---
+
 ---
 
 ## 4.4 Guaranteed Delivery
@@ -585,7 +595,7 @@ telling them the truth.
 
 ---
 
-#group: The producer side — did the message actually get out?
+#group: The producer side — did the message get out?
 
 ### Slide: The Dual-Write Problem
 
@@ -664,7 +674,7 @@ cope with **eventual consistency**, which isn't always simple.
 
 ---
 
-#group: The consumer side — the pump, and the message it cannot ack
+#group: The consumer side — what the pump cannot ack
 
 ### Slide: When the Handler Fails — Ack and Nack
 
@@ -794,6 +804,25 @@ Presenter notes: This slide is the honest answer to "why does my library make th
 it makes the queue-versus-stream distinction concrete *before* §4.5 draws it conceptually, and it
 explains why the same reliability pattern costs very different amounts on different infrastructure.
 Ask the room which broker they are on and what they assumed was native.
+
+---
+
+### Slide: Exercise Material — Failing Well
+
+Take the pump you built and make it survive the ways this sub-topic says it will fail: a message that
+**cannot be mapped**, and a message that **fails handling** *n* times. Use RMQ's own dead-letter
+exchange rather than building one.
+
+▎ Two different failures, two different answers — and the pump has to tell them apart.
+
+#image: 'DON'T PANIC' in red on black (Hitchhiker's Guide reference)  [→ resources/dont-panic.jpg]
+
+Presenter notes: **The callout is the whole exercise.** A body that will not map is never going to map,
+so retrying it is a poison pill — it goes straight to the invalid message channel. A handler that
+failed may simply have been unlucky, so it is requeued with delay and only dead-lettered when the count
+runs out. That distinction is §4.3's *failure to understand versus failure to process*, and it is the
+one thing to check they have got. **Have them watch the management console while it happens** — the
+unacked count, the retry count, and the `x-death` header on what lands in the DLQ.
 
 ---
 

@@ -36,7 +36,17 @@ be disturbed** — it is the top block of the file and is clearly marked.
 
 ## 2. What is NOT in this repo — Ian supplies it ##
 
-**The exercise code.** From `Introduction-To-Exercises.pptx`, which is the only place any of this is
+**⚑ Correction, and it is rule 4 again.** This brief first listed *"where is the code?"* as an open
+question for Ian. **It is written down in `outlines/DayOne.md`, in the deck's own preamble** — the file
+this workstream has been editing all week:
+
+> - Course content: `https://github.com/iancooper/practical-messaging`
+> - Exercise code: C#, Python, JavaScript, Go, Java repos under `github.com/iancooper/Practical-Messaging-*`
+
+**That is the fifth time this project has been about to report something absent that was not.** Check
+the repo before asking.
+
+**What the code is like.** From `Introduction-To-Exercises.pptx`, which is the only place any of this is
 written down:
 
 - The exercises are **in GitHub**, with the videos.
@@ -111,8 +121,10 @@ Under the new list, **exercise 1 needs §4.3 and exercise 2 needs §4.4** — bo
 the slot that introduces them. As it stands the deck would hand out an exercise asking delegates to
 build a message pump one sub-topic before it teaches what a message pump is.
 
-**The recommendation is three slots, not two**, and it costs two pointer slides (~2 min in the timing
-model, which rates a pointer at 1.0):
+**✅ Ian settled this on 2026-09-09: three slots.** *"Yes, three slots — move the RMQ pointer to §4.3
+and §4.4."* **Done in the outline** — the §4.2 pointer is gone, *Exercise Material — Introduction & RMQ*
+now closes §4.3, and a new *Exercise Material — Failing Well* closes §4.4. Day 1 is 91 entries and
+**137 slides**.
 
 | after | exercise | why there |
 |---|---|---|
@@ -120,15 +132,14 @@ model, which rates a pointer at 1.0):
 | §4.4 Guaranteed Delivery | **2** | ack / nack / requeue / DLQ are §4.4's own vocabulary |
 | §4.5 Queues and Streams | **3** *(+ 4 as take-home)* | unchanged from today |
 
-**The alternative — one block after §4.4 — makes §4.1 → §4.4 about 93 minutes of continuous lecture
-before anyone touches a keyboard.** Splitting it gives 41 minutes, hands on, 38 minutes, hands on.
-That is the trade, and it is Ian's to call; the precursor material (*Introduction to Exercises*,
-*Quick Start RMQ*) still wants handing out at §4.2, because the Quick Start is about AMQP primitives
-and that is what §4.2 teaches.
+The alternative — one block after §4.4 — would have made §4.1 → §4.4 about 93 minutes of continuous
+lecture before anyone touched a keyboard. Three slots gives 41 minutes, hands on, 38 minutes, hands on.
 
-**⚑ Nothing has been changed in `outlines/` for this.** The deck should not chase a rework that has
-not landed. When the list is built, the edit is: move / split the §4.2 pointer slide, and re-check
-its presenter notes.
+**The precursor material stayed with the first slot rather than going back to §4.2.** *Quick Start
+RMQ* is about exchanges, bindings and queues, which is §4.2's channel material in AMQP's vocabulary —
+but it is precursor *reading*, and splitting it away from the exercise it precedes would have left a
+pointer slide pointing at nothing. Its presenter note now carries the run-of-show instead:
+**get RMQ up before the break, because the pull is slow on venue wifi.**
 
 ### 3.3 Three connections worth making deliberately ###
 
@@ -179,6 +190,81 @@ for DLQ to the pump"* are **whole-component tasks**, which is what *post agentic
 That is not a smaller version of the same repo, it is a different shape of one, and it decides
 everything else: how many branches, whether solutions still exist as a parallel branch, and **whether
 five languages is still the right bet or the moment to cut**. Settle it before touching code.
+
+### 3.6 Designing for a delegate who has an agent ###
+
+**Ian, 2026-09-09:** *"How would we modify an exercise, if we assumed that you had access to an agent?
+And what would be a fallback if the attendees didn't have the tokens to spend?"*
+
+**Start from what the agent defeats.** Today's format is code with holes in it, marked by comments. An
+agent fills those holes in seconds and correctly, and the delegate learns nothing — so the format is not
+merely less valuable, it is **actively defeated**. Anything whose difficulty was *typing it* is gone.
+
+**What survives is everything the delegate has to judge.** Three things, and they are the exercise:
+
+1. **Specification, not implementation.** The delegate writes the ask and reviews the answer. You cannot
+   prompt *"add DLQ support to the pump"* well without already knowing what a dead-letter queue is for,
+   when a message should reach one, and what *n* retries buys. **The skill becomes knowing what to ask
+   for and recognising when you did not get it** — which is the skill this course exists to teach.
+2. **Make it fail.** An agent will produce code that works. It cannot tell you the code is wrong *under
+   failure* unless you make it fail. So the centre of gravity moves from *make it work* to
+   **predict, break, observe**: the delegate writes down what they think will happen, then kills the
+   consumer mid-handle and looks. An agent does not help you predict, and the RMQ management console is
+   agent-proof — queue depth, unacked count, the `x-death` header.
+3. **Review a wrong implementation.** Hand them working, plausible, subtly wrong code — acks before
+   handling, no idempotency, a transient failure dead-lettered on the first try — and ask what breaks.
+   **The deck is already a catalogue of the ways messaging code is subtly wrong**, so the material for
+   this exists; it is §4.4, restated as defects.
+
+#### The probes, per exercise — and they are the deck's own content ####
+
+| exercise | break it like this | the slide it lands on |
+|---|---|---|
+| **1** Pump | throw from the handler before writing any error handling. Send a body that will not map. Watch the unacked count while the handler sleeps. Kill the consumer with a message in flight | §4.3 *The Message Pump*, *Translate and Dispatch* |
+| **2** DLQ | set *n* = 3 and predict how many times the handler runs, then count it in the console. Send a poison message and read the `x-death` header. **Then argue whether a failed mapping and a failed handling belong in the same place** | §4.3's *failure to understand vs. failure to process*; §4.4 *Invalid Message Channel*, *Requeue with Delay*, *Dead Letter Channel* |
+| **3** RMQ → Kafka | kill the process **between** the RMQ ack and the Kafka produce — what is lost? Now reverse the order — what is duplicated? | §4.4 *The Dual-Write Problem*, and it arrives as a discovery rather than a claim |
+| **4** Lookup | stop the consumer that fills the lookup. What does the handler see, and **how stale is it?** Measure it | §6.2 *Reference Data*; Day 2's `flow-lookup-table` — *"behind by one broker hop, which is the trade"* |
+
+**⚑ Exercise 3's probe is the strongest thing on this list.** It turns the outbox from a slide into
+something the room has just done to itself, and it costs one instruction. That is the answer to §3.3
+item 1: the outbox does not need its own exercise, it needs *this* probe.
+
+#### The fallback — and the good answer is not API keys ####
+
+**Design so the agent is an accelerator, not a prerequisite.** If the graded artefact is *"what did you
+predict, and what actually happened"*, then a delegate with no agent **starts from the working
+implementation and goes straight to the probes.** They lose the authoring practice — which is the part
+we have just agreed is the low-value part. Nobody is blocked, and nobody needs a key.
+
+**That inverts the branch scheme, and simplifies it.** Today `master` is blank with exercise and
+solution branches beside it. What this design wants is a **working baseline everyone can run**, plus a
+probe sheet. The "write it yourself" branch becomes the optional path rather than the main one.
+
+| fallback | verdict |
+|---|---|
+| **Start from the working implementation** | **The recommendation.** No cost, no admin, no per-delegate budget, and it degrades gracefully — a delegate whose agent dies mid-exercise switches to it without losing the session |
+| Pair up — one agent per pair | Free, and pairing on a prediction is *better* than doing it alone. Worth suggesting regardless |
+| Temporary API keys for the day | Works, but it is cost, admin, a budget per delegate, and a support surface on the morning. **Keep it as the answer for a client who asks for it, not the design assumption** |
+| A local model | Setup cost on a venue laptop is worse than the problem |
+
+**⚑ And this is where the five-language burden might go.** The matrix exists because delegates type the
+code and want their own language. If the agent writes it, the maintained artefact could be **one
+reference implementation plus a language-independent probe sheet** — docker, the management console and
+the predictions are the same in every language. **Do not go all the way there**: the *scaffolding* (the
+messaging gateway, the console app, the compose files) still has to exist per language or a delegate
+spends the session yak-shaving. The realistic cut is **keeping the scaffolding in five and dropping the
+per-exercise exercise/solution duplication**, which is where the maintenance actually is.
+
+#### What this changes in `exercises/` ####
+
+`Introduction-To-Exercises.pptx` needs the most work of anything in this brief, and it is the first
+thing a delegate reads. Slides 3–8 describe a course that will not exist: *"watch a video, if there is
+an associated exercise do the exercise, repeat"* over twenty videos and four exercises, and *"the
+master branch is blank, solutions and questions are branches"*. **The Steps, Exercises, What Do You Do
+and Making the Most of This slides all need rewriting together** — and *Making the Most of This*
+currently argues against exactly the thing we are now assuming (*"you could just type the code from
+Solutions… you won't learn as much"*). That argument has to be re-aimed: **not "don't copy the answer"
+but "the answer is not the point — the prediction is."**
 
 ## 4. Broken references — checked against the filesystem, not guessed ##
 
@@ -250,7 +336,7 @@ overruns. Whoever runs it next should time **each exercise**, not just the two b
 
 **Open, and needs Ian:**
 
-1. **Where is the code?** Repo, branches, and whether the five languages are still all maintained.
+1. **Are all five language repos still maintained?** The locations are known (§2); which are current is not.
 2. **⚑ Does the fill-in-the-blanks format survive?** §3.5. This is the one that decides the repo's
    shape, and therefore the size of everything else.
 3. **Three slots or one block?** §3.2 — three keeps the rhythm, one block puts ~93 minutes of lecture

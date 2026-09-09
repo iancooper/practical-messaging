@@ -194,7 +194,7 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | 1 | **The Process Boundary** *(was Distributed Systems)* | **2** | ✅ **T-0 (2026-09-01): 7 → 2.** The *why* went to Day 2; the boundary + guaranteed delivery compressed into an opener | ☐ | ☐ |
 | 2 | Coupling | **4** | ✅ D1-7; **T-0 dropped *Why It Matters*** and moved the 0.999⁴ arithmetic into *Must We Both Be Up?* | ✅ `grid-coupling` + `coupling-scale-boundary`; ☐ **integration options card** (§8 item 8) | ☐ |
 | 3 | Integration Styles | 5 | ✅ D1-7: each style scored on what it hands back; closes on *Why Messaging* | ✅ §2 grid re-plotted + 4 `style-*` figures (item 9) | ☐ |
-| 4 | **Messaging Patterns** | **46** | ✅ build order; −9 §4.6, +2 task queue, +1 D1-8 | ☐ 12 EIP redraws | ☐ merge scripts |
+| 4 | **Messaging Patterns** | **47** | ✅ build order; −9 §4.6, +2 task queue, +1 D1-8. **P3: the exercise slots went 2 → 3** (2026-09-09) — the RMQ pointer moved off §4.2 to close §4.3, and *Exercise Material — Failing Well* closes §4.4; `code-rewrites.md` §3.2 | ☐ 12 EIP redraws | ☐ merge scripts |
 | 4a | · The Big Picture | 1 | ☐ reframe as build order | | |
 | 4b | · 4.1 What Is a Message? | 6 | | | |
 | 4c | · 4.2 Sending and Receiving | 7 | +RMQ Quick Start | | |
@@ -1595,7 +1595,7 @@ and have had since 2026-09-02. The counts below are the ones the hand-off's veri
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
 | `outlines/DayOne.md` | **49** | **49** | 0 | **0** | **0** |
-| `outlines/DayTwo.md` | **88** | **87** | 0 | **0** | **1** |
+| `outlines/DayTwo.md` | **84** | **83** | 0 | **0** | **1** |
 
 **Re-measured again after class D, 2026-09-07. Day 1 is fully annotated**, and the one line left on Day 2
 is the order-taking photograph, which is Ian's export.
