@@ -6,13 +6,14 @@ workstream with its own brief**. If this file and the plan disagree, **the plan 
 is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
-Last reconciled against the repo: **2026-09-09**, after B1 and B4-B6. **What is left is §C, the two
-handouts, plus B7** — B2 and B3 have no action available.
+Last reconciled against the repo: **2026-09-09**, after C2. **What is left is C1 — the AsyncAPI
+handout — plus B7 and the small C3** — B2 and B3 have no action available.
 
 **Where things stand.** Phases 1 and 2 are closed. Phase 3 — the deck builds — is most of the way
 through: both decks build clean from `outlines/` with an empty overflow report, Day 1 **138 slides**
-and Day 2 **153**, **90 figures** across eleven families plus **2 print cards**, lint clean,
-`reads_at` **30 of 90**, and speaker notes ship into both `.pptx`. **Day 1's figures now sit at a
+and Day 2 **153**, **98 figures** across eleven families plus **2 print cards** — 90 of them on slides
+and **8 in the routing handout** — lint clean, `reads_at` **30 of 98**, and speaker notes ship into
+both `.pptx`. **Day 1's figures now sit at a
 median 91% of their Phase 2 label size with two under 85%, Day 2 at 96% with three.** What is left
 is below.
 
@@ -64,8 +65,9 @@ in your pack" and ships no pack is worse than one that never said it.
 
 | # | item | state | size | detail |
 |---|---|---|---|---|
-| **C1** | *Managing Asynchronous APIs* | Source is the QCon London 2026 deck (43 slides, `session-work/qcon-asyncapi.txt`). It is a **40-minute conference narrative** and needs a one-page index up front to read as reference rather than as a talk | M | plan §6 |
-| **C2** | The routing-patterns handout | Four open sub-tasks: assemble from `script/Patterns/*.md` (near-1:1 with the cut slides, and written as prose already); decide artwork — redraw the 8 EIP figures or cite Hohpe & Woolf with attribution, which a handout may legitimately do and the deck could not; frame it as reference; and signpost it from the deck | L | plan §10 |
+| **C1** | *Managing Asynchronous APIs* | Source is the QCon London 2026 deck (43 slides, `session-work/qcon-asyncapi.txt`). It is a **40-minute conference narrative** and needs a one-page index up front to read as reference rather than as a talk. **The routing handout is now the worked precedent for all of it** — where handouts live, how the index reads, how the deck signposts one | M | plan §6 |
+| **C2** | ✅ The routing-patterns handout | **Done 2026-09-09.** `handouts/Routing-Patterns.md` — ~2,250 words from `script/Patterns/*.md`, eight new figures (`eip_figures.py` 13 → 21), a one-page index, and a signpost on Day 2's *Further Reading — EIP* slide. **Ian ruled both open decisions:** redraw rather than cite Hohpe & Woolf, and signpost from Day 2's `## Next Steps` rather than Day 1 §4.5. The three routers contrast through red on *who holds the routing decision*, which is the handout's own finding | — | plan §10 |
+| **C3** | A house stylesheet for the handouts | **New, small, and Ian's call.** `handouts/*.md` builds to A4 PDF today with pandoc + weasyprint, and every figure embeds — but in pandoc's default Times on white, with a lopsided index table. The pack's own look would want Plex, the Field Guide palette and a print sheet. Worth doing **once**, for both handouts, rather than twice | S | this row is the whole record |
 
 ---
 

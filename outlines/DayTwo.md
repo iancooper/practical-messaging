@@ -1272,8 +1272,13 @@ Serverless Land — event-driven architecture visuals. (serverlessland.com/event
 
 Gregor Hohpe. (enterpriseintegrationpatterns.com/gregor.html)
 
+**Eight of them are in your pack** — *Routing Patterns*: Pipes and Filters, Message Translator, Content
+Based Router, Dynamic Router, Recipient List, Splitter, Aggregator, Resequencer.
+
 
 #image: book cover — 'Enterprise Integration Patterns' by Gregor Hohpe and Bobby Woolf  [→ resources/cover-enterprise-integration-patterns.jpg]
+
+Presenter notes: **Hand the *Routing Patterns* handout out here.** Thirty seconds on the one distinction worth saying aloud — the three routers differ only in *who holds the routing decision*: the router itself, the consumers who registered with it, or the publisher who named the recipients — and point at the handout for everything else. It is reference material for the desk rather than something to rehearse, and each figure reds the one that holds the decision, so the distinction is visible on the page.
 
 ### Slide: Q&A
 

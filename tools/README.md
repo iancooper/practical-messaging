@@ -347,6 +347,18 @@ Day 1's pattern figures — the 12 that replaced the Hohpe & Woolf illustrations
 plus `eip-the-big-picture`, §4's opener. One script, so the set stays a family: same label voice, same
 convention for what red means.
 
+**Eight more were added for the routing handout** (plan §10) and they are in this family rather than one
+of their own, because `eip-content-enricher` — the ninth pattern of that set and the one that stayed on
+Day 1 — is already here. **They go in `handouts/Routing-Patterns.md`, not on a slide**, so `reads_at`'s
+question is the wrong one for them; they were held to the floor anyway (18.0–24.3) rather than given a
+print exemption, because a figure that reads across a room also reads on paper and the exemption would
+have to be defended per figure.
+
+**The three routers contrast through red**, and it is the sub-set's whole argument: all three answer
+*who decides where this message goes*, and the red says who — Content Based Router reds the **router**,
+Dynamic Router the **control channel**, Recipient List the **list on the message**. Splitter and
+Aggregator pair the same way and carry the same three parts across both figures.
+
 **The opener is the odd one out and knows it.** The twelve are 460–600 units wide and already read at
 27–35 real points, so they are not compacted; the map is denser, so it calls `.compact(890)` itself, at
 the end of its own builder rather than in `figure()` — which keeps the linter and the renderer looking at
@@ -359,7 +371,7 @@ never picks up again, which is why the 2021 marker's *channel adapter* is not on
 questions is wider than that. The list is not a compromise; it is the only shape that fits the floor.
 
 ```
-python3 tools/eip_figures.py                    # rebuild all 13 into resources/
+python3 tools/eip_figures.py                    # rebuild all 21 into resources/
 python3 tools/eip_figures.py eip-dead-letter-channel   # just one
 python3 tools/eip_figures.py --list
 ```
@@ -370,8 +382,9 @@ top of strokes; none of it was visible in the source. Every figure was eyeballed
 Conventions held across the set, and worth holding for the next batch:
 
 - **one red idea per figure**, stated as a red note at the top — the sentence the presenter says out loud
-- a **muted note** names the pattern element where the name is the thing being taught (*dead letter
-  channel*, *invalid message channel*), and a second muted note at the bottom carries the caveat
+- **a name is ink and a remark is `COMMENT` green.** This list used to say a *muted* note names the
+  pattern element; that was the defect rather than the convention and it cost two review rounds —
+  `MUTED` is for lines, not letters. A bottom note in `COMMENT` still carries the caveat
 - **paired figures contrast through red**: *Polling Consumer* reds `receive()`, *Event-Driven Consumer*
   reds the push; *Invalid Message* diverts from the **receiver**, *Dead Letter* diverts from the
   **channel** — which is the distinction the two slides keep getting confused about

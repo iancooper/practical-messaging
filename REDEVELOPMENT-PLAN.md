@@ -2502,16 +2502,36 @@ written in.
 
 **Cut text:** `session-work/cut-pipelines.md`, plus git history.
 
-☐ **Handout work:**
+✅ **Handout work — built 2026-09-09.** `handouts/Routing-Patterns.md`, ~2,250 words and eight figures.
 
-1. ☐ Assemble from `script/Patterns/*.md` — check which of the eight have a script file and write any that
-   do not.
-2. ☐ Decide the artwork: redraw the 8 EIP figures, or cite Hohpe & Woolf's originals with attribution. A
-   handout can legitimately cite; the deck could not, which is why they were in the redraw budget.
-3. ☐ Frame it so it reads as reference rather than as slides that got cut — a one-page index up front,
-   the same fix §6 needs.
-4. ☐ Signpost it in the deck. It is *routing*, so it belongs either with §4.5 Queues and Streams or with
-   the Day 2 `## Next Steps` group — decide when D1-8 / §4.4 is worked.
+1. ✅ **Assemble from `script/Patterns/*.md`.** All eight had a script file already, so nothing needed
+   writing — the estimate that this was the cheap half was right. Edits were copy only: `-- PAUSE`
+   (a presenter marker) cut from the Resequencer, *"a dynamic routers solves"* and *"how many messages
+   were i the batch"* corrected, and the running heads set as `## N. Name ##`.
+2. ✅ **Artwork — Ian chose redraw over citation, 2026-09-09.** Eight new figures, `eip_figures.py`
+   **13 → 21**. Two things decided it: `eip-content-enricher` — the ninth pattern of this set and the
+   one that stayed on Day 1 — is already drawn in the house style, so a cited handout would read as
+   somebody else's material stapled to the pack; and `BACKLOG.md` F6 records that this repo's image set
+   has never been audited for licensing, which is the wrong direction to add eight more borrowed images
+   in. Commit `eeb3356` carries the drawing rationale.
+3. ✅ **Framed as reference.** A one-page index up front — a row per pattern giving *the question it
+   answers* — and beneath it **a second table for the three routers**, which is the handout's own
+   finding: *Content Based Router*, *Dynamic Router* and *Recipient List* answer one question and differ
+   only in **who holds the routing decision** (the router / the consumers / the publisher). The three
+   figures red exactly that, so the distinction is visible without reading a word.
+4. ✅ **Signposted — Ian chose Day 2's `## Next Steps` over Day 1 §4.5, 2026-09-09.** It goes on the
+   existing *Further Reading — Enterprise Integration Patterns* slide, which is already the EIP moment
+   and sits in the same group where the AsyncAPI handout is given out — so both handouts are named in
+   one pack moment at the end of day two rather than in two, eight hours apart. The slide gained one
+   prose line and a presenter note; the report is still empty, so nothing was squeezed to fit it.
+
+**Where handouts live: `handouts/`, new.** Markdown, on `exercises/Paper-Flow-Delegate-Brief.md`'s
+precedent — a delegate-facing printable in this repo is a tracked `.md`. It builds to A4 PDF with
+`pandoc Routing-Patterns.md -o Routing-Patterns.pdf --pdf-engine=weasyprint`, run **from `handouts/`**
+because the figure paths are relative; both tools are on this machine, all eight figures embed, and the
+index's links resolve. **⚑ What that does not give it is the pack's own look** — pandoc's default is
+Times on white with a lopsided first table. A house stylesheet is a small, separate decision and is
+`BACKLOG.md` C3.
 
 ---
 

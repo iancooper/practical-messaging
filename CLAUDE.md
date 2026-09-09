@@ -4,8 +4,10 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 `tools/*.py` are the source, `build/*.pptx` is output. An edit made in PowerPoint is lost on
 the next build.
 
-**Branch `deck-redevelopment`.** Day 1 is **137 slides**, Day 2 **153**, from 91 + 90 outline
-entries, with **90 figures** across eleven families plus **2 print cards**.
+**Branch `deck-redevelopment`.** Day 1 is **138 slides**, Day 2 **153**, from 91 + 90 outline
+entries, with **98 figures** across eleven families plus **2 print cards**. **90 of the 98 go on
+slides; the other 8 are the routing handout's** — `handouts/` is a third destination beside the deck
+and the print cards, and a figure there is held at reading distance, not read across a room.
 
 ---
 
@@ -18,6 +20,7 @@ entries, with **90 figures** across eleven families plus **2 print cards**.
 | **`styles.md`** | the **authoritative visual spec** — canvas, type, sizes, palette, diagram rules, print. `tools/build_deck.py` implements it; **where the two disagree, `styles.md` wins** |
 | `outlines/DayOne.md`, `DayTwo.md` | **the build input.** Content edits happen here, never in the deck |
 | `tools/README.md` | how to build a figure: the `Diagram` API, the BPMN elements, per-family notes |
+| `handouts/*.md` | the **takeaway pack** — tracked Markdown, printed to A4 with `pandoc … --pdf-engine=weasyprint` **run from `handouts/`**, because the figure paths are relative |
 | `code-rewrites.md` | the **separate** Day 1 coding-exercise workstream. Read only if that is the job |
 | `PROMPT.md` (untracked, if present) | session hand-off — what happened lately, and Ian's open desk |
 
@@ -63,8 +66,8 @@ python3 tools/reads_at.py             # what a label reads at IN THE ROOM -- ~2 
 ```
 
 **The eleven figure families**, each `python3 tools/<name>.py [figure-name | --list]`:
-`eip_figures` (13) · `coupling_grids` (5) · `if_later` (2) · `queues_streams` (11) ·
-`integration_styles` (4) · `app_shapes` (3) · `conversations` (3) — Day 1;
+`eip_figures` (21, **8 of them handout-only**) · `coupling_grids` (5) · `if_later` (2) ·
+`queues_streams` (11) · `integration_styles` (4) · `app_shapes` (3) · `conversations` (3) — Day 1;
 `bpmn_hotel` (13) · `bpmn_shopping` (6) · `paper_flow` (7) · `flow_reactive` (23) — Day 2.
 Plus `reference_cards` (2, **print**), and two repair tools: `repatch_steps.py`,
 `repaint_paper_reds.py`.
