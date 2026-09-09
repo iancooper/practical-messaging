@@ -9,6 +9,10 @@ purpose.
 
 ---
 
+> **What is still outstanding is indexed in `BACKLOG.md`** (tracked, repo root) — six sized
+> sections, each line pointing back here for its detail. This file stays the source of truth;
+> the backlog is a table you can read the length of.
+
 ## 1. Scope
 
 Three artefacts:
