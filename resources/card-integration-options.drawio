@@ -1,0 +1,295 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Integration Options — Reference Card">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="800" pageHeight="1131" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="Integration Options" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=27;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-14" y="42" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="Day 1 · Coupling and Integration Styles" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="694" y="42" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="“loosely coupled” is a question with two answers — what are we coupled about, and must we both be up" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="-14" y="70" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="98" width="708" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="WHAT ARE WE COUPLED ABOUT?" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=21;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-14" y="126" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="Myers' scale, tightest first" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="694" y="126" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="150" width="708" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="Content" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=16;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="166" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="one party reaches into the other's internals" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="118" y="166" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="173" width="69.088" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" value="Common" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=16;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="196" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" value="both parties share the same mutable store" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="118" y="196" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="203" width="76.88000000000001" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" value="Control" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=16;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="260" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t11" value="you say what to DO, not what happened" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="118" y="260" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t12" value="Stamp" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=16;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="290" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t13" value="a whole structure passed, and part of it used" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="118" y="290" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t14" value="Data" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=16;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="320" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t15" value="exactly what is needed, and nothing else" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="118" y="320" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="224" width="708" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t16" value="the process boundary prevents the top two — private data, no shared transaction" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="694" y="232" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t17" value="MUST WE BOTH BE UP?" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=21;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-14" y="362" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t18" value="the axis that multiplies your outages" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="694" y="362" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="386" width="708" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t19" value="" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="398" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t20" value="Synchronous conversation" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="208" y="398" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t21" value="Asynchronous conversation" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="470" y="398" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="420" width="708" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t22" value="Shape" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="434" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t23" value="Request → Reply" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="208" y="434" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t24" value="Store and forward" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="470" y="434" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t25" value="Both present?" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="460" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t26" value="Yes" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="208" y="460" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t27" value="No — pick it up later" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="470" y="460" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t28" value="Analogy" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="486" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t29" value="A phone call" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="208" y="486" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t30" value="Snail mail" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="470" y="486" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t31" value="Temporal coupling" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="512" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t32" value="Introduces it" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="208" y="512" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t33" value="Avoids it" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="512" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t34" value="call four services at 99.9% and wait for each: you are at 99.6% before anything has actually failed" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="548" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t35" value="FOUR STYLES" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=21;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-14" y="594" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t36" value="the two axes, answered" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="694" y="594" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="618" width="708" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t37" value="Style" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="630" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t38" value="Coupled about" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="202" y="630" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t39" value="Both up?" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="342" y="630" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t40" value="What it hands back" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="440" y="630" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="652" width="708" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t41" value="File Transfer" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="666" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t42" value="Data" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="202" y="666" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t43" value="No" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="342" y="666" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t44" value="Nothing — but you get nothing either" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="440" y="666" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t45" value="Shared Database" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="694" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t46" value="Common" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="202" y="694" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t47" value="No" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="342" y="694" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t48" value="The boundary itself" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="440" y="694" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t49" value="Remote Procedure Call" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="722" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t50" value="Control" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="202" y="722" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t51" value="Yes" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="342" y="722" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t52" value="Independent availability" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="440" y="722" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t53" value="Messaging" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="750" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t54" value="Your choice" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="202" y="750" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t55" value="No" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="342" y="750" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t56" value="Nothing" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="440" y="750" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t57" value="File Transfer and Messaging land in the same cell — what separates them: ordering, locking, delivery and timeliness" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="786" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t58" value="OPTIONS" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=21;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-14" y="834" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t59" value="the same two answers, in products" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="694" y="834" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r10" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=IBM Plex Sans;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="46" y="858" width="708" height="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t60" value="SYNCHRONOUS" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="870" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t61" value="both parties up, request and reply" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="889" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t62" value="OpenAPI" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="918" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t63" value="HTTP, and a schema for it" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="126" y="918" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t64" value="GraphQL" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="944" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t65" value="the client says what it wants" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="126" y="944" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t66" value="gRPC" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="970" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t67" value="binary RPC over HTTP/2" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="126" y="970" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t68" value="Thrift" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="996" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t69" value="binary RPC" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="126" y="996" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t70" value="SOAP" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="1022" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t71" value="RPC in XML, over anything" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="126" y="1022" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t72" value="ASYNCHRONOUS" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=15;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="358" y="870" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t73" value="store and forward; nobody waits" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="358" y="889" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t74" value="SQS" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="358" y="918" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t75" value="queue" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="494" y="918" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t76" value="Kafka" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="358" y="944" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t77" value="stream" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="494" y="944" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t78" value="AMQP 0-9-1 (RMQ)" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="358" y="970" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t79" value="queues, routed by the broker" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="494" y="970" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t80" value="AMQP 1-0" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="358" y="996" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t81" value="a wire protocol, not a broker" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="494" y="996" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t82" value="MQTT" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="358" y="1022" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t83" value="publish-subscribe, for devices" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="494" y="1022" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t84" value="S3" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=14.5;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="358" y="1048" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t85" value="file transfer, in a bucket" style="text;html=1;align=center;fontFamily=IBM Plex Sans;fontSize=12.5;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="494" y="1048" width="120" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

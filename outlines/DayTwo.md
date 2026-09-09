@@ -792,7 +792,7 @@ Three of the six have variants. They are reference, not material:
 
 Presenter notes: **Do not read the lists.** Teach the six on the figure — they are the only ones used anywhere in this deck, and every diagram in this section is built from them, which is the point worth making out loud. The bolded entries in the three bullet lists are those same six. Everything else is on the reference card in the pack: a lookup table wants to be in the delegate's hand, not on the screen — the same test that sent Managing Asynchronous APIs and the routing patterns to handouts.
 
-#note: ☐ **Delegate reference card** — the full task, event and gateway legends on one A4 side, in the pack, and now their only home. Phase 3 layout job, not a redraw: `Task Types.drawio`, `Event Types.drawio` and `Gateway Types.drawio` are editable, and for print the plain black-on-white reads fine.
+#note: ✅ **Delegate reference card** — built, `resources/card-bpmn-reference.png` from `tools/reference_cards.py`. One A4 side in the pack, and the only home of the full task, event and gateway legends: all eight task types and the loop and transaction markers, all nine event triggers, all five gateways, plus a key to the rings. The six taught on this slide carry a red dot on it. It had to be drawn rather than laid out — the three `.drawio` sources hold the icons and no text at all.
 
 ### Slide: Workflow Patterns
 

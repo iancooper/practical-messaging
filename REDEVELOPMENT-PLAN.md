@@ -286,7 +286,7 @@ supervisor/scale-out — which were never taught.
 at Macro Scale* (where it is the yardstick Feature Envy fails against) **and** a standalone opening slide
 of Process Automation. One of the two has to go.
 | 2 | **Paper Flow** exercise | 9 | ✅ **run-of-show resettled (D2-4 / D2-7)** — two blocks + a closing round, ~100 min; §7 rewritten | ☐ Guest Cycle replacement; `Departure.drawio` | ☐ restructure deck + wire into README |
-| 3 | **Process Automation** | **39** | ✅ 50 → 37 (D2-10); opens on *their* model; pizza → hotel. **P3: +2, the two listings taken off their bullets** (§8 item 23b) | ☐ ~12 BPMN redraws + **BPMN reference card** (§8 item 8) | ☐ |
+| 3 | **Process Automation** | **39** | ✅ 50 → 37 (D2-10); opens on *their* model; pizza → hotel. **P3: +2, the two listings taken off their bullets** (§8 item 23b) | ✅ ~12 BPMN redraws + ✅ **BPMN reference card** (§8 item 8) | ☐ |
 | 3a | · front half — notation to choreography | 22 | ✅ 28 → 22; legends 5→2, three *What is X?* merges | | |
 | 3b | · back half — durable execution | **17** | ✅ 22 → 15; four `(Fault)` → one table; 2 illustrations absorbed | | |
 | 4 | Putting It Together | 6 | ✅ reviewed with D2-10 — kept whole, 4 annotated flows + recap | ☐ | ☐ |
@@ -776,9 +776,10 @@ than a blank canvas.
    reveal the BPMN — so the composite is the recognition moment, not the reading one. If it does not carry
    the room, the fix is to split it across two slides rather than to enlarge it.
 
-   **☐ And one layout job:** the BPMN **delegate reference card**, one A4 side carrying the task / event /
-   gateway legends, whose three drawio sources already exist. Its own outline note calls it a Phase 3
-   item, so it stays there.
+   **✅ And one layout job, now two, and both are built — 2026-09-09.**
+   `tools/reference_cards.py` writes `resources/card-bpmn-reference.png` and
+   `resources/card-integration-options.png`. See the sub-item below for the ruling that split it in two,
+   and *The two cards, as built* under it for what each carries and how to print them.
 
    **⚑ It now has a second thing to carry, and that thing is Day 1's.** Item 23b took the `Options` row
    off Day 1 *Must We Both Be Up?* — the broker list, **synchronous:** OpenAPI, GraphQL, gRPC, Thrift,
@@ -797,9 +798,51 @@ than a blank canvas.
    | **Integration options card** | Day 1 | the broker list above, off *Must We Both Be Up?* |
 
    A card apiece is the right shape anyway: a delegate holding the Day 1 card is being asked *which
-   integration style*, and one holding the Day 2 card is reading a BPMN diagram. **Neither is drawn
-   yet, and both are Phase 3 layout jobs.** The Day 1 card is the smaller of the two and has no
-   `.drawio` source to start from — it is a table.
+   integration style*, and one holding the Day 2 card is reading a BPMN diagram.
+
+   ### The two cards, as built — 2026-09-09
+
+   `tools/reference_cards.py`, one figure each, both **800 × 1131 units — A4 portrait at 1 : 1.414**,
+   rendered at scale 3, which is 2400 × 3393 px, about 290 dpi on an A4 side. **Print one side per
+   delegate, portrait, fit to page.** Mono-safe: the one red idea on each card carries a mark as well as
+   a colour, because a venue's printer is not ours to choose.
+
+   | | `card-bpmn-reference` (Day 2) | `card-integration-options` (Day 1) |
+   |---|---|---|
+   | blocks | Tasks · Events · the ring key · Gateways | What are we coupled about · Must we both be up · Four styles · Options |
+   | count | 8 task types + 2 markers, 9 event triggers + 6 ring styles, 5 gateways | Myers' 5, the temporal table's 4 rows, the 4 styles, 11 products |
+   | the red idea | the six the deck uses, each with a red dot | *"loosely coupled" is a question with two answers* |
+
+   **Three things worth keeping about how they were built.**
+
+   1. **The three `.drawio` sources carry no text at all.** Every `value=""` — they are unlabelled icon
+      sheets from 2021, so "lay out from the sources" was always going to mean *draw them*. The element
+      set came from them; every word on the card is the outline's own, off *BPMN — Tasks, Events and
+      Gateways*. Checked, not assumed: rule 4.
+   2. **The card had to keep a promise the deck makes out loud.** `bpmn-the-six`'s foot reads *"every
+      other task type, event and gateway is on the reference card in your pack"*, so a card carrying
+      only the six would have made the figure lie. Keeping it cost the **fifteen BPMN glyphs
+      `bpmn_shopping.py` predicted** — manual, script and business-rule task markers, the loop marker and
+      the transaction border, signal / conditional / escalation / cancel / parallel event symbols, and
+      the inclusive, complex and event-based gateways. They are in `diagram.py` now, additively: all
+      eleven families rebuild **byte-identical**.
+   3. **The ring key is the half that is on no slide.** The deck only ever draws a start, an end and a
+      catching intermediate event, so *throwing* and *non-interrupting* are new to a delegate reading
+      somebody else's diagram. The symbol says **what**; the ring says **when, and which way it points**.
+      That is a rule rather than a list, so it is drawn as one.
+
+   **⚑ The Day 1 card is not only the broker list, and that is Ian's call of 2026-09-09.** Item 8 had
+   recorded it as *"a table holding the broker list"* while also saying a delegate holding it is being
+   asked *which integration style* — two different cards. Offered the choice, he took **the axes, the
+   four styles and the brokers**: eleven product names cannot answer *which style* on their own. The
+   coupling scale on it is `coupling-scale-boundary`'s own idiom — names in ink, glosses in comment, the
+   prevented two struck through in red, the boundary a heavy rule across — so a delegate recognises the
+   drawing they were taught from. The **four styles table is *Why Messaging* verbatim**, including
+   Messaging's verdict as *your choice* rather than *data*; item 9 records why that correction is the
+   argument and not a detail. The **one judgement call to check** is the tag beside each product —
+   `S3 — file transfer, in a bucket`, `AMQP 1-0 — a wire protocol, not a broker` — which is this
+   course's vocabulary applied to the list rather than anything off a slide. Bare names would have been
+   truer to the ruling; the tags are what make the block answer the card's own question. Easy to drop.
 
 9. **✅ The 4 Integration Styles figures — built 2026-09-07.** `tools/integration_styles.py`;
    `style-file-transfer`, `style-shared-database`, `style-rpc`, `style-messaging`, Day 1 §3, replacing the
@@ -1464,9 +1507,11 @@ either day. All six on the new figure already existed in the tool, **because all
 and shopping families are built from**. That is the same fact the callout is making, and now the figure
 makes it too.
 
-**The reference card is unaffected and still Phase 3.** `Task Types.drawio`, `Event Types.drawio` and
-`Gateway Types.drawio` stay as they are: they are editable, they are now the legends' only home, and for
-**print** the plain black-on-white reads fine. It is a layout job, not a redraw.
+**✅ The reference card is now built — 2026-09-09, §8 item 8.** It had to be a redraw after all, and for
+a reason nobody had checked: `Task Types.drawio`, `Event Types.drawio` and `Gateway Types.drawio` carry
+**no text whatsoever** — every `value=""` — so they are unlabelled icon sheets and useless as a lookup on
+their own. Drawing them is what cost the fifteen glyphs predicted just above, and the prediction was
+accurate to the element. `resources/card-bpmn-reference.png`.
 
 ### What sources exist
 
@@ -1508,7 +1553,7 @@ Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its
 why Day 1's `[→ resources/…]` column moved 7 → 19 and `[external]` is 0. Day 2's six `[no source …]`
 markers are gone — D2-10 replaced the pizza family with `☐ REDRAW (hotel)`, and **those 12 are now
 built** (item 8), which is why Day 2's linked column moved 34 → 47 and its pending column 13 → **0**.
-The only `☐` left anywhere on Day 2 is the reference card, and that is a `#note:`, not an image.
+Day 2 now carries no `☐` at all: the reference card was the last one, and it was built 2026-09-09.
 
 **The unannotated lines are the hidden bulk of Phase 2**, and they are larger than the redraw list was.
 Their masters are the extracted `session-work/imgs/dayN-sNNN-M.png`. Annotating in bulk was rejected —
@@ -2251,7 +2296,7 @@ Paid → Confirmed`). Costs nothing extra in Phase 2: **the pizza family had no 
 
 | what | why |
 |---|---|
-| **Five legend slides → two.** *Basic Elements* + *Connecting Objects* → **BPMN — The Elements**; *Tasks* + *Events* + *Gateways* → **BPMN — Tasks, Events and Gateways**, with a callout naming the **six** primitives this deck actually uses. | Three icon legends is a lookup table, and a lookup table belongs in the delegate's hand — the same test that sent Managing Async APIs and the routing patterns to handouts. The merge also **promoted the load-bearing line**, which was buried in the two-line *Connecting Objects* slide: **sequence flow carries the token, message flow does not.** That is *ACID at a desk, BASE across desks* in BPMN's vocabulary, and it makes orchestration-vs-choreography obvious twelve slides later instead of arbitrary. ☐ **New handout: a one-A4-side BPMN reference card**, carrying the full legends. |
+| **Five legend slides → two.** *Basic Elements* + *Connecting Objects* → **BPMN — The Elements**; *Tasks* + *Events* + *Gateways* → **BPMN — Tasks, Events and Gateways**, with a callout naming the **six** primitives this deck actually uses. | Three icon legends is a lookup table, and a lookup table belongs in the delegate's hand — the same test that sent Managing Async APIs and the routing patterns to handouts. The merge also **promoted the load-bearing line**, which was buried in the two-line *Connecting Objects* slide: **sequence flow carries the token, message flow does not.** That is *ACID at a desk, BASE across desks* in BPMN's vocabulary, and it makes orchestration-vs-choreography obvious twelve slides later instead of arbitrary. ✅ **New handout: a one-A4-side BPMN reference card**, carrying the full legends — built 2026-09-09, `resources/card-bpmn-reference.png`, §8 item 8. |
 | **Three *What is X?* slides merged away.** *What is Orchestration?* → *Process = Orchestration*; *What is Collaboration?* → *Collaboration and Choreography*; *What is Choreography?* → *Choreography and Conversation*. | Each restated the slide immediately before it in four or five bullets. Only three lines were worth keeping and all three were kept: *all logic is local to the orchestrator*; *both participants must run in the engine* (Day 1 §2's coupling argument at process scale); *like describing a dance — no owner, no shared state*. |
 
 **Deliberately not cut:** the five pattern slides — *Implementing Workflow Patterns* maps that exact

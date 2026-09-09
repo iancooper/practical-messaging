@@ -65,6 +65,14 @@ participant bands), and `flow` — which draws a **sequence flow** solid with a 
 **message flow** dashed with an open circle and a hollow head. They are different calls because they are
 different things, and Day 2 spends a section on the difference.
 
+**The rest of BPMN's vocabulary exists too, and only the reference card uses it** — `task` also takes
+`marker=` manual / script / rule, `sub="loop"` for the marker on the bottom edge and `double=True` for a
+transaction's second border; `event` also takes `symbol=` signal / conditional / escalation / cancel /
+parallel, plus `filled=` (a **throwing** event, where the deck's own figures only ever catch) and
+`nonint=True` (a **non-interrupting** event, dashed rings); `gateway` also takes `inclusive`, `complex`
+and `event`. Reach for these on a legend, not in a flow: a diagram in this deck is built from the six on
+`bpmn-the-six`, and using a seventh would be arguing something the section does not.
+
 `box` and `note` take multi-line labels — `"Message\nPump"` stacks and block-centres.
 
 **Routing.** `arrow` picks the edge that faces its target. Override it when the automatic choice is
@@ -402,6 +410,44 @@ full-size cross over a named component struck through its own name, twice — fi
 above the hexagon. The circuit-breaker figure was laid out consumer-first, so its feed arrow ran
 backwards through the consumer's label and its outbound call crossed the queue. A pipe's mouth ellipse
 sat on a process boundary and swallowed an out-port label. None of it was visible in the source.
+
+## `reference_cards.py`
+
+The two **delegate reference cards** — one A4 side per pack. Plan §8 item 8.
+
+```
+python3 tools/reference_cards.py            # rebuild both into resources/
+python3 tools/reference_cards.py --list
+```
+
+| figure | pack | carries |
+|---|---|---|
+| `card-bpmn-reference` | Day 2 | 8 task types + loop and transaction, 9 event triggers + a key to the rings, 5 gateways |
+| `card-integration-options` | Day 1 | Myers' scale with the boundary across it, *Must We Both Be Up?*, the four styles scored, and 11 products |
+
+**These are print, not slides,** which is the only reason this family looks different from the others.
+
+- **No `compact()` and no entry in `reads_at.py`.** Everything else is fitted to a 16:9 stage and its
+  labels sized for a room; these are held at arm's length. The canvas is A4's own 1 : 1.414 —
+  800 × 1131, which is 2400 × 3393 at scale 3, about 290 dpi on the page. `lint_figures.py` still
+  applies, and is run as `python3 tools/lint_figures.py reference_cards`.
+- **Plex Sans in both, including the Day 1 one.** `styles.md` reserves Caveat for callouts and diagram
+  labels; a lookup table is neither, and setting *gRPC* or *AMQP 0-9-1* in a hand face makes another
+  company's product name read as our remark about it.
+- **Mono-safe.** Each card spends its one red idea on a mark as well as a colour — the six BPMN elements
+  the deck uses carry a **red dot**, not just red type — because a venue's printer is not ours to choose.
+
+**The BPMN card is why `diagram.py` grew fifteen BPMN glyphs.** `bpmn-the-six`'s foot says *"every other
+task type, event and gateway is on the reference card in your pack"*, so a card carrying only the six
+would have made that figure lie. The additions are `manual` / `script` / `rule` task markers, `task(sub=)`
+for the loop marker and `task(double=)` for a transaction, the `signal` / `conditional` / `escalation` /
+`cancel` / `parallel` event symbols, `event(filled=)` and `event(nonint=)` for throwing and
+non-interrupting rings, and the `inclusive` / `complex` / `event` gateways. All additive: the other eleven
+families rebuild byte-identical.
+
+**The three `.drawio` sources have no text in them at all** — `Task Types.drawio`, `Event Types.drawio`
+and `Gateway Types.drawio` are unlabelled icon sheets, every `value=""`. The element *set* came from
+them; every word came from the outline. Checked before it was reported, per rule 4.
 
 ## `repatch_steps.py`
 

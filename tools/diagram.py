@@ -196,6 +196,12 @@ class Diagram:
 
     BAND = 26          # width of a pool's vertical title band
 
+    # Unit pentagon, point up -- the event-based gateway's inner mark. Written out
+    # rather than computed so the .drawio and the .png never depend on a float
+    # library's rounding; rebuilds have to be byte-identical.
+    _PENTAGON = ((0.0, -1.0), (0.951, -0.309), (0.588, 0.809),
+                 (-0.588, 0.809), (-0.951, -0.309))
+
     @staticmethod
     def _data_uri(path):
         ext = os.path.splitext(path)[1].lower().lstrip(".")
@@ -226,6 +232,32 @@ class Diagram:
                        f'M{cx+8},{cy-6} L{cx+8},{cy+6} L{cx+1},{cy} z" '
                        f'fill="{fill if filled else "none"}" stroke="{col}" '
                        f'stroke-width="1.3" stroke-linejoin="round"/>')
+        # The five below exist for the delegate reference card, which is the only
+        # place in either day that shows an event type the deck does not use. They
+        # are the rest of the outline's own list on *BPMN — Tasks, Events and
+        # Gateways*: None, Message, Time, Signal, Compensation, Conditional,
+        # Escalation, Parallel, Cancel.
+        elif kind == "signal":
+            out.append(f'<path d="M{cx},{cy-7.5} L{cx+7.5},{cy+5.5} L{cx-7.5},{cy+5.5} z" '
+                       f'fill="{fill}" stroke="{col}" stroke-width="1.3" '
+                       f'stroke-linejoin="round"/>')
+        elif kind == "escalation":
+            out.append(f'<path d="M{cx},{cy-8} L{cx+5.5},{cy+6.5} L{cx},{cy+0.5} '
+                       f'L{cx-5.5},{cy+6.5} z" fill="{fill}" stroke="{col}" '
+                       f'stroke-width="1.3" stroke-linejoin="round"/>')
+        elif kind == "conditional":
+            out.append(f'<rect x="{cx-6}" y="{cy-7.5}" width="12" height="15" '
+                       f'fill="none" stroke="{col}" stroke-width="1.3"/>')
+            for i in range(3):
+                out.append(f'<path d="M{cx-3.6},{cy-3.6+i*3.6} h7.2" fill="none" '
+                           f'stroke="{col}" stroke-width="1.1"/>')
+        elif kind == "cancel":
+            out.append(f'<path d="M{cx-6},{cy-6} L{cx+6},{cy+6} M{cx+6},{cy-6} '
+                       f'L{cx-6},{cy+6}" fill="none" stroke="{col}" '
+                       f'stroke-width="2.6" stroke-linecap="round"/>')
+        elif kind == "parallel":
+            out.append(f'<path d="M{cx-6.5},{cy} h13 M{cx},{cy-6.5} v13" fill="none" '
+                       f'stroke="{col}" stroke-width="2.6" stroke-linecap="round"/>')
 
     @staticmethod
     def _marker(out, x, y, kind, col):
@@ -247,6 +279,59 @@ class Diagram:
                        f'stroke="{col}" stroke-width="1.2"/>')
             out.append(f'<circle cx="{x+6.5}" cy="{y+6.5}" r="2" fill="none" '
                        f'stroke="{col}" stroke-width="1.2"/>')
+        # The three below exist for the delegate reference card, which is the only
+        # place in either day that shows a task type the deck does not use.
+        elif kind == "manual":
+            # A hand: palm, three fingers, thumb. `user` is the same work done by a
+            # person *through software*, so the two glyphs have to be told apart at a
+            # glance -- a head-and-shoulders against a hand. The fingers are drawn as
+            # separate capsules rather than as humps on one outline, because at 13
+            # units a continuous outline closes up into a mitten.
+            out.append(f'<path d="M{x+3.4},{y+12.8} L{x+3.4},{y+7.6} '
+                       f'C{x+3.4},{y+6.4} {x+4.4},{y+6} {x+5.4},{y+6} '
+                       f'L{x+11},{y+6} C{x+12.2},{y+6} {x+12.6},{y+6.8} '
+                       f'{x+12.6},{y+7.6} L{x+12.6},{y+12.8} z" fill="none" '
+                       f'stroke="{col}" stroke-width="1.2" stroke-linejoin="round"/>')
+            for i, top in enumerate((3.6, 2.4, 3.2)):
+                fx = x + 5.2 + i * 2.6
+                out.append(f'<path d="M{fx},{y+6} L{fx},{y+top+0.9} '
+                           f'a0.9,0.9 0 0 1 1.8,0 L{fx+1.8},{y+6}" fill="none" '
+                           f'stroke="{col}" stroke-width="1.1" '
+                           f'stroke-linejoin="round"/>')
+            out.append(f'<path d="M{x+3.4},{y+8.4} L{x+1},{y+9.8} '
+                       f'a1.1,1.1 0 0 0 0.6,2 L{x+3.4},{y+11.4}" fill="none" '
+                       f'stroke="{col}" stroke-width="1.1" stroke-linejoin="round"/>')
+        elif kind == "script":
+            # A page with curled top and bottom edges, and writing on it.
+            out.append(f'<path d="M{x+2},{y+1.5} c2.5,2 5,-2 7.5,0 '
+                       f'l1.5,0 l0,10 c-2.5,-2 -5,2 -7.5,0 l-1.5,0 z" '
+                       f'fill="none" stroke="{col}" stroke-width="1.2" '
+                       f'stroke-linejoin="round"/>')
+            for i in range(3):
+                out.append(f'<path d="M{x+3.5},{y+4+i*2.6} h5" fill="none" '
+                           f'stroke="{col}" stroke-width="1"/>')
+        elif kind == "rule":
+            # A table: a header band across the top, then two cells. BPMN calls it
+            # the business-rule marker; the table is the decision table it consults.
+            out.append(f'<rect x="{x+1}" y="{y+1.5}" width="12" height="11" '
+                       f'fill="none" stroke="{col}" stroke-width="1.2"/>')
+            out.append(f'<path d="M{x+1},{y+5} h12 M{x+5.5},{y+5} v7.5" '
+                       f'fill="none" stroke="{col}" stroke-width="1"/>')
+
+    @staticmethod
+    def _sub_marker(out, cx, cy, kind, col):
+        """The marker centred on a task's bottom edge -- a loop, or a compensation.
+
+        BPMN puts these in a different place from the type icon on purpose: the
+        top-left says *what kind of work this is* and the bottom centre says *how
+        many times, or under what*. A task can carry one of each.
+        """
+        if kind == "loop":
+            out.append(f'<path d="M{cx+5.6},{cy-2.4} A6,6 0 1 0 {cx+5.6},{cy+2.4}" '
+                       f'fill="none" stroke="{col}" stroke-width="1.3"/>')
+            out.append(f'<path d="M{cx+2.6},{cy+2.2} L{cx+6.2},{cy+3.2} '
+                       f'L{cx+5.2},{cy-0.4} z" fill="{col}" stroke="{col}" '
+                       f'stroke-width="0.8" stroke-linejoin="round"/>')
 
     # -- Paper Flow --
     # The vocabulary the delegates draw with by hand during the exercise. Glyphs match
@@ -390,17 +475,41 @@ class Diagram:
         self.nodes.append(node)
         return node
 
-    def event(self, x, y, kind="start", symbol=None, label="", accent=False, r=17):
-        """kind: start | intermediate | end.  symbol: message | timer | compensation."""
+    def event(self, x, y, kind="start", symbol=None, label="", accent=False, r=17,
+              filled=None, nonint=False):
+        """kind: start | intermediate | end.
+
+        symbol: message | timer | compensation | signal | conditional | escalation |
+        cancel | parallel, or None for a bare circle.
+
+        The ring says *when*; the symbol's fill says *which way it points*. A hollow
+        symbol is caught -- this flow waits for it; a filled one is thrown -- this
+        flow raises it. `filled` defaults to the old rule (an end event throws),
+        which is true of every event in the deck; the reference card is the only
+        figure that needs to say a throwing *intermediate* event exists.
+
+        `nonint` dashes the rings: a non-interrupting boundary event, where the main
+        flow carries on regardless.
+        """
         self._n += 1
         node = dict(id=f"e{self._n}", kind="event", x=x - r, y=y - r, w=2 * r, h=2 * r,
                     ekind=kind, symbol=symbol, label=label or "", accent=accent, size=13,
                     label_pos="below")
+        if filled is not None:
+            node["filled"] = filled
+        if nonint:
+            node["nonint"] = True
         self.nodes.append(node)
         return node
 
     def gateway(self, x, y, kind="exclusive", label="", accent=False, r=21):
-        """kind: exclusive (X, one path) | parallel (+, split or join)."""
+        """kind: exclusive (X, one path) | parallel (+, split or join) |
+        inclusive (O, every path whose condition holds) | complex (*) |
+        event (the first event to arrive picks the path).
+
+        The last three are on the delegate reference card and nowhere else; the deck
+        itself is built from the first two.
+        """
         self._n += 1
         node = dict(id=f"g{self._n}", kind="gateway", x=x - r, y=y - r, w=2 * r, h=2 * r,
                     gkind=kind, label=label or "", accent=accent, size=13,
@@ -408,11 +517,23 @@ class Diagram:
         self.nodes.append(node)
         return node
 
-    def task(self, x, y, w, h, label, marker=None, accent=False, size=13):
-        """marker: send | receive | service | user -- the icon in the task's top-left."""
+    def task(self, x, y, w, h, label, marker=None, accent=False, size=13,
+             sub=None, double=False):
+        """marker: send | receive | service | user | manual | script | rule -- the
+        icon in the task's top-left.
+
+        sub     -- "loop", the marker centred on the bottom edge. Independent of
+                   `marker`, because a task has a kind *and* a repetition.
+        double  -- a transaction: a second border inside the first. It is a shape
+                   type rather than a marker in BPMN, which is why it is not `sub`.
+        """
         self._n += 1
         node = dict(id=f"t{self._n}", kind="task", x=x, y=y, w=w, h=h, label=label or "",
                     marker=marker, accent=accent, size=size, label_pos="center")
+        if sub:
+            node["sub"] = sub
+        if double:
+            node["double"] = True
         self.nodes.append(node)
         return node
 
@@ -1049,23 +1170,31 @@ class Diagram:
                 o.append(f'<rect x="{n["x"]}" y="{n["y"]}" width="{n["w"]}" '
                          f'height="{n["h"]}" rx="7" fill="{PAPER}" stroke="{c}" '
                          f'stroke-width="1.6"/>')
+                if n.get("double"):
+                    o.append(f'<rect x="{n["x"]+3.5}" y="{n["y"]+3.5}" '
+                             f'width="{n["w"]-7}" height="{n["h"]-7}" rx="5" '
+                             f'fill="none" stroke="{c}" stroke-width="1.6"/>')
                 if n.get("marker") == "compensate":
                     self._symbol(o, n["x"] + n["w"] / 2, n["y"] + n["h"] - 12,
                                  "compensation", c)
                 elif n.get("marker"):
                     self._marker(o, n["x"] + 7, n["y"] + 7, n["marker"], c)
+                if n.get("sub"):
+                    self._sub_marker(o, n["x"] + n["w"] / 2, n["y"] + n["h"] - 11,
+                                     n["sub"], c)
             elif n["kind"] == "event":
                 cx, cy = n["x"] + n["w"] / 2, n["y"] + n["h"] / 2
                 r = n["w"] / 2
                 sw = {"start": 1.5, "intermediate": 1.5, "end": 3.4}[n["ekind"]]
+                dash = ' stroke-dasharray="5,3.4"' if n.get("nonint") else ""
                 o.append(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="{PAPER}" '
-                         f'stroke="{c}" stroke-width="{sw}"/>')
+                         f'stroke="{c}" stroke-width="{sw}"{dash}/>')
                 if n["ekind"] == "intermediate":
                     o.append(f'<circle cx="{cx}" cy="{cy}" r="{r-3.4}" fill="none" '
-                             f'stroke="{c}" stroke-width="1.5"/>')
+                             f'stroke="{c}" stroke-width="1.5"{dash}/>')
                 if n.get("symbol"):
                     self._symbol(o, cx, cy, n["symbol"], c,
-                                 filled=(n["ekind"] == "end"))
+                                 filled=n.get("filled", n["ekind"] == "end"))
             elif n["kind"] == "gateway":
                 cx, cy = n["x"] + n["w"] / 2, n["y"] + n["h"] / 2
                 r = n["w"] / 2
@@ -1075,6 +1204,26 @@ class Diagram:
                 if n["gkind"] == "parallel":
                     o.append(f'<path d="M{cx-k},{cy} h{2*k} M{cx},{cy-k} v{2*k}" '
                              f'stroke="{c}" stroke-width="2"/>')
+                elif n["gkind"] == "inclusive":
+                    o.append(f'<circle cx="{cx}" cy="{cy}" r="{k*1.32}" fill="none" '
+                             f'stroke="{c}" stroke-width="2.4"/>')
+                elif n["gkind"] == "complex":
+                    o.append(f'<path d="M{cx-k},{cy} h{2*k} M{cx},{cy-k} v{2*k} '
+                             f'M{cx-k*0.72},{cy-k*0.72} L{cx+k*0.72},{cy+k*0.72} '
+                             f'M{cx+k*0.72},{cy-k*0.72} L{cx-k*0.72},{cy+k*0.72}" '
+                             f'stroke="{c}" stroke-width="2" stroke-linecap="round"/>')
+                elif n["gkind"] == "event":
+                    # The event-based gateway wears an intermediate event's two
+                    # rings, because that is what it waits for.
+                    o.append(f'<circle cx="{cx}" cy="{cy}" r="{k*1.55}" fill="none" '
+                             f'stroke="{c}" stroke-width="1.5"/>')
+                    o.append(f'<circle cx="{cx}" cy="{cy}" r="{k*1.18}" fill="none" '
+                             f'stroke="{c}" stroke-width="1.5"/>')
+                    p = k * 0.78
+                    pts = " ".join(f"{round(cx + p * sx, 2)},{round(cy + p * sy, 2)}"
+                                   for sx, sy in self._PENTAGON)
+                    o.append(f'<polygon points="{pts}" fill="none" stroke="{c}" '
+                             f'stroke-width="1.4" stroke-linejoin="round"/>')
                 else:
                     o.append(f'<path d="M{cx-k},{cy-k} L{cx+k},{cy+k} '
                              f'M{cx+k},{cy-k} L{cx-k},{cy+k}" stroke="{c}" '
@@ -1438,7 +1587,11 @@ class Diagram:
     # preview is rendered from our own SVG and does NOT check them. If a .drawio ever
     # opens with the wrong glyph in a circle or a diamond, this is where to look.
     _EVENT_OUTLINE = {"start": "standard", "intermediate": "eventInt", "end": "end"}
-    _GW_SYMBOL = {"exclusive": "exclusiveGw", "parallel": "parallelGw"}
+    _GW_SYMBOL = {"exclusive": "exclusiveGw", "parallel": "parallelGw",
+                  "inclusive": "general", "complex": "complexGw", "event": "multiple"}
+    # Our symbol names are the outline's words; draw.io's are its own.
+    _EVENT_SYMBOL = {"parallel": "parallelMultiple"}
+    _TASK_MARKER = {"manual": "manual", "script": "script", "rule": "businessRule"}
 
     def _drawio_bpmn(self, root, n, stroke):
         common = (f"html=1;fillColor={PAPER};strokeColor={stroke};fontColor={stroke};"
@@ -1459,12 +1612,26 @@ class Diagram:
             return
         if n["kind"] == "task":
             style = f"rounded=1;arcSize=14;whiteSpace=wrap;{common}strokeWidth=1.6;"
+            # Only the reference card's three extra markers reach for draw.io's own
+            # BPMN task shape. Switching the whole family onto it would rewrite
+            # every existing .drawio for no gain, and rebuilds must be byte-identical.
+            if n.get("marker") in self._TASK_MARKER:
+                style += (f"shape=mxgraph.bpmn.task;"
+                          f"taskMarker={self._TASK_MARKER[n['marker']]};")
+            if n.get("sub") == "loop":
+                style += "isLoopStandard=1;"
+            if n.get("double"):
+                style += "bpmnShapeType=transaction;"
         elif n["kind"] == "event":
+            sym = n.get("symbol") or "general"
+            outline = ("eventNonint" if n.get("nonint")
+                       else self._EVENT_OUTLINE[n["ekind"]])
+            if n.get("filled") and n["ekind"] != "end":
+                outline = "throwing"
             style = ("shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;"
                      "verticalLabelPosition=bottom;verticalAlign=top;align=center;"
-                     "labelBackgroundColor=none;outlineConnect=0;"
-                     f"outline={self._EVENT_OUTLINE[n['ekind']]};"
-                     f"symbol={n.get('symbol') or 'general'};{common}")
+                     f"labelBackgroundColor=none;outlineConnect=0;outline={outline};"
+                     f"symbol={self._EVENT_SYMBOL.get(sym, sym)};{common}")
         else:
             style = ("shape=mxgraph.bpmn.shape;perimeter=rhombusPerimeter;"
                      "verticalLabelPosition=bottom;verticalAlign=top;align=center;"
