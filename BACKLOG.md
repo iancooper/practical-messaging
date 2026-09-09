@@ -44,6 +44,7 @@ from gone, and a new session has to read 980 lines of it before it can safely re
 | **B4** | Day 1 image-dump sweep | Day 2 is clean — its 17-image entry was found and split. **Day 1 has never been checked** for the same thing | S | `PROMPT.md` *Sweeps still outstanding* |
 | **B5** | The load-bearing-line sweep | The sentence that carries a slide keeps hiding in its presenter notes; it has been caught six times, twice by Ian. **Day 1 §4's sub-topics** are the unswept part — reviewed early, long dense notes | M | as above |
 | **B6** | Stale cross-references | "discussed next" / "the next slide" notes break on any reorder. Must be **re-run after every structural change**, not once at the end | S | as above |
+| **B8** | Day 1's exercise slots move | ⛔ **Blocked on `code-rewrites.md`, and recorded so it is not lost.** Ian's new exercise list (2026-09-09) makes exercise 1 need §4.3 and exercise 2 need §4.4 — but the *Exercise Material — Introduction & RMQ* pointer slide sits at the end of **§4.2**, which was right for the old Point-to-Point and Datatype exercises and is wrong for these. The Kafka slot at the end of §4.5 is still correct. **Do not edit `outlines/` for this until the rework lands** | S | `code-rewrites.md` §3.2 |
 | **B7** | `(sNN)` markers vs the 2025 decks | The 2025 decks in `archive/` hold the same 112 images byte-for-byte as the 2024 one the markers were derived from, **but the slide text has never been diffed** — so whether the markers are stale is open | S | `PROMPT.md`, *Checked, so do not re-report it* |
 
 ---
