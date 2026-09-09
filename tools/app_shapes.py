@@ -9,9 +9,11 @@
 stripped to the two or three shapes that carry it. These draw a **shape you could
 build**: processes with private data, talking over channels. §1's figure is the premise;
 §4.3's pair is the first time the deck says *this is what it looks like in your
-codebase*. They share one helper, `service()`, so a process and its private store are
-drawn the same way in all three -- which matters more here than in a pattern figure,
-because the whole subject is what is inside a boundary and what is not.
+codebase*. What ties them is the reading, not the code: a dashed container is a
+process, a box inside it is the application, and a cylinder inside it is data only that
+process can reach. **`service()` is `boundary-what-crosses`'s alone** -- the task-queue
+pair draws its boxes and its one shared cylinder directly, because its whole callout is
+that there is no boundary there to draw.
 
 **The boundary vocabulary is already taught, and this family must not invent a third
 version of it.** Two families draw it already:
@@ -30,7 +32,8 @@ reuses it without re-teaching it.
 `boundary-two-services` until Ian ruled on the multi-figure entries (plan §8 item 23e),
 and the second was the first one with a service added -- so the apparatus that had to
 be drawn twice to say it, the rule and two containers and two stores, was most of the
-drawing. Composed, it is drawn once:
+drawing. Composed, it is drawn once, and **laid out in a row** so that the one drawing
+fills the stage it is given rather than a third of it (`service`, and plan §8 item 23e):
 
   * a **message** crosses, on a channel each way -- the first bullet, and the only
     thing that is not refused;
@@ -65,10 +68,15 @@ FIGURES = {}
 # meets the deck's 18pt body floor at full slide width.
 TARGET_W = 890
 
-# the shared stage, borrowed from `integration_styles` on purpose -- §1 and §3 argue
-# about the same line and should not draw it at two different heights
-MID = 500
-BT = 108                          # where the boundary rule starts, under its own name
+# The glyph is `integration_styles`'s -- the same ink rule, named the same way, because
+# §1 and §3 argue about the same line. **The coordinates are not, and that is new.**
+# §3's four styles stack an application over its store and come out square; this one
+# lays the two out in a row (see `service`) and is two and a half times as wide, so the
+# rule stands in a much wider drawing and MID moves with it. Shared vocabulary, not
+# shared numbers -- and the line reads shorter here than it does in §3, which is the
+# price of the row layout and was worth paying. Plan §8 item 23e.
+MID = 710
+BT = 76                           # where the boundary rule starts, under its own name
 
 
 def figure(name):
@@ -89,23 +97,38 @@ def figure(name):
     return wrap
 
 
-def service(d, x, y, w, h, process, app, store=None, app_h=88, store_w=180,
-            tie=True):
-    """A process: a dashed container, the application inside it, and -- where the
-    figure is about ownership -- the store that only it can reach.
+def service(d, x, y, w, h, process, app, store, inboard, app_w=280, app_h=92,
+            store_w=180, store_h=68, app_dy=48, store_dy=192):
+    """A process: a dashed container, the application inside it, and the store that
+    only it can reach -- drawn as a **row**, application and store side by side.
+
+    **Row rather than stack, and it is arithmetic rather than taste.** A figure is
+    fitted to its stage by whichever of width and height runs out first, and the
+    stage on a figure slide is 2.57 : 1. Stacked, this drawing was 1.57 : 1: it was
+    fitted by its *height*, gave back a third of the width, and every label landed at
+    82% of the size Phase 2 measured it at. Laid out in a row it is 2.6 : 1, fills the
+    stage, and lands at 96%. Below 2.57 : 1 nothing improves at all, so this is one
+    change and not a series of them. Plan §8 item 23e has the working.
 
     **The store is drawn inside the container, always.** That is the whole argument of
     §1, and a figure that puts a database outside the box it belongs to has conceded it
     before the presenter opens their mouth. It cost a first draft of `two-services`,
     where the red transaction scope was drawn as a container holding both stores --
-    which is a tidy picture of the wrong claim. Returns (app, store)."""
+    which is a tidy picture of the wrong claim.
+
+    **`inboard` says which side the boundary is on, and the two services mirror
+    through it.** The application faces the line, because the application is the half
+    that talks across it; the store sits at the far end, because the point of the
+    figure is that nothing reaches it. There is no tie between the two: containment
+    already says who owns the store, and a tie drawn across the row would run through
+    the red scope's own label. Returns (app, store)."""
     d.group(x, y, w, h, process)
-    box = d.box(x + 30, y + 46, w - 60, app_h, app)
-    cyl = None
-    if store:
-        cyl = d.cylinder(x + (w - store_w) / 2, y + 94 + app_h, store_w, 80, store)
-        if tie:
-            d.attach(box, cyl, sides=("b", "t"))
+    if inboard == "r":
+        ax, sx = x + w - 20 - app_w, x + 60
+    else:
+        ax, sx = x + 20, x + w - 60 - store_w
+    box = d.box(ax, y + app_dy, app_w, app_h, app)
+    cyl = d.cylinder(sx, y + store_dy, store_w, store_h, store)
     return box, cyl
 
 
@@ -113,7 +136,7 @@ def boundary(d, bottom):
     """The vertical ink rule, named above it. `bottom` is the figure's decision, not
     the frame's: the line has to reach whatever crosses it and stop before the caption
     that names the apparatus. Nothing may be centred on MID inside its span."""
-    d.note(MID, 100, "the process boundary", INK, 18)
+    d.note(MID, 66, "the process boundary", INK, 18)
     d.rule(MID, BT, 0, INK, 2.6, h=bottom - BT)
 
 
@@ -129,8 +152,22 @@ def boundary_what_crosses():
     reader had to carry the boundary across a click and re-find it -- and the
     apparatus that was duplicated to do it (the rule, two containers, two stores) is
     most of the drawing. Composed, it is drawn once and only the two refusals are
-    drawn twice, which is why this costs the same 610 units of height that
-    `boundary-two-services` cost on its own.
+    drawn twice.
+
+    **It is laid out in a row, and that is the whole of the 2026-09-09 change.**
+    Composed but still stacked -- an application over its store, twice -- the drawing
+    was 1.57 : 1 against a stage of 2.57 : 1, so it was fitted by its height, gave
+    back a third of the stage's width, and every label on the most important slide of
+    both days landed at **82%** of the size Phase 2 had measured it at. Application
+    beside store, mirrored through the line, it is 2.60 : 1 and lands at **96%** --
+    the stage's own width, and the cap. Nothing was cut to pay for it: the three
+    bullets, both refusals and both crosses are where they were. Plan §8 item 23e.
+
+    **What it cost, so that nobody re-discovers it as a defect.** §3's four
+    `integration_styles` figures stack an application over its store and come out
+    square; this one no longer matches them, so the boundary rule reads shorter here
+    than it does there. The glyph is the same and the label is the same, and the two
+    sections are half a day apart. That was the trade.
 
     **The outsider is now a peer service, and that is a better claim.** The first
     figure refused *another process* -- an anonymous outsider -- reaching into the
@@ -151,68 +188,89 @@ def boundary_what_crosses():
     you declare and becomes something you design"*, which is what all three said. The
     space they were using is what the second refusal is drawn in.
     """
-    d = Diagram("Messages In, Private Data, No Shared Transaction", w=1000, h=596)
-    d.note(MID, 44, "the boundary refuses everything except the message",
+    d = Diagram("Messages In, Private Data, No Shared Transaction", w=1480, h=480)
+    d.note(MID, 26, "the boundary refuses everything except the message",
            ANNOTATION, 21)
-    boundary(d, 574)
+    boundary(d, 422)
 
-    # no ties: containment already says who owns the store, and the tie ran straight
-    # through the red scope's own label. Both stores stay INSIDE the process that
-    # owns them -- a figure that puts a database outside its box has conceded §1
-    # before the presenter opens their mouth.
-    ordering, orders = service(d, 40, 124, 380, 330, "the Ordering service",
-                               "Ordering", store="Orders", app_h=120, tie=False)
-    shipping, _ = service(d, 580, 124, 380, 330, "the Shipping service", "Shipping",
-                          store="Shipments", app_h=120, tie=False)
+    # A row apiece, mirrored through the line: the application against the boundary,
+    # the store at the far end of its own container. Both stores stay INSIDE the
+    # process that owns them -- a figure that puts a database outside its box has
+    # conceded §1 before the presenter opens their mouth.
+    ordering, orders = service(d, 40, 84, 600, 280, "the Ordering service",
+                               "Ordering", "Orders", "r")
+    shipping, _ = service(d, 780, 84, 600, 280, "the Shipping service",
+                          "Shipping", "Shipments", "l")
 
     # **Two channels, not one.** A channel is one-way -- the fact §Conversations
     # spends a slide on -- and drawing it here costs nothing and saves that slide an
     # assertion. Both runs are horizontal and anchored to bare points rather than to
     # the boxes' midpoints: `sides=("r", "l")` puts both arrows on the same edge
     # centre and the pair comes out as a bowtie.
-    out = d.pipe(440, 172, 120, 48)
-    d.msg(487, 184, w=26, h=20)
-    back = d.pipe(440, 240, 120, 48)
-    d.msg(487, 252, w=26, h=20)
-    d.arrow((390, 196), out, sides=(None, "l"))
-    d.arrow(out, (610, 196), sides=("r", None))
-    d.arrow((610, 264), back, sides=(None, "r"))
-    d.arrow(back, (390, 264), sides=("l", None))
+    out = d.pipe(665, 140, 90, 38)
+    d.msg(699, 150, w=22, h=18)
+    back = d.pipe(665, 184, 90, 38)
+    d.msg(699, 194, w=22, h=18)
+    d.arrow((620, 159), out, sides=(None, "l"))
+    d.arrow(out, (800, 159), sides=("r", None))
+    d.arrow((800, 203), back, sides=(None, "r"))
+    d.arrow(back, (620, 203), sides=("l", None))
 
     # Refusal one: the read. A transaction is a scope and this is not -- it is one
     # service reaching for another's tables -- so it is an arrow, and it is stopped
     # where it meets the line rather than where it arrives.
     #
-    # **It goes the long way round on purpose, and the first draft is why.** Dropped
-    # straight down out of the Shipping box it ran through the Shipments cylinder --
-    # hidden, because the cylinder's fill is painted over it -- and then its dashed
-    # red descent ran parallel to the transaction scope's dashed red border, two
-    # units apart, so the two refusals read as one shape. Neither is anything
-    # `lint_figures.py` measures. Routed outside everything it can be confused with,
-    # it is unambiguous, it uses margin that was empty anyway, and the shape of the
-    # route is itself the claim: there is no way in that does not cross the line.
-    d.arrow((930, 236), orders, "read its tables", accent=True, dashed=True,
-            via=[(986, 236), (986, 545), (24, 545), (24, 378)],
-            sides=(None, "l"), lx=-190, ly=-16)
-    d.icon(MID, 545, "cross", accent=True, r=17)
+    # **It goes the long way round on purpose, and both drafts are why.** Dropped
+    # straight down out of the Shipping box it runs through the red transaction scope
+    # -- which reads as the read being part of the transaction -- and in the stacked
+    # draft it ran through the Shipments cylinder, hidden, because the cylinder's fill
+    # is painted over it. Neither is anything `lint_figures.py` measures. Routed
+    # outside everything it can be confused with, it is unambiguous, it uses margin
+    # that was empty anyway, and the shape of the route is itself the claim: there is
+    # no way in that does not cross the line. The row layout shortens it -- Orders is
+    # now at the near end of the run rather than the far side of its own container.
+    #
+    # **It leaves the Shipping box at 181 and not at 197, and the reason is the eye.**
+    # 197 is where the return channel enters the box on the other side, so a red run
+    # leaving seven units off it reads as a continuation of the blue arrow. 181 is
+    # midway between the two channels and cannot be mistaken for either.
+    #
+    # **⚑ `lx` and `ly` are in FINAL canvas units, not the ones written here.** They
+    # are added after `compact()`'s `k`, so a nudge means something different at every
+    # scale -- and the label is inside `_extent`, so an over-large `ly` quietly makes
+    # the figure TALLER and gives back the aspect the row layout was drawn for. Thirty
+    # is the label clear of the run by nine and the figure at 2.60 : 1; thirty-three
+    # is 2.54 : 1 and under the cap.
+    d.arrow((1080, 181), orders, "read its tables", accent=True, dashed=True,
+            via=[(1470, 181), (1470, 408), (190, 408)],
+            sides=(None, "b"), lx=-370, ly=30)
+    d.icon(MID, 408, "cross", accent=True, r=14)
 
-    # refusal two: the scope that cannot be had, drawn ACROSS the two services rather
+    # Refusal two: the scope that cannot be had, drawn ACROSS the two services rather
     # than in place of them. Its top edge is 42 units above the stores rather than
     # level with them: a group's own label is set at the top LEFT, and level it lay
     # straight across the Orders cylinder -- which `lint_figures.py` cannot see,
     # because it measures notes against nodes and a group's label is neither.
     #
+    # **The row layout is what lets this box hold the stores and nothing else.**
+    # Stacked, a full-width band at the stores' height was the only place it could go
+    # and it had the applications six units above it. In a row the applications sit a
+    # whole band clear, and the scope encloses exactly the two things a transaction
+    # would have to span.
+    #
+    # **And the 42 units are why `service` sets `app_dy` to 48.** The label band has
+    # to hold the application clear of BOTH labels above it -- the container's own,
+    # which on the right-hand service sits directly over the inboard application, and
+    # this one, which sits directly under it. Neither collision is visible to
+    # `lint_figures.py`: a group's label is neither a note nor a node.
+    #
     # **"one transaction", not "one transaction across both".** A group's label is
-    # set at its top LEFT, which here is inside the Ordering container, and text does
-    # not scale when `compact()` shrinks the drawing -- so the longer label was 174
-    # fixed units inside a container only 380*k wide, and at this figure's k it
-    # cleared the container's dashed right border by single units. The box visibly
-    # spans both services, so the picture already says *across both*; the words did
-    # not need to. Wrapping it to two lines would have been worse, not better: the
-    # second line is a fixed distance down and the cylinder below is a scaled one,
-    # so the label would have landed on the store.
-    d.group(96, 296, 808, 168, "one transaction", accent=True)
-    d.icon(MID, 378, "cross", accent=True, r=19)
+    # set at its top LEFT, and text does not scale when `compact()` shrinks the
+    # drawing -- so the longer label was 174 fixed units inside a container only
+    # 600*k wide. The box visibly spans both services, so the picture already says
+    # *across both*; the words did not need to.
+    d.group(72, 234, 1276, 144, "one transaction", accent=True)
+    d.icon(MID, 306, "cross", accent=True, r=16)
     return d
 
 

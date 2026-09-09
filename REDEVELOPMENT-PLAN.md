@@ -1497,24 +1497,44 @@ separate, `flow-lookup-asking` and `flow-lookup-table` both sit at 18.0 as well.
 recover room where a pair duplicates its own stage, but check the shape first: it is the cheaper fix and
 it does not cost a picture.
 
-**⚑ One figure stayed at 82% and no reshaping can move it, which is worth knowing before
-someone tries.** `boundary-what-crosses` sits on a figure slide under a three-line callout, so its
-stage is 11.93 x 4.64in. Work the report's own arithmetic through: while the figure's canvas *and*
-the stage are both fitted by height, `frac` reduces to `stage_height x 2.2 / 12.4` — **the figure's
-aspect cancels out entirely**. It is a cliff, not a slope: nothing improves until the drawing is
-wider than the stage (2.57 : 1), at which point it jumps to 96%. Two services with an app stacked
-over its store are nowhere near that, and getting there means a side-by-side `service()` variant —
-which is job 2's territory, not composition's. It was 82% as `boundary-one-service` too, so this is
-the status quo and not a regression — though the preview does show it filling the stage's height and
-leaving a third of its width empty, so it is worth doing.
+**⚑ One figure was at 82%, and a row layout took it to 96% — done 2026-09-09.**
+`boundary-what-crosses` sits on a figure slide under a three-line callout, so its stage is
+11.93 x 4.64in. Work the report's own arithmetic through: while the figure's canvas *and* the stage
+are both fitted by height, `frac` reduces to `stage_height x 2.2 / 12.4` — **the figure's aspect
+cancels out entirely**. Stacked, an application over its store twice, it was 1.57 : 1 and pinned at
+82% on the load-bearing slide of both days. **Application beside store, mirrored through the line,
+it is 2.60 : 1 and lands at 96%** — the stage's own width, and the cap. `service()` grew an
+`inboard` argument and lost its stacking; nothing else calls it, so nothing else moved. The three
+bullets, both refusals and both crosses are exactly where they were.
 
-**The enabling fact, for whoever picks it up: `service()` now has exactly one caller.** `task-queue-shape`
-and `task-queue-http` draw their own boxes and cylinders directly, so the helper is `boundary-what-crosses`
-alone and a row layout — app and store side by side rather than stacked — can be added to it without
-touching another figure. **It is all or nothing, though:** below 2.57 : 1 nothing improves at all, and the
-arithmetic is tight. Margins are fixed while geometry scales, so a final 890 x 340 needs raw *content*
-nearer 3.1 : 1 than 2.6 : 1, and the red idea, the boundary's own name and the foot of the drawing are
-fixed heights that do not shrink with it.
+**What the redraw actually had to solve, because "make it wider" is not the job.** Widening the
+canvas alone does nothing: `compact()` targets an *effective* width of 890 and `K_FLOOR` stops it
+shrinking past 0.55, so a wide drawing that is still tall lands over the target and loses its labels
+instead of gaining them. **The height has to come out.** Two things set the floor on it and neither
+is the content: the red idea and the boundary's own name are stacked text at the top, and the
+transaction scope's label is set at its top LEFT, so the red box has to start 42 units above the
+stores it encloses. The row layout is what buys the rest — an application over its store is two
+bands, side by side it is one, and that band is what the transaction scope now sits below.
+
+**Three near-misses worth recording, all of them invisible in the source.**
+
+  * **`lx` / `ly` on an arrow label are in FINAL canvas units, not raw ones.** They are added after
+    `k` is applied, so the same nudge means something different at every scale — and the label is
+    in `_extent`, so an over-large `ly` silently makes the figure taller and eats the aspect it was
+    being redrawn for. A `ly` of 33 cost 9 units of final height and 0.07 of aspect.
+  * **A group's label collides with an inboard application, and only on one side.** A group label is
+    top-left; the left service's application is at its right and clears it, the right service's is at
+    its left and does not. `service()` needs `app_dy` at 48, not 38, and `lint_figures.py` does not
+    see it because a group's label is neither a note nor a node.
+  * **The read refusal now leaves the Shipping box on the same line as the return channel enters it.**
+    Seven units apart, the red run reads as a continuation of the blue arrow. It leaves at 181,
+    midway between the two channels, for that reason alone.
+
+**The trade, so it is not re-discovered as a defect.** §3's four `integration_styles` figures stack
+an application over its store and stay square, so **§1's boundary rule now reads shorter than §3's**.
+The glyph, the weight and the label are the same and the two sections are half a day apart; `MID` and
+`BT` are this figure's own now, and `app_shapes.py` says so where it used to claim the stage was
+shared.
 
 **A second rule fell out of the first one.** `Diagram.K_FLOOR` is 0.55 — a figure may not be shrunk by
 more than 45% — and **text does not shrink with the geometry**, so a composed figure that is one row

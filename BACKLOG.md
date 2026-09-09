@@ -6,12 +6,14 @@ workstream with its own brief**. If this file and the plan disagree, **the plan 
 is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
-Last reconciled against the repo: **2026-09-09**, after the tooling pass (§A closed).
+Last reconciled against the repo: **2026-09-09**, after B1.
 
 **Where things stand.** Phases 1 and 2 are closed. Phase 3 — the deck builds — is most of the way
 through: both decks build clean from `outlines/` with an empty overflow report, Day 1 **137 slides**
 and Day 2 **153**, **90 figures** across eleven families plus **2 print cards**, lint clean,
-`reads_at` **30 of 90**, and speaker notes ship into both `.pptx`. What is left is below.
+`reads_at` **30 of 90**, and speaker notes ship into both `.pptx`. **Day 1's figures now sit at a
+median 91% of their Phase 2 label size with two under 85%, Day 2 at 96% with three.** What is left
+is below.
 
 ---
 
@@ -43,7 +45,7 @@ died with the session. The next one written should go in `tools/` and be committ
 
 | # | item | why it is not done | size | detail |
 |---|---|---|---|---|
-| **B1** | Reshape `boundary-what-crosses` | **The one figure worth doing.** Reads at 82%; it is the load-bearing slide of both days and leaves a third of its stage empty. A row layout — app and store side by side, not stacked — takes it to 96%. `service()` now has exactly one caller, so it can be changed without touching another figure | M | plan §8 item 23e, *One figure stayed at 82%* |
+| **B1** | ✅ Reshape `boundary-what-crosses` | **Done 2026-09-09.** Application beside store, mirrored through the line: 1.57 : 1 becomes 2.60 : 1 and **82% becomes 96%**, the stage's own width and the cap. Nothing cut — three bullets, both refusals, both crosses. The trade is that §1's boundary rule now reads shorter than §3's | — | plan §8 item 23e, *One figure was at 82%* |
 | **B2** | The other five figures under 85% | **No action available.** While a figure's canvas and its stage are both height-fitted, the percentage reduces to `stage_height × 2.2 / 12.4` and the aspect cancels out: nothing improves until the drawing is wider than ~2.57 : 1. Only a content change moves them | — | plan §8 item 23e; the list is in `PROMPT.md` |
 | **B3** | 30 of 90 figures under the 18pt floor | **18 are Ian's standing decision** — `bpmn_hotel`, `bpmn_shopping`, `paper_flow`; he scoped the re-sweep away from them. The other 12 are **clamp-bound**: a shape may not shrink below its own label, so the only lever is content, per figure | — | `PROMPT.md` *On Ian's desk* item 8 |
 | **B4** | Day 1 image-dump sweep | Day 2 is clean — its 17-image entry was found and split. **Day 1 has never been checked** for the same thing | S | `PROMPT.md` *Sweeps still outstanding* |
