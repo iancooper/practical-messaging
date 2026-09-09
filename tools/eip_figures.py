@@ -352,6 +352,260 @@ def content_enricher():
     return d
 
 
+# ---- The routing handout -----------------------------------------------------
+#
+# The eight patterns Day 1 SS4.6 Pipelines used to teach, cut by review item D1-9 and
+# promised a takeaway handout instead (plan SS10). They are in this family rather than
+# a family of their own because Content Enricher -- the ninth pattern of that set, and
+# the one that stayed on Day 1 -- is already here: a handout drawn in a second voice
+# would read as somebody else's material stapled to the pack.
+#
+# **The three routers contrast through red, and that is the whole sub-set.** All three
+# answer one question -- *who decides where this message goes* -- and the red says who:
+# Content Based Router reds the ROUTER, because the rules are in it; Dynamic Router
+# reds the CONTROL CHANNEL, because the consumers put them there; Recipient List reds
+# the LIST ON THE MESSAGE, because the publisher wrote it. A reader who takes only the
+# red from those three pages has the distinction the prose spends 550 words on.
+#
+# Splitter and Aggregator pair the same way and carry the same three parts across both
+# pages, so the second figure is visibly the first one run backwards.
+
+
+@figure("eip-pipes-and-filters")
+def pipes_and_filters():
+    """The chain. Red is on composability, because that is the pattern's claim.
+
+    **The three filters are Decrypt, Enrich and Translate rather than Hohpe's own
+    Decrypt / Authenticate / De-Dup**, for two reasons. They are the three the script
+    names (*encrypt/decrypt, enrich the content, transform the format*), and two of the
+    three are patterns the reader meets elsewhere in the pack -- Content Enricher on
+    Day 1, Message Translator on the next page of this handout -- so the chain is built
+    out of things they already have names for. "Authenticate" is also the longest label
+    in the set and this is the one figure in the family tight enough for that to bind.
+    """
+    d = Diagram("Pipes and Filters", w=940, h=290)
+    src = d.box(16, 110, 104, 56, "Publisher")
+    stages, pipes = [], []
+    for x, label, w in ((214, "Decrypt", 100), (408, "Enrich", 100),
+                        (602, "Translate", 112)):
+        pipes.append(d.pipe(x - 72, 124, 50, 28))
+        stages.append(d.box(x, 110, w, 56, label))
+    pipes.append(d.pipe(736, 124, 50, 28))
+    snk = d.box(808, 110, 104, 56, "Consumer")
+
+    chain = [src, pipes[0], stages[0], pipes[1], stages[1],
+             pipes[2], stages[2], pipes[3], snk]
+    for a, b in zip(chain, chain[1:]):
+        d.arrow(a, b, sides=("r", "l"))
+
+    d.note(470, 36, "each filter reads a channel and writes a channel -- "
+                    "so they chain", ANNOTATION, 17)
+    # all three role names on one row: "filters" set above the middle box read as
+    # naming Enrich rather than the three of them
+    d.note(68, 196, "source", INK, 14)
+    d.note(470, 196, "filters", INK, 14)
+    d.note(860, 196, "sink", INK, 14)
+    d.note(470, 248, "each pipe is a channel -- and the pipeline's throughput "
+                     "is the slowest filter's", COMMENT, 14)
+    return d.compact(890)
+
+
+@figure("eip-message-translator")
+def message_translator():
+    """A filter that changes the schema and nothing else.
+
+    Drawn on `eip-content-enricher`'s composition on purpose -- three boxes, same
+    widths, same x positions. They are the two filters the reader meets as filters,
+    and the enricher adds a field where the translator changes a shape; laying them
+    out identically is what makes that the only difference on the page.
+    """
+    d = Diagram("Message Translator", w=480, h=300)
+    src = d.box(16, 96, 116, 58, "Order\nv2")
+    tr = d.box(184, 96, 116, 58, "Message\nTranslator")
+    out = d.box(352, 96, 116, 58, "Order\nv1")
+    d.arrow(src, tr, sides=("r", "l"))
+    d.arrow(tr, out, sides=("r", "l"))
+    d.note(242, 34, "the same message, in a schema the consumer can read",
+           ANNOTATION, 17)
+    d.note(74, 180, "as published", INK, 14)
+    d.note(410, 180, "as consumed", INK, 14)
+    d.note(240, 254, "often temporary -- retire it once the\n"
+                     "consumer accepts the publisher's schema", COMMENT, 14)
+    return d
+
+
+@figure("eip-content-based-router")
+def content_based_router():
+    """Router 1 of 3. **Red is the router itself**, because the rules live in it --
+    which is also why it becomes the maintenance hot-spot the caveat warns about."""
+    d = Diagram("Content Based Router", w=560, h=330)
+    inp = d.pipe(16, 142, 88, 28)
+    d.msg(38, 149, w=20, h=14)
+    rtr = d.box(148, 128, 126, 58, "Content\nBased Router", accent=True)
+    d.arrow(inp, rtr, sides=("r", "l"))
+    for y, label in ((64, "Widget\nInventory"), (220, "Gadget\nInventory")):
+        pipe = d.pipe(318, y, 80, 26)
+        d.msg(340, y + 6, w=18, h=13)
+        dest = d.box(430, y - 22, 112, 54, label)
+        d.arrow(rtr, pipe, sides=("r", "l"))
+        d.arrow(pipe, dest, sides=("r", "l"))
+    d.note(300, 26, "the router reads the message to decide where it goes",
+           ANNOTATION, 17)
+    d.note(62, 194, "one channel in", INK, 14)
+    d.note(358, 158, "a channel per outcome", INK, 14)
+    d.note(280, 300, "the router has to know every destination --\n"
+                     "which is what makes it a place you keep going back to",
+           COMMENT, 14)
+    return d
+
+
+@figure("eip-dynamic-router")
+def dynamic_router():
+    """Router 2 of 3. **Red is the control channel**, not the router -- the mirror of
+    Content Based Router, where red was the router and the consumers were mute. The
+    rules are the same rules; what moved is who wrote them."""
+    d = Diagram("Dynamic Router", w=600, h=380)
+    inp = d.pipe(16, 140, 84, 28)
+    d.msg(38, 147, w=20, h=14)
+    rtr = d.box(146, 126, 126, 58, "Dynamic\nRouter")
+    d.arrow(inp, rtr, sides=("r", "l"))
+    dests = []
+    for y, label in ((62, "Consumer A"), (212, "Consumer B")):
+        pipe = d.pipe(322, y + 14, 76, 26)
+        dest = d.box(430, y, 124, 54, label)
+        dests.append(dest)
+        d.arrow(rtr, pipe, sides=("r", "l"))
+        d.arrow(pipe, dest, sides=("r", "l"))
+    # round the bottom rather than diagonally: a straight run from B's foot to the
+    # router's foot passes through pipe B and its own label
+    d.arrow(dests[1], rtr, "send me anything over 500", accent=True,
+            via=[(492, 300), (209, 300)], sides=("b", "b"))
+    d.note(300, 26, "the consumers tell the router what to send them",
+           ANNOTATION, 17)
+    d.note(350, 332, "a control channel", INK, 14)
+    d.note(300, 364, "if two rules match the router must choose -- "
+                     "last one wins, or it is really a recipient list", COMMENT, 14)
+    return d
+
+
+@figure("eip-recipient-list")
+def recipient_list():
+    """Router 3 of 3. **Red is the list on the message**, because here it is the
+    publisher that decides -- neither the router's rules nor the consumers'.
+
+    B is skipped on purpose. Three channels with all three taken is a fan-out and
+    reads as publish-subscribe; the pattern only becomes visible when one of the
+    channels that exists does not get a copy.
+    """
+    # the gap between Publisher and the list is set by the red label, not by the
+    # drawing: "to: A and C" is the one idea on the page and it has to sit in clear
+    # paper. 112 units of gap for an 18pt label that measures about 90
+    d = Diagram("Recipient List", w=620, h=356)
+    pub = d.box(16, 148, 112, 58, "Publisher")
+    rl = d.box(240, 148, 130, 58, "Recipient\nList")
+    d.arrow(pub, rl, "to: A and C", accent=True, sides=("r", "l"), ly=-2)
+    for y, name, taken in ((54, "A", True), (140, "B", False), (226, "C", True)):
+        pipe = d.pipe(410, y + 13, 76, 24)
+        dest = d.box(512, y, 86, 50, name)
+        d.arrow(pipe, dest, sides=("r", "l"))
+        if taken:
+            d.msg(430, y + 18, w=18, h=13, accent=True)
+            d.arrow(rl, pipe, sides=("r", "l"))
+    d.note(310, 26, "the publisher names who gets it -- like the To list on an email",
+           ANNOTATION, 17)
+    d.note(448, 306, "a channel per recipient", INK, 14)
+    d.note(310, 340, "invert it -- let consumers register via a control channel --\n"
+                     "and you have publish-subscribe on point-to-point middleware",
+           COMMENT, 14)
+    return d
+
+
+@figure("eip-splitter")
+def splitter():
+    """One in, one per part out. Red is the fan-out.
+
+    The three parts are `line 1..3` here and again on `eip-aggregator`, and the two
+    figures are the same drawing reflected, so the pair reads as one movement out and
+    back rather than as two unrelated pictures.
+    """
+    d = Diagram("Splitter", w=460, h=366)
+    order = d.box(16, 134, 116, 58, "Order\n3 lines")
+    spl = d.box(180, 134, 104, 58, "Splitter")
+    d.arrow(order, spl, sides=("r", "l"))
+    for y, label in ((60, "line 1"), (148, "line 2"), (236, "line 3")):
+        pipe = d.pipe(330, y, 76, 24)
+        d.msg(352, y + 5, w=20, h=14, accent=True)
+        d.arrow(spl, pipe, sides=("r", "l"))
+        d.note(368, y + 44, label, INK, 14)
+    d.note(230, 26, "one message in, one message per part out", ANNOTATION, 17)
+    d.note(230, 320, "and now you can watch the batch drain --\n"
+                     "instead of waiting for all-or-nothing", COMMENT, 14)
+    return d
+
+
+@figure("eip-aggregator")
+def aggregator():
+    """`eip-splitter` run backwards, with the same three parts. Red is the **buffer**,
+    not the fan-in: what an aggregator does that a plain consumer does not is wait."""
+    d = Diagram("Aggregator", w=490, h=366)
+    agg = d.box(166, 134, 124, 58, "Aggregator")
+    # line 3 is drawn as an empty channel on purpose: "2 of 3" is the whole idea, and
+    # three envelopes with a buffer saying 2 of 3 contradicts it on the page
+    for y, label, arrived in ((60, "line 1", True), (148, "line 2", True),
+                              (236, "line 3", False)):
+        pipe = d.pipe(16, y, 76, 24)
+        if arrived:
+            d.msg(38, y + 5, w=20, h=14)
+        d.arrow(pipe, agg, sides=("r", "l"))
+        d.note(54, y + 44, label, INK, 14)
+    buf = d.box(168, 232, 120, 56, "holding\n2 of 3", accent=True)
+    d.attach(agg, buf, sides=("b", "t"))
+    out = d.box(346, 134, 128, 58, "Order\ncomplete")
+    d.arrow(agg, out, sides=("r", "l"))
+    d.note(244, 26, "it holds the parts until the set is complete", ANNOTATION, 17)
+    d.note(228, 326, "a correlation id says which parts belong together --\n"
+                     "the count says when it has them all", COMMENT, 14)
+    return d
+
+
+@figure("eip-resequencer")
+def resequencer():
+    """Red is the buffer again, and deliberately: a Resequencer is an Aggregator that
+    releases as it goes rather than at the end, so the two figures share their red.
+    The numbers in the channels carry the outcome, which is why the red note is free
+    to state the mechanism instead."""
+    d = Diagram("Resequencer", w=560, h=340)
+    # The pipes are deep enough to carry each number BELOW its own envelope. A label
+    # passed to `msg` lands under the flap and the flap strikes it through -- invisible
+    # in the source, and the numbers are the whole figure.
+    #
+    # ⚑ A pipe's mouth is an ellipse centred ON x with `rx = h/3`, so a deep pipe
+    # reaches h/3 to the LEFT of the x it was given -- and `_extent` does not count it,
+    # so it is cropped rather than reported. At h=60 that is 20 units, which is why
+    # these start at 36 and not at the family's usual 16.
+    for x0, seqn in ((36, ("3", "1", "2")), (376, ("1", "2", "3"))):
+        pipe = d.pipe(x0, 112, 148, 60)
+        for i, n in enumerate(seqn):
+            d.msg(x0 + 12 + i * 44, 118, w=36, h=22)
+            d.note(x0 + 30 + i * 44, 162, n, INK, 14)
+        if x0 == 36:
+            inp = pipe
+        else:
+            out = pipe
+    seq = d.box(214, 114, 128, 58, "Resequencer")
+    buf = d.box(226, 206, 104, 48, "buffer", accent=True)
+    d.attach(seq, buf, sides=("b", "t"))
+    d.arrow(inp, seq, sides=("r", "l"))
+    d.arrow(seq, out, sides=("r", "l"))
+    d.note(278, 26, "the buffer holds what arrived early, until its turn comes",
+           ANNOTATION, 17)
+    d.note(110, 200, "as they arrive", INK, 14)
+    d.note(450, 200, "as they are needed", INK, 14)
+    d.note(278, 296, "competing consumers, retries and parallel branches\n"
+                     "all de-order a channel", COMMENT, 14)
+    return d
+
+
 def main(argv):
     if "--list" in argv:
         for name in FIGURES:
