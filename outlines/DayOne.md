@@ -544,7 +544,9 @@ How this looks over HTTP — and most delegates have not used it.
 Presenter notes: Ask who has returned a 202 in anger — usually a handful of hands. This is one of the most immediately usable things in the course: guaranteed delivery with no new
 infrastructure and no reorganisation, expressed in a protocol everyone in the room already ships. The
 callout is the set-up for §4.4 — the web server has *promised* not to lose the work, and the very next
-sub-topic is the fact that nothing so far actually guarantees it.
+sub-topic is the fact that nothing so far actually guarantees it. **The exercise slot now sits between
+the two**, so land the promise before they go to the keyboard and pick it up again when they come back:
+they will have built the pump that is about to be shown to be unreliable.
 
 ---
 
@@ -803,7 +805,9 @@ fine, until you assume it is native and reason about failure as though it were.
 Presenter notes: This slide is the honest answer to "why does my library make this look so easy?" —
 it makes the queue-versus-stream distinction concrete *before* §4.5 draws it conceptually, and it
 explains why the same reliability pattern costs very different amounts on different infrastructure.
-Ask the room which broker they are on and what they assumed was native.
+Ask the room which broker they are on and what they assumed was native. **The second exercise slot
+follows this slide**, so this is the last thing they hear before making their own pump fail — which is
+the right note to send them out on.
 
 ---
 
