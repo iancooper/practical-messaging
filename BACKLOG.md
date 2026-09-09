@@ -6,7 +6,7 @@ workstream with its own brief**. If this file and the plan disagree, **the plan 
 is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
-Last reconciled against the repo: **2026-09-09**, at commit `d43034f`.
+Last reconciled against the repo: **2026-09-09**, after the tooling pass (§A closed).
 
 **Where things stand.** Phases 1 and 2 are closed. Phase 3 — the deck builds — is most of the way
 through: both decks build clean from `outlines/` with an empty overflow report, Day 1 **137 slides**
@@ -15,22 +15,27 @@ and Day 2 **153**, **90 figures** across eleven families plus **2 print cards**,
 
 ---
 
-## A. Next up — make the repo operable ##
+## A. ✅ Closed — the repo is operable ##
 
 **Ian, 2026-09-09:** *"We are building tools to allow us to regenerate the decks from outlines, draw
 diagrams etc. We may want to return later, update outlines, rebuild. That seems like we need a
 CLAUDE.md file, some commands that we can use to trigger operations and some skills that they
 invoke. I think we should build it as the next step, after a fresh session starts."*
 
-**This is the live job, and it is deliberately the first thing a fresh session does.** Today the
-operating knowledge lives in `PROMPT.md`, which is untracked session state — so it is one `rm` away
-from gone, and a new session has to read 980 lines of it before it can safely rebuild a figure.
+**Done.** The operating knowledge is now **tracked**, and split three ways: `CLAUDE.md` is what is
+true whether or not anything is invoked, a command is a verb you type, and a skill is the procedure
+it loads. `PROMPT.md` stays what it always was — session state, untracked — but nothing load-bearing
+lives only there any more.
 
-| # | item | what it is | size | detail |
-|---|---|---|---|---|
-| **A1** | `CLAUDE.md` | The repo's operating instructions, **tracked**: read order, the build pipeline, the tool inventory, the two registers and the palette, and the rules that have each cost real rework — never edit `build/`, never put provenance in an outline, look at the PNG, rebuilds must be byte-identical, absolute paths, `lint_figures.py` takes over five minutes | M | `PROMPT.md` *Rules that must hold* + *Figure knowledge* are the raw material |
-| **A2** | Slash commands | `.claude/commands/*.md` for the operations run every session: verify, rebuild the decks, preview slides, rebuild and inspect one figure, publish a review sheet | S | sketch in `PROMPT.md` *Do this next* |
-| **A3** | Skills | `.claude/skills/*/SKILL.md` for the procedures the commands invoke — building a deck, drawing a figure, building a review sheet. The long-form knowledge that should not sit in every context window | M | as above |
+| # | item | state |
+|---|---|---|
+| **A1** | `CLAUDE.md` | ✅ Tracked at the repo root. Read order, the pipeline, the tool inventory, the two registers and the palette, 14 rules that each cost real rework, and the working notes for this machine |
+| **A2** | Slash commands | ✅ `.claude/commands/` — `/verify` (one pass, slow checks backgrounded) · `/build` · `/preview` (renders **and looks**) · `/figure` (rebuild, lint, `reads_at`, **and show the PNG**) · `/sheet` (offered, never published unasked) |
+| **A3** | Skills | ✅ `.claude/skills/` — `deck-build` (the grammar, the builder, answering an overflow) · `figure-drawing` (the API, the legibility arithmetic, the composition test, what lint cannot see) · `review-sheet` (the five requirements, the etiquette, the seven sheets) |
+
+**One thread stays open**, and it is recorded in the `review-sheet` skill rather than here: there is
+still **no committed generator** for a review sheet. Each one has been written into a scratchpad and
+died with the session. The next one written should go in `tools/` and be committed.
 
 ---
 
@@ -108,3 +113,4 @@ Recorded so nothing here gets re-opened by accident.
 | **The multi-figure question** | Plan §8 item 23e. Four composed, **one of which Ian split back on review** — and that reversal is the sharpest finding of the exercise |
 | **The two delegate reference cards** | Plan §8 item 8. One per pack, both built |
 | **The Paper Flow exercise** | Plan §7, built and wired |
+| **The tooling job (§A)** | `CLAUDE.md`, five commands and three skills. The operating knowledge is tracked now, not session state |
