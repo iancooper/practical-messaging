@@ -5,6 +5,10 @@ coding exercises while deliberately not touching them, written down so a fresh a
 rediscover it. **Ian holds the missing half** — the exercise code itself, which is not in this repo —
 and will supply it along with the old code locations.
 
+**⚑ Start at §8, *The work*.** It is the ordered list, and everything above it is the evidence for
+why each item is on it. **W1 — rewriting `Introduction-To-Exercises.pptx` — is the one to do first**:
+it is the first thing a delegate reads and most of it now describes a course that will not exist.
+
 **Scope: the Day 1 coding exercises, and the timing question they dominate.** Everything else about
 this course — the two decks, `outlines/`, the figures, the handouts, the Paper Flow exercise — is a
 separate, active workstream tracked in `BACKLOG.md` and `REDEVELOPMENT-PLAN.md`. **Do not edit
@@ -285,6 +289,17 @@ Run on 2026-09-09. These are real, and they are what a delegate hits first.
 **Orphaned:** `Quick-Start-SNS-SQS.pptx` is in `exercises/` and mentioned by neither README. Either it
 is dead and should go, or SNS/SQS is a variant delivery that has lost its wiring. **Ask.**
 
+**And one claim that is not a link.** `README DAY ONE.md` introduces the precursor decks with *"These
+have speaker notes accompanying the slides."* Counted:
+
+| deck | slides | with notes |
+|---|---:|---:|
+| `Introduction-To-Exercises.pptx` | 14 | **0** |
+| `Quick-Start-RMQ.pptx` | 10 | 9 |
+| `Quick-Start-Kafka.pptx` | 16 | **2** |
+
+True of one deck of the three. Either write the notes or stop promising them — §8 W1.
+
 ## 5. Timing — the exercises dominate every other lever ##
 
 **Moved here from the deck backlog on Ian's instruction, because it is this work's to answer.**
@@ -366,7 +381,78 @@ These come from the deck workstream, where each cost real rework. They apply her
 5. **Never put provenance in an outline.** Presenter notes become the deck's speaker notes and ship to
    whoever presents. Reasoning belongs in a commit message.
 
+## 8. The work ##
+
+Ordered by what unblocks what. **W1 and W2 are the only two that do not wait on the format decision
+in §3.5**, and W1 is the one a delegate reads first.
+
+| # | item | blocked on |
+|---|---|---|
+| **W1** | **Rewrite `Introduction-To-Exercises.pptx`** — below | §3.5 for the detail; the *shape* is already decided |
+| **W2** | Fix the six broken README links (§4), and settle the two orphans | nothing |
+| **W3** | Build the four exercises (§3) in whatever format §3.5 settles on | the format decision, and repo access |
+| **W4** | Retire the dead exercise decks (§3.4) | W3 |
+| **W5** | Decide the videos — re-record, retire to reference, or leave | Ian |
+| **W6** | Time each exercise on the next delivery (§5) | a delivery |
+
+### W1 — `Introduction-To-Exercises.pptx`, slide by slide ###
+
+**This is the first thing a delegate reads, and most of it now describes a course that will not
+exist.** 14 slides. It was refreshed in Oct 2025, so it is not neglected — it is simply about the old
+design.
+
+| slide | says now | needs |
+|---:|---|---|
+| 1 | *Introduction to the Exercises* | — |
+| 2 | **Prerequisites** — RMQ, Docker, the compose file | **still true, and now incomplete.** Add what a delegate needs for an agent-assisted exercise, and say plainly that **no agent is needed** — §3.6's fallback is a design feature, not an apology |
+| 3 | **Patterns** — *"many of these patterns also have associated exercises"* | **false under the new list.** Most patterns now have a video and a slide and no exercise. Say which four are exercised and why the rest are not |
+| 4 | **Exercises** — *"the master branch is blank, the solutions and questions are branches"* | **the branch scheme changes.** §3.6 wants a working baseline as the main path with "write it yourself" optional — the exact inverse of what this slide describes |
+| 5 | a screenshot | check what it shows; probably the GitHub layout, so it follows slide 4 |
+| 6 | **Steps** — *"watch a video → if there is an associated exercise, do it → repeat"* | **the loop is gone**: twenty videos, four exercises. This becomes the predict-break-observe cycle from §3.6 |
+| 7 | **What Do You Do?** — *"in each exercise there is code that is missing, replaced by comments"* | **this slide *is* the old format.** It is the one that has to be rewritten from scratch, and it cannot be written until §3.5 is settled |
+| 8 | **Making the Most of This** — *"you could just type the code from Solutions… you won't learn as much"* | **it now argues against the recommended path.** Re-aim it: not *"don't copy the answer"* but ***"the answer is not the point — the prediction is."*** |
+| 9 | **Code Structure** — five languages, not production code | mostly survives. The five-language claim depends on §3.6's last paragraph |
+| 10–14 | **the same three callouts over five language screenshots** — gateway, sender, receiver | survives **if** the scaffolding stays per-language. If it does not, five slides become one |
+
+**⚑ It has no speaker notes — none, on any of the 14 slides — and `README DAY ONE.md` says it does:**
+*"These have speaker notes accompanying the slides."* Checked, not assumed:
+
+| deck | slides | with notes |
+|---|---:|---:|
+| `Introduction-To-Exercises.pptx` | 14 | **0** |
+| `Quick-Start-RMQ.pptx` | 10 | 9 |
+| `Quick-Start-Kafka.pptx` | 16 | **2** |
+
+So the README's claim is true of one deck of the three. **Either write the notes or stop promising
+them** — and if this deck is ever presented rather than read, the notes are the half that carries it.
+
+### W1 — and one decision to make before touching it ###
+
+**It will now look foreign in its own pack.** The two course decks were restyled to *Field Guide* —
+IBM Plex Serif / Sans / Mono, Caveat for callouts, a fixed palette (`styles.md`) — and this deck is
+2024-era PowerPoint default. A delegate opens the course deck and then the exercise deck and they do
+not look like the same course. Three options:
+
+| | cost | |
+|---|---|---|
+| **Leave it** | none | honest, and the mismatch is only visible when they are side by side |
+| **Restyle it in PowerPoint** | Ian's time | it is 14 slides; but every other exercise deck then looks wrong too, and there are eight of them |
+| **Rebuild it through `tools/build_deck.py`** | build a small outline; the tool already renders markdown to `.pptx` in the new style | **the interesting one** — it would make the pack coherent and the deck maintainable as text. But the builder is written for the two *course* decks and their layouts, and generalising it is real work. Raise it with `BACKLOG.md` §A, the tooling job, rather than deciding it here |
+
+**Do not restyle this deck alone.** One restyled deck in a pack of eight is worse than none: it makes
+the other seven look like mistakes rather than like a consistent older set.
+
+### W1 — how to edit it ###
+
+`python-pptx` v1.0.2 is available here and can rewrite text in place, which is enough for slides 3, 4,
+6, 7 and 8 — they are bulleted content placeholders. **There is no PowerPoint on this machine and no
+`soffice`**, so nothing can render the result to check it; a text-only edit is safe, a layout change
+is not. If the rewrite needs new slides or new artwork, it is Ian's machine or the rebuild option
+above.
+
 ---
 
-*Written 2026-09-09 from the deck-redevelopment work, at commit `d43034f`. Nothing in `exercises/` or
-`videos/` was changed to produce it — this is what was observed, not what was done.*
+*Written 2026-09-09 from the deck-redevelopment work, at commit `12ef744`. **Nothing in
+`exercises/` or `videos/` has been changed** — everything above is what was observed, not what was
+done. The one edit made on this brief's account was to `outlines/DayOne.md`, moving Day 1's exercise
+slots on Ian's ruling (§3.2).*
