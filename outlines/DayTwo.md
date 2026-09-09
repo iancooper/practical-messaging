@@ -460,7 +460,8 @@ Data*.
 ▎ Same decision as reference data, drawn as a graph — and the same answer: hold the copy.
 
 #image: hand-drawn FBP diagram — components A and B, and the data B needs that no arc brings it  [→ resources/flow-lookup-question.png]
-#image: hand-drawn FBP diagram — both answers on one graph: the lookup port's query out and response in, with B paused for the round trip, against a Build Lookup node keeping a table B reads locally with no pause  [→ resources/flow-lookup-two-answers.png]
+#image: hand-drawn FBP diagram — ask for it: B's query leaves on a lookup port, and A's answer travels the whole way back round the drawing while B is paused for the round trip  [→ resources/flow-lookup-asking.png]
+#image: hand-drawn FBP diagram — build it in advance: a Build Lookup node listens to A and keeps a table that B reads locally, off no port and with no pause  [→ resources/flow-lookup-table.png]
 
 Presenter notes: This is the direct callback to Day 1 §6.2 *Reference Data* — on-demand versus in-advance, and the CAP cost of each. Delegates met the decision in prose at the end of Day 1 and meet it as a picture now. **Give the same verdict:** the Build Lookup node is the recommended shape; the lookup port is what you use when the data cannot be replicated. The paper form is the Catalogue Maker: a desk whose whole job is keeping a local copy current so nobody has to walk.
 

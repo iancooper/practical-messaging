@@ -1428,10 +1428,51 @@ describe.
 | D2 *When the Pipe Fills* | `flow-backpressure` + `flow-load-shedding` | ✅ `flow-when-the-pipe-fills` | one producer/pipe/consumer; the pressure goes back above it, the data falls out below |
 | D2 *Putting Reactive Together* | `flow-scale-out` + `flow-scale-out-fault` | ✅ `flow-scale-out` | one Supervisor, three workers: one added, one failed in a fault region, and the middle one does double duty so three shapes do the work of four |
 | D1 *Messages In, Private Data, No Shared Transaction* | `boundary-one-service` + `boundary-two-services` | ✅ `boundary-what-crosses` | two services, one rule, and the slide's three bullets: a message crosses, a read is refused, a transaction is refused — both refusals crossed **on the line**, which is the one idea |
-| D2 *FBP — Where Do Lookups Live?* | `flow-lookup-question` + `flow-lookup-port` + `flow-lookup-build` | ✅ `flow-lookup-question` + `flow-lookup-two-answers` | **three figures became two, not one** — see below. One A and one B, with the query over the top and the copy under the bottom, so the two answers never share a corridor |
+| D2 *FBP — Where Do Lookups Live?* | `flow-lookup-question` + `flow-lookup-port` + `flow-lookup-build` | ⚑ **reversed 2026-09-09** — `flow-lookup-question` + `flow-lookup-asking` + `flow-lookup-table` | composed for a day as `flow-lookup-two-answers`, then split back on Ian's review. See *The lookup entry, reversed* below |
 
-**⚑ The lookup entry went from three figures to two, not to one, and the reason is the content
-rather than the budget.** The slide reads *"A component needs data it was not sent. **Two answers**"* —
+#### The lookup entry, reversed — 2026-09-09
+
+**Ian, on the review sheet:** *"I think this is confusing combined. Let's split into asking and lookup
+via table as two diagrams, each with an alternative."* So the composed `flow-lookup-two-answers` is gone
+and the entry carries three figures again: the question, then `flow-lookup-asking` (the lookup port) and
+`flow-lookup-table` (Build Lookup). **He was right about the drawing, and it is the most useful finding
+of the four compositions**, because it says the discriminator below was only half of a rule.
+
+**⚑ Sharing apparatus is necessary but not sufficient — a reader separates PATHS, not boxes.** The
+composition passed the test in every respect: A and B were genuinely drawn once instead of twice, and
+that is a real saving. But both answers then ran *between the same two nodes*, so every arc on the
+picture belonged to one mechanism or the other and nothing said which. The query enclosed the whole
+drawing, the response came back through the middle of it, the feed to Build Lookup dropped out of the
+same out-port — and a reader had to disentangle two mechanisms before they could read either one. **The
+apparatus was halved and the paths were not**, and the paths are the part that has to be told apart.
+So the test now has two halves: compose where the apparatus is drawn once **and the outcomes do not
+have to be separated from each other by eye**.
+
+**The split cost nothing, which is the other thing worth recording.** The worry was that undoing the
+composition would give back the legibility it bought — `flow-lookup-port` was one of the 33 under the
+floor at 15.9pt. It does not: both new figures sit at **18.0pt**, and `flow-lookup-question` with them.
+The old figure was short of the floor because it was drawn **squarer than 2.2 : 1** and so was fitted by
+its height, not because it was one of a pair. Laying each answer out wide — the round trip as a single
+band under one row, the build chain across the top — fixes it at the source. **A figure under the floor
+is a shape problem before it is a composition problem**, and merging is the expensive way to fix a shape.
+
+**"Each with an alternative" is answered in the foot comment, not in the drawing.** Each figure names the
+other one — *"the alternative is to hold a local copy — no wait at all, but the copy is behind by a
+hop"*, and *"the alternative is a lookup port — ask A, and wait"* — in COMMENT, because drawing the
+alternative is exactly what was just taken out. The red pairing carries the rest: `asking` reds the
+pause, `table` reds its absence, which is the convention the original pair already used.
+
+**Three of the four compositions stand; this is the one that did not.** The figure count goes 89 → **90**
+and Day 2 goes 152 → **153** slides. The entry is back on the builder's multi-figure list at three
+figures, where it is now a recorded decision rather than a question.
+
+**⚑ The reversal was the same rule as everything else in this file: look at the picture.** The
+composition was argued from the arithmetic — apparatus drawn once, 15.9pt to 18.0 — and the arithmetic
+was right. It was still the wrong drawing, and only a reader looking at it said so.
+
+**The argument that produced the composed figure — superseded by the reversal above, and kept because
+its second half is still true.** ⚑ The lookup entry went from three figures to two, not to one, and the
+reason was the content rather than the budget. The slide reads *"A component needs data it was not sent. **Two answers**"* —
 the question is the premise the presenter states and the two answers are what the reader holds side by
 side, so `flow-lookup-question` still leads and only the answers compose. **The premise cannot be drawn
 on the same picture as its answers:** the question figure says *no arc brings B what it needs*, and the
@@ -1439,11 +1480,13 @@ composed figure draws two arcs that do exactly that. Putting the crossed-out arc
 the drawing contradict itself. (The budget agrees — the composed answers land at 890x403, which is the
 ceiling exactly — but the argument stands without it.)
 
-**It is also the one composition that made a figure MORE legible rather than less.** `flow-lookup-port`
-was one of the 33 under the floor, at **15.9pt**: at 1240x700 it was fitted by its height and could not
-compact past `K_FLOOR`. Composed, the duplicated apparatus — two components, two port sets, two packet
-chains, drawn once each instead of twice — is gone, and the result sits at **18.0pt**. Composing is not
-only a way of spending room; where a pair duplicates its own stage it is a way of recovering it.
+**It looked like the one composition that made a figure MORE legible rather than less, and that turned
+out to be a misattribution.** `flow-lookup-port` was one of the 33 under the floor at **15.9pt**: at
+1240x700 it was fitted by its height and could not compact past `K_FLOOR`. Composed, it sat at 18.0, and
+the gain was credited to the merge. It was not the merge — **it was the aspect**. Redrawn wide and
+separate, `flow-lookup-asking` and `flow-lookup-table` both sit at 18.0 as well. Composing can still
+recover room where a pair duplicates its own stage, but check the shape first: it is the cheaper fix and
+it does not cost a picture.
 
 **⚑ One figure stayed at 82% and no reshaping can move it, which is worth knowing before
 someone tries.** `boundary-what-crosses` sits on a figure slide under a three-line callout, so its

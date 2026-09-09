@@ -1,0 +1,77 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="FBP — Ask For It: the Lookup Port">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="871" pageHeight="405" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="B stops until A answers — on demand, and now B is only as available as A is" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="397.9935064934833" y="45.1" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="x1" value="B" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="166.89088589980744" y="119.7990259740225" width="186.60424397030505" height="104.49837662337083" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="161.6659670686389" y="149.4068993506442" width="10.449837662337083" height="10.449837662337083" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="97.18746521335157" y="132.1819805194757" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="161.6659670686389" y="184.23969155843452" width="10.449837662337083" height="10.449837662337083" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="result" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="97.18746521335157" y="167.01477272726595" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="348.27021103894396" y="166.8232954545394" width="10.449837662337083" height="10.449837662337083" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="lookup" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="303.19855055656836" y="149.59837662337083" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="x5" value="A" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="584.8843923932908" y="119.7990259740225" width="186.60424397030505" height="104.49837662337083" as="geometry" />
+        </mxCell>
+        <mxCell id="o6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="579.6594735621222" y="166.8232954545394" width="10.449837662337083" height="10.449837662337083" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="lookup" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="515.180971706835" y="149.59837662337083" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="766.2637175324273" y="166.8232954545394" width="10.449837662337083" height="10.449837662337083" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="result" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="721.1920570500517" y="149.59837662337083" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="q8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="144.9283974953569" width="22.392509276436606" height="19.406841372911728" as="geometry" />
+        </mxCell>
+        <mxCell id="k9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="123.03420686455863" y="249.1110853432168" width="28" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="B is paused here — the walk of shame" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="99.42671614099524" y="255.58958719850415" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" value="use it when the data cannot be replicated. The alternative is to&#10;hold a local copy — no wait at all, but the copy is behind by a hop." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="397.9935064934833" y="337.6954545454384" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q8" target="o2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="query" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o4" target="o6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="response" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o7" target="o3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="831.2019944340934" y="172.0482142857079" />
+              <mxPoint x="831.2019944340934" y="301.9247680890403" />
+              <mxPoint x="88.51710343227931" y="301.9247680890403" />
+              <mxPoint x="88.51710343227931" y="189.46461038960302" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
