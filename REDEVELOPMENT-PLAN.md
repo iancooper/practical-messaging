@@ -1558,6 +1558,55 @@ three 2021 exports exploited. Rule 4: the picture was already in the old deck as
 it was a copy and a relink rather than a job for Ian. **Five further markers name two paths**, the render
 and its editable source; the parser takes the first.
 
+#### 24. ✅ The three Phase 3 sweeps — 2026-09-09
+
+`BACKLOG.md` B4, B5 and B6, run together because B6 has to follow whatever B5 changes.
+
+**B4 — the image dump. A clean negative, and worth the ten minutes it took to prove.** Day 2's
+*Paper Workflow Illustrations* was one entry holding **17** images with no body text, and Day 1 had
+never been checked for the same shape. It has none: **49 images across 91 entries and no entry with
+more than one.** Day 2's 18 multi-image entries are all ruled on in item 23e above.
+
+**B5 — the load-bearing line, Day 1 §4.** Six candidates, and **the sharpest finding is that only four
+were real.** §4.5 has no presenter notes on any slide, so nothing can hide there at all.
+
+| slide | what was buried | done |
+|---|---|---|
+| *Channels* | the bullet read **"Unidirectional."** and stopped; the consequence — two-way traffic is *two channels*, and the sender names the reply one — was in the note. §Conversations, Request-Reply and §1's own figure all lean on it | promoted to the bullet |
+| *Translate and Dispatch* | the slide named two registries and never said what a **Message Mapper** is. The Service Activator two slides later opens *"the Message Mapper has already turned it into a domain object"*, and the exercise is checked against exactly this | two bullets |
+| *Competing Consumers* | one sentence on the slide; the note carried both the ordering cost **and** the answer. The figure already draws the cost, so only the answer — **partition with consistent hashing** — was actually missing. §4.5 pays it off | a paragraph and a callout |
+| *Invalid Message Channel* | *Dead Letter = could not deliver it, Invalid Message = delivered and could not read it* was in **two** presenter notes and on no slide, and the *Failing Well* exercise turns on it | a callout |
+
+**⚑ Two were false positives, and only the rendered slide showed it.** *Messaging Gateway* — the whole
+promotion was already drawn: the figure puts the pump, the mapper and the gateway inside one endpoint,
+reds the gateway as *the only component that knows which broker this is*, and foots with *swap the broker
+and nothing to the left of the gateway changes*. *Datatype Channel* — the carrying sentence is the
+figure's own foot comment, *so the consumer never has to inspect a message to know how to read it*; what
+is in the note is a caveat about sequence, not the sentence that carries the slide. **A line is not
+buried if the picture is saying it.** `grep` cannot see that and neither can the outline; rendering the
+slide can. Both were written, previewed, and reverted.
+
+**What it cost.** Day 1 goes **137 → 138 slides**: *Competing Consumers* gained a real argument and so
+became an argument slide plus a figure slide, which is the builder's designed answer and not a defect.
+Two figures lost size to a new callout above them — `eip-invalid-message-channel` 101% → 88% and
+`eip-message-dispatcher` 91% → 88%, both still over the 85% bar. The overflow report stayed empty.
+**A callout is not free: it is about 13 points of figure.**
+
+**B6 — cross-references, re-run after B5.** Four were wrong, and the two on Day 1 were both left by the
+exercise slots that closed B8:
+
+  * §1's note said *the next slide is the bill for the rest* — the next slide is *Robust — Guaranteed
+    Delivery*, and the bill is §Coupling's *What's Left Is in the Message*;
+  * §4.4's opener said *the last slide of this sub-section* comes back to what is native — the last
+    slide of §4.4 is now *Exercise Material — Failing Well*, not the broker table;
+  * Day 2's *Activities and Resources* said *the next five slides*, and it is seven entries since two of
+    the four mechanisms became a slide plus a listing each;
+  * Day 2's *Your Flow, in the Standard Notation* said *the next two slides* for the BPMN primitives,
+    which are the second and third that follow.
+
+**All four now name the slide instead of counting from it**, which is the only form that survives a
+reorder. That is the rule to keep: **a positional reference is a bug with a delay on it.**
+
 ### ✅ Resolved 2026-09-02 — the three BPMN legend sheets
 
 **Ian: *"Agree"*** — one figure of the six that matter; the full legends go to the delegate reference card.

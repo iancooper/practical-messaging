@@ -40,7 +40,7 @@ minutes; it is a premise, not an argument, and the room does not need persuading
 boundaries. **Do not argue for microservices** — the boundary is the subject, and whether you got it from
 services, from a modular monolith with a queue between two components, or from talking to another company
 is not this course's business. §Coupling picks it up immediately: the boundary has already taken the two
-tightest coupling modes off the table, and the next slide is the bill for the rest.
+tightest coupling modes off the table, and *What's Left Is in the Message* is the bill for the rest.
 
 ### Slide: Robust — Guaranteed Delivery
 
@@ -358,10 +358,10 @@ A **channel** is a virtual pipe that connects producer and consumer.
 
 - A logical address (topic or routing key).
 - Messaging is a "pipe", not a "bucket".
-- Unidirectional.
+- **Unidirectional.** Two-way traffic is **two channels**, and the sender names the reply channel.
 - One-to-One or One-to-Many.
 
-Presenter notes: A channel is a *logical* view, not physical — the virtual pipe down which messages flow, addressed by a topic or routing key. Middleware may implement channels differently (in-memory, on sender/receiver, or a distributed DB) but that's hidden from producer/consumer. Channels are one-way (we don't consume our own messages); bi-directional messaging uses two channels (the reply channel usually communicated by the sender). Point-to-Point (one-to-one) or Publish-Subscribe (one-to-many). Not a bucket: a receiver knows what it wants and the sender knows what it is sending.
+Presenter notes: A channel is a *logical* view, not physical — the virtual pipe down which messages flow, addressed by a topic or routing key. Middleware may implement channels differently (in-memory, on sender/receiver, or a distributed DB) but that's hidden from producer/consumer. Channels are one-way because we do not consume our own messages. Point-to-Point (one-to-one) or Publish-Subscribe (one-to-many). Not a bucket: a receiver knows what it wants and the sender knows what it is sending.
 
 ### Slide: Point-to-Point Channel
 
@@ -411,7 +411,7 @@ Within the endpoint, encapsulate the middleware-access code in a **Messaging Gat
 
 #image: (s56) diagram — the Messaging Gateway inside the endpoint, the only component that knows which broker this is  [→ resources/eip-messaging-gateway.png]
 
-Presenter notes: Gateway vs. Endpoint: the endpoint *contains* the gateway but may also run a message pump, map messages to domain types, and call application code. The gateway only abstracts middleware interaction. An endpoint may support multiple middleware offerings, the gateway abstracting each so application code can switch middleware without changing. (EIP reference.)
+Presenter notes: Gateway vs. Endpoint: the endpoint *contains* the gateway but may also run a message pump, map messages to domain types, and call application code — which is what the picture shows. The gateway only abstracts middleware interaction. An endpoint may support multiple middleware offerings, the gateway abstracting each so application code can switch middleware without changing. (EIP reference.)
 
 ---
 
@@ -441,7 +441,11 @@ Presenter notes: The loop takes a message, translates the body into an app-under
 
 Two registries drive the pump: a **Message Mapper Registry** (look up the mapper) and a **Handler Registry** (look up the handler).
 
-Presenter notes: A **Message Mapper** converts domain objects to/from messages, so the domain need not know messaging formats and vice-versa. The endpoint registers mappers per channel and uses a datatype channel. Application code that runs in response is the **handler**, subscribed to the channels the endpoint listens on.
+- A **Message Mapper** converts between a message and a domain object, so the domain never knows a
+  message format and the messaging code never knows a domain type.
+- A **handler** is your code, subscribed to the channels the endpoint listens on.
+
+Presenter notes: The endpoint registers mappers per channel, which is what a datatype channel is for. The mapper is the seam the exercises are checked against: if a handler's signature has a broker type in it, the mapper has not finished its job.
 
 ### Slide: Polling Consumer
 
@@ -498,10 +502,17 @@ RMQ Quick Start rather than asserting it here; wire the specific file references
 
 To stop a channel backing up, consume faster than messages arrive by adding consumers.
 
+**If order matters, partition.** Competing consumers de-order the channel — two of them process two
+messages at once and nothing says which finishes first. Consistent hashing sends same-key messages to the
+same partition, so order holds inside a partition and each partition's arrival rate stays under what one
+consumer can drain.
+
+▎ Order holds inside a partition, and nowhere else.
+
 
 #image: (s63) diagram — competing consumers draining a channel that is backing up  [→ resources/eip-message-dispatcher.png]
 
-Presenter notes: Compare arrival rate to consumption rate (time to ack/nack). If arrival exceeds consumption and it isn't a burst, you never catch up. You may also need to process within a deadline. Solution: more consumers. The queue hands a message to only one consumer, locking it while processed, unlocking on failure, and letting waiting consumers read past locked messages. Caveat: competing consumers break in-sequence processing (lock + read-past de-orders). If order matters and arrival exceeds consumption, **partition** using consistent hashing so order is preserved within a partition and per-partition arrival ≤ single-consumer consumption. (EIP reference.)
+Presenter notes: Compare arrival rate to consumption rate (time to ack/nack). If arrival exceeds consumption and it isn't a burst, you never catch up. You may also need to process within a deadline. Solution: more consumers. The queue hands a message to only one consumer, locking it while processed, unlocking on failure, and letting waiting consumers read past locked messages — which is the mechanism the slide's second half is about. §4.5 draws the partition; this is where the room finds out why they would want one. (EIP reference.)
 
 
 ### Slide: Worked Example — the Task Queue
@@ -591,8 +602,8 @@ Two halves, and you need both:
 ▎ "Sent" is not "delivered", and "delivered" is not "processed".
 
 Presenter notes: Set the expectation that these are *broker* capabilities before they are framework
-features — the last slide of this sub-section comes back to what is native versus what your framework
-is quietly reimplementing for you. Delegates who have only used HTTP tend to assume the library is
+features — *What Your Broker Actually Gives You*, at the end of this sub-section, comes back to what is
+native versus what your framework is quietly reimplementing for you. Delegates who have only used HTTP tend to assume the library is
 telling them the truth.
 
 ---
@@ -721,15 +732,15 @@ schema mismatch)?
 **Needs from the broker:** the ability to take the message off the channel and put it somewhere else
 *without* pretending it was processed.
 
+▎ Dead Letter: we could not deliver it. Invalid Message: we delivered it and could not read it.
+
 #image: (s53) diagram — Invalid Message Channel: the receiver routes aside a message it cannot understand  [→ resources/eip-invalid-message-channel.png]
 
-Presenter notes: The middleware delivered it, but app code can't process it. Retrying keeps failing — it
-risks becoming a "poison pill", blocking a single consumer or being choked on by many. But silently
-discarding risks data loss (maybe a misconfigured producer/consumer used the wrong channel and the
-message was good). So move it to an **Invalid Message Channel**. Well-formed messages that merely cause
-application errors are *not* invalid messages — treat those as application errors. Dead Letter =
-couldn't be delivered; Invalid Message = delivered but not understood. Some middleware (e.g. RabbitMQ)
-conflates the terms, using "dead letter" for rejected messages.
+Presenter notes: Retrying a message that cannot be read keeps failing — it becomes a "poison pill",
+blocking one consumer or being choked on by many. But silently discarding it risks data loss: a
+misconfigured producer may have put a perfectly good message on the wrong channel. So route it aside
+rather than dropping it. **Some middleware conflates the two terms** — RabbitMQ calls rejected messages
+"dead letter", which matters because the *Failing Well* exercise uses RMQ's own dead-letter exchange.
 
 ### Slide: Requeue with Delay
 
@@ -760,9 +771,8 @@ a **Dead Letter Channel** for later operator review, often after retrying delive
 
 Presenter notes: Implementations vary (point-to-point or pub-sub). **This is the terminal state** — the
 place a message goes when *Requeue with Delay* has run out of attempts, which is why it now follows rather
-than precedes it. Note the common confusion with the **Invalid Message Channel**, two slides back:
-Dead Letter = could not be delivered, or we gave up; Invalid Message = delivered but not understood. Some
-middleware (RabbitMQ) conflates the terms and calls rejected messages "dead letter". (EIP reference.)
+than precedes it. The line that separates it from the **Invalid Message Channel** is on that slide;
+this is the one to point at when someone asks which of the two RabbitMQ means. (EIP reference.)
 
 ### Slide: Inbox (Idempotency)
 

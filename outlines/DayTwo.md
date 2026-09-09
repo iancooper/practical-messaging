@@ -750,7 +750,7 @@ Nothing new happens in this section. It gives names to what the room already bui
 
 #image: side by side: the Pre-Arrival paper flow as delegates have it, and the same flow as a BPMN collaboration — three pools, Guest / Just Paper Hotels (Booking Team, Fax Operator) / The Hotel  [→ resources/bpmn-your-flow-side-by-side.png]
 
-Presenter notes: **This slide exists to keep the promise made on the previous one.** Delegates have just run their own flow with a conductor and without one, and were told that the next section gives those two things their names *and a notation* — so do not open on BPMN primitives, open on their own drawing. Put the paper version up alone first and ask what a stranger could not tell from it; then reveal the BPMN. **The mapping table is the teaching move: they already have every concept, they lack only the vocabulary.** The primitives on the next two slides then arrive as *what you needed in order to draw that*, rather than as a legend to be memorised. Do not read the table out — walk the diagram and point at each pair.
+Presenter notes: **This slide exists to keep the promise made on the previous one.** Delegates have just run their own flow with a conductor and without one, and were told that the next section gives those two things their names *and a notation* — so do not open on BPMN primitives, open on their own drawing. Put the paper version up alone first and ask what a stranger could not tell from it; then reveal the BPMN. **The mapping table is the teaching move: they already have every concept, they lack only the vocabulary.** The primitives on *BPMN — The Elements* and *Tasks, Events and Gateways* then arrive as *what you needed in order to draw that*, rather than as a legend to be memorised. Do not read the table out — walk the diagram and point at each pair.
 
 ### Slide: BPMN
 
@@ -1009,7 +1009,7 @@ Broadly, a software component manages **activities** and **resources** (Pat Hell
 - As the token moves through the sequence we update resources *and* the activity (to indicate progress).
 - The implementation question: **where does activity state live, and who updates it?**
 
-Presenter notes: **That last line is the question the next five slides answer**, and it is the most directly useful material on either day — four mechanisms, in ascending order of how much machinery you take on. Put it on the board and leave it there.
+Presenter notes: **That last line is the question the rest of this sub-section answers**, and it is the most directly useful material on either day — four mechanisms, in ascending order of how much machinery you take on. Put it on the board and leave it there.
 
 ### Slide: Activities and Resources — Worked Example
 
