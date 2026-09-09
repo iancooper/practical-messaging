@@ -9,9 +9,14 @@ purpose.
 
 ---
 
-> **What is still outstanding is indexed in `BACKLOG.md`** (tracked, repo root) — six sized
-> sections, each line pointing back here for its detail. This file stays the source of truth;
-> the backlog is a table you can read the length of.
+> **What is still outstanding is indexed in `BACKLOG.md`** (tracked, repo root) — sized, each line
+> pointing back here for its detail. This file stays the source of truth; the backlog is a table
+> you can read the length of.
+>
+> **The Day 1 coding exercises are a separate workstream**, briefed in `code-rewrites.md`, and
+> **the timing question (§11's T-2 … T-5) went with them** on Ian's instruction, 2026-09-09: the
+> two code blocks are 160 unmeasured minutes against ~24 for all four parked deck cuts, so the
+> cuts stay parked until that number is known.
 
 ## 1. Scope
 
@@ -2588,7 +2593,17 @@ tables recovers less time than consolidating into prose**, which is worth rememb
 
 **Cut text:** `session-work/cut-conversations-fault-slides.md`, plus git history.
 
-### ⏸ T-2 … T-5 — parked 2026-09-01, and why
+### ⏸ T-2 … T-5 — parked 2026-09-01, and moved to `code-rewrites.md` 2026-09-09
+
+**⚑ These are no longer a deck job.** Ian moved the timing question onto the coding-exercise
+workstream on 2026-09-09, and the arithmetic says why: the two Day 1 code blocks are **160 minutes,
+estimated and never measured**, against **~24 minutes for all four of T-2 … T-5 together**. Cutting
+teaching to pay for a number nobody has checked is the wrong order, so **they stay parked until the
+exercise duration is known** — and if the rework shortens the exercises at all, Day 1's overrun
+disappears and these become moot. The candidates below are kept because they are still good analysis
+of where Day 1 is thin; they are not a queue. `code-rewrites.md` §5.
+
+#### Why they were parked in the first place
 
 **Ian closed the timing pass here.** T-0 and T-1 are done; the remaining ~29 minutes are **not** to be
 cut. His reasoning, and it holds:

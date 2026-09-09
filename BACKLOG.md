@@ -1,11 +1,12 @@
 # Backlog — what is outstanding #
 
 **An index, not a source of truth.** Every line points at where the real detail lives.
-`REDEVELOPMENT-PLAN.md` is the source of truth; if this file and the plan disagree, **the plan
-wins and this file is stale**. Kept as a table on purpose — counts in prose go stale silently,
+`REDEVELOPMENT-PLAN.md` is the source of truth for the decks; **`code-rewrites.md` is a separate
+workstream with its own brief**. If this file and the plan disagree, **the plan wins and this file
+is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
-Last reconciled against the repo: **2026-09-09**, at commit `3c65dea`.
+Last reconciled against the repo: **2026-09-09**, at commit `d43034f`.
 
 **Where things stand.** Phases 1 and 2 are closed. Phase 3 — the deck builds — is most of the way
 through: both decks build clean from `outlines/` with an empty overflow report, Day 1 **136 slides**
@@ -59,23 +60,25 @@ in your pack" and ships no pack is worse than one that never said it.
 
 ---
 
-## D. Exercises ##
+## D & E — moved out to `code-rewrites.md` ##
 
-| # | item | state | size | detail |
-|---|---|---|---|---|
-| **D1** | Day 1 coding-exercise rework | **A separate task, and Ian's own scoping.** *"The coding exercises are Day One. They likely get a rework and the coding changes are the separate work item."* So `Quick-Start-RMQ`, `Quick-Start-Kafka`, the five pattern exercise decks and `README DAY ONE.md`'s code sections are untouched by design | L | plan §7, *Scope corrected 2026-09-02* |
+**Ian, 2026-09-09:** *"Let's move D, E out. We can handle the code rewrites separately… I will pick up
+with the agent and old code locations. The timings will form part of that."*
 
-The Day 2 Paper Flow material is **built and closed** — facilitator guide, delegate brief, printables,
-the three drawn sheets, the `.pptx` restructure and the README wiring.
+| was | now |
+|---|---|
+| **D.** Day 1 coding-exercise rework | `code-rewrites.md` — a standalone brief for another agent |
+| **E.** Timing (T-2 … T-5, and the unmeasured code blocks) | the same file, §5 |
 
----
+**Why the timing went with it rather than staying here.** The two Day 1 code blocks are **160 minutes
+of a 390-minute day, estimated and never measured**. T-2 … T-5, the four parked deck cuts, are worth
+about **24 minutes between them**. Whatever the rewrite does to the exercises dominates every
+deck-side lever, so the deck cuts stay parked until the exercise duration is known — cutting teaching
+to pay for an estimate nobody has checked is the wrong order.
 
-## E. Timing — parked, not cancelled ##
-
-| # | item | state | detail |
-|---|---|---|---|
-| **E1** | T-2 … T-5 | Kept and sized against the pair total of 780 minutes, not the single day. Day 1 runs 419 of 390 and Day 2 354 of 390; **Day 2's 36 minutes of slack is the relief valve**, and anything added there spends Day 1's overrun | plan §11 |
-| **E2** | Time the two Day 1 code blocks | **160 minutes is an estimate that has never been measured**, and it is 41% of Day 1. Time it on the next delivery | plan §11 |
+**Nothing in `exercises/` or `videos/` is the deck workstream's to change.** If a rename or a
+restructure happens over there, `outlines/DayOne.md` names the exercise decks and videos by title and
+will need the matching edit — that comes back here as a request, not as an edit made from that side.
 
 ---
 
