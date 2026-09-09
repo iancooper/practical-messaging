@@ -77,8 +77,13 @@ carries the distinction. Every photograph in `resources/` is a `.jpg`, every dra
 
 **An entry may become two slides**: the argument, then the picture. **The callout goes with the
 picture** — it is the line the presenter says aloud about what is on screen — and both slides
-keep the same title, so the pair reads as one thought with the picture revealed. 78 entries
-split this way, which is why 181 entries build 290 slides.
+keep the same title, so the pair reads as one thought with the picture revealed. **79 entries
+split this way, which is why 181 entries build 291 slides.**
+
+**⚑ A callout above a figure costs about 13 points of that figure.** It is laid out above the
+picture and the picture gets what is left, so promoting a line to a callout on a figure slide is
+paid for out of the drawing: `eip-invalid-message-channel` went 101% → 88% for one. Worth it when
+the line is the thing the presenter says; check the report afterwards either way.
 
 **A split needs its presenter note split too**, along the same seam, or the second half's
 guidance lands on the first half's slide. And **re-check every "next slide" the entry contains**:
@@ -130,9 +135,10 @@ The builder prints three things every run. Report them only if a count moved.
 - **Photo-panel slides** (2 on Day 2) — working as designed.
 - **The 15 multi-figure entries** — Ian ruled on these, plan §8 item 23e. Thirteen he ruled on
   plus two that carry three figures each.
-- **Figures under 85% of their Phase 2 label size** (3 per day) — `BACKLOG.md` B1 and B2. Only
-  `boundary-what-crosses` is worth doing; the rest have **no action available** while both the
-  canvas and the stage are height-fitted, because the aspect cancels out.
+- **Figures under 85% of their Phase 2 label size** — 2 on Day 1, 3 on Day 2, `BACKLOG.md` B2.
+  **`boundary-what-crosses` was the one worth doing and is done** (82% → 96%, 2026-09-09). The
+  rest have **no action available** while both the canvas and the stage are height-fitted, because
+  the aspect cancels out — two of them are 2021 `.drawio` exports rather than figures of ours.
 
 ## Editing an outline
 
@@ -155,13 +161,20 @@ The builder prints three things every run. Report them only if a count moved.
 - **Nothing in `exercises/` or `videos/` is this workstream's to change.** But `outlines/DayOne.md`
   names those decks and videos by title, so a rename over there comes back here as a request.
 
-## Sweeps still outstanding
+## The three sweeps — run 2026-09-09, and what they taught
 
-`BACKLOG.md` B4, B5, B6.
+`BACKLOG.md` B4, B5 and B6 are closed; plan §8 item 24 has the detail. **B6 is not a one-off** —
+re-run it after every structural change.
 
-- **The load-bearing line keeps hiding in the presenter notes.** Caught six times, twice by Ian —
-  *sequence flow carries the token, message flow does not* was buried in a two-line slide.
-  **Day 1 §4's sub-topics** are the unswept part: reviewed early, long dense notes.
-- **Image-dump slides.** Day 2's 17-image entry was found and split; **Day 1 has never been
-  checked** for the same thing.
-- **Stale cross-references.** Re-run after every structural change.
+- **The load-bearing line hiding in the presenter notes.** Caught six times, twice by Ian, before
+  Day 1 §4 was swept; four more came out of that sweep. **But two candidates were false positives
+  the figures were already answering** — *Messaging Gateway* draws the endpoint/gateway split and
+  reds it, and *Datatype Channel*'s carrying sentence is its own foot comment. **A line is not
+  buried if the picture is saying it**, and neither `grep` nor the outline can see that: both were
+  written, previewed and reverted. **Render the slide before promoting anything onto it.**
+- **Image-dump slides.** Day 2's 17-image entry was found and split. Day 1 was checked and is a
+  clean negative: **49 images across 91 entries and no entry with more than one.**
+- **Stale cross-references — re-run after every structural change, not once at the end.** Four
+  were wrong on the last pass, two of them left over from a change three sessions earlier. All of
+  them now **name the slide** instead of counting from it, which is the only form that survives a
+  reorder. **A positional reference is a bug with a delay on it.**

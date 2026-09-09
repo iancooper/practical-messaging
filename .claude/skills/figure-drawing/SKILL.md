@@ -66,42 +66,54 @@ for a longer timeout, or it will look like it hangs. One family is fast. `reads_
 2. **Aspect is the other half.** A 16:9 slide leaves about **2.2 : 1** of usable area. Wider than
    that is fitted by width; **anything squarer is fitted by height**, and the width it was drawn
    at stops mattering. So **adding a row to a wide figure costs legibility twice**.
-3. **⚑ On a height-fitted figure, width is FREE.** Widening costs *no legibility at all*. **Only
-   shorten a label when width will not do it** — check `asp` and `fit` in
+3. **⚑ On a height-fitted figure, width is FREE.** Widening costs *no legibility at all*, so
+   **only shorten a label when width will not do it** — check `asp` and `fit` in
    `tools/reads_at.py --all` before deciding a figure is out of room. Three of one session's five
    geometry fixes were exactly this.
-4. **`compact(target)` means `max(w, 2.2 × h)`** and shrinks the **geometry**, leaving the type
+4. **⚑ But width is free and *size* is not: they are different questions.** A figure-slide stage
+   is **2.57 : 1**, and a drawing squarer than that is fitted by the stage's *height*, so its
+   aspect cancels out of how big it renders. Widening the canvas alone therefore buys nothing:
+   `compact()` targets an effective width of 890 and `K_FLOOR` stops it at 0.55, so a
+   wide-but-still-tall drawing lands over target and **loses** labels instead of gaining them.
+   **The height has to come out.** And because margins are fixed while geometry scales, a final
+   890 × 340 needs raw *content* nearer 3.1 : 1 than 2.6 : 1.
+5. **`compact(target)` means `max(w, 2.2 × h)`** and shrinks the **geometry**, leaving the type
    alone — because what makes a figure wide is *distance*, and distance carries no information.
    Its diagnostic tells the two failure modes apart: width-bound names the longest label and says
    wrap it; **height-bound says *cut rows, not units***, because naming a label there sends the
    next reader to fix the wrong thing.
-5. **Call `compact()` from the family's `figure` decorator, not from `main()`** — otherwise the
+6. **Call `compact()` from the family's `figure` decorator, not from `main()`** — otherwise the
    linter measures the geometry as written rather than as rendered, and a note lying across a
    hexagon stays invisible for as long as the two disagree.
-6. **⚑ `K_FLOOR = 0.55` fails silently.** A figure drawn one row taller than it needs can want a
+7. **⚑ `K_FLOOR = 0.55` fails silently.** A figure drawn one row taller than it needs can want a
    `k` below the floor; `compact` stops there, takes the label-fit branch and **says nothing**.
    Only `reads_at` will tell you. **The lever is dead vertical space, not content** — one figure
    was 17.6pt and the whole difference was 104 units of nothing above its foot comment.
-7. **The label-fit clamp is `(advance + 12) / w`, so `w` is the lever, not the word.** Widen the
+8. **The label-fit clamp is `(advance + 12) / w`, so `w` is the lever, not the word.** Widen the
    shape rather than shortening the name it carries. A shape may not shrink below its own label,
    which is the honest floor for the 12 clamp-bound figures still under 18pt.
-8. **⚑ The floor is per-face.** Plex Sans's x-height is `0.516`em against Caveat's `0.400`, so
+9. **⚑ The floor is per-face.** Plex Sans's x-height is `0.516`em against Caveat's `0.400`, so
    **14pt of Plex reads as 18pt of Caveat**. Never compare the two registers by point number —
    use `Diagram._pt()`. A survey that ranks families by `size=` names BPMN as the worst offender
    when it is the only family already at the floor, and "sweep everything to 17" would break it.
-9. **`lx` / `ly` are text-space and do not scale**, so they are the only nudge that means the
+10. **`lx` / `ly` are text-space and do not scale**, so they are the only nudge that means the
    same thing before and after `compact()`. **Re-measure them every time the target moves**, in
    **post-compaction** units. A scratch probe printing each label's `x0..x1` against the shapes
    and group borders is worth writing before touching anything.
-10. **⚑ Two pieces of text cannot be spaced in raw units.** Their *positions* scale and their
+   **⚑ And an arrow label is inside `_extent`**, so an over-large `ly` does not just sit low — it
+   makes the whole figure **taller**, and quietly gives back the aspect you were redrawing for. A
+   `ly` of 33 against 30 cost 9 units of final height and 0.07 of aspect on one figure. If a
+   drawing will not reach the aspect the arithmetic says it should, check the label offsets before
+   touching the geometry.
+11. **⚑ Two pieces of text cannot be spaced in raw units.** Their *positions* scale and their
     *heights* do not, so a comfortable 50-unit gap between two notes arrives as 29 against type
     24 tall. **Three separate figures have shipped this exact defect.** Size a text-to-text gap
     in **final** units — raw gap × k — and check the foot comment against the lowest shape after
     compaction, every time.
-11. **A harder `compact` target is a licence to spend width, not to shorten labels.**
-12. **Expect lint to go noisy after a harder compaction, and budget for it.** That is the tax and
+12. **A harder `compact` target is a licence to spend width, not to shorten labels.**
+13. **Expect lint to go noisy after a harder compaction, and budget for it.** That is the tax and
     it is the work, not a sign the target is wrong.
-13. **Raising a floor breaks layouts sized for the old one, invisibly.** Rebuild all eleven
+14. **Raising a floor breaks layouts sized for the old one, invisibly.** Rebuild all eleven
     families and lint after any change to `CONTENT_PT` / `ASIDE_PT`.
 
 ## Colour, and what a label *is*
@@ -153,6 +165,10 @@ Three corollaries:
   15.9pt → 18.0 result was a **misattribution**: that figure was short because it was drawn
   1240 × 700, squarer than 2.2 : 1, so it was fitted by height. Redrawn wide and **separate**,
   both halves sit at 18.0 too. **Merging costs a picture; reshaping costs nothing.**
+  `boundary-what-crosses` is the worked example: composed but still *stacked* — an application
+  over its store, twice — it was 1.57 : 1 and rendered at **82%** of its measured label size.
+  Laid out as a **row**, application beside store, it is 2.60 : 1 and lands at **96%**, with
+  nothing cut. **Reshaping is the cheap fix and it is usually available.**
 - **A premise cannot be composed with its own answers.** A figure that is a *state* the others
   change is not a comparand.
 - **⚑ The arithmetic was right and the drawing was still wrong.** Every number behind that
@@ -207,6 +223,24 @@ of thing the diagram is. Do not confuse the two.
 in `reads_at.py` (the back row is not holding the card), canvas at A4's own 1 : 1.414, Plex Sans
 in both cards, and the one red idea carried as a **mark as well as a colour**, because a venue's
 printer is not ours to choose.
+
+## Two things about the output that are easy to get wrong
+
+**Bold is a real axis setting, not a synthetic thickening.** Both bundled faces are variable —
+Caveat 400–700, Plex Sans 100–700 — so `_text(..., weight=700)` and `note(..., weight=700)` set
+the weight axis. A faked bold would thicken by a fixed amount at every size. `note`'s weight also
+travels out to the `.drawio` as `fontStyle=1`.
+
+**The `.drawio` BPMN style strings were written without a renderer to open them.** The previews
+come from our own SVG and do not check draw.io's styles at all. If a `.drawio` opens with the
+wrong glyph in a circle or a diamond, `Diagram._drawio_bpmn` is where to look — the PNG will look
+right and the editable file will not.
+
+Text is outlined to vector paths, so previews are faithful **without installing fonts** —
+necessary rather than clever: librsvg here ignores `@font-face` data URIs and Caveat/Plex are not
+installed, so anything else silently falls back to Helvetica. **Helvetica itself renders fine**,
+which is what makes `repatch_steps.py` possible: it is draw.io's own default face, so repainted
+numbers are indistinguishable from an export.
 
 ## After any `diagram.py` edit
 

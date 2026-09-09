@@ -72,7 +72,8 @@ last open thread.
   From a fresh one you need the URL, which is in the table below.
 - Show the rulings on the republished sheet — sheet 7 came back with both its calls marked in
   green, so the page records what was decided rather than what was asked.
-- **Record the sheet and its state** in `PROMPT.md`'s table and in `BACKLOG.md` F3.
+- **Record the sheet and its state** in the table below — this skill is its home — and in
+  `BACKLOG.md` F3.
 
 ## The seven so far
 
