@@ -291,7 +291,7 @@ A map of the messaging patterns we will cover across the day.
 
 ## 4.1 What Is a Message?
 
-*What is a message?*
+*Header and body — and whether you are expressing intent or reporting a fact.*
 
 ### Slide: Message Construction
 
