@@ -1102,6 +1102,8 @@ a message back?**
 
 #image: the 2×2 exchange-pattern grid — who speaks first × is there a reply — with all four patterns named and glossed  [→ resources/grid-exchange-2x2.png]
 
+#group: In-Only — fire and forget
+
 ### Slide: In-Only (Fire and Forget)
 
 Under **In-Only**, the requestor sends a request to the provider but does not seek acknowledgment of
@@ -1115,6 +1117,8 @@ completion. Typically called *fire-and-forget*.
 - *Coupled about:* the command contract — you name an operation on someone else.
 - *Must you both be up?* **No.** Store-and-forward; the provider can be down.
 - Behavioural (control) coupling: you decided who should act.
+
+#group: Out-Only — notification
 
 ### Slide: Out-Only (Notification)
 
@@ -1132,6 +1136,23 @@ Publish-Subscribe pattern: a provider is not aware of its consumers.
 - The loosest coupling available — and, as *Faults, by Pattern* shows shortly, that is exactly why it
   has no fault path at all.
 
+### Slide: Subscribe-Notify
+
+In-Out **composed with** Out-Only: a requestor asks to subscribe to a provider, and then notifications
+flow.
+
+- `subscribe()` → the provider manages a list of subscribers → optional `confirm()` / `confirmed()` (note the role switch — the provider is now the requestor).
+- Then Out-Only `notification()` messages flow; a `stop()` ends them.
+
+**What it commits you to**
+
+- Behavioural (control) coupling on the subscribe exchange — then the loose coupling of Out-Only for everything after it.
+- The provider now holds **subscriber state**, which it did not in plain Out-Only.
+
+Presenter notes: This is the pattern that shows the four are a *basis*, not a catalogue — real conversations are compositions. It is also the honest version of "pub-sub is loosely coupled": the subscription itself is coupled; the notifications are not.
+
+#group: In-Out — request and reaction
+
 ### Slide: In-Out (Request-Reaction)
 
 Under **In-Out**, the provider receives a request on one channel and returns a response — from the
@@ -1147,47 +1168,6 @@ triggered operation — on a *separate* channel.
 - Behavioural (control) coupling, and now you hold **state**: something must remember what the correlation id refers to.
 
 Presenter notes: The correlation id is the cheapest thing on the slide and the most consequential. The moment you need one you have a conversation with state in it — and something has to own that state across a process restart.
-
-### Slide: Faults, by Pattern
-
-You have three patterns. **You do not get to choose their fault stories — the coupling already chose.**
-
-| pattern | what a fault can be | why |
-|---|---|---|
-| **Out-Only** | **Nothing. No Fault is forced.** | The provider does not know its subscribers. There is nobody to tell — and if it *did* know, it would be coupled to them, and you would have traded away the property you chose pub-sub for. |
-| **In-Only** | **No Fault**, or **Message Triggers Fault** (Robust In-Only) — a fault on a *reverse channel*, because there is no later message to replace | The requestor took no response, so a fault channel is an addition, not a substitution. Add one **only if there is an action to take.** |
-| **In-Out** | **Fault Replaces Message** (Robust In-Out) — any message *after the first* becomes a fault instead of the normal outcome | There is already a response channel and a correlation id. The fault is a **response**, not an exception: same channel, same id, same code path. |
-
-▎ You cannot have loose coupling and a fault path back. Pick one.
-
-▎ The question is never "should we handle faults?" It is **"is there an action the requestor would take?"**
-
-**Out-In**, when you meet it, inherits In-Out's story: fault replaces the response.
-
-Presenter notes: **The fault story falls out of the coupling you already chose** — which is the payoff of putting a coupling verdict on
-every pattern slide. Teach it top-down, loosest first, so the room sees the fault path *appear* as the
-coupling tightens. **There is an example for each row, and they are yours to tell, not the room's to
-read.** Search cannot add a store after `changedstore()` and makes no attempt to tell Store Information —
-repair is Search's problem. The cashier sends `place order()`; if order placement fails it raises
-`fault()`, because the cashier may need to issue a **refund**. The Pricer sends `take payment()`; the
-payment provider signals `payment error()` — and the fault must say **why** (provider issue, invalid card,
-insufficient funds), because the requestor has to choose between an alternate payment method and
-cancelling the order. **The decision rule is the load-bearing line** — teams reach for fault channels
-reflexively, and if there is no action the requestor would take, a fault message is noise and a log line
-is the right answer. No Fault is "good enough" far more often than people admit; say so. Repair on the
-Out-Only row happens subscriber-side — retries, DLQs and the reconciliation they met in §4.4.
-
-### Slide: In-Out — When Nothing Comes Back at All
-
-The requestor may not receive the expected response at all. What can it do?
-
-- Set a **timeout** within which to receive a response.
-- **Retry** if no response arrives within that window (`greet()` → `greet()` → `acknowledge()`).
-- Because we might send twice, the provider operation must be **idempotent**, or the consumer must **de-duplicate** already-seen messages.
-
-#image: sequence — the requestor sends greet(), the timeout expires with nothing back, and the three things that are all still possible at that moment; then greet() again and an acknowledge()  [→ resources/conversation-timeout.png]
-
-Presenter notes: Call back to Guaranteed Delivery — this is the Inbox pattern earning its keep. Retry is why de-duplication is not optional: at-least-once delivery and requestor-side retry are two independent sources of duplicates.
 
 ### Slide: Command or Query?
 
@@ -1205,20 +1185,17 @@ Both carry behavioural (control) coupling — you named the provider and the ope
 
 Presenter notes: Worth being explicit that the pattern catalogue does not distinguish these, and that is correct — as an exchange they are identical. It is the intent, back to *Messaging or Eventing*, that changes the design. Retry safety is the practical tell.
 
-### Slide: Subscribe-Notify
+### Slide: In-Out — When Nothing Comes Back at All
 
-In-Out **composed with** Out-Only: a requestor asks to subscribe to a provider, and then notifications
-flow.
+The requestor may not receive the expected response at all. What can it do?
 
-- `subscribe()` → the provider manages a list of subscribers → optional `confirm()` / `confirmed()` (note the role switch — the provider is now the requestor).
-- Then Out-Only `notification()` messages flow; a `stop()` ends them.
+- Set a **timeout** within which to receive a response.
+- **Retry** if no response arrives within that window (`greet()` → `greet()` → `acknowledge()`).
+- Because we might send twice, the provider operation must be **idempotent**, or the consumer must **de-duplicate** already-seen messages.
 
-**What it commits you to**
+#image: sequence — the requestor sends greet(), the timeout expires with nothing back, and the three things that are all still possible at that moment; then greet() again and an acknowledge()  [→ resources/conversation-timeout.png]
 
-- Behavioural (control) coupling on the subscribe exchange — then the loose coupling of Out-Only for everything after it.
-- The provider now holds **subscriber state**, which it did not in plain Out-Only.
-
-Presenter notes: This is the pattern that shows the four are a *basis*, not a catalogue — real conversations are compositions. It is also the honest version of "pub-sub is loosely coupled": the subscription itself is coupled; the notifications are not.
+Presenter notes: Call back to Guaranteed Delivery — this is the Inbox pattern earning its keep. Retry is why de-duplication is not optional: at-least-once delivery and requestor-side retry are two independent sources of duplicates.
 
 ### Slide: Blocking In-Out (Request-Reply)
 
@@ -1239,6 +1216,8 @@ useful "later" — the caller cannot do anything with a response that arrives in
 
 Presenter notes: This is the callback slide for the whole day. Distributed Systems said availabilities multiply; Coupling named the axis; Integration Styles put messaging on the loose end of it; Guaranteed Delivery turned an outage into a delay. Blocking In-Out undoes all of it in one line of code. Delegates *will* reach for this because it looks like the code they already write — say so, and give them the legitimate case, so the answer is "when", not "never".
 
+#group: Out-In — solicit and response
+
 ### Slide: Out-In (Solicit-Response)
 
 Under **Out-In**, a provider solicits a response from a subscriber and awaits confirmation; the
@@ -1253,6 +1232,36 @@ subscriber confirms receipt of the provider's solicitation.
 - *Must you both be up?* **No** — but the solicitation has a useful lifetime. An answer that arrives too late is worthless, which is a **timeout** problem, not an availability one.
 
 #image: one provider soliciting two couriers down three lifelines — the first ready() lands inside the solicitation's lifetime, the second arrives after the clock and is worthless  [→ resources/conversation-out-in.png]
+
+#group: Across all four patterns
+
+### Slide: Faults, by Pattern
+
+You have met all four. **You do not get to choose their fault stories — the coupling already chose.**
+
+| pattern | what a fault can be | why |
+|---|---|---|
+| **Out-Only** | **Nothing. No Fault is forced.** | The provider does not know its subscribers. There is nobody to tell — and if it *did* know it would be coupled to them, and you would have traded away the property you chose pub-sub for. |
+| **In-Only** | **No Fault**, or **Message Triggers Fault** (Robust In-Only) — a fault on a *reverse channel*, because there is no later message to replace | The requestor took no response, so a fault channel is an addition, not a substitution. Add one **only if there is an action to take**. |
+| **In-Out** | **Fault Replaces Message** (Robust In-Out) — any message *after the first* becomes a fault instead of the normal outcome | There is already a response channel and a correlation id. The fault is a **response**, not an exception: same channel, same id, same code path. |
+| **Out-In** | **Fault Replaces Message**, as for In-Out | Roles reversed, and nothing else — the provider waits. |
+
+▎ You cannot have loose coupling and a fault path back. Pick one.
+
+▎ The question is never "should we handle faults?" It is **"is there an action the requestor would take?"**
+
+Presenter notes: **The fault story falls out of the coupling you already chose** — which is the payoff of putting a coupling verdict on
+every pattern slide. Teach it top-down, loosest first, so the room sees the fault path *appear* as the
+coupling tightens. **There is an example for each row, and they are yours to tell, not the room's to
+read.** Search cannot add a store after `changedstore()` and makes no attempt to tell Store Information —
+repair is Search's problem. The cashier sends `place order()`; if order placement fails it raises
+`fault()`, because the cashier may need to issue a **refund**. The Pricer sends `take payment()`; the
+payment provider signals `payment error()` — and the fault must say **why** (provider issue, invalid card,
+insufficient funds), because the requestor has to choose between an alternate payment method and
+cancelling the order. **The decision rule is the load-bearing line** — teams reach for fault channels
+reflexively, and if there is no action the requestor would take, a fault message is noise and a log line
+is the right answer. No Fault is "good enough" far more often than people admit; say so. Repair on the
+Out-Only row happens subscriber-side — retries, DLQs and the reconciliation they met in §4.4.
 
 ### Slide: Choosing an Exchange Pattern
 
