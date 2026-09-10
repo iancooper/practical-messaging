@@ -713,27 +713,39 @@ The pump has exactly one lever: **acknowledge** the message, or don't.
 Ack too early and a crash loses the message. Ack too late and a crash reprocesses it. **There is no third
 option** — which is why at-least-once stops being a slogan on the consumer side.
 
-But *not acking* is not a strategy, it is a question. Three of them, in order:
+Presenter notes: **Do not underestimate this conversation.** Run it as a discussion before showing
+anything: ask what their consumer does today when the handler throws. The usual answers are "it logs and
+moves on" — silent data loss — or "it retries forever" — the poison pill. Both are the thing the next
+four slides exist to prevent, so take the answers before you offer any. This is the natural place to
+define *poison message*.
 
-1. **Is this message ever going to work?** No — malformed, wrong schema, wrong channel. → **Invalid
-   Message Channel**
-2. **Might it work later?** Yes — the database is failing over, the downstream is restarting. →
-   **Requeue with Delay**
-3. **Have we tried enough?** → **Dead Letter Channel**, and a human looks at it.
+### Slide: Not Acking — Requeue or Reject
 
-▎ A message that is only ever nacked blocks the queue forever. All three of these exist so that cannot happen.
+Not acking is not one decision, it is two — and which one you take is a **policy**, not something you
+discover at runtime.
+
+- **Requeue** — put the message back on the queue. Someone tries it again.
+- **Reject** — do not process this message at all. **Delete** it on a queue; **skip** it on a stream.
+
+Each of the two has to end somewhere:
+
+- On a **requeue**, set a policy for how many attempts. Exceed it and the message goes to the **Dead
+  Letter Channel**.
+- On a **reject**, a **badly formed** message goes to the **Invalid Message Channel**.
+- A **well-formed** message you reject may go straight to the **Dead Letter Channel** — by policy, and
+  it is your policy.
+
+▎ A message that is only ever nacked blocks the queue forever. Requeue and reject both have to end somewhere.
 
 #note: **Forward reference — say it out loud.** Every mechanism on the next three slides needs
 **per-message acknowledgement**. A stream does not have one. §4.5 pays this off, and *What Your Broker
-Actually Gives You* two slides later makes it concrete.
+Actually Gives You* makes it concrete.
 
-Presenter notes: **Do not underestimate this conversation.** Errors on the pump lead into DLQ, Invalid
-Message and Requeue-with-Delay — and into Nack or Ack — and having it here turns the next three slides
-from a list of patterns into the answers to three questions. It also makes parts of queue-vs-stream much
-easier later. Run it as a discussion before showing the answers: ask what their
-consumer does today when the handler throws. The usual answers are "it logs and moves on" (silent data
-loss) or "it retries forever" (the poison pill). Both are on this slide as the thing the three mechanisms
-prevent. This is also the natural place to define *poison message*.
+Presenter notes: **This slide is what turns the next three from a list of patterns into two answers.**
+Requeue is "not now"; reject is "not ever, not by me". The limit on a requeue and the destination of a
+reject are both configuration, and teams routinely ship neither — which is how a poison message ends up
+retried until someone notices the lag. Ask which of the two their broker does by default; most rooms
+find out they have been requeueing forever.
 
 
 ### Slide: Invalid Message Channel
@@ -756,7 +768,7 @@ misconfigured producer may have put a perfectly good message on the wrong channe
 rather than dropping it. **Some middleware conflates the two terms** — RabbitMQ calls rejected messages
 "dead letter", which matters because the *Failing Well* exercise uses RMQ's own dead-letter exchange.
 
-### Slide: Requeue with Delay
+### Slide: Requeue with Delay — a Queue Capability
 
 Transient failure is not the same as permanent failure. The downstream service is restarting; the
 database is failing over. The message is fine — you just tried at a bad moment.
@@ -766,13 +778,15 @@ database is failing over. The message is fine — you just tried at a bad moment
 - After a number of re-queues, move to a dead-letter channel.
 
 **Needs from the broker:** per-message acknowledgement, a redelivery mechanism, and a way to hold a
-message back for a period.
+message back for a period. **The lock is what supplies all three, and only a queue has one.**
+
+**A stream cannot do this.** To try a record again you have to *put it on the stream again* — a
+scheduler, a delay topic — and it arrives at the end. **You have de-ordered the stream** to get a retry.
 
 #image: diagram — a locked message at the head of a queue, unlocked and held back on a timer when it is not acked, and dead-lettered after N tries  [→ resources/qs-requeue-with-delay.png]
 
-#note: This is a *queue* capability, taught before we have formally drawn the queue/stream distinction.
-That is deliberate — §4.5 then gets the reveal that streams have none of this. Say "queue" here and
-promise the comparison.
+#note: The queue/stream contrast is on the slide here, ahead of §4.5 drawing the distinction formally.
+That is deliberate: §4.5 then confirms it rather than revealing it.
 
 ### Slide: Dead Letter Channel
 
