@@ -19,7 +19,7 @@ and the canvas width is the only lever on it.
 | read | for |
 |---|---|
 | **`BACKLOG.md`** | **what is outstanding**, sized. Read it before choosing work. An index — each line points at its detail |
-| **`REVIEW.md`** | **the live queue** — Ian's first pass over the built decks, worked top to bottom. `BACKLOG.md` §H is its one-line index. **Ian numbers by SLIDE, not by outline entry** |
+| **`REVIEW.md`** | **closed 2026-09-10, all thirty rows** — Ian's first pass over the built decks. Read it for *why a slide is the way it is*, not for work. `BACKLOG.md` §H is its one-line index. **Ian numbers by SLIDE, not by outline entry** |
 | **`REDEVELOPMENT-PLAN.md`** | the **source of truth**: scope, decisions, work queues, the Phase 2 image list (§8), the rationale log (§9), the timing pass (§11), why this visual style (§13). *Two sections are numbered §9; the rationale log is the first* |
 | **`styles.md`** | the **authoritative visual spec** — canvas, type, sizes, palette, diagram rules, print. `tools/build_deck.py` implements it; **where the two disagree, `styles.md` wins** |
 | `outlines/DayOne.md`, `DayTwo.md` | **the build input.** Content edits happen here, never in the deck |
@@ -68,6 +68,7 @@ python3 tools/build_deck.py --day 1 --preview 14,15   # -> build/preview/ ; also
 python3 tools/lint_figures.py         # labels off/onto shapes, all TWELVE families -- 5+ MINUTES
 python3 tools/lint_figures.py reference_cards         # the cards are NOT in the default twelve
 python3 tools/reads_at.py             # what a label reads at IN THE ROOM -- ~2 min; --all, --floor N
+python3 tools/side_cost.py 2          # what `#layout: side` WOULD cost a slide; --slide N, --all
 ```
 
 **The twelve figure families**, each `python3 tools/<name>.py [figure-name | --list]`:

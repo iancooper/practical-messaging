@@ -9,7 +9,7 @@ and a table you can read the length of does not.
 Last reconciled against the repo: **2026-09-10**, after C4. **§C's two handouts are both built**, so
 **nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built.
 **§G is the full-deck visual sweep — eleven findings.** G2, G3, G4, G6, G7, G8 and G10 are fixed; G9 was withdrawn on inspection; **G1 (the register, 30 slides) and G11 (the preview drops italic) are open.** B2 and B3 have no
-action available. **§H is new and it is the live queue** — Ian's first pass over the built decks, 2026-09-10, twenty-six findings; the work list is `REVIEW.md`.
+action available. **§H is closed** — it was Ian's first pass over the built decks, 2026-09-10, twenty-six findings; the worked list is `REVIEW.md`.
 
 **Where things stand.** Phases 1 and 2 are closed, and **Phase 3 has nothing actionable left**: §A, §B
 and §C are all closed but for B2 and B3, which have no action available. What remains is §F — Ian's.
@@ -138,12 +138,14 @@ rows, and a narrow Day 2 pass afterwards. Ian: *"That's enough for a first pass 
 |---|---|---|---|
 | **H1** | ✅ **§R0 — the builder, all five done.** A folio bottom-left on every slide but the cover; **one text box per block instead of one per line**, which fixed all four reported overflows in one change; progressive disclosure grouped by idea — 230 clicks on Day 1, 221 on Day 2, `--no-animation` to turn it off; and `#layout: side`, a fourth arrangement. **⚑ The animation is the one thing in the build that cannot be checked here** — no PowerPoint on this machine, and a malformed `p:timing` refuses to open rather than degrading. Ian should open a deck early | M–L | ✅ |
 | **H2** | ✅ **§R1 — Day 1 content, all 21 rows.** Day 1 **138 → 136 slides**, four figures added (2 pump, 2 reference-data), §4.1 rebuilt with two tables and both broker models, §4.5 **13 → 6**, §Conversations re-ordered pattern-by-pattern with **Out-In** put back, and the AI-ism sweep run against the 2025 deck as the test of what is Ian's. **Nine cross-references re-anchored** after the restructure, plus four more that were stale before it | L | ✅ |
-| **H3** | **§R2 — Day 2.** R2-1 (text boxes) and R2-2 (AI-isms) ✅. **R2-3 (roll `#layout: side` out to Day 2?) and R2-4 are Ian's.** ⚑ **R2-4 is the sharpest thing this pass found:** §*Putting It Together*'s five entries all promise *"every interaction named by its exchange pattern"* and **none of the four figures carries a single pattern name.** The bodies now say only what is on screen; whether the annotations get drawn — they are five of G1's redraws anyway — is his call | M | ⚑ |
+| **H3** | **§R2 — Day 2, all four rows.** R2-1 (text boxes) and R2-2 (AI-isms) ✅. **R2-3: Ian, 2026-09-10 — do not roll `#layout: side` out to Day 2**, ask per slide when he reviews it. Measured first: 23 eligible entries, median figure **96% → 53%**, **all 23** under 85%, 7 needing text cut to notes, and 8 of them BPMN, the one family already at the type floor. **R2-4: drop *annotated*.** §*Putting It Together* promised a pattern-name layer **none of its ten figures carries**; all ten are used twice, and their `.excalidraw` / `.drawio` sources cannot be rendered here, so annotating means redrawing — **G1's job, not this row's.** Four titles and five alt lines corrected instead | M | ✅ |
 
 **Both of H2's blocking questions were put to Ian on 2026-09-10 and both were answered**: the full §4.5
 restructure, and the builder inferring reveal groups rather than a marker in the outline.
 
-**What is left of §H is R2-3 and R2-4, and both are Ian's.**
+**§H is closed.** Both of its open rows were ruled on by Ian on 2026-09-10: R2-3 *no roll-out, ask per
+slide*, R2-4 *drop `annotated`*. **⚑ R2-4 handed G1 two named jobs** — slides **138 and 141** carry ~4pt
+annotations (plan §14.3) and **138 and 144 ship typos** (§14.2), and retitling touched none of it.
 
 **New tool: `tools/deck_index.py`.** Ian reviews by slide number and the slide number is not the
 outline entry number — 91 entries build 138 slides. It runs the real layout and prints the map.

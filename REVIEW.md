@@ -1,10 +1,16 @@
 # Review — Ian's first pass over the built decks #
 
 **Ian, 2026-09-10, on the rendered Day 1 deck:** *"First, this a great first pass."* Then
-twenty-six findings. This file is the **work list**, and it is worked top to bottom.
+twenty-six findings. This file was the **work list**, worked top to bottom, and it is now **closed**.
 
 **Day 1 first, then a Day 2 pass** for the two findings that are not Day-1-specific — the text-box
 split and the AI-isms. Ian reviews Day 2 by hand after that.
+
+**⚑ All thirty rows are closed as of 2026-09-10.** The last two were Ian's own: **R2-3** — Day 2 does
+*not* get a blanket `#layout: side`, he names slides one at a time when he reviews it — and **R2-4** —
+§*Putting It Together* drops *annotated* rather than growing ten new figures. **What R2-4 handed on
+rather than fixed is in `BACKLOG.md` G1**: slides **138** and **141** carry ~4pt annotations, and **138**
+and **144** ship typos.
 
 > **Read `BACKLOG.md` for everything else that is outstanding.** This file is only this review.
 > When a row here closes it closes here; `BACKLOG.md` §H carries one line pointing at this file.
@@ -82,7 +88,7 @@ starts only when §R1 is closed, and it is deliberately **narrow** — it is not
 | **R2-1** | **Text splitting** — R0-1, R0-2 and R0-4 are builder changes and land on Day 2 for free. **Verify, do not assume**: render Day 2 and look, and re-check the callouts in particular, because that is where every Day 1 overflow was | S | ✅ |
 | **R2-2** | **AI-ism** — the same sweep as R1-1, over `outlines/DayTwo.md`. `session-work/day2.txt` is the 2025 deck and is the test of what is Ian's | M | ✅ |
 | **R2-4** | **⚑ Found while doing R2-2.** §*Putting It Together* (slides 130–145) promised an **annotation layer that is not in the artwork** — four titles ended *"— Annotated"* and four `#image:` alt lines said *"annotated with exchange patterns"*, and **not one of the ten figures carries a single pattern name.** Verified rather than inherited: **all ten appear exactly twice in `DayTwo.md`** — once where the flow is first taught (:188–:502), once here (:1177–:1211) — so an annotated version has to be a **new file**, and the sources are five `.excalidraw` and five `.drawio`, **neither of which this machine can render**, so *annotate* means *redraw in `tools/`*, i.e. G1. **Ian, 2026-09-10: drop *annotated*, leave it the spoken walk-through it already is.** Four titles renamed, five alt lines corrected — the fifth was *"composite … plus thumbnails of the other flows"* on slide 144, and **opening it showed one collaboration diagram and no thumbnails**, the same defect found the same way. R2-2's bodies already said only what is on screen and are unchanged. **⚑ What this does NOT fix, and G1 must:** plan §14.3 measures slides **138 and 141** at roughly 4pt, and **138 and 144 carry typos that ship today** | M | ✅ |
-| **R2-3** | **Whatever R0-5 settles** — Day 2 carries 72 placed figures and 47 split entries, so if text-left/figure-right is right for Day 1 it is a much bigger question on Day 2. **Ask; do not roll it out** | — | ☐ |
+| **R2-3** | **Ian, 2026-09-10: do not roll it out — ask per slide.** Measured before asking, by building Day 2 twice: **38 entries split today, 23 carry exactly one figure** and so are eligible (`_side_slide` is guarded on one figure). Wholesale, the median figure goes **96% → 53%**, **all 23** land under 85%, and **7 need text cut to notes** (*Compensation, Four Ways* by 5.26in). **8 of the 23 are BPMN** — the one family already at the type floor (rule 6), where 49% is not a shrink. The two worst are *The Frame* (88→26%) and *The Desk* (101→29%), both because the slide also carries photographs, so the figure shares the half-stage at 3.0in not 6.1. **Day 2 keeps figure-leads. When Ian reviews Day 2 by slide he names the slides he wants text-left on, and each gets one `#layout: side` line** with the cost reported by name, as on Day 1 | — | ✅ |
 
 ---
 

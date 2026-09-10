@@ -2024,6 +2024,37 @@ figure is about.
 Newest first. Records **why**, including reasoning that changed no file — git history covers what
 changed in the outlines, not this.
 
+### 2026-09-10 — R2-3: `#layout: side` is not rolled out to Day 2, and the measurement is why
+Ian asked for text-left/figure-right on six named Day 1 slides. R2-3 asked whether Day 2 should follow.
+**Changed no file, which is the point of recording it here** — the next session would otherwise re-derive
+the whole thing from the same starting question.
+
+**Measured, not argued.** Day 2 was built twice: once as it stands, once with `layout = "side"` set on
+every eligible entry. Eligible means the entry currently splits into a text slide plus a figure slide —
+Ian's *"split is weird"* — **and carries exactly one figure**, because `_side_slide` is guarded on
+`len(figs) == 1`. That is **23 of the 38 entries that split**; the other 15 carry two or three figures and
+the arrangement cannot apply to them at all.
+
+| | as it stands | rolled out |
+|---|---:|---:|
+| median figure size | **96%** | **53%** |
+| under 85% | 3 | **23 of 23** |
+| slides whose text no longer fits | 0 | **7** |
+
+**Three things the median hides.** The two worst are *The Frame* (88 → 26%) and *The Desk — In-Tray,
+Out-Tray, File* (101 → 29%), and the cause is not the arrangement: **both slides also carry photographs**,
+so the figure shares the half-stage and is fitted at 3.0in rather than 6.1. **Eight of the 23 are BPMN** —
+the one family already sitting at the type floor (rule 6), so 49% there is not a shrink, it is gone. And
+*Compensation, Four Ways* overflows by **5.26in**, which is not a trim, it is a rewrite.
+
+**Ian's ruling: do not roll it out; ask per slide.** Day 2 keeps figure-leads. When he reviews Day 2 by
+slide number he names the slides he wants text-left on, and each gets one `#layout: side` line with the
+builder reporting what it cost by name — the same loop that worked on Day 1's six.
+
+**Worth keeping in view for that loop:** the six he accepted on Day 1 landed at 49, 49, 69, 69, 71 and
+71%, so *"under 85%"* is not by itself a veto — he has said yes to worse. The argument against a
+**blanket** roll-out is scale and the BPMN floor, not the number.
+
 ### 2026-09-10 — R2-4: §Putting It Together stops promising a picture nobody drew
 Four Day 2 titles ended *"— Annotated"* and four `#image:` alt lines said *"annotated with exchange
 patterns"*. **Not one of the section's ten figures carries a pattern name.** R2-2 had already rewritten
