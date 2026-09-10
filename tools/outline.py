@@ -339,7 +339,15 @@ def runs(text):
         if not part:
             continue
         if part.startswith("**") and part.endswith("**") and len(part) > 4:
-            out.append((part[2:-2], True, False, False))
+            # **Recurse, because `**bold with *emphasis* inside**` is a thing people
+            # write and the flat version printed the asterisks on the slide.**
+            # `_INLINE`'s `\*\*.+?\*\*` alternative matches first and swallows the
+            # inner pair, so "Do you need the answer *now*?" went up on d1-109
+            # exactly like that. bold+italic is representable -- the run tuple
+            # carries both flags and `emit_pptx` sets both -- so the fix is to
+            # re-parse the inside and OR the bold on.
+            for t, _b, i, m in runs(part[2:-2]):
+                out.append((t, True, i, m))
         elif part.startswith("`") and part.endswith("`") and len(part) > 2:
             out.append((part[1:-1], False, False, True))
         elif (part.startswith("*") and part.endswith("*") and len(part) > 2
