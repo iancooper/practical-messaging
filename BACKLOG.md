@@ -7,7 +7,8 @@ is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
 Last reconciled against the repo: **2026-09-10**, after C4. **§C's two handouts are both built**, so
-**nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built. B2 and B3 have no
+**nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built.
+**§G is new** — the full-deck visual sweep, nine findings, none of them ruled on yet. B2 and B3 have no
 action available.
 
 **Where things stand.** Phases 1 and 2 are closed, and **Phase 3 has nothing actionable left**: §A, §B
@@ -96,6 +97,31 @@ to pay for an estimate nobody has checked is the wrong order.
 **Nothing in `exercises/` or `videos/` is the deck workstream's to change.** If a rename or a
 restructure happens over there, `outlines/DayOne.md` names the exercise decks and videos by title and
 will need the matching edit — that comes back here as a request, not as an edit made from that side.
+
+---
+
+## G. The full-deck visual sweep — 2026-09-10, findings not yet ruled on ##
+
+**All 291 slides rendered and reviewed** — 33 nine-up contact sheets, ~25 slides at full size, plus five
+mechanical checks run across **every** slide and all 101 figures. Nothing here was visible to
+`build_deck.py`'s overflow report, to `lint_figures.py` or to `reads_at.py`; the overflow report is
+still empty and lint is still clean. **Rule zero, applied to slides for the first time.**
+
+| # | finding | size | detail |
+|---|---|---|---|
+| **G1** | **30 slides (10%) carry a 2021 import in a foreign register** | **L** | Day 1 **5** — §4.4's producer side (`Transactional No Outbox`, `Transactional With Outbox`, `Log Tailing`, `State Change Capture`, `Inbox`), bright blue/orange/green, **sitting in the same sub-section as the redrawn consumer-side figures**. Day 2 **25** — the whole *Worked Flows* run, the FBP worked examples, and **all of *Putting It Together***: black-on-white value streams still stamped *29 SEP 2021*, tiny blue-and-black fax flows, purple-hexagon FBP graphs. **Against the standing instruction in the plan** — Ian: *"Let's redraw both runs. One thing I want to strive for is a consistent look and feel"* — beside which the plan already warns *"their `.png`s are 2021 black-on-white, so linking them keeps the old look."* **Several are illegible at slide size**: d2-137 and d2-140 carry ~4pt annotations, and `paper-worked-flows-montage` (d2-022) tiles four of them onto one slide |
+| **G2** | **10 slides say the same line twice** — the callout repeats the figure's own red note | S | Two are word for word: **d1-007**, **d1-011**. The other eight are close paraphrases — d1-018, d1-051, d1-103, d2-022, d2-035, d2-039, d2-060, d2-072. In most the **red note is the longer and better line**, so the callout is what should go; **d1-051 is the exception** — its callout carries a §4.4 forward reference the note does not. Dropping a callout also gives the figure back ~13 points |
+| **G3** | **3 text-on-text collisions inside figures** | S | `grid-coupling` — *"a command message"* printed across *"a whole entity"*. `flow-bulkhead` — a long comment line runs straight through **both** node captions. **`lint_figures.py` cannot see any of them**: it measures a label against a *shape* and against arrow runs, never against another label |
+| **G4** | **6 slides whose body is the words "Section marker"** | S | d1-027, d1-080, d1-085, **d2-005**, d2-062, d2-129. Scaffolding that went up on screen — rule 2 in spirit. **d2-005 is the first teaching slide of Day Two** |
+| **G5** | **Day 1's Closing is a stub** | S | *Further Reading* reads **"Pointers for going deeper."** and lists nothing, where Day 2 closes with four proper reading slides and their covers. The *Closing* divider is also the only one in either deck with no sub-line |
+| **G6** | **d1-025's divider sub-line restates its own title** | XS | *"4.1 What Is a Message?"* over *"What is a message?"*. The only one of the 19 dividers that does it |
+| **G7** | **d2-148's URL is clipped and runs under the photo panel** | XS | `(jonasboner.com/resources/Reactive_Microservices_Architect` — cut mid-word, no closing bracket, unusable. **The builder already guards the kicker against exactly this and warns on stderr; body text has no equivalent guard.** Rule 11. d2-150 clears the column by 0.01in and is the next one to go |
+| **G8** | **Two dashed-arrow conventions in one deck** | S | The taught notation key (**d2-010**, ours) draws *dashed = paper moving* in **carbon**; the imported 2021 flows draw it in **red**; and the BPMN mapping table on **d2-080** tells the room *"a red dashed arrow between an out-tray and an in-tray"*. Checked: `exercises/Paper-Flow-Delegate-Brief.md` line 35 says only *dashed / solid* and names no colour, so **the brief is not in conflict** — CLAUDE.md rule 13's own example slightly overstates it |
+| **G9** | Minor, listed for completeness | XS | **4 slides carry two callouts** (d1-008, d1-022, d1-101, d2-006) where the register is meant to mark *the one thing*; **d1-030** is a one-line slide that reads as the lead-in to d1-031 |
+
+**What the sweep did NOT find**, which is worth recording: no overflow, no missing image, no broken
+cross-reference, no figure family off-style, and no defect at all in `queues_streams`, `conversations`,
+`eip_figures`, `bpmn_hotel`, `bpmn_shopping` or `integration_styles`. **The redrawn families are clean.**
 
 ---
 
