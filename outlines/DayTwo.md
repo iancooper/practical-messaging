@@ -153,7 +153,7 @@ Rules of the notation:
 - **Every hand-off goes out-tray to in-tray.** Nobody shouts across the office.
 
 #image: notation key — the desk (in-tray, out-tray, file), the boundary bar, red-dashed vs. solid arrows, numbered steps, and the out-tray-to-in-tray rule drawn as two desks  [→ resources/paper-notation-key.png]
-#image: photo — a large stack of manila file folders and papers  [→ resources/photo-manila-folders.jpg]
+#image: photo — a large stack of manila file folders and papers  [→ resources/Folder Stack.jpg]
 
 Presenter notes: **New slide.** The notation was previously never taught — it was demonstrated in passing across a dozen unlabelled photographs. It has to be explicit now, because delegates draw in it within the hour and the exercise's hard rule (*every hand-off through a tray*) is what makes the fracture planes visible. The out-tray-to-in-tray rule is the whole exercise in one line.
 
