@@ -71,7 +71,7 @@
           <mxGeometry x="295.43222641505395" y="144.29425385932143" width="7.978559176669936" height="7.978559176669936" as="geometry" />
         </mxCell>
         <mxCell id="o11" value="an event carrying&#10;a whole entity" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="459.5625866208355" y="144.29425385932143" width="7.978559176669936" height="7.978559176669936" as="geometry" />
+          <mxGeometry x="459.5625866208355" y="128.90703259002942" width="7.978559176669936" height="7.978559176669936" as="geometry" />
         </mxCell>
         <mxCell id="o12" value="a command message&#10;with a what-to-do flag" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="377.49740651794474" y="167.09013722123552" width="7.978559176669936" height="7.978559176669936" as="geometry" />

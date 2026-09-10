@@ -872,9 +872,14 @@ def bulkhead():
     d.note(195, 396, "sends, and returns\nimmediately — whether or\n"
                      "not the receiver is up", COMMENT, 15)
     d.note(1010, 396, "down, and nothing\nupstream knows", COMMENT, 15)
+    # **Wrapped to three lines, and the width is the reason.** Three comment notes
+    # share this row: the side ones end at x=205 and start again at x=595 (final
+    # units), leaving this one a 390-unit gap. Its second line measured 460 and ran
+    # straight through BOTH of them -- text over text, which `lint_figures.py` never
+    # looks for. Every line here now fits the gap. Re-measure if the wording changes.
     d.note(620, 400, "the failure is contained in one compartment: a bulkhead.\n"
-                     "In a synchronous conversation it would have propagated back "
-                     "up the chain.", COMMENT, 15)
+                     "In a synchronous conversation it would\n"
+                     "have propagated back up the chain.", COMMENT, 15)
     caveat(d, "availabilities multiply only under temporal coupling — "
               "store-and-forward breaks the chain")
     return d

@@ -104,7 +104,21 @@ def grid_coupling():
     d.note(530, 48, "“loosely coupled” is a question with two answers", ANNOTATION, 19)
 
     d.point(X["Common"], 208, "a shared database")
-    d.point(X["Stamp"], 208, "an event carrying\na whole entity")
+    # **Raised from 208, and the reason is arithmetic rather than taste.** Its two
+    # lines and the Control point's two lines were 40 raw units apart, comfortable at
+    # 1060 -- but `_frame` compacts to 627 and TEXT DOES NOT SCALE, so 40 raw arrived
+    # as 4 final units and "a whole entity" printed straight across "a command
+    # message". `lint_figures.py` cannot see it: it measures a label against a SHAPE
+    # and against arrow runs, never against another label.
+    #
+    # Measured in FINAL units, which is the only place this can be reasoned about:
+    # the plot's top rule is at 115.2, the mid rule at 212.1, and the Control label's
+    # descenders reach 209.5 -- 2.6 clear of the mid rule, so Control cannot move
+    # down. Raising Stamp by 15 final (27 raw) is what is left, and it leaves the top
+    # line 21 clear of the top rule. **Labelling it `above` instead does not work** --
+    # it clears the Control label and then lies straight across that top rule, which
+    # is lint's other blind spot and cost a second look at the PNG to find.
+    d.point(X["Stamp"], 181, "an event carrying\na whole entity")
     # 268 put the second line's descenders through the "must we both be up?" rule
     # once the frame was compacted -- it was a unit clear at 1060 and is not at 890.
     # Where a point sits *within* a band carries nothing, so the fix is to raise it.

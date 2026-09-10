@@ -67,7 +67,7 @@
         <mxCell id="t9" value="down, and nothing&#10;upstream knows" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="591.0583597676804" y="271.3127659573671" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t10" value="the failure is contained in one compartment: a bulkhead.&#10;In a synchronous conversation it would have propagated back up the chain." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+        <mxCell id="t10" value="the failure is contained in one compartment: a bulkhead.&#10;In a synchronous conversation it would&#10;have propagated back up the chain." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="340.42489748537025" y="273.883365570519" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="t11" value="availabilities multiply only under temporal coupling — store-and-forward breaks the chain" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
