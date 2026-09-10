@@ -138,6 +138,7 @@ Domain/Summary is about what is **in** the message and how state propagates, whi
 - **§4 Messaging Patterns is a BUILD ORDER** — the sequence someone from an HTTP background needs to
   write messaging code and make it reliable: 4.1 What Is a Message? → 4.2 Sending and Receiving →
   4.3 The Message Pump → **4.4 Guaranteed Delivery (new)** → 4.5 Queues and Streams → 4.6 Pipelines.
+  **⚑ Amended 2026-09-10 (R1-17, Ian's ruling).** The build order now teaches the *broker* in 4.1 and every mechanism twice: *Queues Contain Tasks* and *Streams Contain Facts* close 4.1, competing consumers is answered separately for each in 4.3, and 4.4's error mechanisms carry their stream half. **4.5 is no longer where queues and streams are introduced** — it is what is left once they have been, which is why it went from 13 slides to 6. Ian: *"otherwise this will flow badly on the day by repeating ideas."*
 - **Audience assumption for §4:** comes from an HTTP background; does not know how to write messaging
   code or make it reliable.
 - **The lifetime rule is a RULE, not a heuristic** (Ian) — *if the data does not share the message's
@@ -203,11 +204,11 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | 3 | Integration Styles | 5 | ✅ D1-7: each style scored on what it hands back; closes on *Why Messaging* | ✅ §2 grid re-plotted + 4 `style-*` figures (item 9) | ☐ |
 | 4 | **Messaging Patterns** | **47** | ✅ build order; −9 §4.6, +2 task queue, +1 D1-8. **P3: the exercise slots went 2 → 3** (2026-09-09) — the RMQ pointer moved off §4.2 to close §4.3, and *Exercise Material — Failing Well* closes §4.4; `code-rewrites.md` §3.2 | ☐ 12 EIP redraws | ☐ merge scripts |
 | 4a | · The Big Picture | 1 | ☐ reframe as build order | | |
-| 4b | · 4.1 What Is a Message? | 6 | | | |
+| 4b | · 4.1 What Is a Message? | **6** | ✅ **R1-2/3/4** two comparisons became tables and two one-line entries folded in, 6 → 4; ✅ **R1-17** *Queues Contain Tasks* and *Streams Contain Facts* moved in from §4.5, so both models exist before the pump | | |
 | 4c | · 4.2 Sending and Receiving | 7 | +RMQ Quick Start | | |
-| 4d | · 4.3 The Message Pump | **8** | +*Task Queue* worked example & HTTP flow, from §1 (D1-6) | | |
-| 4e | · **4.4 Guaranteed Delivery** | **11** | ✅ D1-8: producer / consumer / broker, +*Ack and Nack* | | |
-| 4f | · 4.5 Queues and Streams | 13 | +Kafka Quick Start | | |
+| 4d | · 4.3 The Message Pump | **10** | +*Task Queue* worked example & HTTP flow, from §1 (D1-6); ✅ **R1-7** *Competing Consumers* became three — RoA vs RoC, then the queue answer, then the stream answer, taking §4.5's two Scaling figures with it | | |
+| 4e | · **4.4 Guaranteed Delivery** | **13** | ✅ D1-8: producer / consumer / broker, +*Ack and Nack*; ✅ **R1-12** *Ack and Nack* split, second half rewritten as **requeue or reject**; ✅ **R1-17** *Streams — No Requeue or DLQ* moved in from §4.5, so every mechanism is taught on both brokers | | |
+| 4f | · 4.5 Queues and Streams | **6** | +Kafka Quick Start; ✅ **R1-17, Ian's ruling 2026-09-10** — 13 → 6. Four entries moved out to where the idea is first taught and *Queue Lifecycle* was cut as a full repeat of §4.4 (its figure moved onto *Not Acking*). What is left is what has no counterpart on the other side: consumer groups, archive and replay, the matrix, Kafka | | |
 | 5 | **Conversations** *(moved from Day 2)* | **13** | ✅ 25 → 15, rebuilt as a decision; **T-1: fault slides 3 → 1** | ☐ 1 new grid + reuse §2 grid | ☐ |
 | 6 | **Designing Messages** *(moved from Day 2)* | **18** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
 | 6a | · 6.1 Fat and Skinny Messages | 5 | ✅ rebuilt on the lifetime rule | | |

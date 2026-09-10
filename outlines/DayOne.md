@@ -285,7 +285,7 @@ A map of the messaging patterns we will cover across the day.
 
 ## 4.1 What Is a Message?
 
-*Header and body — and whether you are expressing intent or reporting a fact.*
+*Header and body, intent or fact — and whether the channel holds tasks or facts.*
 
 ### Slide: Message Construction
 
@@ -332,9 +332,9 @@ After Clemens Vasters again, a second axis — and this one is about events only
 | part of | a conversation | a monolog |
 
 Presenter notes: The row that pays off later is *position*. A discrete event stands alone, so anyone can
-handle it and order does not matter; a series event only means anything in sequence, which is why §4.5's
-streams keep an offset and why partitioning by key is the only way to scale one. Point at this table
-again when you draw the partition.
+handle it and order does not matter; a series event only means anything in sequence, which is why the
+stream in *Streams Contain Facts* keeps an offset, and why partitioning by key is the only way to
+scale one. Point back at this table when you draw the partition in §4.3.
 
 ### Slide: Command / Document / Event Messages
 
@@ -345,6 +345,43 @@ After Gregor Hohpe. Three core message types: **Command**, **Document**, **Event
 - **Event Message** — reliable, asynchronous event notification. The difference from a Document Message is timing and content — an event's contents are typically less important.
 
 Presenter notes: RPC's advantage is synchrony (immediate, caller blocks) — but that's also its weakness: if the network is down or the remote process isn't listening, the call fails. Asynchronous command messages keep trying until the procedure is invoked. The command's state (parameters) is stored in the message.
+
+### Slide: Queues Contain Tasks
+
+A channel carries one of two things, and which one it is changes almost everything that follows.
+Messages on a **queue** are **tasks** — requests to carry out an action. Once the action is done, the
+task is gone.
+
+- The first consumer **locks** the next message while it processes it.
+- A second consumer **reads past** any locked message and locks the next available one.
+- Nobody else should action a done task; a receiver of one discards it. If we cannot action it, someone
+  else must.
+
+#image: diagram — a queue of envelopes: Consumer One locks the one at the head, Consumer Two reads past it and locks the next  [→ resources/qs-queue-tasks.png]
+
+Presenter notes: The lock is the whole of a queue, and everything in §4.3 and §4.4 rests on it —
+competing consumers, requeue with delay, dead-lettering, the retry count. Say it here so it is not a
+surprise later: **a queue can hold a message back and hand it to someone else, and a stream cannot.**
+
+### Slide: Streams Contain Facts
+
+Records on a **stream** are **facts** — records that a state change occurred. Nothing is consumed by
+reading and nothing is deleted.
+
+- The first consumer reads the next record and processes it; a second consumer reads the next and
+  processes it — and **both can read the same records**.
+- Each consumer stores an **offset** marking how far it has read.
+- On restart, a consumer reads the store to find the last record it processed.
+- Facts are an "inverse database" — how the current state was arrived at. Navigate the offsets to
+  compute a point-in-time position.
+
+▎ A queue holds work to be done. A stream holds what happened. Everything else follows from that.
+
+#image: diagram — an append-only log of numbered cells, two consumers reading all of it, each with its own offset store  [→ resources/qs-stream-facts.png]
+
+Presenter notes: This is the *series* row of the previous table with a picture on it — stateful, PULL,
+context and offset. There is no lock here and there is nothing to ack, which is why the whole of §4.4
+has to be taught twice: once for a broker that can hold a message back, once for one that cannot.
 
 ---
 
@@ -506,20 +543,59 @@ RMQ Quick Start rather than asserting it here; wire the specific file references
 
 ### Slide: Competing Consumers
 
+If the **Rate of Arrival** of messages (RoA) exceeds the **Rate of Consumption** (RoC), your channel
+backs up and the age of any message in it increases. At some point the time a message waits in the
+channel becomes unacceptable.
 
-To stop a channel backing up, consume faster than messages arrive by adding consumers.
-
-**If order matters, partition.** Competing consumers de-order the channel — two of them process two
-messages at once and nothing says which finishes first. Consistent hashing sends same-key messages to the
-same partition, so order holds inside a partition and each partition's arrival rate stays under what one
-consumer can drain.
-
-▎ Order holds inside a partition, and nowhere else.
-
+You solve this by **competing consumers** — but *the implementation differs between queues and streams*,
+and so does what it costs you.
 
 #image: (s63) diagram — competing consumers draining a channel that is backing up  [→ resources/eip-message-dispatcher.png]
 
-Presenter notes: Compare arrival rate to consumption rate (time to ack/nack). If arrival exceeds consumption and it isn't a burst, you never catch up. You may also need to process within a deadline. Solution: more consumers. The queue hands a message to only one consumer, locking it while processed, unlocking on failure, and letting waiting consumers read past locked messages — which is the mechanism the slide's second half is about. §4.5 draws the partition; this is where the room finds out why they would want one. (EIP reference.)
+Presenter notes: Get the arithmetic said out loud: RoC is one over the time to handle a message and ack
+or nack it, per consumer. If RoA exceeds RoC and it is not a burst, you never catch up — adding
+consumers is the only lever, because the other two are someone else's code. Ask whether they also have a
+**deadline**: a channel that drains eventually can still be useless. *Competing Consumers on a Queue*
+and *on a Stream* are the same answer on the two brokers, and the difference between them is the whole
+reason §4.1 made you choose one.
+(EIP reference.)
+
+### Slide: Competing Consumers on a Queue
+
+Add consumers to the same queue. The broker's **lock** does the rest.
+
+- A consumer takes the next message and **locks** it — *this item is being processed*.
+- Another consumer **reads past** the locked one and picks up the next item.
+- Nothing says which of them finishes first, so **you have sacrificed ordering** to get the throughput.
+
+▎ Read-past buys you throughput. It spends your ordering to do it.
+
+#image: diagram — three competing consumers on one queue, each holding a locked message, one still waiting  [→ resources/qs-queue-competing.png]
+
+Presenter notes: This is the lock from §4.1 doing the work it exists for. Push on the ordering cost,
+because rooms consistently under-rate it: two consumers, two messages for the same customer, and nothing
+in the system decides which lands first. If they need ordering they do not need a bigger queue, they
+need *Competing Consumers on a Stream*.
+
+### Slide: Competing Consumers on a Stream
+
+There is no lock, so there is no read-past. You scale by **partitioning**.
+
+- **Partition by a key** — consistent hashing puts same-key records in the same partition.
+- **Each partition has one consumer**, and each consumer keeps its own offset.
+- Order holds inside a partition, so **you keep ordering** for everything that shares a key.
+- The price: **no delay and no read-past.** A slow record holds up its partition, and there is nothing
+  to skip it with.
+
+▎ On a queue you spend ordering to buy throughput. On a stream you spend the read-past instead.
+
+#image: diagram — a stream split into three partitions, one consumer and one offset store per partition  [→ resources/qs-stream-partitions.png]
+
+Presenter notes: Choose the key deliberately: it has to be the thing whose order matters — the entity
+id, not the message type — and it has to spread, or one partition takes all the traffic and you have
+scaled nothing. Say what happens when a record will not process: on a queue someone else reads past it,
+on a stream the partition stops. That is the same trade the room will meet again on the error slides in
+§4.4, and it is why they are taught twice there.
 
 
 ### Slide: Worked Example — the Task Queue
@@ -651,7 +727,7 @@ Presenter notes: **Say where the duplicate comes from, because it is no longer o
 fail *after* the send and *before* marking it Sent; the sweeper then finds it Pending and sends it
 again. That is the whole of at-least-once, and it is what the callout means.
 Do not let this land as a footnote — it is the question the **Inbox** exists to answer,
-and the Inbox is four slides away, in the consumer group. Leave the duplicate hanging
+and *Inbox (Idempotency)* answers it, on the consumer side. Leave the duplicate hanging
 deliberately: ask the room what they would do about it, take answers, and tell them you will come back to
 it when we are on the consumer side, because that is where it gets fixed. People from an HTTP background
 often assume the framework has already solved it.
@@ -715,9 +791,9 @@ option** — which is why at-least-once stops being a slogan on the consumer sid
 
 Presenter notes: **Do not underestimate this conversation.** Run it as a discussion before showing
 anything: ask what their consumer does today when the handler throws. The usual answers are "it logs and
-moves on" — silent data loss — or "it retries forever" — the poison pill. Both are the thing the next
-four slides exist to prevent, so take the answers before you offer any. This is the natural place to
-define *poison message*.
+moves on" — silent data loss — or "it retries forever" — the poison pill. Both are the thing the rest of
+this sub-section exists to prevent, so take the answers before you offer any. This is the natural place
+to define *poison message*.
 
 ### Slide: Not Acking — Requeue or Reject
 
@@ -737,9 +813,11 @@ Each of the two has to end somewhere:
 
 ▎ A message that is only ever nacked blocks the queue forever. Requeue and reject both have to end somewhere.
 
-#note: **Forward reference — say it out loud.** Every mechanism on the next three slides needs
-**per-message acknowledgement**. A stream does not have one. §4.5 pays this off, and *What Your Broker
-Actually Gives You* makes it concrete.
+#image: diagram — a locked message and its three endings: deleted on success, unlocked on failure, dead-lettered after N tries  [→ resources/qs-queue-lifecycle.png]
+
+#note: **Forward reference — say it out loud.** *Invalid Message Channel*, *Requeue with Delay* and
+*Dead Letter Channel* all need **per-message acknowledgement**, and a stream does not have one.
+*Streams — No Requeue or DLQ* pays that off and *What Your Broker Actually Gives You* makes it concrete.
 
 Presenter notes: **This slide is what turns the next three from a list of patterns into two answers.**
 Requeue is "not now"; reject is "not ever, not by me". The limit on a requeue and the destination of a
@@ -778,15 +856,13 @@ database is failing over. The message is fine — you just tried at a bad moment
 - After a number of re-queues, move to a dead-letter channel.
 
 **Needs from the broker:** per-message acknowledgement, a redelivery mechanism, and a way to hold a
-message back for a period. **The lock is what supplies all three, and only a queue has one.**
-
-**A stream cannot do this.** To try a record again you have to *put it on the stream again* — a
-scheduler, a delay topic — and it arrives at the end. **You have de-ordered the stream** to get a retry.
+message back for a period. **The lock is what supplies all three, and only a queue has one** — which is
+what the slide after Dead Letter Channel is about.
 
 #image: diagram — a locked message at the head of a queue, unlocked and held back on a timer when it is not acked, and dead-lettered after N tries  [→ resources/qs-requeue-with-delay.png]
 
-#note: The queue/stream contrast is on the slide here, ahead of §4.5 drawing the distinction formally.
-That is deliberate: §4.5 then confirms it rather than revealing it.
+#note: §4.1 drew both models, so "queue" in this title is a distinction the room already has. The
+stream half is its own slide two on, after Dead Letter Channel.
 
 ### Slide: Dead Letter Channel
 
@@ -803,6 +879,29 @@ Presenter notes: Implementations vary (point-to-point or pub-sub). **This is the
 place a message goes when *Requeue with Delay* has run out of attempts, which is why it now follows rather
 than precedes it. The line that separates it from the **Invalid Message Channel** is on that slide;
 this is the one to point at when someone asks which of the two RabbitMQ means. (EIP reference.)
+
+### Slide: Streams — No Requeue or DLQ
+
+*Invalid Message Channel*, *Requeue with Delay* and *Dead Letter Channel* all needed the broker to hold
+a message for you. A stream has no lock, so it has **no requeue**, no requeue-with-delay and no
+dead-letter channel. What you have instead:
+
+- **Ignore and continue** — load shedding. The record is gone and the partition moves on.
+- **Retry in place** — backpressure. The partition stops until it succeeds.
+- **Copy to another stream** — a delay stream or a DLQ stream, and a scheduler to feed it back.
+
+The third one is the closest thing to requeue-with-delay, and it costs you the thing partitioning bought:
+the record comes back at the **end**. **You have de-ordered the stream to get a retry.**
+
+▎ On a queue the broker holds the message for you. On a stream, whatever holds it is code you wrote.
+
+#image: diagram — a log and a consumer, with requeue, requeue-with-delay and dead-letter each struck out, and the three alternatives named  [→ resources/qs-stream-no-requeue.png]
+
+Presenter notes: This is the slide that makes *What Your Broker Actually Gives You* land, and it is the
+setup for the Kafka exercise: none of §4.4 is native here. Ask what their framework
+does — most will find it retries in place by default, which means one bad record stops a partition and
+the lag graph is the only symptom. The three alternatives are a choice about **which guarantee you are
+willing to lose**: the record, the throughput, or the ordering.
 
 ### Slide: Inbox (Idempotency)
 
@@ -843,8 +942,8 @@ fine, until you assume it is native and reason about failure as though it were.
 ▎ If your framework offers you a DLQ on Kafka, it built one. Know which of these you are relying on.
 
 Presenter notes: This slide is the honest answer to "why does my library make this look so easy?" —
-it makes the queue-versus-stream distinction concrete *before* §4.5 draws it conceptually, and it
-explains why the same reliability pattern costs very different amounts on different infrastructure.
+it puts a price on the queue-versus-stream distinction §4.1 drew, and it explains why the same
+reliability pattern costs very different amounts on different infrastructure.
 Ask the room which broker they are on and what they assumed was native. **The second exercise slot
 follows this slide**, so this is the last thing they hear before making their own pump fail — which is
 the right note to send them out on.
@@ -872,87 +971,36 @@ unacked count, the retry count, and the `x-death` header on what lands in the DL
 
 ## 4.5 Queues and Streams
 
-*What kind of broker am I on, and what does that change?*
+*The two things only one of them can do — and the summary you take away.*
+
+**By now you have met both models and both halves of every mechanism.** What is left is the pair of
+capabilities that has no counterpart on the other side, and the matrix that puts the whole comparison
+on one page.
 
 #note: **Kafka Quick Start lands here** — `exercises/Quick-Start-Kafka.pptx`, merged in the way
-`Quick-Start-RMQ.pptx` merges into §4.2. This is the second half of the exercise arc: §4.4 taught
-reliability on a **queue** (RMQ, where most of it is native); §4.5 asks delegates to get the same
-guarantees on a **stream**, where almost none of it is. *What Your Broker Actually Gives You* at the end
-of §4.4 is the setup for exactly that.
-
-### Slide: Queues Contain Tasks
-
-
-Think of messages on a **queue** as **tasks** — requests to carry out an action; once done, delete the task.
-
-- First consumer locks the next message while it processes it.
-- A second consumer reads past any locked message and locks the next available one.
-- We don't want anyone else to action a done task; a receiver of a done task discards it. If we can't action it, someone else must.
-
-
-#image: diagram — a queue of envelopes: Consumer One locks the one at the head, Consumer Two reads past it and locks the next  [→ resources/qs-queue-tasks.png]
-
-### Slide: Queue Lifecycle — Ack, Fail, Requeue
-
-
-- When done processing, we unlock — usually because we finished, sometimes because we failed.
-- On success, delete the message from the queue; no one else can process it.
-- On failure, others could succeed later, so make it available to lock again (often with a delay).
-- After a number of re-queues, move it to a dead-letter channel — no one actioned the request in a reasonable time frame.
-
-
-#image: diagram — a locked message and its three endings: deleted on success, unlocked on failure, dead-lettered after N tries  [→ resources/qs-queue-lifecycle.png]
-
-### Slide: Streams Contain Facts
-
-
-Think of records on a **stream** as **facts** — records that a state change occurred.
-
-- First consumer reads the next record and processes it; a second consumer reads the next and processes it (both can read the same records).
-- Each consumer stores an **offset** marking how far it has read.
-- On restart, a consumer reads the store to find the last record it processed.
-- Facts are an "inverse database" — how current state was arrived at. Navigate offsets to compute a point-in-time position. We don't consume facts by reading; they persist.
-
-
-#image: diagram — an append-only log of numbered cells, two consumers reading all of it, each with its own offset store  [→ resources/qs-stream-facts.png]
-
-### Slide: Scaling Queues and Streams
-
-
-Both scale by adding consumers. What that costs you is different in each.
-
-### Slide: Scaling Queues — Competing Consumers
-
-
-Scale consumption of a queue by adding more consumers (lock, read-past, lock-next — as before).
-
-
-#image: diagram — three competing consumers on one queue, each holding a locked message, one still waiting  [→ resources/qs-queue-competing.png]
-
-### Slide: Scaling Streams — Partitions
-
-
-To scale out we partition the stream so multiple consumers can read it.
-
-- Each consumer manages offsets for their partition.
-- For events that must be processed sequentially (e.g. all changes to one entity), use **consistent hashing** to push same-identifier messages to the same partition — scale while preserving order.
-
-
-#image: diagram — a stream split into three partitions, one consumer and one offset store per partition  [→ resources/qs-stream-partitions.png]
+`Quick-Start-RMQ.pptx` merges into §4.2. This is the second half of the exercise arc: §4.3 and §4.4
+taught every mechanism twice, once for a lock and once without one, and RMQ made the queue half real;
+§4.5 asks delegates to get the same guarantees on a **stream**, where almost none of it is native.
+*What Your Broker Actually Gives You* at the end of §4.4 is the setup for exactly that.
 
 ### Slide: Scaling Streams — Consumer Groups
 
+You partitioned the stream in §4.3 and gave each partition a consumer. A **consumer group** is how the
+broker keeps that assignment true while consumers come and go.
 
-For availability, only one consumer in a group reads from a partition at a time, but a consumer may read from more than one of the group's partitions.
+- Only **one consumer in a group** reads from a partition at a time — that is what protects the ordering
+  partitioning bought you.
+- A consumer may hold **more than one** of the group's partitions, so a group survives losing a member.
+
+▎ Partitions decide the ordering. Consumer groups decide who is holding them right now.
 
 
 #image: diagram — two partitions held by two consumers in a group, and a third consumer holding nothing  [→ resources/qs-stream-consumer-groups.png]
 
 ### Slide: Archive and Replay
 
-
-Can we re-read the past? The two models answer differently, and the answer follows
-from what each one is.
+Can we re-read the past? The two models answer differently, and the answer follows from what §4.1 said
+each one **is**: a queue holds work to be done, and work that is done is gone.
 
 ### Slide: Queues — No Archive and Replay
 
@@ -969,18 +1017,6 @@ Straightforward, because nothing is deleted: reset the consumer's offset to re-r
 
 
 #image: diagram — a log with the consumer's offset marker moved backwards, the log itself unchanged  [→ resources/qs-stream-replay.png]
-
-### Slide: Streams — No Requeue or DLQ
-
-
-Because we don't lock items, we don't requeue (including requeue-with-delay). Strategies instead:
-
-- Ignore and continue (load shedding).
-- Retry (backpressure).
-- Copy to another stream (a delay or DLQ stream).
-
-
-#image: diagram — a log and a consumer, with requeue, requeue-with-delay and dead-letter each struck out, and the three alternatives named  [→ resources/qs-stream-no-requeue.png]
 
 ### Slide: Queues vs. Streams — Capability Matrix
 
