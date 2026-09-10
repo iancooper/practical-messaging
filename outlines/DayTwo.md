@@ -741,7 +741,7 @@ hand-offs, same numbered steps:
 |---|---|
 | a desk | a **task**, sitting in a **lane** |
 | the heavy vertical bar | a **pool** boundary |
-| a red dashed arrow between an out-tray and an in-tray | a **message flow** |
+| a dashed arrow between an out-tray and an in-tray | a **message flow** |
 | a numbered step from one desk to the next inside the bar | a **sequence flow** |
 | a folder | the state a task reads and writes |
 | the conductor holding the routing slip | the **process**, and its **token** |
