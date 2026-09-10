@@ -2860,3 +2860,64 @@ there is no drawio CLI here and hand-maintained previews would drift. See `tools
 
 **The 18pt floor is a content decision as much as a design one** — expect it to force material off crowded
 slides, and treat that as the floor doing its job rather than as a problem to route around.
+
+---
+
+## 14. The 2021 imports — scoped 2026-09-10, not started
+
+**`BACKLOG.md` G1.** The full-deck sweep found **30 slides — 10% of the deck — still carrying 2021
+imports in a foreign register**, against the instruction recorded in §8: *"Let's redraw both runs. One
+thing I want to strive for is a consistent look and feel"*, beside which this plan already warns that
+*linking the old `.png`s keeps the old look.* Ian's ruling on 2026-09-10 was **scope it, do not start
+it**. This section is that scope.
+
+### 14.1 What is actually there
+
+**19 distinct diagrams**, reused across 30 slides. **Every one has an editable source**, so nothing has
+to be re-derived from a picture — and that is the single most important fact for the estimate.
+
+| group | n | source | elements | vocabulary | destination | est. |
+|---|---|---|---|---|---|---|
+| **A** Day 1 §4.4, producer-side reliability | 5 | `.excalidraw` | 32–78 | Sender, Receiver, Entity, Message, Channel, Outbox, Inbox, Tx boundary, Translator, Log | **`eip_figures`** — every shape already exists | **1 d** |
+| **B** Day 2 paper worked flows | 4 | `.drawio` | 24–72 | desks, in/out-trays, files, fax, phone, boundary bar, numbered steps | **`paper_flow`** — every shape already exists | **1.5 d** |
+| **C** Day 2 paper error flows | 3 | `.drawio` | 38–51 | the same, plus the failure annotations | **`paper_flow`** | **1 d** |
+| **D** Day 2 FBP worked examples | 5 | `.excalidraw` | 56–**180** | hexagon components, ports, IPs, arcs | **`flow_reactive`** — `node()` and `packet()` already do this | **1.5 d** |
+| **E** Day 2 value-stream maps | 2 | `.drawio` | 24–30 | Lean VSM: process boxes with LT / PT / %C&A, and a timeline | **nothing has this** — a new helper, or cut | **0.5 d / 0** |
+
+**≈ 5.5 days to redraw everything.** The groups are independent and can land one at a time.
+
+### 14.2 The five findings that should shape the decision
+
+1. **No new family is needed, and no new vocabulary except E.** Four of the five groups are drawn
+   entirely from shapes `eip_figures`, `paper_flow` and `flow_reactive` already own. This is a
+   *transcription* job, not a design one — which is why the estimate is days rather than weeks.
+2. **⚑ The Day 1 five are Excalidraw exports**, which is exactly why they are blue-and-orange: that is
+   Excalidraw's default palette, not a choice anyone made. They are also the sharpest instance in the
+   deck — §4.4's *consumer* side was redrawn and its *producer* side was not, so the two registers sit
+   four slides apart in one sub-section. **Cheapest group, worst juxtaposition: do A first.**
+3. **Group E is the natural cut rather than the natural redraw.** Lean value-stream mapping is taught
+   nowhere else in either day, each map appears on exactly one slide, and both carry a visible
+   **"29 SEP 2021"** date stamp. Cutting them removes the only vocabulary we would have to invent *and*
+   two slides; redrawing them commits the course to a notation it otherwise never uses.
+4. **`flowbased_order_all` is an outlier at 180 elements and 41 labels** — four times the next largest.
+   It is the whole-order-flow recap on d2-057 and d2-144, and at slide size it is already unreadable.
+   **It wants a decision before it wants a redraw**: split it, or let the four individual flows carry it.
+5. **Two typos would be inherited by a faithful redraw** and are shipping today: *"Reccieve
+   Confirmation"* (`Order Confirmation.drawio`, on d2-021 and d2-143) and *"we put a an invalid card"*
+   (`Customer Order Errors.drawio`, on d2-025 and d2-137). Redrawing fixes them for free; leaving the
+   imports in place ships them again.
+
+### 14.3 Why this is also the legibility fix
+
+Several of these are not merely off-style, they are **unreadable in the room** — d2-137 and d2-140 carry
+annotations at roughly 4pt, and `paper-worked-flows-montage` (d2-022) tiles four already-small flows onto
+one slide. `reads_at.py` cannot see any of it, because an import is a photograph as far as the tooling is
+concerned: it has no labels the tools can measure. **A redraw is the only thing that brings these inside
+the 18pt floor**, which is the argument for A–D independent of the register.
+
+### 14.4 Not in scope
+
+`screenshot-eda-visuals.png` is a screenshot of a web page and is meant to look like one. The `FBP *.drawio`
+sources (`FBP Basics`, `FBP IP`, `FBP Ports and Connectors`, `FBP Network`, `FBP Service`, `FBP Sub
+Networks`) were **already redrawn** in run 2 as `flow-fbp-component`, `flow-fbp-ports`, `flow-fbp-iip` and
+`flow-fbp-lifetime`; only the *worked examples* built on them were left behind.
