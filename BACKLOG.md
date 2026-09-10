@@ -9,7 +9,7 @@ and a table you can read the length of does not.
 Last reconciled against the repo: **2026-09-10**, after C4. **§C's two handouts are both built**, so
 **nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built.
 **§G is the full-deck visual sweep — eleven findings.** G2, G3, G4, G6, G7, G8 and G10 are fixed; G9 was withdrawn on inspection; **G1 (the register, 30 slides) and G11 (the preview drops italic) are open.** B2 and B3 have no
-action available.
+action available. **§H is new and it is the live queue** — Ian's first pass over the built decks, 2026-09-10, twenty-six findings; the work list is `REVIEW.md`.
 
 **Where things stand.** Phases 1 and 2 are closed, and **Phase 3 has nothing actionable left**: §A, §B
 and §C are all closed but for B2 and B3, which have no action available. What remains is §F — Ian's.
@@ -125,6 +125,26 @@ still empty and lint is still clean. **Rule zero, applied to slides for the firs
 **What the sweep did NOT find**, which is worth recording: no overflow, no missing image, no broken
 cross-reference, no figure family off-style, and no defect at all in `queues_streams`, `conversations`,
 `eip_figures`, `bpmn_hotel`, `bpmn_shopping` or `integration_styles`. **The redrawn families are clean.**
+
+---
+
+## H. Ian's first pass over the built decks — 2026-09-10 ##
+
+**The detail is in `REVIEW.md`, and that file is the work list.** Twenty-six findings from reading
+the rendered Day 1 deck: five builder changes that land on **both** days, twenty-one Day 1 content
+rows, and a narrow Day 2 pass afterwards. Ian: *"That's enough for a first pass at Day One."*
+
+| # | the shape of it | size | state |
+|---|---|---|---|
+| **H1** | **§R0 — the builder.** Slide numbers bottom-left; **one text box per block instead of one per line**; progressive-disclosure animation grouped by idea; and a fourth arrangement, text left and drawing right. **⚑ All four of Ian's reported overflows are one bug** — callouts written with `word_wrap = False`, correct in the preview, running off the slide in PowerPoint | M–L | open |
+| **H2** | **§R1 — Day 1 content, 21 rows.** Four combine-two-slides-into-one, eight that need the new arrangement, two new figures for §6.2, two restored pump figures, a rewrite of the ack/nack framing (*options, not questions*), and **three structural rows** — competing consumers into three slides, §4.5's repetition folded into §4.3/§4.4, and §Conversations re-ordered pattern-by-pattern with the missing **Out-In** put back | L | open |
+| **H3** | **§R2 — Day 2.** Only the two findings that are not Day-1-specific: the text-box split (free, once H1 lands) and the AI-ism sweep. **Not a second full review** — Ian reads Day 2 himself after it | M | open |
+
+**⚑ H2 has two rows that must go to Ian before any cutting** — §4.5's dissolution (it is 18 slides,
+11 figures, and the Kafka exercise is wired to land in it) and how a reveal group is expressed.
+
+**New tool: `tools/deck_index.py`.** Ian reviews by slide number and the slide number is not the
+outline entry number — 91 entries build 138 slides. It runs the real layout and prints the map.
 
 ---
 

@@ -18,6 +18,7 @@ and the canvas width is the only lever on it.
 | read | for |
 |---|---|
 | **`BACKLOG.md`** | **what is outstanding**, sized. Read it before choosing work. An index — each line points at its detail |
+| **`REVIEW.md`** | **the live queue** — Ian's first pass over the built decks, worked top to bottom. `BACKLOG.md` §H is its one-line index. **Ian numbers by SLIDE, not by outline entry** |
 | **`REDEVELOPMENT-PLAN.md`** | the **source of truth**: scope, decisions, work queues, the Phase 2 image list (§8), the rationale log (§9), the timing pass (§11), why this visual style (§13). *Two sections are numbered §9; the rationale log is the first* |
 | **`styles.md`** | the **authoritative visual spec** — canvas, type, sizes, palette, diagram rules, print. `tools/build_deck.py` implements it; **where the two disagree, `styles.md` wins** |
 | `outlines/DayOne.md`, `DayTwo.md` | **the build input.** Content edits happen here, never in the deck |
@@ -59,6 +60,7 @@ procedures they load are in `.claude/skills/`: `deck-build`, `figure-drawing`, `
 ```
 python3 tools/diagram.py --check      # renderer + fonts; expect "all good"
 python3 tools/outline.py              # parse both outlines; --slide "X" dumps one entry
+python3 tools/deck_index.py 1         # SLIDE NUMBER -> section, title, figure; --slide 63 dumps one
 python3 tools/build_deck.py           # both decks + the overflow report -> build/
 python3 tools/build_deck.py --report  #   measure only, write nothing
 python3 tools/build_deck.py --day 1 --preview 14,15   # -> build/preview/ ; also `all`, `over`
