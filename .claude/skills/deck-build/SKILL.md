@@ -31,6 +31,7 @@ parses it — parsing it in three places is how the three drift apart.
 | a | b |                                a table
 ▎ text                                   a CALLOUT — the line the presenter says aloud
 #image: <alt>  [→ resources/x.png]       a figure, resolved or still pending
+#layout: side                            text left, drawing right — opt-in, per entry
 #note: <text>                            a build note. NEVER reaches the deck
 Presenter notes: <text>                  speaker notes, and they DO ship
 ```lang … ```                            a code listing
@@ -64,13 +65,21 @@ That is the same move `diagram.py` makes, for the same reason: **there is no Pow
 so rendering is the only way to see a slide, and a preview that re-derived the layout would be a
 preview of a different deck.
 
-**Three arrangements, and what decides between them is whether the picture carries type:**
+**Four arrangements. What decides between the first three is whether the picture carries type; the
+fourth is an override you write in the outline.**
 
 | the slide has | layout |
 |---|---|
 | a **drawing** (`.png`) | **the figure leads** — title, callout, then the figure at full content width |
 | **photographs** (`.jpg`) | text left, photographs in a fixed manila panel right, 1.15 : 0.85 |
 | no picture | full width, same left margin and kicker |
+| `#layout: side` | **text left, the drawing right**, 0.47 : 0.53 — and the entry does **not** split |
+
+**⚑ `#layout: side` costs the drawing most of what the figure-leads rule protects**, so it is opt-in and
+the builder **reports what each one costs by name every run**. The six §4.4 slides Ian asked for land at
+49–71% of their Phase 2 label size, against 85–101% as full-width figure slides. Reach for it when the
+words and the picture are one thought — Ian: *"It's too weird to read the words, then show the diagram
+here"* — not to save a slide. **Report the numbers back rather than absorbing them.**
 
 **A photograph tolerates being small; a labelled drawing does not** — and the file extension
 carries the distinction. Every photograph in `resources/` is a `.jpg`, every drawing a `.png`.
@@ -94,6 +103,37 @@ which is the tax the diagram panel used to charge. Where a reader genuinely has 
 answer is a **composed figure** — see the `figure-drawing` skill, which has the two-part test and
 the one composition Ian reversed.
 
+## Three things the `.pptx` does that the preview cannot show you
+
+1. **A paragraph is one text box, and it wraps.** Not one box per wrapped line — that is what four
+   callouts were running off the slide through, invisibly, because `word_wrap` was off and the box was
+   the width of the whole slide. The preview drew them correctly the whole time. **A wrapping defect in
+   the built deck will not appear in a preview**; check the XML (`x + cx` against 13.33in) or open it.
+2. **Every slide builds by idea.** The grouping is inferred — a lead-in plus its bullets, then each
+   table / code block / quotation / callout, then the picture. `--no-animation` turns it off.
+   **⚑ There is no PowerPoint here and a malformed `p:timing` refuses to open rather than degrading**,
+   so `emit_pptx` asserts every `spid` against a shape it actually wrote. If you touch `_timing`,
+   re-run the four checks: dangling spids, duplicate `cTn` ids, `p:timing` last in `p:sld`, and a
+   python-pptx reopen.
+3. **`_first_baseline()` is a model of PowerPoint, not a measurement of one.** With a paragraph in a box
+   PowerPoint places the first baseline, not us. If a built deck opens with every paragraph a few points
+   low or high, that function is the one place to correct it and the error is the same fraction of an em
+   everywhere.
+
+## Finding a slide by its number
+
+**Ian reviews by slide number and pushes back by slide number**, and the slide number is not the outline
+entry number — 88 Day 1 entries build 136 slides, and the offset differs at every point in the deck.
+
+```bash
+python3 tools/deck_index.py 1              # the whole day
+python3 tools/deck_index.py 1 --slide 63   # one slide, with its blocks and notes
+python3 tools/deck_index.py 2 --slide 56-59
+```
+
+It runs the real layout, so it cannot drift from the deck. Counting `###` gives an answer that is wrong
+by about a third.
+
 ## The overflow report is a deliverable, not a diagnostic
 
 `styles.md`: *"Expect the floor to force content off crowded slides. That is intended — it will
@@ -115,17 +155,20 @@ Five ways the seven known overflows were answered, in the order to reach for the
    **When a ruling prices a cut, check whether the thing being cut is the whole block** — and
    when the arithmetic misses, that is a second decision to put to Ian, not a licence to find the
    difference yourself.
-3. **⚑ An overflowing slide is not merely over-long — it is *unreviewed*.** Fixing the overflow
+3. **⚑ A table row's height is its TALLEST cell.** Shortening the other one buys nothing at all — four
+   attempts at one 0.07in overflow did exactly zero before that was measured. Find which cell sets the
+   row before rewriting anything.
+4. **⚑ An overflowing slide is not merely over-long — it is *unreviewed*.** Fixing the overflow
    is what puts it in front of a reader for the first time. The first preview of a newly-fitting
    table showed `Out-Only` rendering as **"Out-"** and both `In-Only` and `In-Out` as **"In-O"**,
    on the one slide whose entire argument is per-pattern. Sweeping the other thirteen tables
    found four more clipped row labels. **Preview anything you have just fitted.**
-4. **A clipped label looks like a short label**, and nothing downstream can tell. Every column
+5. **A clipped label looks like a short label**, and nothing downstream can tell. Every column
    now has a min-content floor (its longest unbreakable word) and only the slack above the floors
    is shared out; the remaining failure mode writes to stderr rather than clipping quietly.
    `_kicker` got the same fix — a `#group:` title is drawn full-bleed with no wrap, so a long one
    ran **under the figure panel**, invisible until the first slide to put a picture beside it.
-5. **Cutting is last, and "cut" means gone.** The Fallacies were cut from §1 and then parked as a
+6. **Cutting is last, and "cut" means gone.** The Fallacies were cut from §1 and then parked as a
    `#note:` elsewhere; Ian caught it. Check the content has not reappeared anywhere in the deck.
 
 ## Standing advisories that are not failures
@@ -145,7 +188,10 @@ The builder prints three things every run. Report them only if a count moved.
 - **Read the affected section *and* what it cross-references** before proposing anything.
 - **Update all four plan surfaces in the same pass**: the §4 / §5 work-queue tables, the §3
   counts, and the §8 image budget. Plus `BACKLOG.md` if an item closes.
-- **Re-run the cross-reference sweep after any structural change**, not once at the end.
+- **Re-run the cross-reference sweep after any structural change**, not once at the end. **It finds
+  references that were wrong before you arrived** — three of the four on the last run were, including one
+  that G4 had broken a month earlier and one that a *new figure* invalidated (*"the drawn form of the
+  slide before it"* stopped being true when the slide before it got a drawing).
   "Discussed next" / "the next slide" notes break on any reorder — and **a note can survive a
   reorder and still mislead**: check what got *inserted* between a note and its payoff, not only
   what got renamed.

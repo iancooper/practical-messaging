@@ -42,6 +42,15 @@ picture carries type**:
 | a **drawing** (`.png`) | **the figure leads.** Title, the callout if there is one, then the figure at the **full content width**. |
 | **photographs** (`.jpg`) | text left, photographs in a fixed **manila panel** on the right, **1.15 : 0.85**. |
 | no picture | full width, same left margin and kicker. |
+| `#layout: side` | text left, the **drawing** right, **0.47 : 0.53**. Opt-in per entry, and the entry does not split. |
+
+**⚑ The fourth arrangement is an override, and it is meant to be one.** Ian asked for it on six §4.4
+slides — *"shrink the diagram… put the text on the left… It's too weird to read the words, then show the
+diagram here"* — where the argument and the picture are one thought. It costs the drawing most of what
+the figure-leads rule was written to protect, so **the builder reports what each `side` slide costs its
+figure by name**, every run, rather than absorbing it. On the six as built: 49–71%, against 85–101% as
+full-width figure slides. Reach for it when the words and the picture have to be read together, not to
+save a slide.
 
 **⚑ Amended 2026-09-08, and the amendment is load-bearing.** This originally put *every* diagram in the
 manila panel. The panel gives a figure **4.6in**; Phase 2 sized every label so the figure reads at 18pt
@@ -237,6 +246,26 @@ ones or every `*emphasis*` in the pack renders upright without a warning.
 | slide title | 29pt Plex Serif SemiBold |
 | kicker | 12pt Plex Mono, uppercase, 0.16em tracking, carbon |
 | folio | 10pt Plex Mono, 0.10em tracking, carbon, bottom left; the cover carries none |
+
+### Text boxes, and why one per paragraph
+
+**A paragraph is one text box in the `.pptx`, not one box per wrapped line.** Ian, 2026-09-10:
+*"we want text box per paragraph, bullet, or heading."* The box wraps to the width the layout measured,
+so PowerPoint re-wraps to the same breaks when the fonts are installed and **degrades by wrapping rather
+than by running off the slide when they are not** — which is what four callouts were doing.
+
+The preview still draws line by line; both back ends read the same op stream, and only the `.pptx` one
+coalesces. `_first_baseline()` carries the arithmetic that makes the two agree vertically, and it is a
+**model of PowerPoint rather than a measurement of one** — the single place to correct if a built deck
+opens with every paragraph a few points off.
+
+### Progressive disclosure
+
+**Slides build by idea, and the builder infers the grouping** — Ian ruled against a marker in the
+outline. A lead-in paragraph and the bullets under it arrive together; a table, a code listing, a
+quotation or a callout is its own step; a run of bullets with no lead-in is one step, not five; the
+picture is its own. Chrome — ground, kicker, title, folio — is step 0 and never animates.
+`--no-animation` builds without it.
 | body | **18pt** Plex Sans · sub-items 16pt |
 | callout | **24pt** Caveat, annotation red, with a red bar |
 | table | 15pt Plex Sans, columns proportional to content |
