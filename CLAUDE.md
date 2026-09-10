@@ -4,9 +4,10 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 `tools/*.py` are the source, `build/*.pptx` is output. An edit made in PowerPoint is lost on
 the next build.
 
-**Branch `deck-redevelopment`.** Day 1 is **138 slides**, Day 2 **153**, from 91 + 90 outline
-entries, with **99 figures** across twelve families plus **2 print cards**. **90 of the 99 go on
-slides; the other 9 are the two handouts'** — 8 routing, 1 AsyncAPI. `handouts/` is a third
+**Branch `deck-redevelopment`.** Day 1 is **134 slides**, Day 2 **153**, from 88 + 90 outline
+entries, with **101 figures** across twelve families plus **2 print cards**. **92 of the 101 go on
+slides; the other 9 are the two handouts'** — 8 routing, 1 AsyncAPI. **Day 1's counts move with every
+`REVIEW.md` row** — `python3 tools/deck_index.py 1` is the truth. `handouts/` is a third
 destination beside the deck and the print cards, and a figure there is held at reading distance, not
 read across a room: it is fitted to a **154mm** text block, so its **printed letter size is `154 / w`**
 and the canvas width is the only lever on it.
@@ -70,7 +71,7 @@ python3 tools/reads_at.py             # what a label reads at IN THE ROOM -- ~2 
 ```
 
 **The twelve figure families**, each `python3 tools/<name>.py [figure-name | --list]`:
-`eip_figures` (21, **8 of them handout-only**) · `coupling_grids` (5) · `if_later` (2) ·
+`eip_figures` (23, **8 of them handout-only**) · `coupling_grids` (5) · `if_later` (2) ·
 `queues_streams` (11) · `integration_styles` (4) · `app_shapes` (3) · `conversations` (3) — Day 1;
 `bpmn_hotel` (13) · `bpmn_shopping` (6) · `paper_flow` (7) · `flow_reactive` (23) — Day 2;
 `asyncapi_figures` (1, **handout-only**) — the AsyncAPI handout.

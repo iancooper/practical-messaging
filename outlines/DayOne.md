@@ -1394,6 +1394,8 @@ On a cache miss, Provider A fetches the data from Provider B synchronously.
 
 ▎ A cache miss is a temporal coupling you did not plan for.
 
+#image: diagram — Provider A serving a hit from its reference cache, and on a miss making a synchronous request()/reply() round trip to Provider B  [→ resources/eip-get-on-demand.png]
+
 Presenter notes: This is the Day 1 argument arriving inside message design. The lookup is a synchronous call in the middle of a message flow, so availabilities multiply again — and only on the unlucky path, which is exactly what makes it hard to catch in testing.
 
 ### Slide: Content Enricher — Someone Else Does the Lookup
@@ -1426,6 +1428,8 @@ synchronous call to read it.
 - There is **no miss path**, so there is no synchronous call in the middle of a message flow.
 
 ▎ This is the default. Prefer it to the synchronous lookup.
+
+#image: diagram — Provider B publishing state changes on an Out-Only channel, Provider A writing them to a local copy, and no call back to anyone  [→ resources/eip-ecst.png]
 
 Presenter notes: **Teach this as the recommendation, not a warning.** Land the mechanism first and let
 the room notice what is missing from it: there is no miss path at all, so there is no synchronous call

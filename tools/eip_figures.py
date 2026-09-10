@@ -332,6 +332,83 @@ def dead_letter_channel():
 
 # ---- 6.2 Message design ------------------------------------------------------
 
+@figure("eip-get-on-demand")
+def get_on_demand():
+    """§6.2's first answer to reference data: call back for it.
+
+    **This and `eip-ecst` contrast through red, which is why they are drawn as a
+    pair** -- same canvas, same three-shape row, opposite reds. Here the red is the
+    synchronous round trip on the miss path, because the callout is *"a cache miss is
+    a temporal coupling you did not plan for"*; there the red is a store that is never
+    called at all. A reader who takes only the red off the two pages has §6.2's
+    recommendation.
+
+    The hit path is carbon and the miss path is red **on one drawing**, because the
+    slide's argument is that the two paths trade opposite ways -- availability over
+    consistency on a hit, consistency over availability on a miss -- and splitting them
+    would lose the fact that it is one cache.
+
+    The reply is routed under both boxes rather than doubled up beside the request:
+    two arrows between one pair of shapes put their labels on top of each other.
+    """
+    d = Diagram("Get It On Demand", w=580, h=310)
+    d.note(290, 32, "on a miss, A is up only while B is up", ANNOTATION, 17)
+
+    cache = d.cylinder(24, 90, 124, 62, "reference\ncache")
+    a = d.box(224, 90, 124, 62, "Provider A")
+    b = d.box(424, 90, 132, 62, "Provider B")
+
+    d.arrow(a, cache, "look up", sides=("l", "r"), ly=-16)
+    d.arrow(a, b, "request()", accent=True, sides=("r", "l"), ly=-16)
+    d.arrow(b, a, "reply()", accent=True, sides=("b", "b"),
+            via=[(490, 198), (286, 198)], ly=26)
+
+    d.note(86, 174, "a hit is served here", INK, 14)
+    d.note(290, 264, "on a hit: possibly-stale data, and you stay up\n"
+                     "on a miss: the availabilities multiply again", COMMENT, 14)
+    return d
+
+
+@figure("eip-ecst")
+def ecst():
+    """§6.2's recommendation: the state arrives before anyone needs it.
+
+    **The red is the store, and there is deliberately no arrow out of it.** A read of
+    your own database is not worth drawing, and a line there would sit exactly where
+    `eip-get-on-demand` has its round trip -- which is the comparison the two figures
+    exist to make. The absence is the argument, so the red note carries it and the
+    geometry does not.
+
+    ⚑ **Three defects, all found by looking and none of them anything the linter
+    measures.** The first draft drew that read as a loop out of the store back into
+    Provider A: it arrived at the same edge as the channel's own arrow, so the two
+    heads merged and the figure appeared to say the local copy fed the channel. It also
+    pushed `cache write()` off the right-hand edge. And `state changed` as an ARROW
+    label was centred on a 56-unit run between the pipe and the box, so it lay across
+    whichever of the two it was nudged towards -- it is a note under the channel now,
+    with the pattern name above it. The canvas went 520 -> 580 to give `cache write()`
+    somewhere to stand that is neither on the box nor on the cylinder.
+    """
+    d = Diagram("Event-Carried State Transfer", w=580, h=330)
+    d.note(290, 32, "every read is local -- nothing here calls anyone", ANNOTATION, 17)
+
+    b = d.box(24, 96, 124, 62, "Provider B")
+    pipe = d.pipe(192, 112, 120, 30)
+    d.msg(222, 119, w=18, h=13)
+    a = d.box(368, 96, 132, 62, "Provider A")
+    local = d.cylinder(372, 208, 124, 56, "local copy", accent=True)
+
+    d.arrow(b, pipe, sides=("r", "l"))
+    d.arrow(pipe, a, sides=("r", "l"))
+    d.arrow(a, local, "cache write()", sides=("b", "t"), lx=84, ly=14)
+
+    d.note(252, 88, "Out-Only", INK, 14)
+    d.note(252, 176, "state changed", INK, 14)
+    d.note(160, 254, "stale by the age of the last event --\n"
+                     "and there is no miss path to be slow on", COMMENT, 14)
+    return d
+
+
 @figure("eip-content-enricher")
 def content_enricher():
     """The enricher moves the lookup. Red is on the lookup, because that is
