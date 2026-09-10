@@ -468,26 +468,32 @@ Presenter notes: Gateway vs. Endpoint: the endpoint *contains* the gateway but m
 
 ### Slide: The Message Pump
 
+The code that takes a message from a channel and delivers it to application code, running in a loop
+until cancelled: **Get → Translate → Dispatch → Handle**.
 
-The code that takes a message from a channel and delivers it to application code, running in a loop until cancelled: **Get → Translate → Dispatch → Handle**.
+**Four stages, and each one fails in a different way** — which is why there are four places for a
+message to go that is not going to be handled.
 
-Error routing:
+#image: diagram — the four-stage pump in a loop, with each stage's failure routed away: deliver to a dead letter channel, understand to an invalid message channel, dispatch to an error log, and a thrown handler to a requeue with a limit  [→ resources/eip-message-pump.png]
 
-- Failure to *deliver* (middleware) → Dead Letter Channel.
-- Failure to *understand* (translate) → Invalid Message Channel.
-- Failure to *dispatch* (unexpected/misconfiguration) → Error Log; unrecoverable exception → shut down (don't ack, to avoid losing data).
-- Recoverable exception → requeue to a retry limit; beyond the limit, treat like an unrecoverable exception.
-
-Presenter notes: The loop takes a message, translates the body into an app-understood type, looks up registered handlers for that type, and dispatches. Control passes from endpoint to application code. Unrecoverable app errors → ack to remove (replaying would repeat the failure) and log; processing may continue. Transient errors → requeue (usually with delay) up to a limit to avoid poison pills.
+Presenter notes: The loop takes a message, translates the body into a type the application understands,
+looks up the handlers registered for that type, and dispatches. Control passes from the endpoint to
+application code. **Walk the four risers on the picture and say what each one costs.** A failure to
+dispatch means the application is misconfigured: log it, do **not** ack, and shut down, because acking
+would lose the message and carrying on would lose the next one too. An unrecoverable application error is
+the opposite — ack to remove it, because replaying it would fail the same way, and log it; processing
+continues. A transient error is requeued, usually with a delay, up to a limit, and past the limit it is
+treated as unrecoverable. That limit is the poison-pill guard.
 
 ### Slide: Translate and Dispatch
 
+Two of those four stages are driven by a registry: **Translate** looks up a **Message Mapper**,
+**Dispatch** looks up a **handler**.
 
-Two registries drive the pump: a **Message Mapper Registry** (look up the mapper) and a **Handler Registry** (look up the handler).
-
-- A **Message Mapper** converts between a message and a domain object, so the domain never knows a
-  message format and the messaging code never knows a domain type.
+- A **Message Mapper** converts between a message and a domain object.
 - A **handler** is your code, subscribed to the channels the endpoint listens on.
+
+#image: diagram — the same four-stage pump, with a Message Mapper Registry under Translate and a Handler Registry under Dispatch  [→ resources/eip-translate-and-dispatch.png]
 
 Presenter notes: The endpoint registers mappers per channel, which is what a datatype channel is for. The mapper is the seam the exercises are checked against: if a handler's signature has a broker type in it, the mapper has not finished its job.
 

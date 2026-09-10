@@ -207,6 +207,104 @@ def messaging_gateway():
 
 # ---- 4.3 The message pump ----------------------------------------------------
 
+# ---- 4.3 The message pump ----------------------------------------------------
+#
+# **These two share a spine on purpose.** Both draw Get -> Translate -> Dispatch ->
+# Handle at the same four x positions, and they differ only in what hangs off it and
+# what is red -- the failure routes on one, the two registries on the other. Ian, on
+# the 2025 deck's slides 58 and 59: *"this was once visual, I think that works better
+# than the text… it works better separate from #41 but needs to be visual."* Separate,
+# and recognisably the same drawing twice, is what makes the second one cheap to read.
+
+_PUMP_X = (50, 260, 470, 680)          # the four stages, shared by both figures
+_PUMP_W = 150
+
+
+def _pump_row(d, y, h=70):
+    """The four stages and the arrows between them. Returns them in order."""
+    names = ("Get\nMessage", "Translate\nMessage", "Dispatch\nMessage",
+             "Handle\nMessage")
+    boxes = [d.box(x, y, _PUMP_W, h, n) for x, n in zip(_PUMP_X, names)]
+    for a, b in zip(boxes, boxes[1:]):
+        d.arrow(a, b, sides=("r", "l"))
+    return boxes
+
+
+@figure("eip-message-pump")
+def message_pump():
+    """§4.3's opener. Four stages, and each one fails in its own way.
+
+    **Red is the four failure routes, not the loop.** The loop is what makes it a
+    pump and it is drawn, but the slide's whole second half is the error routing, and
+    a room that takes only the red away should take *every stage has somewhere to put
+    what it cannot do*. The happy path is carbon, which is this family's convention.
+
+    **The failure descriptions are notes, not arrow labels.** An arrow label on a
+    vertical run is centred **on** the stroke -- `lint_figures.py` has a check for
+    exactly that -- and four of them would each need nudging into a neighbour. Set as
+    two-line notes in the gaps between the risers, they sit where there is room.
+
+    Dispatch and Handle both end at the Error Log in the original, but drawing the
+    second route needs a second anchor on Handle's bottom edge and there is only one.
+    So Handle draws the **recoverable** case, which is the one with a mechanism, and
+    an ink note under the Error Log carries the other. Faithful, and four arrows.
+    """
+    d = Diagram("The Message Pump", w=890, h=400)
+    d.note(445, 26, "every stage has somewhere to put what it cannot do",
+           ANNOTATION, 21)
+
+    get, trn, dsp, hnd = _pump_row(d, 96)
+    d.arrow(hnd, get, "until cancelled", sides=("t", "t"),
+            via=[(755, 66), (125, 66)], ly=-4)
+
+    dlq = d.box(16, 286, 168, 70, "Dead Letter\nChannel")
+    inv = d.box(216, 286, 188, 70, "Invalid Message\nChannel")
+    log = d.box(452, 286, 150, 70, "Error Log")
+    rq = d.box(664, 286, 182, 70, "Requeue,\nto a limit")
+
+    for src, dst in ((get, dlq), (trn, inv), (dsp, log), (hnd, rq)):
+        d.arrow(src, dst, accent=True, sides=("b", "t"))
+
+    d.note(180, 210, "failure to\ndeliver", ANNOTATION, 14)
+    d.note(390, 210, "failure to\nunderstand", ANNOTATION, 14)
+    d.note(600, 210, "failure to\ndispatch", ANNOTATION, 14)
+    d.note(812, 210, "the handler\nthrew", ANNOTATION, 14)
+
+    d.note(527, 378, "unrecoverable handler errors too", COMMENT, 14)
+    return d
+
+
+@figure("eip-translate-and-dispatch")
+def translate_and_dispatch():
+    """The same spine, with the two registries that drive its middle two stages.
+
+    **Red is the Message Mapper Registry alone.** The presenter note calls the mapper
+    the seam the exercises are checked against -- *if a handler's signature has a
+    broker type in it, the mapper has not finished its job* -- and the Handler Registry
+    is the ordinary half of the pair. Reddening both would say they are the same kind
+    of thing, and the section spends its time on one of them.
+    """
+    d = Diagram("Translate and Dispatch", w=890, h=340)
+    d.note(445, 26, "no broker type reaches your handler -- the mapper is the seam",
+           ANNOTATION, 21)
+
+    _, trn, dsp, _ = _pump_row(d, 82)
+
+    mapper = d.box(196, 212, 228, 74, "Message Mapper\nRegistry", accent=True)
+    handler = d.box(468, 212, 196, 74, "Handler\nRegistry")
+    d.arrow(trn, mapper, accent=True, sides=("b", "t"))
+    d.arrow(dsp, handler, sides=("b", "t"))
+
+    # **No arrow labels here.** "look up the mapper" and "look up the handler" say
+    # what the box each arrow points at already says, and the only room for the second
+    # one put it under *Handle Message*, where it read as labelling the wrong box. The
+    # slide's own new fact goes in their place instead: the handler is yours.
+    d.note(755, 190, "your code", INK, 14)
+    d.note(445, 320, "the domain never sees a message format, and the messaging "
+                     "code never sees a domain type", COMMENT, 14)
+    return d
+
+
 @figure("eip-polling-consumer")
 def polling_consumer():
     """The consumer asks. Red is on the asking."""
