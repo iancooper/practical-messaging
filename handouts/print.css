@@ -1,0 +1,372 @@
+/* Practical Messaging — the handout print sheet.
+ *
+ * ONE stylesheet for the whole takeaway pack. Implements styles.md at document
+ * sizes: the Field Guide palette, the Plex stack, and the four-text-colours rule.
+ * Paired with print.html (the pandoc template) and build.sh.
+ *
+ * Two things in here are load-bearing and were learned by building PDFs:
+ *
+ *   1. PREFORMATTED BLOCKS MUST NOT WRAP. Every ASCII diagram in the pack is
+ *      cut to ~62 monospace columns. At 9.5pt Plex Mono, 62 columns is ~125mm
+ *      inside a 154mm text width, so there is room to spare -- but raise the
+ *      mono size past ~13pt, or narrow the page, and the diagrams break.
+ *   2. NOTHING IN A PREFORMATTED BLOCK MAY FALL OUT OF THE MONOSPACE FACE.
+ *      An arrow glyph does exactly that and destroys the alignment, which is
+ *      why the diagrams are pure ASCII. Do not add a fallback face to `pre`
+ *      that could pick a proportional glyph up.
+ *
+ * The fonts are loaded from the repo, not from the system, so a PDF built here
+ * is the same PDF anywhere -- see BACKLOG F2.
+ */
+
+/* ---- Faces ---------------------------------------------------------------
+ * OFL 1.1, and the licence permits printed handouts. styles.md "Type".        */
+
+/* Plex Sans ships here as a VARIABLE font. WeasyPrint 68 rejects a weight
+ * RANGE in the descriptor (`font-weight: 100 700` warns and is ignored) but it
+ * instantiates the wght axis from the computed font-weight anyway, so one
+ * declaration covers 400 and 600 and no font-variation-settings is needed.
+ * Checked by rendering 400/600/700 side by side, not by reading the docs. */
+@font-face {
+  font-family: "Plex Sans";
+  src: url("../tools/fonts/IBMPlexSans-Variable.ttf");
+}
+
+/* THE ITALICS ARE NOT OPTIONAL. The variable file above is the roman axis only,
+ * WeasyPrint 68 does not synthesise an oblique, and it does not warn: every
+ * <em> in both handouts silently rendered upright -- course-section titles,
+ * the discovery questions, the lot. Checked by rendering roman and italic side
+ * by side; nothing else would have shown it. */
+@font-face {
+  font-family: "Plex Sans";
+  src: url("../tools/fonts/IBMPlexSans-Italic.ttf");
+  font-style: italic;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Plex Sans";
+  src: url("../tools/fonts/IBMPlexSans-SemiBoldItalic.ttf");
+  font-style: italic;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Plex Serif";
+  src: url("../tools/fonts/IBMPlexSerif-Regular.ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Plex Serif";
+  src: url("../tools/fonts/IBMPlexSerif-SemiBold.ttf");
+  font-weight: 600;
+}
+/* No heading is italic today. This is here so that the day one is, it does not
+ * fall back to roman without saying so -- which is exactly how the Sans
+ * italics were lost. */
+@font-face {
+  font-family: "Plex Serif";
+  src: url("../tools/fonts/IBMPlexSerif-Italic.ttf");
+  font-style: italic;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Plex Mono";
+  src: url("../tools/fonts/IBMPlexMono-Regular.ttf");
+  font-weight: 400;
+}
+
+/* ---- Palette -------------------------------------------------------------
+ * styles.md "Palette", verbatim. `muted` is for lines, not letters.           */
+
+:root {
+  --ink:        #181B1F;
+  --paper:      #FDFCFA;
+  --carbon:     #1D4E6B;
+  --annotation: #C0453B;
+  --manila:     #F3EFE6;
+  --rule:       #E0D9C8;
+  --muted:      #8A8578;
+  --comment:    #2F5D3A;
+}
+
+/* ---- The page ------------------------------------------------------------
+ * A4 with a 154mm text block -- about 79 characters at 11pt, which is a line
+ * you can read down a page. The first draft used a 170mm block and came out at
+ * ~92, which reads like a web page rather than a handout. The running foot
+ * carries the handout's own title
+ * on the left and the folio on the right; the title is lifted off the <h1> by
+ * string-set, so a handout never has to name itself twice.                    */
+
+@page {
+  size: A4;
+  margin: 24mm 28mm 20mm 28mm;
+
+  @bottom-left {
+    content: string(doctitle);
+    font-family: "Plex Mono", monospace;
+    font-size: 7.5pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 4mm;
+  }
+  @bottom-right {
+    content: counter(page);
+    font-family: "Plex Mono", monospace;
+    font-size: 8.5pt;
+    color: var(--ink);
+    padding-top: 4mm;
+  }
+}
+
+/* The first page is the cover of a two-page-to-forty-page reference, not a
+ * title page: no folio, no running foot, just the title with air above it. */
+@page :first {
+  margin-top: 30mm;
+  @bottom-left  { content: none; }
+  @bottom-right { content: none; }
+}
+
+/* ---- Body ----------------------------------------------------------------
+ * 11pt/1.55. styles.md: "body 10-11pt, which is a *print* measure and does
+ * not touch the 16pt slide floor."                                            */
+
+html {
+  font-size: 11pt;
+}
+
+body {
+  font-family: "Plex Sans", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: #FFFFFF;   /* the physical paper is the paper; do not flood it */
+  margin: 0;
+  hyphens: manual;       /* no hyphenation -- the pack is full of proper nouns */
+  orphans: 2;
+  widows: 2;
+}
+
+p {
+  margin: 0 0 0.75em 0;
+}
+
+strong { font-weight: 600; }
+em     { font-style: italic; }
+
+/* ---- Headings ------------------------------------------------------------
+ * Serif throughout, and only two colours: carbon carries structure -- "where
+ * does it go?" -- and ink carries content. The two differ in VALUE as well as
+ * hue (ink ~0.10 relative luminance, carbon ~0.29), so the hierarchy survives
+ * a mono office printer, which is the whole reason for this palette.          */
+
+h1, h2, h3, h4 {
+  font-family: "Plex Serif", serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  break-after: avoid;
+  break-inside: avoid;
+}
+
+h1 {
+  string-set: doctitle content(text);
+  font-size: 2.15rem;
+  color: var(--ink);
+  margin: 0 0 0.2em 0;
+  padding-bottom: 0.28em;
+  border-bottom: 2px solid var(--annotation);
+}
+
+h2 {
+  font-size: 1.45rem;
+  color: var(--carbon);
+  margin: 1.9em 0 0.55em 0;
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid var(--rule);
+}
+
+h3 {
+  font-size: 1.12rem;
+  color: var(--ink);
+  margin: 1.5em 0 0.4em 0;
+}
+
+h4 {
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 1.2em 0 0.35em 0;
+}
+
+/* A `---` between sections is redundant once h2 carries its own rule, and two
+ * rules a finger apart look like a mistake. Keep the break, drop the line. */
+hr {
+  border: 0;
+  height: 0;
+  margin: 1.6em 0 0 0;
+}
+
+/* ---- Lists --------------------------------------------------------------- */
+
+ul, ol {
+  margin: 0 0 0.75em 0;
+  padding-left: 1.35em;
+}
+
+li { margin-bottom: 0.28em; }
+li > ul, li > ol { margin-top: 0.28em; }
+
+/* ---- Links ---------------------------------------------------------------
+ * Carbon, unadorned. On paper an underline is noise, and every link in the
+ * pack is either an internal jump or a URL that is also printed in full.      */
+
+a {
+  color: var(--carbon);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ---- Blockquotes ---------------------------------------------------------
+ * These are the pack's asides -- "what do we say about it?" -- so they take
+ * comment green on manila. NOT Caveat: styles.md's one rule that matters is
+ * that Caveat never carries body copy, and every one of these is prose.       */
+
+blockquote {
+  margin: 1.1em 0;
+  padding: 0.7em 1em 0.7em 0.9em;
+  border-left: 3px solid var(--comment);
+  background: var(--manila);
+  color: var(--comment);
+  break-inside: avoid;
+}
+
+blockquote p:last-child { margin-bottom: 0; }
+blockquote strong { color: var(--comment); }
+
+/* ---- Tables --------------------------------------------------------------
+ * Horizontal rules only. The pack's tables are reference matrices -- the eye
+ * reads along a row -- and vertical rules chop the row into cells.            */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.1em 0;
+  font-size: 0.92rem;
+}
+
+/* A long table MUST be allowed to break, or it is pushed whole to the next
+ * page and leaves half a page blank -- which is what the AsyncAPI index did.
+ * Break between rows, never inside one, and repeat the header on each page. */
+thead { display: table-header-group; }
+tr    { break-inside: avoid; }
+
+/* pandoc puts <colgroup><col style="width: 33%"> on every pipe table whatever
+ * the columns hold, which is why the index tables gave a quarter of the page
+ * to a row number. An inline style needs !important to unseat. Content decides. */
+col { width: auto !important; }
+
+thead th {
+  font-family: "Plex Mono", monospace;
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--carbon);
+  text-align: left;
+  vertical-align: bottom;
+  padding: 0 0.7em 0.45em 0;
+  border-bottom: 1.5px solid var(--carbon);
+}
+
+/* An empty header cell is the index tables' row-number column. Left to itself
+ * it takes an equal share and the table goes lopsided, so pin it narrow. */
+thead th:empty {
+  width: 2.4em;
+  border-bottom-color: var(--rule);
+}
+
+tbody td {
+  padding: 0.42em 0.7em 0.42em 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+tbody tr:last-child td { border-bottom: 0; }
+th:last-child, td:last-child { padding-right: 0; }
+
+/* ---- Code ----------------------------------------------------------------
+ * Read the two warnings at the head of this file before touching any of it.   */
+
+code {
+  font-family: "Plex Mono", monospace;
+  font-size: 0.88em;
+  color: var(--ink);
+  background: var(--manila);
+  padding: 0.08em 0.28em;
+  border-radius: 2px;
+}
+
+pre {
+  font-family: "Plex Mono", monospace;
+  font-size: 9.5pt;      /* 62 columns ~= 112mm inside a 170mm text width */
+  line-height: 1.4;
+  white-space: pre;      /* never wrap: the ASCII diagrams are drawn to fit */
+  margin: 1em 0;
+  padding: 0.8em 1em;
+  background: var(--manila);
+  border-left: 3px solid var(--rule);
+  break-inside: avoid;
+  overflow: hidden;
+}
+
+pre code {
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Pandoc's indented-code path emits a bare <pre>; its fenced path emits
+ * <div class="sourceCode"><pre class="sourceCode ..."> with syntax spans.
+ * Strip the wrapper's own box so the two look like one thing on the page. */
+div.sourceCode {
+  margin: 0;
+  background: none;
+}
+
+/* Syntax highlighting, reduced to the palette. Anything not named here is
+ * left as ink, which is the right default for a printed listing. */
+pre .co, pre .cm { color: var(--comment); }       /* comments   */
+pre .st, pre .vs { color: var(--carbon); }        /* strings    */
+pre .kw, pre .dt { color: var(--ink); font-weight: 600; }
+pre .fu, pre .at { color: var(--ink); }
+
+/* ---- Figures -------------------------------------------------------------
+ * Held at reading distance, not read across a room -- so they are sized to sit
+ * INSIDE a page with prose above and below, not to fill one. The cap is on
+ * height, because these figures range from 1.26:1 to 3.04:1 and a width cap
+ * would make the squarest of them a full page on its own.                     */
+
+img {
+  display: block;
+  max-width: 100%;
+  max-height: 92mm;
+  margin: 1.2em auto;
+  break-inside: avoid;
+}
+
+/* Pandoc wraps a lone image paragraph in <p>; centre it and kill the gap. */
+p > img:only-child { margin: 1.2em auto; }
+
+figure { margin: 1.2em 0; break-inside: avoid; }
+
+/* build.sh disables pandoc's implicit_figures, because every image in the pack
+ * carries its pattern name as alt text and sat directly under a heading of the
+ * same name -- the caption said it twice. This styles an EXPLICIT figure. */
+figcaption {
+  font-family: "Plex Sans", sans-serif;
+  font-size: 0.85rem;
+  color: var(--comment);
+  text-align: center;
+  margin-top: 0.4em;
+}

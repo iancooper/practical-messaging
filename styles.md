@@ -191,6 +191,20 @@ just hue, so they stay distinguishable on a mono office printer.
 Handouts use the same type stack at document sizes (body 10–11pt, which is a *print* measure and does not
 touch the 16pt slide floor).
 
+**`handouts/print.css` is the house sheet** — one stylesheet for the whole takeaway pack, built by
+`handouts/build.sh` through pandoc and WeasyPrint. It implements this file at document sizes: body **11pt**
+on a **154mm measure** (about 79 characters, which is a line you can read down a page), Plex Serif headings
+in ink and carbon, the palette verbatim, and blockquotes as `comment` on `manila` — because an aside is
+*what we say about it*, and because **Caveat never carries body copy**, which rules it out of a handout
+entirely. The eight routing figures are capped by **height**, not width, since they run 1.26 : 1 to
+3.04 : 1 and a width cap would give the squarest of them a page to itself.
+
+**Three things the sheet must not break**, each found by building a PDF and looking at it:
+a preformatted block wraps past **~62 monospace columns**; an arrow glyph inside one falls out of the
+monospace face and destroys the alignment, which is why every handout diagram is pure ASCII; and
+**WeasyPrint does not synthesise an oblique**, so the italic faces have to be vendored beside the roman
+ones or every `*emphasis*` in the pack renders upright without a warning.
+
 ---
 
 ## Open
@@ -199,6 +213,12 @@ touch the 16pt slide floor).
 - ☑ **IBM Plex Serif** is in `tools/fonts/` — Regular and SemiBold, from Google Fonts, OFL 1.1
   (2026-09-08). Titles are set in **`IBM Plex Serif SemiBold`**, which is the face name the OS exposes
   for the 600 weight; naming the family and asking for bold reaches for a Bold we do not ship.
+- ☑ **The italics are vendored too** — `IBMPlexSans-Italic`, `IBMPlexSans-SemiBoldItalic` and
+  `IBMPlexSerif-Italic`, same source and same OFL 1.1 (2026-09-10). They are **for the handouts, not for
+  the deck**: no figure and no slide sets an italic, `_FONT_FILES` in `tools/diagram.py` names its faces
+  one by one rather than globbing the directory, and a rebuild of all eleven families after they landed
+  came back byte-identical. They exist because **WeasyPrint does not synthesise an oblique and does not
+  warn**, so every `*emphasis*` in both handouts was rendering upright.
 - ☐ **System font install — now live, not future.** `tools/fonts/` holds the OFL files for the preview
   renderer, which outlines glyphs to paths and needs no install. **PowerPoint does need them installed**,
   and the built decks name all four faces, so until `cp tools/fonts/*.ttf ~/Library/Fonts/` has been run

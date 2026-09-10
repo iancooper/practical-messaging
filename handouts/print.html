@@ -1,0 +1,23 @@
+$-- Practical Messaging — the handout pandoc template.
+$--
+$-- Deliberately minimal. Pandoc's stock HTML template ships a <style> block
+$-- that sets `body { max-width: 36em }` and its own table and code rules; on
+$-- a printed page that fights every rule in print.css, and overriding it one
+$-- declaration at a time is a losing game. So: our markup, our stylesheet,
+$-- nothing else.
+<!DOCTYPE html>
+<html lang="$if(lang)$$lang$$else$en-GB$endif$">
+<head>
+  <meta charset="utf-8" />
+  <title>$if(title)$$title$$else$$pagetitle$$endif$</title>
+$for(css)$
+  <link rel="stylesheet" href="$css$" />
+$endfor$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body>
+$body$
+</body>
+</html>
