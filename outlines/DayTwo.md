@@ -91,8 +91,6 @@ before it, and there is no long recap: round 0 shrinks to a pointer at slides th
 
 ### Slide: Flow and Reactive Programming
 
-Section marker.
-
 ▎ Everything in this section is one question: *what is in charge?*
 
 Presenter notes: **The first teaching slide of Day Two**, straight off *So How Do You Design One?*, which
@@ -564,7 +562,7 @@ planes of all. Still **no BPMN**.
 
 ### Slide: Reactive Architectures
 
-Section marker. Reactive derives from **reactive programming**, not from OO.
+Reactive derives from **reactive programming**, not from OO.
 
 Presenter notes: The room has now drawn the same system four times, in two notations, and made it fail.
 Movement D adds no new mechanism — it supplies the name, and shows that somebody published it in 2014.
@@ -1171,7 +1169,8 @@ Presenter notes: The rows are the five patterns from the front of the section pl
 
 ### Slide: Putting It Together
 
-Section marker: revisiting the fax workflow — the takeaway *see one* — through the lens of the patterns, annotating each interaction with its messaging/eventing exchange pattern.
+The fax workflow again — the takeaway you saw first — now with every interaction named by its
+exchange pattern.
 
 ### Slide: Fax Workflow — Annotated (Storage & Correlation)
 

@@ -307,7 +307,7 @@ Presenter notes: Two processes communicating copy data — usually a byte stream
 ### Slide: Messaging and Events
 
 
-Section marker: how "messaging" and "eventing" differ.
+Two words the industry uses interchangeably, and they are not the same thing.
 
 ### Slide: Messaging vs. Eventing (Intent vs. Facts)
 
@@ -889,7 +889,7 @@ Think of records on a **stream** as **facts** — records that a state change oc
 ### Slide: Scaling Queues and Streams
 
 
-Section marker: how each model scales.
+Both scale by adding consumers. What that costs you is different in each.
 
 ### Slide: Scaling Queues — Competing Consumers
 
@@ -921,7 +921,8 @@ For availability, only one consumer in a group reads from a partition at a time,
 ### Slide: Archive and Replay
 
 
-Section marker: can we re-read the past?
+Can we re-read the past? The two models answer differently, and the answer follows
+from what each one is.
 
 ### Slide: Queues — No Archive and Replay
 
