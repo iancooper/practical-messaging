@@ -4,7 +4,7 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 `tools/*.py` are the source, `build/*.pptx` is output. An edit made in PowerPoint is lost on
 the next build.
 
-**Branch `deck-redevelopment`.** Day 1 is **134 slides**, Day 2 **153**, from 88 + 90 outline
+**Branch `deck-redevelopment`.** Day 1 is **136 slides**, Day 2 **153**, from 88 + 90 outline
 entries, with **103 figures** across twelve families plus **2 print cards**. **94 of the 103 go on
 slides; the other 9 are the two handouts'** — 8 routing, 1 AsyncAPI. **Day 1's counts move with every
 `REVIEW.md` row** — `python3 tools/deck_index.py 1` is the truth. `handouts/` is a third

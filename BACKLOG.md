@@ -136,12 +136,14 @@ rows, and a narrow Day 2 pass afterwards. Ian: *"That's enough for a first pass 
 
 | # | the shape of it | size | state |
 |---|---|---|---|
-| **H1** | **§R0 — the builder.** Slide numbers bottom-left; **one text box per block instead of one per line**; progressive-disclosure animation grouped by idea; and a fourth arrangement, text left and drawing right. **⚑ All four of Ian's reported overflows are one bug** — callouts written with `word_wrap = False`, correct in the preview, running off the slide in PowerPoint | M–L | open |
-| **H2** | **§R1 — Day 1 content, 21 rows.** Four combine-two-slides-into-one, eight that need the new arrangement, two new figures for §6.2, two restored pump figures, a rewrite of the ack/nack framing (*options, not questions*), and **three structural rows** — competing consumers into three slides, §4.5's repetition folded into §4.3/§4.4, and §Conversations re-ordered pattern-by-pattern with the missing **Out-In** put back | L | open |
-| **H3** | **§R2 — Day 2.** Only the two findings that are not Day-1-specific: the text-box split (free, once H1 lands) and the AI-ism sweep. **Not a second full review** — Ian reads Day 2 himself after it | M | open |
+| **H1** | ✅ **§R0 — the builder, all five done.** A folio bottom-left on every slide but the cover; **one text box per block instead of one per line**, which fixed all four reported overflows in one change; progressive disclosure grouped by idea — 230 clicks on Day 1, 221 on Day 2, `--no-animation` to turn it off; and `#layout: side`, a fourth arrangement. **⚑ The animation is the one thing in the build that cannot be checked here** — no PowerPoint on this machine, and a malformed `p:timing` refuses to open rather than degrading. Ian should open a deck early | M–L | ✅ |
+| **H2** | ✅ **§R1 — Day 1 content, all 21 rows.** Day 1 **138 → 136 slides**, four figures added (2 pump, 2 reference-data), §4.1 rebuilt with two tables and both broker models, §4.5 **13 → 6**, §Conversations re-ordered pattern-by-pattern with **Out-In** put back, and the AI-ism sweep run against the 2025 deck as the test of what is Ian's. **Nine cross-references re-anchored** after the restructure, plus four more that were stale before it | L | ✅ |
+| **H3** | **§R2 — Day 2.** R2-1 (text boxes) and R2-2 (AI-isms) ✅. **R2-3 (roll `#layout: side` out to Day 2?) and R2-4 are Ian's.** ⚑ **R2-4 is the sharpest thing this pass found:** §*Putting It Together*'s five entries all promise *"every interaction named by its exchange pattern"* and **none of the four figures carries a single pattern name.** The bodies now say only what is on screen; whether the annotations get drawn — they are five of G1's redraws anyway — is his call | M | ⚑ |
 
-**⚑ H2 has two rows that must go to Ian before any cutting** — §4.5's dissolution (it is 18 slides,
-11 figures, and the Kafka exercise is wired to land in it) and how a reveal group is expressed.
+**Both of H2's blocking questions were put to Ian on 2026-09-10 and both were answered**: the full §4.5
+restructure, and the builder inferring reveal groups rather than a marker in the outline.
+
+**What is left of §H is R2-3 and R2-4, and both are Ian's.**
 
 **New tool: `tools/deck_index.py`.** Ian reviews by slide number and the slide number is not the
 outline entry number — 91 entries build 138 slides. It runs the real layout and prints the map.

@@ -56,8 +56,8 @@ that way actually look like?
 Presenter notes: **This is the hand-off slide, and it should take two minutes.** Do not re-derive the
 availability arithmetic — Day 1 §Coupling *Must We Both Be Up?* did it with a number (0.999⁴ = 0.996) and
 the room owns it. Name it and move. The three questions are the three movements of the next section in
-disguise, so do not answer any of them; the next slide is a section marker whose whole content is the
-second question. If the room is cold first thing in the morning, the fastest warm-up is to ask what they
+disguise, so do not answer any of them — *Flow and Reactive Programming* opens on the second one and
+nothing else. If the room is cold first thing in the morning, the fastest warm-up is to ask what they
 built yesterday and let somebody describe the outbox out loud.
 
 ---

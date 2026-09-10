@@ -105,7 +105,7 @@ Presenter notes: **This is the slide the rest of the course keeps coming back to
 everywhere: it is the argument for skinny messages (§6.1 Fat and Skinny, at the end of today) and for
 tolerant readers (the *Managing Asynchronous APIs* handout). Flag it now so both call-backs land. The
 second callout is the one to write on the board — it is why §6 *Designing Messages* exists at all, and it
-is why *Messaging* wins the comparison two slides from now.
+is why *Messaging* wins the comparison when §Integration Styles closes on *Why Messaging*.
 
 ### Slide: Must We Both Be Up?
 
@@ -1419,8 +1419,8 @@ listens on the channel, fetches what is missing, and republishes the message com
 
 #image: diagram — Content Enricher augmenting a message from an external resource  [→ resources/eip-content-enricher.png]
 
-Presenter notes: **This is the drawn form of the slide before it.** Make the callout the point:
-teams reach for an enricher believing it decouples them, when all it has done is put a third party in the
+Presenter notes: **Same argument as *Get It On Demand*, with the lookup moved one hop.** Make the
+callout the point: teams reach for an enricher believing it decouples them, when all it has done is put a third party in the
 chain — A now depends on the enricher *and* B. Same arithmetic, one hop further away, and now it fails
 somewhere nobody owns.
 
@@ -1516,7 +1516,7 @@ You cannot replicate someone else's state from deltas unless you receive **every
 
 ▎ Choose the delta and you have chosen strict ordering. Choose the snapshot and you have bought it back.
 
-Presenter notes: This is the join between the two halves of the section. **ECST works because of the snapshot event** — it is what makes the next two slides possible at all, and it is the reason the previous sub-topic could recommend ECST without hedging. The rule: publish complete new versions rather than deltas.
+Presenter notes: This is the join between the two halves of the section. **ECST works because of the snapshot event** — it is what makes *If Later, Stream* and *If Later, Queue* possible at all, and it is the reason the previous sub-topic could recommend ECST without hedging. The rule: publish complete new versions rather than deltas.
 
 ### Slide: If Later, Stream
 
