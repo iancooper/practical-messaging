@@ -16,16 +16,16 @@ cd /Users/ian.cooper/Documents/practical-messaging
 grep -ln "$ARGUMENTS" tools/*.py        # find the @figure("<name>") registration
 ```
 
-The eleven families are `eip_figures` · `coupling_grids` · `if_later` · `queues_streams` ·
+The twelve families are `eip_figures` · `coupling_grids` · `if_later` · `queues_streams` ·
 `integration_styles` · `app_shapes` · `conversations` · `bpmn_hotel` · `bpmn_shopping` ·
-`paper_flow` · `flow_reactive`, plus `reference_cards` (**print**, and outside the default
-eleven everywhere). Each takes `--list`.
+`paper_flow` · `flow_reactive` · `asyncapi_figures`, plus `reference_cards` (**print**, and
+outside the default twelve everywhere). Each takes `--list`.
 
 ### 2 · Rebuild, lint, measure
 
 ```bash
 python3 tools/<family>.py <figure-name>
-python3 tools/lint_figures.py <family>          # one family is fast; ALL ELEVEN is 5+ minutes
+python3 tools/lint_figures.py <family>          # one family is fast; ALL TWELVE is 5+ minutes
 python3 tools/reads_at.py <family>              # or --all for every figure's asp / fit / reads
 ```
 
@@ -50,7 +50,7 @@ compaction?
 
 ### 4 · If you changed `diagram.py` rather than the figure
 
-**Rebuild all eleven families and show `git status`.** Every other figure must come back
+**Rebuild all twelve families and show `git status`.** Every other figure must come back
 **byte-identical**; if one moves, the change was not additive. Ten seconds, and it has caught
 real regressions.
 

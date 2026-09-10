@@ -42,7 +42,7 @@ from diagram import X_HEIGHT, HAND, PLAIN                        # noqa: E402
 
 FAMILIES = ("eip_figures", "coupling_grids", "if_later", "queues_streams",
             "integration_styles", "app_shapes", "conversations", "bpmn_hotel",
-            "bpmn_shopping", "paper_flow", "flow_reactive")
+            "bpmn_shopping", "paper_flow", "flow_reactive", "asyncapi_figures")
 
 # The usable area of a 16:9 slide once the title and the margins are off it. Wider
 # than this is fitted by width; squarer is fitted by height. Plan §8 item 10.

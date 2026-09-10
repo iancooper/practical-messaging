@@ -5,9 +5,11 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 the next build.
 
 **Branch `deck-redevelopment`.** Day 1 is **138 slides**, Day 2 **153**, from 91 + 90 outline
-entries, with **98 figures** across eleven families plus **2 print cards**. **90 of the 98 go on
-slides; the other 8 are the routing handout's** — `handouts/` is a third destination beside the deck
-and the print cards, and a figure there is held at reading distance, not read across a room.
+entries, with **99 figures** across twelve families plus **2 print cards**. **90 of the 99 go on
+slides; the other 9 are the two handouts'** — 8 routing, 1 AsyncAPI. `handouts/` is a third
+destination beside the deck and the print cards, and a figure there is held at reading distance, not
+read across a room: it is fitted to a **154mm** text block, so its **printed letter size is `154 / w`**
+and the canvas width is the only lever on it.
 
 ---
 
@@ -60,15 +62,16 @@ python3 tools/outline.py              # parse both outlines; --slide "X" dumps o
 python3 tools/build_deck.py           # both decks + the overflow report -> build/
 python3 tools/build_deck.py --report  #   measure only, write nothing
 python3 tools/build_deck.py --day 1 --preview 14,15   # -> build/preview/ ; also `all`, `over`
-python3 tools/lint_figures.py         # labels off/onto shapes, all ELEVEN families -- 5+ MINUTES
-python3 tools/lint_figures.py reference_cards         # the cards are NOT in the default eleven
+python3 tools/lint_figures.py         # labels off/onto shapes, all TWELVE families -- 5+ MINUTES
+python3 tools/lint_figures.py reference_cards         # the cards are NOT in the default twelve
 python3 tools/reads_at.py             # what a label reads at IN THE ROOM -- ~2 min; --all, --floor N
 ```
 
-**The eleven figure families**, each `python3 tools/<name>.py [figure-name | --list]`:
+**The twelve figure families**, each `python3 tools/<name>.py [figure-name | --list]`:
 `eip_figures` (21, **8 of them handout-only**) · `coupling_grids` (5) · `if_later` (2) ·
 `queues_streams` (11) · `integration_styles` (4) · `app_shapes` (3) · `conversations` (3) — Day 1;
-`bpmn_hotel` (13) · `bpmn_shopping` (6) · `paper_flow` (7) · `flow_reactive` (23) — Day 2.
+`bpmn_hotel` (13) · `bpmn_shopping` (6) · `paper_flow` (7) · `flow_reactive` (23) — Day 2;
+`asyncapi_figures` (1, **handout-only**) — the AsyncAPI handout.
 Plus `reference_cards` (2, **print**), and two repair tools: `repatch_steps.py`,
 `repaint_paper_reds.py`.
 
@@ -111,7 +114,7 @@ Each cost real rework at least once. The long-form versions are in the skills.
    same shape: something assumed absent, never checked. A file may exist and still not contain
    what a note says it contains; a marker with a link on it is not proof there is a picture —
    check the extension and open it. **Spend the two minutes proving it.**
-5. **Rebuilds must be byte-identical.** After ANY `diagram.py` edit, rebuild all eleven families
+5. **Rebuilds must be byte-identical.** After ANY `diagram.py` edit, rebuild all twelve families
    and check `git status`. Every existing figure must come back unchanged; if one moves, the
    change was not additive. Ten seconds, and it has caught real regressions.
 6. **Never compare the two registers by point number.** Plex Sans's x-height is 0.516em against

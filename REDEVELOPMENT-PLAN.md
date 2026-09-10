@@ -374,6 +374,23 @@ per channel → a new type on a new channel; several schemas in order → the ve
 via CloudEvents' `type` (specified as *event name + version*), and consumers route on type. That closes
 the loop back to §1, which is where `type` was introduced.
 
+✅ **One figure — added 2026-09-10, `BACKLOG.md` C4.** `resources/asyncapi-virtuous-cycle.png`, from a
+new twelfth family `tools/asyncapi_figures.py`. It replaces the ASCII staircase under *The virtuous
+cycle*, and it is the only picture the handout has, which is the right count: C1's source is a
+tables-and-bullets deck where C2's was prose, so the pack's asymmetry is honest. **Red is the RETURN,
+not the spec** — the section's sting is its last paragraph, *adopting one pillar on its own tends to
+disappoint*, so the load-bearing thing is the arc that closes the loop. Redding the spec box instead
+would argue "one source of truth", which is §3's idea and not this one.
+
+**⚑ It was drawn twice, and the second time on measurements.** A handout figure is fitted to
+`print.css`'s 154mm text block, so **its printed letter size is `154 / w` and nothing else** —
+`reads_at.py` passes it either way, because it measures against a projector. The first draft was 852
+units wide and printed at ~9pt against the routing figures' ~14; every width guess behind it was
+30–50% high. `_Outliner.outline(text, HAND, 18, 0, 0)[1]` gives the real advance — *Provisioning* is
+72.3 units, so a box floors at ~85 — and on those numbers the same content fits **560**, which prints
+at the pack's own size. **A ring was considered and rejected** for the same arithmetic: square is
+fitted by the 92mm height cap, so it would render smaller while saying the same thing.
+
 ---
 
 ## 7. Paper Flow — the Day 2 exercise

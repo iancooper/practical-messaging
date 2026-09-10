@@ -171,7 +171,7 @@ stroke is a guide and the label is text.
 ## `lint_figures.py`
 
 ```
-python3 tools/lint_figures.py                    # all eleven families
+python3 tools/lint_figures.py                    # all twelve families
 python3 tools/lint_figures.py bpmn_hotel paper_flow
 ```
 
@@ -388,6 +388,29 @@ Conventions held across the set, and worth holding for the next batch:
 - **paired figures contrast through red**: *Polling Consumer* reds `receive()`, *Event-Driven Consumer*
   reds the push; *Invalid Message* diverts from the **receiver**, *Dead Letter* diverts from the
   **channel** — which is the distinction the two slides keep getting confused about
+
+## `asyncapi_figures.py`
+
+One figure, `asyncapi-virtuous-cycle`, for the *Managing Asynchronous APIs* handout. **A twelfth
+family rather than a thirteenth `eip_figures` entry**, because that module is the twenty-one Hohpe &
+Woolf replacements and a virtuous cycle is neither a pattern of theirs nor a slide of ours.
+
+**Handout figures do not `compact()`** — the same as the eight routing figures at the end of
+`eip_figures.py`. They are not fitted to a slide stage.
+
+**⚑ And a handout figure's size is set by its canvas WIDTH alone.** `handouts/print.css` fits a
+figure to the 154mm text block, so **printed letter size is `154 / w`** — a 560-unit canvas gives an
+18pt label about 14 printed points, and an 852-unit canvas gives it 9. `reads_at.py` will pass both,
+because it measures against a projector and not against paper. Take the width from **measured
+advances** rather than from the eye:
+
+```python
+from diagram import _Outliner, HAND
+_Outliner.outline("Provisioning", HAND, 18, 0, 0)[1]      # -> 72.3 units
+```
+
+Every guess behind this figure's first draft was 30–50% high, and the drawing was 292 units wider
+than its content needed as a result.
 
 ## `flow_reactive.py`
 

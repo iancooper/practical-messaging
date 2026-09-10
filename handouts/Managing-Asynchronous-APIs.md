@@ -436,11 +436,7 @@ stay in sync because they are generated from the same source. No more stale wiki
 
 The three pillars are one system, and they feed each other:
 
-    better specs
-      -> better governance
-         -> more reliable provisioning
-            -> more trustworthy discovery
-               -> better specs, and round again
+![The virtuous cycle](../resources/asyncapi-virtuous-cycle.png)
 
 One AsyncAPI spec drives all three. **Discovery** — generated docs that a person, or an agent, can
 read. **Governance** — schemas validated and versioned. **Provisioning** — bindings and channels
