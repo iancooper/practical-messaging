@@ -298,34 +298,47 @@ A message has a **header** and a **body**.
 
 Presenter notes: Two processes communicating copy data — usually a byte stream — that we break into discrete units so we can tell where a message begins and ends (needed for competing consumers and pub-sub). A message = header (how to process) + body (content). Related concepts: Request-Reply (RPC over messaging, using Return Address + Correlation Identifier); Message Sequence (sequence id, position id, size/end indicator); Message Expiry / Dead Letter for slow messages; Canonical Data Format; and Format Indicator strategies — Version Number, Foreign Key, or embedded Format Document.
 
-### Slide: Messaging and Events
-
-
-Two words the industry uses interchangeably, and they are not the same thing.
-
 ### Slide: Messaging vs. Eventing (Intent vs. Facts)
 
+Two words the industry uses interchangeably, and they are not the same thing. After Clemens Vasters,
+two poles of message types.
 
-After Clemens Vasters. Two poles of message types:
+| | Messaging | Eventing |
+|---|---|---|
+| carries | **intent** | **facts** |
+| which looks like | a Command (transfer of control), a Query (request an answer), a transfer of value | a notification — something you report on |
+| expectations | part of a workflow, part of a conversation | none |
+| concerned with | the **future** | the **past** — history, context |
 
-- **Messaging** — Has intent. Request an answer (Query), transfer of control (Command), transfer of value. Part of a workflow/conversation. Concerned with the future.
-- **Eventing** — Provides facts. Things you report on. No expectations. History/context. Concerned with the past.
+▎ A message asks for something. An event announces something.
+
+Presenter notes: This is the first fork in every design decision that follows, and §Conversations turns
+it into a choice of exchange pattern — intent gives you In-Only and In-Out, a fact gives you Out-Only.
+If you are expressing intent you are addressing someone: you know who should act, and that is
+behavioural coupling. If you are reporting a fact you are addressing nobody, the subscriber list is not
+your concern, and that is the loosest coupling available.
 
 ### Slide: Discrete vs. Series (Eventing Types)
 
+After Clemens Vasters again, a second axis — and this one is about events only.
 
-After Clemens Vasters. A second axis:
+| | Discrete | Series |
+|---|---|---|
+| handler | **stateless** | **stateful** partition processor |
+| delivery | PUSH | PULL |
+| position | independent | context, offset |
+| shape | one thing, immediately actionable | continuous, sequential |
+| what it says | something happened | a **condition** holds |
+| part of | a conversation | a monolog |
 
-- **Discrete** — stateless handler, PUSH, independent, immediately actionable, part of a conversation.
-- **Series** — stateful partition processor, PULL, context/offset, continuous, sequential, reports a condition, part of a monolog.
-
-### Slide: Message Types
-
-
-After Gregor Hohpe. Three core message types: **Command**, **Event (Notification)**, **Document**.
+Presenter notes: The row that pays off later is *position*. A discrete event stands alone, so anyone can
+handle it and order does not matter; a series event only means anything in sequence, which is why §4.5's
+streams keep an offset and why partitioning by key is the only way to scale one. Point at this table
+again when you draw the partition.
 
 ### Slide: Command / Document / Event Messages
 
+After Gregor Hohpe. Three core message types: **Command**, **Document**, **Event**.
 
 - **Command Message** — reliably invoke a procedure in another application. Encapsulates a request as an object (GoF Command); usually sent Point-to-Point (one consumer).
 - **Document Message** — reliably transfer a data structure between applications; the receiver decides what, if anything, to do with the data.
@@ -991,34 +1004,38 @@ they are **conversations**, and the shape of the conversation is a design decisi
 
 An application acts as either a **requestor** or a **provider**.
 
-- A message is sent over a **channel** — a virtual pipe (topic, routing key).
-- A message has a **header** (metadata) and a **body** (data).
-- A channel is **unidirectional** (one way) — a two-way conversation needs two channels.
-- Prefer *requestor/provider* over *producer/consumer* for conversation patterns, because they indicate role.
+- Prefer *requestor/provider* over *producer/consumer* here, because they name the **role**: are you
+  providing the API, or using it?
+- A channel is **unidirectional**. **A two-way conversation needs two channels** — and that one fact
+  forces every pattern in this section.
 
 **Example.** *Provider (Store Information)* manages stores for our ecommerce site. *Requestor (Search)*
 registers a store and optimizes for fast lookup on key search terms. The message `changedstore()`
 indicates new store details.
 
-Presenter notes: The problem with producer/consumer is that the *consumer* of a message might be the one exposing operations (receiving a command), or the *producer* might be the one exposing operations (sending a notification). Thinking in requestor/provider makes the role clear — are you providing the API or using it? Note that the channel being one-way is what forces every pattern that follows: if you want an answer you need a second channel, and that is a decision with consequences.
+Presenter notes: The problem with *producer/consumer* is that either one can be the side exposing
+operations — the consumer receives a command, or the producer sends a notification — so the words tell
+you nothing about who is offering the API. Say what the one-way channel costs: if you want an answer you
+have to open a second channel, and that is a decision with consequences, not a detail.
 
 ### Slide: Messaging or Eventing?
 
-The first question, before any pattern: **are you expressing intent, or reporting a fact?**
+The first question, before any pattern, and you met it in §4.1: **are you expressing intent, or
+reporting a fact?** Here is what it decides.
 
-| | Messaging | Eventing |
+| | intent — Messaging | a fact — Eventing |
 |---|---|---|
-| carries | **intent** — do this, tell me this | **facts** — this happened |
-| examples | Command (transfer of control), Query (request an answer), transfer of value | Notification |
-| expectations | part of a workflow or conversation | none — things you report on |
-| concerned with | the **future** | the **past** |
-| patterns | In-Only, In-Out | Out-Only |
-
-▎ A message asks for something. An event announces something.
+| patterns available | In-Only, In-Out | Out-Only |
+| who you are addressing | someone: you know who should act | nobody: the subscriber list is not yours |
+| what you are coupled to | the request or command contract | the event schema |
 
 #image: one pair of participants and three exchanges down them — In-Only and In-Out above the line, Out-Only below it with its arrow reversed, because the provider speaks first and is addressing nobody  [→ resources/conversation-messaging-or-eventing.png]
 
-Presenter notes: This is the first fork in the decision and it decides most of the rest. If you are expressing intent you are addressing someone — you know who should act, and that is behavioural coupling. If you are reporting a fact you are not addressing anyone — the subscriber list is not your concern, which is why eventing is the loosest coupling available. Tie back to Integration Styles: the same trade, one level down.
+Presenter notes: They met the intent/fact split in §4.1; what is new here is the third column of
+consequences, so do not re-teach the definition. Tie it back to Integration Styles instead — the same
+trade, one level down: the loosest coupling on offer is the one where you do not know who is listening,
+and you buy it by giving up any way to hear back. The figure makes the point physically: the arrow turns
+round, and In-Out needs two of them because a channel only goes one way.
 
 ### Slide: The Four Exchange Patterns
 
