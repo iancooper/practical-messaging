@@ -90,6 +90,9 @@ LEAD = 1.24            # line spacing, multiples of the point size
 
 M_L, M_R, M_T, M_B = 0.78, 0.62, 0.42, 0.46
 GUTTER = 0.38
+
+# One warning per offending word rather than per slide -- see Type.wrap.
+_WIDE = set()
 CONTENT_W = W_IN - M_L - M_R
 TEXT_W = (CONTENT_W - GUTTER) * 1.15 / 2.0
 PANEL_W = (CONTENT_W - GUTTER) * 0.85 / 2.0
@@ -162,14 +165,35 @@ class Type:
     def wrap(cls, runs, width_in, family, pt, track=0.0):
         """Greedy word wrap -> lines, each a list of merged (text, bold, italic, mono).
 
-        Breaks on spaces only. A single word wider than the measure is left long; it
-        shows up in the overflow report, which is the honest outcome — the fix is the
-        content, not a smaller size."""
+        Breaks on spaces only, so a single word wider than the measure is left long
+        and runs out of its column.
+
+        **⚑ It does NOT show up in the overflow report**, whatever this docstring used
+        to claim: overflow measures the block's HEIGHT against the slide, and a word
+        running off the right-hand side costs no height at all. On a slide with a
+        figure or photograph the body column is only 6.21in wide, so the long word
+        runs UNDER the panel and is cut mid-word -- which is how
+        `jonasboner.com/resources/Reactive_Microservices_Architecture.pdf` shipped on
+        Day 2 as `...Reactive_Microservices_Architect`, with no closing bracket and no
+        way for a delegate to type it. A clipped label looks like a short label.
+
+        So it warns, once per offending word, exactly as `_kicker` does. **The fix is
+        the content** -- shorten the URL -- not a smaller size and not a hyphen."""
         lines, cur, cur_w = [], [], 0.0
         for word, b, i, m, sp in cls.tokens(runs):
             fam = MONO if m else family
             piece = (" " if (sp and cur) else "") + word
             w = cls.width(piece, fam, pt, b, track)
+            # 0.05in of slack: a table cell pads beyond its measured column, so
+            # "Out-Only" sitting 0.02in over renders whole. A guard that cries wolf
+            # gets ignored, which is worse than not having one.
+            if (cls.width(word, fam, pt, b, track) > width_in + 0.05
+                    and word not in _WIDE):
+                _WIDE.add(word)
+                print(f"  ! word wider than its {width_in:.2f}in column by "
+                      f"{cls.width(word, fam, pt, b, track) - width_in:.2f}in — it will "
+                      f"run out of the column and, on a slide with a panel, be cut "
+                      f"mid-word: {word!r}", file=sys.stderr)
             if cur and cur_w + w > width_in:
                 lines.append(cur)
                 cur, cur_w = [(word, b, i, m)], cls.width(word, fam, pt, b, track)

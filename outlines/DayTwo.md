@@ -1249,7 +1249,7 @@ Presenter notes: One slide, deliberately. The correlation id has been on the tab
 
 ### Slide: Further Reading — Reactive Microservices
 
-*Reactive Microservices Architecture* — Jonas Bonér. (jonasboner.com/resources/Reactive_Microservices_Architecture.pdf)
+*Reactive Microservices Architecture* — Jonas Bonér. Free PDF at jonasboner.com, under Resources.
 
 
 #image: book cover — 'Reactive Microservices Architecture' by Jonas Bonér (O'Reilly)  [→ resources/cover-reactive-microservices.jpg]
