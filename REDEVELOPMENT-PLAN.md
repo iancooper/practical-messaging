@@ -2024,6 +2024,38 @@ figure is about.
 Newest first. Records **why**, including reasoning that changed no file — git history covers what
 changed in the outlines, not this.
 
+### 2026-09-10 — R2-4: §Putting It Together stops promising a picture nobody drew
+Four Day 2 titles ended *"— Annotated"* and four `#image:` alt lines said *"annotated with exchange
+patterns"*. **Not one of the section's ten figures carries a pattern name.** R2-2 had already rewritten
+the five bodies to say only what is on screen; the titles and the alt text were the residue, and a title
+is the half the room actually reads.
+
+**What made the decision, and it is a cost nobody had measured.** The row originally read *"they are five
+of G1's redraws anyway"*, which made annotating sound nearly free. Checked against `DayTwo.md` instead of
+inherited: **all ten figures appear exactly twice** — once at :188–:502 where each flow is first taught,
+once at :1177–:1211 here. So an annotated copy cannot be an edit to the existing file, or the room meets
+In-Only and In-Out hours before §Conversations names them, which is the entire reason the section works
+at the end of Day 2. **Ten new files, not five edits.** And the sources settle it: five `.excalidraw`
+and five `.drawio`, and **this machine renders neither**, so *annotate* does not mean *add a label* — it
+means *redraw in `tools/`*, which is G1's job under a different name. One of the ten is
+`flowbased_order_all`, the 180-element outlier §14.2 already says wants a decision before a redraw.
+
+**Ian's ruling: drop *annotated*.** Titles now name what each slide is actually about — *Storage and
+Correlation*, *the Graph Form*, *Message Triggers Fault*, *Full Flow, End to End*. The alt text now
+carries the constraint instead of the fiction: *"the same graph as when it was first taught"*, which is
+the fact that would otherwise be re-derived by whoever picks G1 up.
+
+**A fifth alt line went with them, and rule zero is why it was found.** Slide 144's read *"composite — an
+'Order Confirmation' collaboration diagram plus thumbnails of the other flows"*. **Opened it: one
+collaboration diagram, no thumbnails, and half the canvas is white.** Identical defect to R2-4, sitting
+four lines away, and invisible to every tool in the repo — alt text is not rendered, so nothing downstream
+can disagree with it. The same look confirmed §14.2's *"Reccieve Confirmation"* typo is still shipping.
+
+**⚑ What this did NOT fix, recorded so G1 inherits it rather than re-finds it.** Retitling leaves the
+artwork exactly as it was: §14.3 measures slides **138** and **141** at roughly 4pt, and **138** and
+**144** ship typos. The section is now honest about what is on screen; it is still a section whose
+pictures the back row cannot read.
+
 ### 2026-08-27 — Day 1 §1 reframed on "easy to change + robust"; Task Queues promoted
 Ian's question: do Task Queues still earn their weight, given they were there to show messaging is
 useful *without* microservices — and is the microservices framing still the right driver? Two findings.
