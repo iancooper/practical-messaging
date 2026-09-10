@@ -44,13 +44,13 @@ tightest coupling modes off the table, and *What's Left Is in the Message* is th
 
 ### Slide: Robust — Guaranteed Delivery
 
-The other thing a boundary buys, and it is the cheaper of the two.
+The boundary costs you transactions. It buys you this — and this one is cheap.
 
 - We want the work **not to be lost** when something we depend on is slow, overwhelmed, or down.
 - **Store and forward.** The work waits somewhere durable until whoever does it is ready. **The outage
   becomes a delay.**
 - **You do not need to reorganise anything to get this.** A single team with a single web application can
-  have it on Monday — one team, one service, one queue.
+  have it on Monday.
 
 ▎ One team, one service, one queue. Robustness without reorganising the company.
 
@@ -75,8 +75,8 @@ process boundary takes the top two off the table.**
 - **Common** — both parties share the same mutable store. Uncontrolled propagation of change; nobody owns
   the schema. Separate processes with **private data** do not have one.
 
-That is not an accident — it is what the opener's *Messages In, Private Data, No Shared Transaction* was
-describing. The boundary is the mechanism; this is the payoff.
+The opener said exactly this: *Messages In, Private Data, No Shared Transaction*. That slide was the
+mechanism. This is what it bought you.
 
 #image: the Myers coupling scale drawn vertically, tightest first, with the process boundary as a line across it — Content and Common above the line, struck through as *prevented*; Control, Stamp and Data below it, live  [→ resources/coupling-scale-boundary.png]
 
@@ -192,7 +192,7 @@ are back to agreeing release dates across teams — which is exactly what the bo
 
 #image: (s33) Shared Database — both applications on one schema, an ORM each, the schema straddling the process boundary and owned by neither side  [→ resources/style-shared-database.png]
 
-Presenter notes: The sharpest verdict in the section, and it is worth being blunt: a shared database is
+Presenter notes: The sharpest verdict in the section. Be blunt: a shared database is
 not a shortcut past the boundary, it is a decision to un-draw it. Note it is **not** temporally coupled —
 its problem is the shared mutable schema, not availability. That is exactly why one axis was never enough.
 
@@ -471,8 +471,8 @@ Presenter notes: Gateway vs. Endpoint: the endpoint *contains* the gateway but m
 The code that takes a message from a channel and delivers it to application code, running in a loop
 until cancelled: **Get → Translate → Dispatch → Handle**.
 
-**Four stages, and each one fails in a different way** — which is why there are four places for a
-message to go that is not going to be handled.
+**Each stage fails in its own way.** That is why a message which is never going to be handled has four
+different places to end up.
 
 #image: diagram — the four-stage pump in a loop, with each stage's failure routed away: deliver to a dead letter channel, understand to an invalid message channel, dispatch to an error log, and a thrown handler to a requeue with a limit  [→ resources/eip-message-pump.png]
 
@@ -617,7 +617,7 @@ The pump and competing consumers, as an application shape. **Offloading work fro
 **What it buys:** the web server stays responsive when the backend is slow, overwhelmed, or down. The
 work is not lost — it waits.
 
-▎ One team, one service, one queue. Robustness without reorganising the company.
+▎ This is the shape the opener promised. One team, one service, one queue — and here are its parts.
 
 #image: architecture diagram — browser, web server and three competing consumers inside one service boundary, sharing one database, with the work waiting on a channel between them  [→ resources/task-queue-shape.png]
 
@@ -803,8 +803,8 @@ to define *poison message*.
 
 ### Slide: Not Acking — Requeue or Reject
 
-Not acking is not one decision, it is two — and which one you take is a **policy**, not something you
-discover at runtime.
+Not acking is two decisions, not one. **Which one you take is a policy** — you set it in advance, and
+most teams never do.
 
 - **Requeue** — put the message back on the queue. Someone tries it again.
 - **Reject** — do not process this message at all. **Delete** it on a queue; **skip** it on a stream.
@@ -911,7 +911,8 @@ willing to lose**: the record, the throughput, or the ordering.
 
 ### Slide: Inbox (Idempotency)
 
-**The fourth question the pump has to answer: have I seen this one before?**
+**One more thing the pump has to decide, and this one comes from the producer side: have I seen this
+message before?**
 
 The Outbox bought at-least-once, so duplicates are not a risk — they are a certainty. This is where you
 pay for it.
@@ -928,7 +929,7 @@ Presenter notes: **The Inbox is consumer-side machinery answering a producer-sid
 part of the pump, but it only matters once we have the Outbox, which is why it sits here rather than
 alongside it. Keep that callback.
 Exactly-once **delivery** does not exist; exactly-once **processing** is what the Outbox/Inbox pair gives
-you. It is the last of the four things the pump does with a message it cannot simply ack.
+you. It is the last item on this sub-section's list, and the only one that is not about failure.
 
 ---
 
@@ -1459,8 +1460,8 @@ side, and each bullet is one of the three reasons why.
 
 ### Slide: Be Honest About the Trade — and Which Way It Runs
 
-ECST is **availability over consistency**, deliberately and *boundedly*: you read a copy that is behind
-by the propagation delay, and you can measure that number. The synchronous lookup is not the consistent
+ECST chooses **availability over consistency** on purpose, and by an amount you can measure: you read a
+copy that is behind by the propagation delay. The synchronous lookup is not the consistent
 option — it makes the same trade on a cache hit, and then **reverses it on a miss**, when B is down and
 you are not.
 
