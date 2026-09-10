@@ -48,7 +48,7 @@ Yesterday answered *how do I send and receive reliably*. Today asks the harder q
 
 You already know the cost side. Temporal coupling multiplies outages; store and forward converts a
 failure into a delay. **That trade is settled.** What is not settled is what the system *looks like* when
-you take it seriously — and that is today.
+you take that trade seriously. That is today.
 
 ▎ Messaging doesn't remove the outage; it converts a failure into a delay. Now: what does a system built
 that way actually look like?
@@ -592,7 +592,7 @@ Presenter notes: **This is the payoff of *Easy to Change, and Robust*, and neith
 
 ### Slide: Reactive Traits — Value, Form, Means
 
-A useful way to read the four traits:
+Read the four traits as value, form and means:
 
 - **Responsive** is the **value** — the thing the user actually gets.
 - **Resilient** and **Elastic** are the **form** — the shape that delivers it under failure and load.
@@ -679,7 +679,7 @@ Presenter notes: Merged from two slides. The idea was introduced as a mechanism 
 
 ### Slide: Putting Reactive Together
 
-The pieces, and how they compose.
+Four mechanisms, and each one answers a different way of being overwhelmed.
 
 - **Message passing** decouples in time — the bulkhead.
 - **Backpressure and load-shedding** handle a consumer that cannot keep up.
@@ -1127,7 +1127,7 @@ Presenter notes: **One argument, four costumes — as a table the repetition bec
 
 ### Slide: Workflow Engines — Embedded, External, and the Lessons from SOA
 
-Weighing engines embedded in a service against external orchestrators.
+Embedded in a service, or an external orchestrator? The question underneath is who owns the process.
 
 - **External orchestration is not an anti-pattern**, but it requires care.
 - Keep core domain logic **inside** services; let the engine coordinate *outcomes*, not fine-grained steps.
@@ -1162,44 +1162,50 @@ Presenter notes: The rows are the five patterns from the front of the section pl
 
 ### Slide: Putting It Together
 
-The fax workflow again — the takeaway you saw first — now with every interaction named by its
-exchange pattern.
+The fax workflow again — the takeaway you saw first. This time we walk it and **name every interaction
+as an exchange pattern.** You chose all four of them on paper this morning, before any of them had a name.
 
 ### Slide: Fax Workflow — Annotated (Storage & Correlation)
 
-The flow-based fax workflow, now labelled with exchange patterns:
+`fax out` and `fax in` are one **In-Out** with a gap in the middle. Every other arc on the graph is
+one-way — and that difference is the whole slide.
 
 - **Storage:** store workflow state in case we crash before receiving a response.
 - **Correlation:** use a correlation id sent to `fax_out` and returned via `fax_in` to look up the stored workflow.
-- Interactions annotated: Messaging (In-Only, In-Only, Out-Only, In-Out) and Eventing.
+- **Both of those are the In-Out's bill.** The one-way arcs need neither, because nothing is waiting.
 
 #image: (s167) collaboration diagram — restaurant onboarding (fax/phone steps, new catalogue)  [→ resources/Restaurant Onboarding.drawio.png]
 #image: (s168) FBP 'Onboard Restaurant' flow, annotated with Messaging/Eventing (In-Only/Out-Only/In-Out)  [→ resources/flowbased_onboard_restaurant.png]
 
 ### Slide: Lookup Store — Annotated
 
-Building a lookup store from IPs raised by another component, annotated: Messaging (Out-Only, In-Only, In-Only, In-Out) and Eventing.
+A component builds its lookup store from packets another component raises. **This is Day 1 §6.2 as a
+graph:** an Out-Only fills the store, and everything after it reads locally — so nothing in the flow makes
+a synchronous call to go and find the data.
 
 #image: (s169) collaboration diagram — order taking (phone order, card machine, eventual consistency)  [→ resources/Customer Order.drawio.png]
 #image: (s170) FBP 'Order Food' flow, annotated with exchange patterns  [→ resources/flowbased_order_food.png]
 
 ### Slide: Fault Path — Annotated
 
-The workflow's fault path annotated as Messaging with **Message Triggers Fault**.
+The card is declined. The fault comes back on a channel of its own — **Message Triggers Fault** —
+because the In-Only that started it took no response, so there is no response for a fault to replace.
 
 #image: (s171) collaboration diagram — order-taking errors (invalid card, outbox)  [→ resources/Customer Order Errors.drawio.png]
 #image: (s172) FBP 'Order Food Errors' flow, annotated with Message-Triggers-Fault  [→ resources/flowbased_order_food_errors.png]
 
 ### Slide: Full Flow — Annotated
 
-The complete flow annotated with its mix of Messaging (In-Only, In-Out ×3) and Eventing (Out-Only) exchanges.
+Order placement, end to end. **Name each arc as you walk it, and count the In-Outs** — every one of
+them is a correlation id and a piece of state somebody has to own across a restart.
 
 #image: (s173) collaboration diagram — order placement (fax operators create/accept order, book driver)  [→ resources/Order Placement.drawio.png]
 #image: (s174) FBP 'Order Placement' flow, annotated with exchange patterns  [→ resources/flowbased_order_placement.png]
 
 ### Slide: Putting It Together — Recap
 
-Final visual recap tying the exchange patterns back to the worked example.
+Every flow the room drew, and every exchange pattern in them. **The room picked these before it knew
+they were choices** — which is the point of having drawn them on paper first.
 
 #image: (s175) composite — an 'Order Confirmation' collaboration diagram plus thumbnails of the other flows  [→ resources/Order Confirmation.drawio.png + related]
 #image: (s176) FBP overall 'Order Flow' — Qualify Restaurant through Cook Food and Book Courier  [→ resources/flowbased_order_all.png]

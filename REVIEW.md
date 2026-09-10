@@ -79,8 +79,9 @@ starts only when §R1 is closed, and it is deliberately **narrow** — it is not
 
 | # | the ask | size | state |
 |---|---|---|---|
-| **R2-1** | **Text splitting** — R0-1, R0-2 and R0-4 are builder changes and land on Day 2 for free. **Verify, do not assume**: render Day 2 and look, and re-check the callouts in particular, because that is where every Day 1 overflow was | S | ☐ |
-| **R2-2** | **AI-ism** — the same sweep as R1-1, over `outlines/DayTwo.md`. `session-work/day2.txt` is the 2025 deck and is the test of what is Ian's | M | ☐ |
+| **R2-1** | **Text splitting** — R0-1, R0-2 and R0-4 are builder changes and land on Day 2 for free. **Verify, do not assume**: render Day 2 and look, and re-check the callouts in particular, because that is where every Day 1 overflow was | S | ✅ |
+| **R2-2** | **AI-ism** — the same sweep as R1-1, over `outlines/DayTwo.md`. `session-work/day2.txt` is the 2025 deck and is the test of what is Ian's | M | ✅ |
+| **R2-4** | **⚑ Found while doing R2-2, and it is Ian's call.** §*Putting It Together*'s five entries all promise an **annotation layer that is not in the artwork**. The text says *"now with every interaction named by its exchange pattern"* and *"Interactions annotated: Messaging (In-Only, In-Only, Out-Only, In-Out) and Eventing"* — **opened, none of the four figures carries a single pattern name.** They are the same unannotated FBP graphs and 2021 collaboration diagrams the room has already seen twice. The section's text reads as captions **because it is describing a picture that was never drawn.** R2-2 rewrote the five bodies to say only what is on screen and to make the naming the presenter's job, which is honest and works today. **The choice is Ian's:** draw the annotations (they are five of G1's redraws anyway, plan §14), or leave the section as a spoken walk-through and drop the word *annotated* from four titles | M | ☐ |
 | **R2-3** | **Whatever R0-5 settles** — Day 2 carries 72 placed figures and 47 split entries, so if text-left/figure-right is right for Day 1 it is a much bigger question on Day 2. **Ask; do not roll it out** | — | ☐ |
 
 ---
