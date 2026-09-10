@@ -4,6 +4,7 @@
     python3 tools/build_deck.py                 # both days -> build/
     python3 tools/build_deck.py --day 1
     python3 tools/build_deck.py --report        # measure only, write nothing
+    python3 tools/build_deck.py --no-animation  # no progressive disclosure
     python3 tools/build_deck.py --day 1 --preview 3,17,40    # PNGs of those slides
     python3 tools/build_deck.py --day 1 --preview all
 
@@ -351,6 +352,10 @@ class Laid:
         self.notes = []
         self.split = False       # True when one outline entry became two slides
         self.figures = []        # (src, rendered_w_in, canvas_w, canvas_h)
+        # **Progressive disclosure, grouped by idea.** 0 is what is on screen before
+        # the first click -- the ground, the kicker, the title, the folio. Everything
+        # above 0 is a click. `_body` decides the grouping; see `_reveals`.
+        self.step = 0
 
     def reads_at(self):
         """For each drawn figure, the fraction of its Phase 2 label size that
@@ -362,8 +367,13 @@ class Laid:
         return out
 
     def __iadd__(self, op):
+        op[1]["step"] = self.step
         self.ops.append(op)
         return self
+
+    def reveals(self):
+        """How many clicks this slide takes. 0 means it is all there at once."""
+        return max((a.get("step", 0) for _k, a in self.ops), default=0)
 
 
 def _lines(runs, w, family, pt, x, y, colour, lead=LEAD, track=0.0):
@@ -426,6 +436,7 @@ class Deck:
         `H_IN - M_B`, which is where `_stage` stops the figure -- so it cannot collide
         with anything the layout placed. Plex Mono like the kicker, carbon like the
         kicker, two points smaller: it is an address, not a piece of the slide."""
+        laid.step = 0                       # chrome, not a reveal
         laid += Text(M_L, H_IN - 0.20, [(str(n), False, False, False)],
                      MONO, FOLIO_PT, CARBON, track=0.10)
 
@@ -544,6 +555,7 @@ class Deck:
         if used > avail + 0.01:
             laid.overflow = used - avail
         if photos:
+            laid.step += 1
             self._panel(laid, photos, sl)
         self.slides.append(laid)
 
@@ -557,6 +569,7 @@ class Deck:
         y = self._title(laid, sl.title, y, CONTENT_W)
         if above:
             y += self._body(laid, above, M_L, y, CONTENT_W) + 0.10
+        laid.step += 1                      # the picture is its own reveal
         self._stage(laid, figs + photos, y)
         self.slides.append(laid)
 
@@ -579,6 +592,7 @@ class Deck:
         used = self._body(laid, blocks, M_L, y, SIDE_TEXT_W)
         if used > avail + 0.01:
             laid.overflow = used - avail
+        laid.step += 1                      # the picture is its own reveal
         self._stage(laid, [fig] + photos, y, x=SIDE_FIG_X, w=SIDE_FIG_W)
         self.slides.append(laid)
 
@@ -616,11 +630,30 @@ class Deck:
                 laid.figures.append((b.src, pw, iw / 3.0, ih / 3.0))
 
     # -- body ------------------------------------------------------------------
+    #
+    # **The reveal grouping, and it is inferred rather than written.** Ian ruled on
+    # it 2026-09-10, against a `#reveal` marker in the outline: *"grouped by idea, not
+    # naively one transition per paragraph"* -- and the grouping the outline already
+    # expresses is the right one. A lead-in paragraph and the bullets under it are one
+    # idea and arrive together; a table, a code listing, a quotation or a callout is
+    # its own; a run of bullets with no lead-in is one step, not five.
+    #
+    # A slide whose grouping is wrong is fixed in PowerPoint, per shape, which is what
+    # one text box per paragraph (R0-2) bought.
+    @staticmethod
+    def _reveals(prev, kind):
+        """True when `kind` opens a new reveal step after a block of `prev`."""
+        return not (kind == "bullet" and prev in ("prose", "bullet"))
+
     def _body(self, laid, blocks, x, y, w):
         cy = y
+        prev = None
         for b in blocks:
             if b.kind == "image":
                 continue
+            if self._reveals(prev, b.kind):
+                laid.step += 1
+            prev = b.kind
             if b.kind == "bullet":
                 lvl = getattr(b, "level", 0)
                 pt = SUB_PT if lvl else BODY_PT
@@ -778,7 +811,71 @@ def _first_baseline(family, pt, lead):
     return _in(pt) * Type._cache[key] * lead
 
 
-def emit_pptx(laid_deck, path):
+def _timing(clicks):
+    """The `<p:timing>` element for one slide: one click per list of shape ids.
+
+    **Progressive disclosure, and PowerPoint has no API for it.** `python-pptx` does
+    not model animation at all, so this writes the part by hand. It is the plainest
+    construct PowerPoint itself emits -- an `entr` effect that `p:set`s
+    `style.visibility` to `visible` -- because this is the one thing in the build that
+    **cannot be checked on this machine.** There is no PowerPoint here to open the
+    result in, and a malformed `p:timing` does not degrade, it makes the file refuse
+    to open. So: nothing clever, ids allocated strictly in document order, and every
+    `spid` asserted against the shapes actually written before the part is attached.
+
+    The first shape of a click is `clickEffect`; the rest are `withEffect` and arrive
+    with it. That is what makes a group a group.
+    """
+    from pptx.oxml import parse_xml
+    from pptx.oxml.ns import nsdecls
+
+    n = [2]                       # 1 is tmRoot, 2 is the main sequence
+
+    def nxt():
+        n[0] += 1
+        return n[0]
+
+    out = []
+    for ids in clicks:
+        effects = []
+        for i, sid in enumerate(ids):
+            eid, sid_tn = nxt(), None
+            sid_tn = nxt()
+            effects.append(
+                f'<p:par><p:cTn id="{eid}" presetID="1" presetClass="entr" '
+                f'presetSubtype="0" fill="hold" grpId="0" '
+                f'nodeType="{"clickEffect" if i == 0 else "withEffect"}">'
+                f'<p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>'
+                f'<p:set><p:cBhvr><p:cTn id="{sid_tn}" dur="1" fill="hold">'
+                f'<p:stCondLst><p:cond delay="0"/></p:stCondLst></p:cTn>'
+                f'<p:tgtEl><p:spTgt spid="{sid}"/></p:tgtEl>'
+                f'<p:attrNameLst><p:attrName>style.visibility</p:attrName>'
+                f'</p:attrNameLst></p:cBhvr><p:to><p:strVal val="visible"/></p:to>'
+                f'</p:set></p:childTnLst></p:cTn></p:par>')
+        outer, inner = nxt(), nxt()
+        out.append(
+            f'<p:par><p:cTn id="{outer}" fill="hold">'
+            f'<p:stCondLst><p:cond delay="indefinite"/></p:stCondLst><p:childTnLst>'
+            f'<p:par><p:cTn id="{inner}" fill="hold">'
+            f'<p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>'
+            + "".join(effects) +
+            '</p:childTnLst></p:cTn></p:par></p:childTnLst></p:cTn></p:par>')
+
+    return parse_xml(
+        f'<p:timing {nsdecls("p", "a")}><p:tnLst><p:par>'
+        f'<p:cTn id="1" dur="indefinite" restart="never" nodeType="tmRoot">'
+        f'<p:childTnLst><p:seq concurrent="1" nextAc="seek">'
+        f'<p:cTn id="2" dur="indefinite" nodeType="mainSeq"><p:childTnLst>'
+        + "".join(out) +
+        '</p:childTnLst></p:cTn>'
+        '<p:prevCondLst><p:cond evt="onPrev" delay="0">'
+        '<p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:prevCondLst>'
+        '<p:nextCondLst><p:cond evt="onNext" delay="0">'
+        '<p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:nextCondLst>'
+        '</p:seq></p:childTnLst></p:cTn></p:par></p:tnLst></p:timing>')
+
+
+def emit_pptx(laid_deck, path, animate=True):
     from pptx import Presentation
     from pptx.util import Inches, Pt
 
@@ -790,7 +887,9 @@ def emit_pptx(laid_deck, path):
     for laid in laid_deck.slides:
         s = prs.slides.add_slide(blank)
         done = set()          # blocks already written, so a paragraph gets one box
+        steps = {}            # reveal step -> shape ids, in document order
         for kind, a in laid.ops:
+            sh = None
             if kind == "rect":
                 sh = s.shapes.add_shape(1, Inches(a["x"]), Inches(a["y"]),
                                         Inches(a["w"]), Inches(a["h"]))
@@ -806,8 +905,8 @@ def emit_pptx(laid_deck, path):
                     sh.line.fill.background()
                 sh.shadow.inherit = False
             elif kind == "image":
-                s.shapes.add_picture(a["path"], Inches(a["x"]), Inches(a["y"]),
-                                     Inches(a["w"]), Inches(a["h"]))
+                sh = s.shapes.add_picture(a["path"], Inches(a["x"]), Inches(a["y"]),
+                                          Inches(a["w"]), Inches(a["h"]))
             elif kind == "text":
                 # **One text box per PARAGRAPH, not per line.** Ian, 2026-09-10:
                 # *"a paragraph is split into three text boxes. This will make it hard
@@ -833,7 +932,7 @@ def emit_pptx(laid_deck, path):
                     runs, ww, lead, n = a["runs"], None, 1.0, 1
                 top = a["y"] - (_first_baseline(a["family"], a["pt"], lead)
                                 if blk is not None else _in(a["pt"]) * 0.80)
-                box = s.shapes.add_textbox(
+                sh = box = s.shapes.add_textbox(
                     Inches(a["x"]), Inches(top),
                     Inches(ww if ww is not None else W_IN),
                     Inches(_in(a["pt"]) * lead * n + 0.02))
@@ -855,7 +954,7 @@ def emit_pptx(laid_deck, path):
                         r.font._rPr.set("spc", str(int(a["track"] * a["pt"] * 100)))
             elif kind == "table":
                 rows, cols, head = a["rows"], a["cols"], a["head"]
-                shape = s.shapes.add_table(
+                sh = shape = s.shapes.add_table(
                     len(rows), len(cols), Inches(a["x"]), Inches(a["y"]),
                     Inches(sum(cols)), Inches(sum(r["h"] for r in rows)))
                 tbl = shape.table
@@ -885,6 +984,20 @@ def emit_pptx(laid_deck, path):
                             r.font.bold = bool(bo)
                             r.font.italic = bool(it)
                             r.font.color.rgb = _rgb(INK)
+            if sh is not None and a.get("step"):
+                steps.setdefault(a["step"], []).append(sh.shape_id)
+
+        # **Every spid is asserted against a shape that was actually written.** A
+        # `p:timing` naming a shape that is not there does not degrade -- PowerPoint
+        # refuses the file -- and there is no PowerPoint here to find that out on.
+        if animate and steps:
+            live = {sp.shape_id for sp in s.shapes}
+            clicks = [[i for i in steps[k] if i in live]
+                      for k in sorted(steps)]
+            clicks = [c for c in clicks if c]
+            if clicks:
+                s._element.append(_timing(clicks))
+
         if laid.slide is not None and laid.slide.notes:
             s.notes_slide.notes_text_frame.text = "\n\n".join(
                 O.plain(n.text) for n in laid.slide.notes)
@@ -996,6 +1109,7 @@ def main(argv):
     want = argv[argv.index("--day") + 1] if "--day" in argv else None
     preview = argv[argv.index("--preview") + 1] if "--preview" in argv else None
     write = "--report" not in argv
+    animate = "--no-animation" not in argv
 
     for d, p in days.items():
         if want and d != want:
@@ -1008,7 +1122,7 @@ def main(argv):
         if write:
             os.makedirs(OUT_DIR, exist_ok=True)
             out = os.path.join(OUT_DIR, f"Practical Messaging - Day {d}.pptx")
-            emit_pptx(deck, out)
+            emit_pptx(deck, out, animate=animate)
             where = f"  ->  {os.path.relpath(out, REPO)}"
         else:
             where = "  (not written)"
@@ -1024,6 +1138,12 @@ def main(argv):
             print(f"    {len(multi)} slides group photographs in a panel:")
             for l, n in multi:
                 print(f"      {l.slide.section[:22]:<24} {l.slide.title[:38]}")
+        rev = [l.reveals() for l in deck.slides if l.reveals()]
+        if rev and animate:
+            print(f"    progressive disclosure: {len(rev)} of {len(deck.slides)} "
+                  f"slides build in {sum(rev)} clicks, grouped by idea "
+                  f"(median {sorted(rev)[len(rev)//2]} a slide, most {max(rev)})")
+
         side = [l for l in deck.slides if l.kind == "side"]
         if side:
             print(f"    {len(side)} slides put the text beside the drawing "
