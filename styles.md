@@ -32,7 +32,9 @@ typographically serious — not replacing it with a corporate template.
 **16:9 — 13.333 × 7.5 in** (12192000 × 6858000 EMU).
 
 **Layout.** A **kicker** — the section name, Plex Mono, uppercase, tracked — sits above the title on
-every slide. Below it there are three arrangements, and **what decides between them is whether the
+every slide, and a **folio** — the slide number — sits in the bottom-left margin of every slide but
+the cover. The folio is an address, not a piece of the slide: same face and same colour as the
+kicker, two points smaller, and **below the bottom margin**, where the figure stage already stops. Below it there are three arrangements, and **what decides between them is whether the
 picture carries type**:
 
 | the slide has | layout |
@@ -234,6 +236,7 @@ ones or every `*emphasis*` in the pack renders upright without a warning.
 |---|---|
 | slide title | 29pt Plex Serif SemiBold |
 | kicker | 12pt Plex Mono, uppercase, 0.16em tracking, carbon |
+| folio | 10pt Plex Mono, 0.10em tracking, carbon, bottom left; the cover carries none |
 | body | **18pt** Plex Sans · sub-items 16pt |
 | callout | **24pt** Caveat, annotation red, with a red bar |
 | table | 15pt Plex Sans, columns proportional to content |

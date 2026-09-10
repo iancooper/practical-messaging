@@ -85,6 +85,7 @@ SUB_PT     = 16
 CALLOUT_PT = 24        # 18pt of Plex in Caveat's x-height -- see the module docstring
 TABLE_PT   = 15
 CODE_PT    = 15
+FOLIO_PT   = 10        # the slide number. Quieter than the kicker on purpose
 
 LEAD = 1.24            # line spacing, multiples of the point size
 
@@ -222,10 +223,16 @@ class Type:
 # A slide is a list of these. Everything below `layout()` is geometry; everything
 # in a back end is translation. Neither back end may compute a position.
 
-def Text(x, y, runs, family, pt, colour, track=0.0, align="l"):
-    """One LINE of text. `y` is the baseline. Runs are (text, bold, italic, mono)."""
+def Text(x, y, runs, family, pt, colour, track=0.0, align="l", block=None):
+    """One LINE of text. `y` is the baseline. Runs are (text, bold, italic, mono).
+
+    **`block` is the paragraph this line came out of**, shared by every line of it and
+    `None` for a line that was never part of one -- the kicker, the folio, a bullet's
+    marker, a row of a code listing. The SVG preview ignores it and draws line by line;
+    `emit_pptx` uses it to write **one text box per paragraph** instead of one per
+    line. See `_block` for why that matters and what it costs."""
     return ("text", dict(x=x, y=y, runs=runs, family=family, pt=pt,
-                         colour=colour, track=track, align=align))
+                         colour=colour, track=track, align=align, block=block))
 
 
 def Rect(x, y, w, h, fill=None, line=None, lw=1.0):
@@ -355,11 +362,16 @@ def _lines(runs, w, family, pt, x, y, colour, lead=LEAD, track=0.0):
     """Wrap and emit a block of text. Returns (ops, height in inches).
 
     `y` is the TOP of the block; the first baseline sits 0.80em below it, which is
-    about the cap height and keeps a block's visual top where the caller put it."""
+    about the cap height and keeps a block's visual top where the caller put it.
+
+    Every line carries the same `block` dict, so the two back ends can disagree about
+    granularity without disagreeing about layout: the preview draws the lines, the
+    `.pptx` draws the paragraph."""
     wrapped = Type.wrap(runs, w, family, pt, track)
+    block = dict(runs=Type._merge(list(runs)), w=w, lead=lead, n=len(wrapped))
     ops, cy = [], y + _in(pt) * 0.80
     for line in wrapped:
-        ops.append(Text(x, cy, line, family, pt, colour, track))
+        ops.append(Text(x, cy, line, family, pt, colour, track, block=block))
         cy += _in(pt) * lead
     return ops, len(wrapped) * _in(pt) * lead
 
@@ -397,6 +409,17 @@ class Deck:
                      [(up, False, False, False)], MONO, KICKER_PT,
                      CARBON, track=0.16)
         return M_T + _in(KICKER_PT) * 1.70
+
+    def _folio(self, laid, n):
+        """The slide number, bottom left.
+
+        **Ian reviews by slide number**, and until this existed the only way to name a
+        slide in a review was to describe it. It sits in the bottom margin -- below
+        `H_IN - M_B`, which is where `_stage` stops the figure -- so it cannot collide
+        with anything the layout placed. Plex Mono like the kicker, carbon like the
+        kicker, two points smaller: it is an address, not a piece of the slide."""
+        laid += Text(M_L, H_IN - 0.20, [(str(n), False, False, False)],
+                     MONO, FOLIO_PT, CARBON, track=0.10)
 
     def _title(self, laid, text, y, w, pt=TITLE_PT):
         ops, h = _lines(O.runs(text), w, SERIF, pt, M_L, y, INK, lead=1.14)
@@ -673,6 +696,13 @@ class Deck:
             self.section_slide(sec)
             for sl in sec.slides:
                 self.content_slide(sl)
+        # **Numbered here, not in the slide builders**, because the number is a
+        # position in the deck and no builder knows one. The title slide is left
+        # blank -- a cover with a "1" on it reads as a mistake -- so the folio on
+        # every other slide is its own 1-based index and matches `deck_index.py`.
+        for n, laid in enumerate(self.slides, 1):
+            if laid.kind != "title":
+                self._folio(laid, n)
         return self
 
 
@@ -681,6 +711,34 @@ class Deck:
 def _rgb(h):
     from pptx.dml.color import RGBColor
     return RGBColor.from_string(h.lstrip("#"))
+
+
+def _first_baseline(family, pt, lead):
+    """How far below a text box's top PowerPoint puts the FIRST baseline, in inches.
+
+    **This is the price of one text box per paragraph.** With one box per line the
+    baseline was ours to place; with a paragraph in a box, PowerPoint places every
+    line but the first *relative to* the first, and the first relative to the top.
+
+    With exact line spacing (`a:lnSpc/a:spcPts`) it gives each line a box of exactly
+    that height and sits the text in it in the font's own ascent : descent ratio. So
+    the first baseline lands at `asc / (asc - desc) * lead` ems, where the metrics are
+    the font's `hhea` -- 1.025 / -0.275 for all three Plex faces, 0.960 / -0.300 for
+    Caveat. At the body's 18pt / 1.24 that is 0.978em against the 0.80em the layout
+    assumed, so the box is lifted 0.18em; at the callout's 24pt Caveat / 1.06 it is
+    0.808em and the lift is almost nothing.
+
+    **⚑ This is a model of PowerPoint, not a measurement of it** -- there is no
+    PowerPoint on this machine. If the decks open with every paragraph sitting a few
+    points low or high, this function is the one place to correct it, and the error
+    will be the same fraction of an em everywhere."""
+    from fontTools.ttLib import TTFont
+    key = ("_vm", family)
+    if key not in Type._cache:
+        f = TTFont(os.path.join(FONT_DIR, _FILES[family]), fontNumber=0, lazy=True)
+        h, upem = f["hhea"], f["head"].unitsPerEm
+        Type._cache[key] = h.ascent / (h.ascent - h.descent)
+    return _in(pt) * Type._cache[key] * lead
 
 
 def emit_pptx(laid_deck, path):
@@ -694,6 +752,7 @@ def emit_pptx(laid_deck, path):
 
     for laid in laid_deck.slides:
         s = prs.slides.add_slide(blank)
+        done = set()          # blocks already written, so a paragraph gets one box
         for kind, a in laid.ops:
             if kind == "rect":
                 sh = s.shapes.add_shape(1, Inches(a["x"]), Inches(a["y"]),
@@ -713,18 +772,41 @@ def emit_pptx(laid_deck, path):
                 s.shapes.add_picture(a["path"], Inches(a["x"]), Inches(a["y"]),
                                      Inches(a["w"]), Inches(a["h"]))
             elif kind == "text":
-                # one text box per LINE: the layout already wrapped, and letting
-                # PowerPoint re-wrap would put the deck somewhere the preview is not
-                h = _in(a["pt"]) * 1.5
-                box = s.shapes.add_textbox(Inches(a["x"]), Inches(a["y"] - _in(a["pt"]) * 0.80),
-                                           Inches(W_IN), Inches(h))
+                # **One text box per PARAGRAPH, not per line.** Ian, 2026-09-10:
+                # *"a paragraph is split into three text boxes. This will make it hard
+                # to add animation for progressive disclosure… we want text box per
+                # paragraph, bullet, or heading."*
+                #
+                # This file used to write one box per wrapped line with
+                # `word_wrap = False`, on the reasoning that the layout had already
+                # wrapped and letting PowerPoint re-wrap would put the deck somewhere
+                # the preview is not. **That reasoning cost four slides.** A box with
+                # wrapping off does not merely keep the line -- it lets it run off the
+                # right-hand edge of the slide, and with the house fonts not installed
+                # (`BACKLOG.md` F2) PowerPoint substitutes a wider face and every long
+                # callout did exactly that. Wrapping to the measured width degrades;
+                # not wrapping does not. The table cells already made this trade.
+                blk = a.get("block")
+                if blk is not None:
+                    if id(blk) in done:
+                        continue          # a later line of a paragraph already written
+                    done.add(id(blk))
+                    runs, ww, lead, n = blk["runs"], blk["w"], blk["lead"], blk["n"]
+                else:
+                    runs, ww, lead, n = a["runs"], None, 1.0, 1
+                top = a["y"] - (_first_baseline(a["family"], a["pt"], lead)
+                                if blk is not None else _in(a["pt"]) * 0.80)
+                box = s.shapes.add_textbox(
+                    Inches(a["x"]), Inches(top),
+                    Inches(ww if ww is not None else W_IN),
+                    Inches(_in(a["pt"]) * lead * n + 0.02))
                 tf = box.text_frame
-                tf.word_wrap = False
+                tf.word_wrap = ww is not None
                 tf.margin_left = tf.margin_right = 0
                 tf.margin_top = tf.margin_bottom = 0
                 p = tf.paragraphs[0]
-                p.line_spacing = 1.0
-                for text, b, i, m in a["runs"]:
+                p.line_spacing = Pt(a["pt"] * lead) if blk is not None else 1.0
+                for text, b, i, m in runs:
                     r = p.add_run()
                     r.text = text
                     r.font.name = MONO if m else a["family"]
