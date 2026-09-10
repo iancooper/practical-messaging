@@ -46,7 +46,7 @@ import sys
 
 # A line that ends the block being accumulated. Everything else continues it.
 _STARTERS = re.compile(
-    r"^(#{1,3} |#image:|#group:|#note:|Presenter notes:|▎|```|\||>\s|---\s*$|\s*[-*] |\s*\d+\. )")
+    r"^(#{1,3} |#image:|#group:|#note:|#layout:|Presenter notes:|▎|```|\||>\s|---\s*$|\s*[-*] |\s*\d+\. )")
 
 # **A link may name more than one file.** Five Day 2 markers give the render AND its
 # editable source -- `[→ resources/x.png, resources/FBP x.drawio]` -- and one ends in
@@ -74,6 +74,7 @@ class Slide:
         self.group = group
         self.blocks = []
         self.notes = []          # presenter-note paragraphs, in order
+        self.layout = None       # `#layout:` -- None means the builder decides
 
     @property
     def images(self):
@@ -237,6 +238,22 @@ def parse(path):
             close()
             group = line[len("#group:"):].strip()
             in_notes = False
+            continue
+
+        # **`#layout:` overrides the builder's choice of arrangement for ONE entry.**
+        # The default is `styles.md`'s, and the default is right: a labelled drawing at
+        # full content width reads at ~97% of the size Phase 2 measured it at, and half
+        # a slide costs it about half of that. `side` says the argument and the picture
+        # have to be looked at together anyway, so the entry is worth the trade. It is
+        # a build directive like `#image:` and never reaches the deck.
+        if line.startswith("#layout:"):
+            close()
+            in_notes = False
+            want = line[len("#layout:"):].strip().lower()
+            if want not in ("side", "figure", "split"):
+                print(f"  ! {path}: unknown #layout: {want!r} — ignored", file=sys.stderr)
+            elif slide is not None:
+                slide.layout = want
             continue
 
         if line.startswith("#note:"):

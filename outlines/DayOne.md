@@ -611,6 +611,8 @@ No transaction spans both my write to the DB for an entity *and* my sending of a
 - If the message send fails, downstream systems become inconsistent with upstream.
 - If we reverse the operations and the message sends but the DB write fails, upstream is inconsistent.
 
+#layout: side
+
 #image: hand-drawn diagram — a sender writing an Entity to a database and a Message to a channel, with no shared transaction  [→ resources/Transactional No Outbox.png]
 
 Presenter notes: Call straight back to the opener — *Messages In, Private Data, No Shared Transaction*
@@ -626,16 +628,16 @@ Instead of writing directly to the channel:
 - A background "sweeper" runs at an interval to flush any Pending items (over an age) from the Outbox.
 - To reduce latency, also send from the application right after writing, with the sweeper as backup.
 
-But look at what we just bought:
-
-- We can fail *after* the send and *before* marking it Sent.
-- The sweeper then finds it Pending and sends it again.
-
 ▎ The outbox guarantees at-least-once. Which is a polite way of saying: you will send duplicates.
+
+#layout: side
 
 #image: hand-drawn Outbox diagram — Entity and Outbox written in one DB transaction boundary, then relayed to a channel  [→ resources/Transactional With Outbox.png]
 
-Presenter notes: Do not let this land as a footnote — it is the question the **Inbox** exists to answer,
+Presenter notes: **Say where the duplicate comes from, because it is no longer on the slide.** We can
+fail *after* the send and *before* marking it Sent; the sweeper then finds it Pending and sends it
+again. That is the whole of at-least-once, and it is what the callout means.
+Do not let this land as a footnote — it is the question the **Inbox** exists to answer,
 and the Inbox is four slides away, in the consumer group. Leave the duplicate hanging
 deliberately: ask the room what they would do about it, take answers, and tell them you will come back to
 it when we are on the consumer side, because that is where it gets fixed. People from an HTTP background
@@ -643,28 +645,29 @@ often assume the framework has already solved it.
 
 ### Slide: Log Tailing (Change Data Capture)
 
-We may not have a database that supports ACID transactions across the Outbox and entity tables. So
-tail the transaction log instead.
+No ACID transaction across the Outbox and the entity tables? Tail the transaction log instead.
 
-The naive version — and the one most CDC tooling makes trivially easy:
+The naive version, and the one CDC tooling makes trivially easy:
 
 > transaction log → broker. Done.
 
-The problem: **your table schema is now your published contract.** Every column rename is a breaking
-change for consumers you have never met. And if the broker is down, the log tail blocks.
+The problem: **your table schema is now your published contract.** Every column rename breaks
+consumers you have never met.
 
-What to do instead — the log tail feeds an **anti-corruption layer**:
-
-1. Read the transaction log.
-2. Run the **mapper** — translate the row change into a *message*, in your published language.
-3. Write that message to the **Outbox**.
-4. Sweep the Outbox exactly as before.
+What to do instead — the log tail feeds an **anti-corruption layer**: read the log, run the **mapper**,
+write the *message* to the **Outbox**, and sweep exactly as before.
 
 ▎ Change Data Capture without an anti-corruption layer publishes your schema. The write to the Outbox *is* the layer.
 
+#layout: side
+
 #image: hand-drawn log-tailing diagram — a transaction log read into an Outbox, translated to a message on a channel  [→ resources/Log Tailing.png]
 
-Presenter notes: This is the discussion that always happens in the room and never makes it onto the
+Presenter notes: **And if the broker is down the log tail blocks** — the naive version has a liveness
+problem as well as a coupling one. **Walk the four steps against the picture** — read the transaction log; run the mapper,
+which translates the row change into a message in your published language; write that message to the
+Outbox; sweep the Outbox exactly as before. Step two is the whole of it.
+This is the discussion that always happens in the room and never makes it onto the
 slide — put it on the slide. CDC tooling makes step-one-straight-to-broker so easy that teams adopt it
 with no thought about coupling at all. Tie it back to §Coupling explicitly: publishing your table
 schema is **common coupling wearing a message's clothes** — you have rebuilt Shared Database, only now
@@ -676,6 +679,8 @@ back the data coupling you wanted.
 A low-cost alternative: send the message *before* writing the entity. If the message sends, delivery is
 guaranteed. Read the message back from the channel and then update the entity. The main issue: you must
 cope with **eventual consistency**, which isn't always simple.
+
+#layout: side
 
 #image: hand-drawn diagram — receiver side: a message from the channel written to an Entity in the database  [→ resources/State Change Capture.png]
 
@@ -728,6 +733,8 @@ schema mismatch)?
 
 ▎ Dead Letter: we could not deliver it. Invalid Message: we delivered it and could not read it.
 
+#layout: side
+
 #image: (s53) diagram — Invalid Message Channel: the receiver routes aside a message it cannot understand  [→ resources/eip-invalid-message-channel.png]
 
 Presenter notes: Retrying a message that cannot be read keeps failing — it becomes a "poison pill",
@@ -760,6 +767,8 @@ What does the middleware do with a message it cannot deliver to the intended cha
 a **Dead Letter Channel** for later operator review, often after retrying delivery a number of times.
 
 **Needs from the broker:** somewhere to put the undeliverable message, and a rule for when to give up.
+
+#layout: side
 
 #image: (s52) diagram — Dead Letter Channel: the broker puts aside a message it could not deliver  [→ resources/eip-dead-letter-channel.png]
 

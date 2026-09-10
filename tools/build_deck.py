@@ -100,6 +100,14 @@ PANEL_W = (CONTENT_W - GUTTER) * 0.85 / 2.0
 PANEL_X = M_L + TEXT_W + GUTTER
 PANEL_PAD = 0.15
 
+# The fourth arrangement -- `#layout: side`. Ian, 2026-09-10, on six §4.4 slides:
+# *"shrink the diagram… put the text on the left… It's too weird to read the words,
+# then show the diagram here."* The drawing gets the larger half, because it is the
+# half that carries type.
+SIDE_TEXT_W = (CONTENT_W - GUTTER) * 0.47
+SIDE_FIG_W  = (CONTENT_W - GUTTER) * 0.53
+SIDE_FIG_X  = M_L + SIDE_TEXT_W + GUTTER
+
 
 def _in(pt):
     return pt / 72.0
@@ -506,6 +514,12 @@ class Deck:
         # rather than showing three. Where a slide really needs two pictures compared,
         # the answer is a composed figure -- a Phase 2 job -- so those are reported.
         first = True
+        # `#layout: side` overrides everything below it: one slide, argument on the
+        # left, the drawing on the right. It is opt-in per entry and it is a real
+        # trade -- see `_side_slide` and the size the builder reports for it.
+        if sl.layout == "side" and len(figs) == 1:
+            self._side_slide(sl, figs[0], argument + callouts, photos)
+            return
         if h <= self.FIGURE_SLIDE_BODY_MAX and len(figs) == 1:
             self._figure_slide(sl, figs, argument + callouts, photos)
             return
@@ -546,10 +560,33 @@ class Deck:
         self._stage(laid, figs + photos, y)
         self.slides.append(laid)
 
-    def _stage(self, laid, imgs, y):
+    def _side_slide(self, sl, fig, blocks, photos):
+        """Title full width, then the argument on the left and the drawing on the right.
+
+        **This is the arrangement `styles.md` argues against**, and it is opt-in for
+        that reason. The figure-leads default exists because Phase 2 sized every label
+        to read at 18pt with the drawing about 12.4in wide, and half a slide takes most
+        of that back. Ian asked for it on six §4.4 slides where the words and the
+        picture are one thought -- *"It's too weird to read the words, then show the
+        diagram here"* -- so the builder does it and **reports what each one cost**,
+        rather than absorbing the loss quietly. If a slide's text will not fit beside
+        the picture, the answer is Ian's: *"move some text to notes."*"""
+        laid = Laid(sl, "side")
+        self._ground(laid)
+        y = self._kicker(laid, sl.group or sl.section)
+        y = self._title(laid, sl.title, y, CONTENT_W)
+        avail = H_IN - M_B - y
+        used = self._body(laid, blocks, M_L, y, SIDE_TEXT_W)
+        if used > avail + 0.01:
+            laid.overflow = used - avail
+        self._stage(laid, [fig] + photos, y, x=SIDE_FIG_X, w=SIDE_FIG_W)
+        self.slides.append(laid)
+
+    def _stage(self, laid, imgs, y, x=None, w=None):
         """The full-width figure stage. One picture fills it; several share it, and
         the report says what that costs."""
-        x, w = M_L, CONTENT_W
+        x = M_L if x is None else x
+        w = CONTENT_W if w is None else w
         h = H_IN - M_B - y
         if h < 1.0:                       # nothing left to draw in
             laid.notes.append(f"no room for the figure: {h:.2f}in left under the text")
@@ -987,6 +1024,15 @@ def main(argv):
             print(f"    {len(multi)} slides group photographs in a panel:")
             for l, n in multi:
                 print(f"      {l.slide.section[:22]:<24} {l.slide.title[:38]}")
+        side = [l for l in deck.slides if l.kind == "side"]
+        if side:
+            print(f"    {len(side)} slides put the text beside the drawing "
+                  f"(`#layout: side`) — what that costs each one:")
+            for l in side:
+                for src, pw, frac in l.reads_at():
+                    print(f"      {frac*100:3.0f}%  {pw:4.1f}in  "
+                          f"{os.path.basename(src)[:34]:<36} {l.slide.title[:30]}")
+
         if deck.compare:
             print(f"    ⚑ {len(deck.compare)} entries carry more than one figure and "
                   f"now show them one per slide — a composed figure would be better "
