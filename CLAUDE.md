@@ -20,7 +20,7 @@ and the print cards, and a figure there is held at reading distance, not read ac
 | **`styles.md`** | the **authoritative visual spec** — canvas, type, sizes, palette, diagram rules, print. `tools/build_deck.py` implements it; **where the two disagree, `styles.md` wins** |
 | `outlines/DayOne.md`, `DayTwo.md` | **the build input.** Content edits happen here, never in the deck |
 | `tools/README.md` | how to build a figure: the `Diagram` API, the BPMN elements, per-family notes |
-| `handouts/*.md` | the **takeaway pack** — tracked Markdown, printed to A4 with `pandoc … --pdf-engine=weasyprint` **run from `handouts/`**, because the figure paths are relative |
+| `handouts/*.md` | the **takeaway pack** — *Routing Patterns* and *Managing Asynchronous APIs*, both signposted from the deck. Tracked Markdown, printed to A4 with `pandoc X.md -o X.pdf --pdf-engine=weasyprint` **run from `handouts/`**, because the figure paths are relative |
 | `code-rewrites.md` | the **separate** Day 1 coding-exercise workstream. Read only if that is the job |
 | `PROMPT.md` (untracked, if present) | session hand-off — what happened lately, and Ian's open desk |
 
@@ -130,9 +130,11 @@ Each cost real rework at least once. The long-form versions are in the skills.
     blank line**: `grep '#note:'` reads as clean while the leak is on the lines *after* it.
 11. **A clipped label looks like a short label.** Nothing downstream can tell. Any proportional
     width needs a min-content floor, and a layout that squeezes must say so on stderr.
-12. **Not every artefact belongs in an outline.** Handouts, exercise materials and facilitator
-    answers live in `resources/` and are referenced from the **plan**. Wiring a worked answer in
-    as an `#image:` puts it in front of the room before the task.
+12. **Not every artefact belongs in an outline.** **Handouts live in `handouts/`**, exercise
+    materials and facilitator answers in `exercises/`, figures and photographs in `resources/` —
+    and all of them are referenced from the **plan**. Wiring a worked answer in as an `#image:`
+    puts it in front of the room before the task. A handout gets **one line and a presenter note**
+    on the slide that hands it out, and nothing more.
 13. **Check whether a convention is *taught* before changing it.** Paper Flow's *red dashed =
     paper moving* is line 35 of a printed delegate brief. `grep -rn` across `exercises/` and
     `outlines/` first.
@@ -152,6 +154,12 @@ Each cost real rework at least once. The long-form versions are in the skills.
 - **`ls resources/ | grep -i <stem>`, never a guess at the filename.** `resources/` uses two
   naming conventions (`X.drawio.png` and a bare `X.png`), and `session-work/imgs/` is named
   `dayN-sNNN-M`, so **no filename search will ever find a photograph — you have to open them.**
+- **A handout is proved by BUILDING it, not by reading it.** `pandoc X.md -o X.pdf
+  --pdf-engine=weasyprint`, run **from `handouts/`**. Three defects are invisible in Markdown and
+  every one has shipped here: pandoc **drops the leading `N. `** when it makes a heading id, so
+  `](#1-discovery)` is a dead link no Markdown reader will show you; a preformatted block wraps past
+  **~62 monospace columns**; and an arrow glyph inside one **falls out of the monospace face** and
+  destroys the alignment, so the diagrams are pure ASCII.
 - **Ask before publishing anything** — a review sheet is a web page and needs Ian's say-so.
 - **One commit per item**, with the reasoning in the message. Update the plan *and* `BACKLOG.md`
   in the same pass as the outline.

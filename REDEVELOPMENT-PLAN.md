@@ -329,14 +329,43 @@ has an argument. It opens on **The ABCs of Endpoints** (Address + Binding + Cont
 …then *Bringing It Together*, the **MeX at Just Eat Takeaway** case study (2,048 message schemas, 22K+
 commits/year, AWS + Confluent Cloud, Marmot data catalog, Pulumi), and an honest *what's still hard*.
 
-**Held back from the handout — still taught.** Postel's Law, Tolerant Reader, additive change, breaking
-change. That is **design** material with real decisions in it — it answers *how do I change a message I
-have already published*, which is a message-design question, not a tooling question. Now `## Versioning`
-in `DayTwo.md`. The QCon deck's *Schema Evolution* slide covers the registry-enforced side but not the
-tolerant-reader argument.
+**⚑ The "held back from the handout — still taught" note that stood here was STALE, and it was the one
+thing in §6 that mattered.** It said Postel's Law, the Tolerant Reader, additive change and breaking
+change stayed in the deck as `## Versioning` in `DayTwo.md`. **D2-10 then removed that section.**
+`DayTwo.md`'s own §Next Steps preamble has said so ever since — *"Versioning and observability are **not
+taught**; both are signposted in `## Next Steps`, versioning via the Managing Asynchronous APIs takeaway
+handout"* — and the signpost slide's callout is *"The rest is in the handout."* So the material was not
+held back from the handout; it was **handed to it**, and §6 was still describing the world before the cut.
+Two settled decisions contradicting each other with nothing saying so, exactly as `CLAUDE.md` rule 14
+warns. **Caught only because every cross-reference was checked against the outlines rather than recalled.**
 
-☐ **Handout work:** the QCon deck is a 40-minute conference narrative. As a takeaway it wants a
-one-page index up front so it reads as a reference rather than a talk.
+**The deck's signpost slide is this handout's contents list**, and it is worth reading as one — its three
+bullets are *describing endpoints* / *versioning* / *schema and registries*, and a delegate holding the
+handout will look for those three. §1 of the handout answers the first, §2 the third, and the versioning
+section the second.
+
+✅ **Handout work — built 2026-09-10.** `handouts/Managing-Asynchronous-APIs.md`, ~4,400 words.
+
+1. ✅ **The one-page index**, which is two tables: the slide's three bullets mapped to where each lives,
+   then the argument end to end. The QCon deck is a 40-minute narrative and this is what turns it into a
+   reference.
+2. ✅ **The three pillars**, close to the talk — Discovery (the ABCs, AsyncAPI, xRegistry, CloudEvents),
+   Governance (contract coupling as an Open Host Service, schema formats, registries, compatibility
+   modes), Provisioning (spec-not-tickets, and the four things that generate from a spec) — plus the
+   virtuous cycle, the MeX case study, *what is still hard*, and the takeaways.
+3. ✅ **A `Versioning` section that is the DECK's, not the talk's**, written for this handout because the
+   QCon source does not contain it: Postel's Law, **the Tolerant Reader** (four concrete rules, and the
+   tie back to Day 1 §6.1's skinny messages — one reduces what you send, the other what you depend on),
+   the safe/breaking table, and *why a breaking change means a new message type*.
+
+**⚑ And that last one had to be qualified against Day 1 §6.3.** *"A breaking change is a new message type
+on its own channel"* follows from §4.2's Datatype Channel — but §6.3 teaches that a **domain or delta
+event** stream cannot use a Datatype Channel at all, because its events must be *ordered on one channel*
+and have different schemas. Splitting the channel there throws away the ordering, which is a worse break
+than the one being avoided. So the handout gives the rule **two halves, decided by ordering**: one schema
+per channel → a new type on a new channel; several schemas in order → the version travels in the message,
+via CloudEvents' `type` (specified as *event name + version*), and consumers route on type. That closes
+the loop back to §1, which is where `type` was introduced.
 
 ---
 

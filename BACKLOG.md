@@ -6,16 +6,18 @@ workstream with its own brief**. If this file and the plan disagree, **the plan 
 is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
-Last reconciled against the repo: **2026-09-09**, after C2. **What is left is C1 — the AsyncAPI
-handout — plus B7 and the small C3** — B2 and B3 have no action available.
+Last reconciled against the repo: **2026-09-10**, after C1. **§C's two handouts are both built**, so
+what is left is **B7, C3 and C4 — all small, and two of the three are Ian's call.** B2 and B3 have no
+action available.
 
-**Where things stand.** Phases 1 and 2 are closed. Phase 3 — the deck builds — is most of the way
-through: both decks build clean from `outlines/` with an empty overflow report, Day 1 **138 slides**
-and Day 2 **153**, **98 figures** across eleven families plus **2 print cards** — 90 of them on slides
-and **8 in the routing handout** — lint clean, `reads_at` **30 of 98**, and speaker notes ship into
-both `.pptx`. **Day 1's figures now sit at a
-median 91% of their Phase 2 label size with two under 85%, Day 2 at 96% with three.** What is left
-is below.
+**Where things stand.** Phases 1 and 2 are closed, and **Phase 3 is now down to its last small items**.
+Both decks build clean from `outlines/` with an empty overflow report, Day 1 **138 slides** and Day 2
+**153**; **98 figures** across eleven families plus **2 print cards** — 90 on slides, **8 in the routing
+handout** — lint clean, `reads_at` **30 of 98**, and speaker notes ship into both `.pptx`. **Day 1's
+figures sit at a median 91% of their Phase 2 label size with two under 85%, Day 2 at 96% with three.**
+**The takeaway pack is complete**: `handouts/Routing-Patterns.md` and
+`handouts/Managing-Asynchronous-APIs.md`, both signposted from the deck, both printable today. What is
+left is below.
 
 ---
 
@@ -58,16 +60,19 @@ died with the session. The next one written should go in `tools/` and be committ
 
 ---
 
-## C. Handouts — Phase 3, not started ##
+## C. Handouts — ✅ both built ##
 
-Both are **cut content that was promised a home**, so neither is optional: a deck that says "this is
-in your pack" and ships no pack is worse than one that never said it.
+Both were **cut content that had been promised a home**, so neither was optional: a deck that says
+"this is in your pack" and ships no pack is worse than one that never said it. **`handouts/` is a new
+tracked directory** — Markdown, on `exercises/Paper-Flow-Delegate-Brief.md`'s precedent — and both
+build to A4 with `pandoc X.md -o X.pdf --pdf-engine=weasyprint` **run from `handouts/`**.
 
 | # | item | state | size | detail |
 |---|---|---|---|---|
-| **C1** | *Managing Asynchronous APIs* | Source is the QCon London 2026 deck (43 slides, `session-work/qcon-asyncapi.txt`). It is a **40-minute conference narrative** and needs a one-page index up front to read as reference rather than as a talk. **The routing handout is now the worked precedent for all of it** — where handouts live, how the index reads, how the deck signposts one | M | plan §6 |
+| **C1** | ✅ *Managing Asynchronous APIs* | **Done 2026-09-10.** `handouts/Managing-Asynchronous-APIs.md` — ~4,400 words from the QCon London 2026 deck, with the one-page index that turns a 40-minute narrative into a reference. **Its signpost already existed and already promised it**, so nothing was added to the deck. **⚑ Plan §6's "held back from the handout — still taught" note was stale and load-bearing:** D2-10 removed `## Versioning` from `DayTwo.md`, so Postel's Law, the Tolerant Reader and additive-vs-breaking were *handed to* the handout, not withheld from it — and the QCon source does not contain the tolerant-reader argument, so it was written here | — | plan §6 |
 | **C2** | ✅ The routing-patterns handout | **Done 2026-09-09.** `handouts/Routing-Patterns.md` — ~2,250 words from `script/Patterns/*.md`, eight new figures (`eip_figures.py` 13 → 21), a one-page index, and a signpost on Day 2's *Further Reading — EIP* slide. **Ian ruled both open decisions:** redraw rather than cite Hohpe & Woolf, and signpost from Day 2's `## Next Steps` rather than Day 1 §4.5. The three routers contrast through red on *who holds the routing decision*, which is the handout's own finding | — | plan §10 |
-| **C3** | A house stylesheet for the handouts | **New, small, and Ian's call.** `handouts/*.md` builds to A4 PDF today with pandoc + weasyprint, and every figure embeds — but in pandoc's default Times on white, with a lopsided index table. The pack's own look would want Plex, the Field Guide palette and a print sheet. Worth doing **once**, for both handouts, rather than twice | S | this row is the whole record |
+| **C3** | A house stylesheet for the handouts | **Open, small, and Ian's call.** Both handouts build to A4 PDF today with pandoc + weasyprint, and all eight figures embed — but in pandoc's default Times on white, with a lopsided index table. The pack's own look would want Plex, the Field Guide palette and a print sheet. **Worth doing once, for both, rather than twice.** Two things a stylesheet must not break, both found by building the PDFs: preformatted blocks wrap past **~62 monospace columns**, and a `→` inside one falls back out of the monospace face and destroys the alignment — the handouts' diagrams are pure ASCII for that reason | S | this row is the whole record |
+| **C4** | Does C1 want a figure? | **Ian's call, and the only artwork question left.** C1 ships with tables and no figures, because its source is a tables-and-bullets deck where C2's was prose. The one place a picture would earn its place is **the virtuous cycle** — spec → discovery → governance → provisioning → back — which is an ASCII staircase today. One figure, half a day, and it would make the two handouts look like one pack | S | this row is the whole record |
 
 ---
 
