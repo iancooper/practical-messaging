@@ -246,8 +246,6 @@ movement C supply the vocabulary for what the room already saw.
   customer get told.
 - Put the four flows side by side: **no desk knows more than its own step, and there is no coordinator.**
 
-▎ Four flows, no `main`. Every desk is doing exactly one thing, because something landed in its in-tray.
-
 #image: flow diagram — order confirmation  [→ resources/Order Confirmation.drawio.png]
 #image: montage — the four takeaway flow diagrams together  [→ resources/paper-worked-flows-montage.png]
 
@@ -357,8 +355,6 @@ yardstick *Feature Envy* fails against — do not reintroduce it in Process Auto
   in the API gateway, or in the `Cart` service — anywhere but in the individual services.
 - Because we made OO large, we reached for call and return via a `main` method at the API gateway.
 
-▎ The gateway is `main`. You have distributed the objects and kept the god object.
-
 #image: hand-drawn entity-services diagram — Device → API Gateway → Cart, Restaurant, Account, Menu, Payment, Order, Delivery  [→ resources/flow-entity-services.png]
 
 Presenter notes: **This is the slide the movement exists for, and it is now an answer rather than an opening complaint.** The room proposed this shape an hour ago; here is what it costs. The distributed monolith is not a failure of nerve, it is what call-and-return *becomes* when you distribute it — and it gives back exactly the independent deployability this morning's opener called "the prize". **End on the comparison, not on a question:** you drew a flow this morning with no coordinator, and then you built one with a coordinator in the middle. So what would it take to build what you actually drew? Movement C is the answer.
@@ -395,8 +391,6 @@ A node is a **black box** with **ports**.
 
 **Packets are just data.** No special requirements — primitive or compound values travelling between
 ports.
-
-▎ It is *reactive* because it fires in response to an event.
 
 #image: hand-drawn diagram — a dataflow node as a black box with in and out ports; activation, process, push  [→ resources/flow-node-ports.png]
 #image: hand-drawn diagram — two nodes passing packets between ports  [→ resources/flow-two-nodes.png]
@@ -525,8 +519,7 @@ goes missing, no receipt comes back, the same document arrives twice — express
 
 Then the last move of the movement: **make the arcs middleware and the nodes processes.**
 
-▎ An arc that survives a crash is a queue. A node that survives a crash is a service. You have just
-drawn a distributed system.
+▎ You have just drawn a distributed system.
 
 #image: hand-drawn FBP 'Order Food Errors' flow  [→ resources/flowbased_order_food_errors.png, resources/FBP Order Food Failure.drawio]
 #image: hand-drawn FBP diagram — nodes as processes, arcs as message-oriented middleware  [→ resources/flow-nodes-as-processes.png]
@@ -657,7 +650,7 @@ we are brittle. In an asynchronous conversation it does not: the work queues up 
 - Messages wait until the receiver asks for them; results go to a queue for collection.
 - The failure is contained in one compartment — a **bulkhead**.
 
-▎ The outage became a delay, not a failure. Again.
+▎ You met this on Day 1 §4.4. Store and forward is what makes it a delay.
 
 #image: hand-drawn FBP diagram — Take Payment down, and the work queueing up on the arc: the bulkhead  [→ resources/flow-bulkhead.png]
 

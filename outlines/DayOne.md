@@ -78,8 +78,6 @@ process boundary takes the top two off the table.**
 That is not an accident — it is what the opener's *Messages In, Private Data, No Shared Transaction* was
 describing. The boundary is the mechanism; this is the payoff.
 
-▎ The two worst kinds of coupling are the two you cannot have any more. That is what you bought.
-
 #image: the Myers coupling scale drawn vertically, tightest first, with the process boundary as a line across it — Content and Common above the line, struck through as *prevented*; Control, Stamp and Data below it, live  [→ resources/coupling-scale-boundary.png]
 
 Presenter notes: **This slide opens the section cold**, so give it one sentence of framing before the
@@ -151,8 +149,6 @@ independently:
 - **A shared database** — common coupled, and temporally decoupled.
 - **An event carrying a whole entity** — stamp coupled, temporally decoupled.
 
-▎ "Loosely coupled" is a question with two answers.
-
 #image: a two-axis grid — *what are we coupled about?* (Content→Data) against *must we both be up?* — with the four examples above plotted on it  [→ resources/grid-coupling.png]
 
 Presenter notes: This is the slide the next section pays off — Integration Styles plots File Transfer,
@@ -206,8 +202,6 @@ One application invokes an operation on another and waits for the result.
 
 - **Synchronous conversation** — both parties must be up.
 - **Control coupling** *and* **temporal coupling**.
-
-▎ The only style that loses on both axes at once.
 
 #image: (s34) Remote Procedure Call — stub to proxy across the boundary and the result back, with the client blocked until it comes  [→ resources/style-rpc.png]
 
@@ -550,7 +544,7 @@ How this looks over HTTP — and most delegates have not used it.
 
 #image: diagram — the same shape over HTTP: the work path runs client → web server → channel → worker, and the client's read path returns to a progress KV store it never posted to  [→ resources/task-queue-http.png]
 
-▎ 202 says *we have your work and we will not lose it*. §4.4 is how you keep that promise.
+▎ §4.4 is how you keep that promise.
 
 Presenter notes: Ask who has returned a 202 in anger — usually a handful of hands. This is one of the most immediately usable things in the course: guaranteed delivery with no new
 infrastructure and no reorganisation, expressed in a protocol everyone in the room already ships. The
@@ -1114,8 +1108,6 @@ The requestor may not receive the expected response at all. What can it do?
 - Set a **timeout** within which to receive a response.
 - **Retry** if no response arrives within that window (`greet()` → `greet()` → `acknowledge()`).
 - Because we might send twice, the provider operation must be **idempotent**, or the consumer must **de-duplicate** already-seen messages.
-
-▎ A timeout does not tell you the request failed. It tells you that you do not know.
 
 #image: sequence — the requestor sends greet(), the timeout expires with nothing back, and the three things that are all still possible at that moment; then greet() again and an acknowledge()  [→ resources/conversation-timeout.png]
 
