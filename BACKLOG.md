@@ -6,8 +6,8 @@ workstream with its own brief**. If this file and the plan disagree, **the plan 
 is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
-Last reconciled against the repo: **2026-09-10**, after C1. **§C's two handouts are both built**, so
-what is left is **B7, C3 and C4 — all small, and two of the three are Ian's call.** B2 and B3 have no
+Last reconciled against the repo: **2026-09-10**, after B7. **§C's two handouts are both built**, so
+what is left is **C3 and C4 — both small, and both Ian's call.** B7 closed as a clean negative. B2 and B3 have no
 action available.
 
 **Where things stand.** Phases 1 and 2 are closed, and **Phase 3 is now down to its last small items**.
@@ -56,7 +56,7 @@ died with the session. The next one written should go in `tools/` and be committ
 | **B5** | ✅ The load-bearing-line sweep, Day 1 §4 | **Done 2026-09-09.** Six candidates across §4.1–§4.4; §4.5 carries no presenter notes at all, so nothing can hide there. **Four promoted** — *Channels*, *Translate and Dispatch*, *Competing Consumers*, *Invalid Message Channel*. **Two were false positives the figures already answered**, and only rendering the slides showed it | — | plan §8 item 24 |
 | **B6** | ✅ Stale cross-references, re-run | **Done 2026-09-09**, after B5. Four wrong: two on Day 1 (*the next slide is the bill*, which pointed at the wrong slide; *the last slide of this sub-section*, which the exercise slot displaced) and two on Day 2 (a count of five that is now seven, and *the next two slides* that are the second and third). All four now **name the slide** rather than count from it. **Re-run this after any structural change** | — | plan §8 item 24 |
 | **B8** | ✅ Day 1's exercise slots | **Done 2026-09-09.** Ian ruled three slots; the RMQ pointer moved off §4.2 to close §4.3, and *Exercise Material — Failing Well* now closes §4.4. Day 1 is 91 entries, **137 slides** | — | `code-rewrites.md` §3.2 |
-| **B7** | `(sNN)` markers vs the 2025 decks | **Checked so far, so do not redo this part:** the 2025 decks in `archive/` (dropped 2026-09-03) do **not** hold the order-taking photograph, and `Day 2 - 2025.pptx` holds the **same 112 images byte for byte** as the `Day 2 - 2024.pptx` that `session-work/imgs/` came from — same 14 `.jpg`s, same hashes. **What is open is the slide *text*, which has never been diffed**, so whether the outlines' `(sNN)` references are stale against 2025 is unknown | S | this row is the whole record |
+| **B7** | ✅ `(sNN)` markers vs the 2025 decks | **Done 2026-09-10, and the premise of this row was wrong.** The markers were never 2024-derived: `session-work/day1.txt` and `day2.txt` are byte-identical to a fresh extraction of the **2025** decks, and **all 215 images in `session-work/imgs/` hash to the 2025 decks at their own slide key and to the 2024 decks at none** — which is what plan §1 said all along. So there is nothing to diff *against*; the markers already refer to the newest decks. The two years do differ, and materially — Day 1 **139 → 138** slides with 131 slides' text changed, Day 2 **187 → 182** with 81 — so the old claim that Day 2 held *the same 112 images byte for byte* across years is false (2024 has 123 images, 25 of them found in no 2025 slide). **All 25 markers resolve:** Day 1's 15 land on slides whose titles match the marker text word for word, Day 2's 10 on picture slides with matching picture counts, and `s170`/`s171` are byte-identical to the resource they link | — | this row is the whole record |
 
 ---
 

@@ -24,10 +24,17 @@ Three artefacts:
 
 | artefact | source | state |
 |---|---|---|
-| **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to **96** entries |
-| **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to **97** entries |
-| **AsyncAPI handout** | QCon London 2026 deck (43 slides) | to assemble — §6 |
-| **Routing-patterns handout** | old Day 1 §4.6 + `script/Patterns/*.md` | to assemble — §10 |
+| **Day 1 deck** | `Practical Messaging - Day 1 - 2025.pptx` (138 slides) | outline rebuilt to **91** entries |
+| **Day 2 deck** | `Practical Messaging -  Day 2 - 2025.pptx` (182 slides, note the double space) | outline rebuilt to **90** entries |
+| **AsyncAPI handout** | QCon London 2026 deck (43 slides) | **built** — `handouts/Managing-Asynchronous-APIs.md`, §6 |
+| **Routing-patterns handout** | old Day 1 §4.6 + `script/Patterns/*.md` | **built** — `handouts/Routing-Patterns.md`, §10 |
+
+**The source year is 2025, and that is now proved rather than assumed** (2026-09-10, `BACKLOG.md` B7).
+`session-work/day1.txt` and `day2.txt` are byte-identical to a fresh extraction of the two 2025 decks, and
+**all 215 images in `session-work/imgs/` hash to a 2025 slide at their own key and to no 2024 slide.** So every
+`#image: (sNN)` marker in the outlines counts slides in *these* files. It matters because the years are not
+the same deck: Day 1 went **139 → 138** slides and Day 2 **187 → 182**, and 2024 carries 25 Day 2 images that
+appear on no 2025 slide. **Read an `(sNN)` against the 2024 pptx and you will land on the wrong slide.**
 
 Working style: **outline in Markdown first**, then rebuild the deck from the outline. The outlines in
 `outlines/` are the working artefact — edit those, not the pptx.
