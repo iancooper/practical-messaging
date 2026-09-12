@@ -102,9 +102,9 @@ from a later session.
 | Muted Is For Lines | `421ddeb9-8353-4f27-98c2-f7c97bf4de12` | ⚑ awaiting him |
 | Four Answers, One Stage | `c75acd57-ab6a-4740-918f-af39a6823a08` | ✅ approved 2026-09-07 — *"this looks much better"*. **RPC's red is the one item he never answered**; closed unless he reopens it |
 | Four Composed, Two Printed | `40b2a941-5ce3-4260-a882-a4c33e442383` | ✅ reviewed 2026-09-09, both calls answered. `B2·2` approved, **`A4·1` overturned**. The cards' 24 BPMN glosses were on it and drew no comment — **seen, not approved** |
-| BPMN on a Half Stage | *built 2026-09-12, not yet published* | ⚑ **§R4's three BPMN `side` merges** (R4-40/41/42), each shown as it ships beside the full-width slide it replaced. Two of the three read at ~6.0 and ~6.6pt against the **8.9–12.8pt** band Ian ruled. **The first sheet built by `tools/review_sheet.py`** |
+| BPMN on a Half Stage | `3dc05399-3d6a-4fce-a39a-95a544444e47` | ⚑ **published 2026-09-12, awaiting his ruling.** §R4's three BPMN `side` merges (R4-40/41/42), each shown as it ships beside the full-width slide it replaced. Two of the three read at ~6.0 and ~6.6pt against the **8.9–12.8pt** band Ian ruled. **The first sheet built by `tools/review_sheet.py`** |
 
-**Three are still awaiting him**, and the eighth is built and waiting on his say-so to go up.
+**Four are now awaiting him** — the three old ones and sheet 8, which went up 2026-09-12 and asks two questions.
 
 ## What his review has actually been about
 
