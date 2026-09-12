@@ -749,8 +749,8 @@ The naive version, and the one CDC tooling makes trivially easy:
 The problem: **your table schema is now your published contract.** Every column rename breaks
 consumers you have never met.
 
-What to do instead — the log tail feeds an **anti-corruption layer**: read the log, run the **mapper**,
-write the *message* to the **Outbox**, and sweep exactly as before.
+Instead, the log tail feeds an **anti-corruption layer**: read the log, run the **mapper**, write the
+*message* to the **Outbox**, then sweep as before.
 
 ▎ Change Data Capture without an anti-corruption layer publishes your schema. The write to the Outbox *is* the layer.
 

@@ -376,6 +376,43 @@ class Laid:
         return max((a.get("step", 0) for _k, a in self.ops), default=0)
 
 
+def _linebox(family):
+    """The line box the FONT asks for, in ems -- `hhea` ascent to descent.
+
+    **This is the number PowerPoint will not go below.** `LEAD` and the callout's 1.06
+    are *inter-line* spacing, chosen for how a block looks; they are not a promise that
+    the last line's descenders fit inside them. Caveat's glyphs span **1.260em** and the callout
+    reserved 1.06 -- so every callout under-reserved 0.200em, and whatever the layout
+    put next went 0.067in too high. On a text slide that lands on the following
+    paragraph; on a figure slide the picture is opaque and simply covers it.
+
+    **Invisible in the preview by construction**, because the preview draws the lines
+    itself at the same 1.06 and so agrees with the layout. Ian found it from the
+    rendered deck on slides 50, 58, 76 and 113 of Day 1."""
+    key = ("_lb", family)
+    if key not in Type._cache:
+        from fontTools.ttLib import TTFont
+        f = TTFont(os.path.join(FONT_DIR, _FILES[family]), fontNumber=0, lazy=True)
+        h, upem = f["hhea"], f["head"].unitsPerEm
+        Type._cache[key] = (h.ascent - h.descent) / upem
+    return Type._cache[key]
+
+
+def _reserve(family, lead):
+    """How much the LAST line of a block reserves, in ems.
+
+    **Caveat only, and that is a decision rather than an oversight.** Both leads sit
+    under their font's ink extent -- the callout's 1.06 against Caveat's 1.260, the
+    body's `LEAD` 1.24 against Plex's 1.300 -- but they are not the same size of wrong.
+    Caveat is short by 0.200em and has collided four times in a built deck; Plex is
+    short by 0.060em and never has, because body blocks carry an explicit gap before
+    the next one while a figure is laid straight onto the stage. Raising Plex as well
+    costs four slides their fit for a margin nothing has reported.
+    **`styles.md`: Caveat never carries body copy**, so keying on the family keys on
+    exactly the blocks at risk."""
+    return max(lead, _linebox(family)) if family == HAND else lead
+
+
 def _lines(runs, w, family, pt, x, y, colour, lead=LEAD, track=0.0):
     """Wrap and emit a block of text. Returns (ops, height in inches).
 
@@ -391,7 +428,10 @@ def _lines(runs, w, family, pt, x, y, colour, lead=LEAD, track=0.0):
     for line in wrapped:
         ops.append(Text(x, cy, line, family, pt, colour, track, block=block))
         cy += _in(pt) * lead
-    return ops, len(wrapped) * _in(pt) * lead
+    # **The last line is reserved at the font's own line box, not at `lead`.** Inter-line
+    # spacing stays `lead` -- that is a look, and Caveat's 1.06 is deliberately tight --
+    # but the block cannot claim to end before its descenders do. See `_linebox`.
+    return ops, ((len(wrapped) - 1) * lead + _reserve(family, lead)) * _in(pt)
 
 
 class Deck:
