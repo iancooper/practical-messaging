@@ -54,12 +54,28 @@ question stated as a question, in `annotation`, with its own address. A short op
 saying what the batch is and what is being asked. Numbers where they exist: `reads_at` before and
 after, the aspect, the width.
 
-## ⚑ There is no generator, and that is a standing cost
+## The generator — `tools/review_sheet.py`, and it is committed
 
-Each sheet's builder has been written into a scratchpad and died with the session —
-`build_ba2.py`, then `sheet.py`. **What it has to do is stable** (the five requirements above),
-so if you write another one, **write it into `tools/` and commit it**. That is `BACKLOG.md` A3's
-last open thread.
+Seven sheets were written into scratchpads and died with their sessions (`build_ba2.py`, then
+`sheet.py`). **The eighth was not**, and the five requirements above are now enforced in code:
+
+```bash
+python3 tools/review_sheet.py <spec.json> -o <out.html>
+```
+
+The spec is JSON and its shapes are in the module docstring. **Addresses are generated, not
+written** — item *n* of section `A` is `A1`, and its plates are `A1.1`, `A1.2` — so they cannot
+drift from the order of the page. Each item takes `argues`, `red`, `rows` (the numbers),
+`question` (rendered in `annotation`, with its own address) and, once a ruling comes back,
+`verdict`.
+
+**Plates are slide renders, not figure PNGs, when the question is about the layout.** Build them
+with `build_deck.py --day N --preview i` — remembering that `--preview` is **zero-based** and the
+output filename is that index, so `--preview 75` writes `day2-075.png` and it is slide **76**.
+For a before/after: capture the current build, edit the outline, build and capture again, then
+`git checkout` the outline and rebuild. Copy the PNGs out of `build/preview/` first — it is not
+cleared between runs, and `build/` is gitignored, so a spec that points at it is not reproducible
+from a later session.
 
 ## Publishing, and republishing
 
@@ -86,9 +102,9 @@ last open thread.
 | Muted Is For Lines | `421ddeb9-8353-4f27-98c2-f7c97bf4de12` | ⚑ awaiting him |
 | Four Answers, One Stage | `c75acd57-ab6a-4740-918f-af39a6823a08` | ✅ approved 2026-09-07 — *"this looks much better"*. **RPC's red is the one item he never answered**; closed unless he reopens it |
 | Four Composed, Two Printed | `40b2a941-5ce3-4260-a882-a4c33e442383` | ✅ reviewed 2026-09-09, both calls answered. `B2·2` approved, **`A4·1` overturned**. The cards' 24 BPMN glosses were on it and drew no comment — **seen, not approved** |
+| BPMN on a Half Stage | *built 2026-09-12, not yet published* | ⚑ **§R4's three BPMN `side` merges** (R4-40/41/42), each shown as it ships beside the full-width slide it replaced. Two of the three read at ~6.0 and ~6.6pt against the **8.9–12.8pt** band Ian ruled. **The first sheet built by `tools/review_sheet.py`** |
 
-**Three are still awaiting him** and there is no sheet owed today. **The next batch of artwork
-owes him one.**
+**Three are still awaiting him**, and the eighth is built and waiting on his say-so to go up.
 
 ## What his review has actually been about
 
