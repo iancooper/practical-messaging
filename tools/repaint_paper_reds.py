@@ -3,6 +3,10 @@
 
     python3 tools/repaint_paper_reds.py --check     # report, touch nothing
     python3 tools/repaint_paper_reds.py             # patch the .drawio and the .png
+    python3 tools/repaint_paper_reds.py "Customer Order Errors"   # just this one
+
+A flow whose master has no red left is reported and **not rewritten**, so a re-run
+is a no-op rather than a meaningless `resources/` diff; `--force` overrides that.
 
 **The disagreement.** `paper-worked-flows-montage` embeds four flows the delegates
 built in 2021 -- `Restaurant Onboarding`, `Customer Order`, `Order Placement`,
@@ -61,6 +65,16 @@ OUT = os.path.join(REPO, "resources")
 
 FLOWS = ("Restaurant Onboarding", "Customer Order",
          "Order Placement", "Order Confirmation")
+
+# The same two red layers, in the three 2021 error flows on *How Do We Deal with
+# Errors?*. R4-15 recorded these as "recolour = redraw" and `BACKLOG.md` G1 work,
+# on the reasoning that there is no `.drawio` renderer here. That was wrong: they
+# are byte-for-byte the same shape as FLOWS -- `#CC0000` on `endArrow=open;dashed=1`
+# edges and `#ff6666` on the commentary text -- so the same remap does them.
+ERROR_FLOWS = ("Restaurant Onboarding Errors", "Customer Order Errors",
+               "Order Placement Errors")
+
+ALL = FLOWS + ERROR_FLOWS
 
 # source -> target. Keys are what draw.io wrote; the comparison is case-insensitive
 # because these files use both `#CC0000` and `#ff6666`.
@@ -157,12 +171,25 @@ def patch_png(name, write):
 
 def main(argv):
     write = "--check" not in argv
-    print(f"{'flow':<24} {'.drawio hits':>26}  {'px repainted':>13}")
-    for name in FLOWS:
+    force = "--force" in argv
+    names = [a for a in argv if not a.startswith("-")] or list(ALL)
+    unknown = [n for n in names if n not in ALL]
+    if unknown:
+        raise SystemExit(f"not a paper flow: {', '.join(unknown)}\n  known: "
+                         + "\n         ".join(ALL))
+
+    print(f"{'flow':<30} {'.drawio hits':>26}  {'px repainted':>13}")
+    for name in names:
         hits = patch_drawio(name, write)
-        px, total, _ = patch_png(name, write)
+        # Only repaint the render when the master still had red in it. The remap
+        # leaves ~100-250 antialias pixels behind that fit the model on a second
+        # pass, so an unguarded re-run keeps nudging files that are already done
+        # and shows up as a `resources/` diff that means nothing. `--force` is for
+        # the one case that needs it: draw.io has re-exported a patched master.
+        px, total, _ = patch_png(name, write and bool(hits or force))
         h = "  ".join(f"{k} x{v}" for k, v in sorted(hits.items())) or "none"
-        print(f"{name:<24} {h:>26}  {px:>9,} px  ({100 * px / total:.2f}%)")
+        note = "" if (hits or force) else "  (already carbon; not rewritten)"
+        print(f"{name:<30} {h:>26}  {px:>9,} px  ({100 * px / total:.2f}%){note}")
     print("\n" + ("patched" if write else "--check: nothing written"))
     return 0
 
