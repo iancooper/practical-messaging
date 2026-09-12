@@ -5,7 +5,7 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 the next build.
 
 **Branch `deck-redevelopment`.** Day 1 is **129 slides**, Day 2 **138**, from 88 + 90 outline
-entries, with **104 figures** across twelve families plus **2 print cards**. **88 go on slides, 9 are
+entries, with **113 figures** across twelve families plus **2 print cards**. **97 go on slides, 9 are
 the two handouts'** (8 routing, 1 AsyncAPI), **4 are Paper Flow exercise materials** in `exercises/`,
 and **3 are placed nowhere** — `conversation-timeout`, `paper-the-desk` and
 `bpmn-compensation-fragment`, all kept in the family. *`tools/` is the arithmetic, not this line.* **Both days' counts move with every
@@ -27,7 +27,7 @@ and the canvas width is the only lever on it.
 | **`styles.md`** | the **authoritative visual spec** — canvas, type, sizes, palette, diagram rules, print. `tools/build_deck.py` implements it; **where the two disagree, `styles.md` wins** |
 | `outlines/DayOne.md`, `DayTwo.md` | **the build input.** Content edits happen here, never in the deck |
 | `tools/README.md` | how to build a figure: the `Diagram` API, the BPMN elements, per-family notes |
-| **the outline grammar** | `tools/outline.py`'s docstring is the implementation. **`#divider:`** opts a `#group:` into a divider slide; **`#reveal: bullets`** gives one click per bullet. Both opt-in per entry, like `#layout:` |
+| **the outline grammar** | `tools/outline.py`'s docstring is the implementation. **`#divider:`** opts a `#group:` into a divider slide; **`#reveal: bullets`** gives one click per bullet. Both opt-in per entry, like `#layout:`. **`+ layers` rides on the image LINK, not the entry** — `[→ …/x.png + layers]` stacks `x-l1.png`, `x-l2.png` … over the base at one rect, a click each, because it is a property of the picture rather than of the slide |
 | `handouts/*.md` | the **takeaway pack** — *Routing Patterns* and *Managing Asynchronous APIs*, both signposted from the deck. Tracked Markdown; **`handouts/build.sh` prints them to A4**, through `print.css` (the house sheet, styles.md at document sizes) and `print.html`. The **PDFs are generated and gitignored**, like `build/` |
 | `code-rewrites.md` | the **separate** Day 1 coding-exercise workstream. Read only if that is the job |
 | `PROMPT.md` (untracked, if present) | session hand-off — what happened lately, and Ian's open desk |
@@ -78,7 +78,8 @@ python3 tools/side_cost.py 2          # what `#layout: side` WOULD cost a slide;
 **The twelve figure families**, each `python3 tools/<name>.py [figure-name | --list]`:
 `eip_figures` (26, **8 of them handout-only**) · `coupling_grids` (5) · `if_later` (2) ·
 `queues_streams` (11) · `integration_styles` (4) · `app_shapes` (3) · `conversations` (3) — Day 1;
-`bpmn_hotel` (13) · `bpmn_shopping` (6) · `paper_flow` (7) · `flow_reactive` (23) — Day 2;
+`bpmn_hotel` (13) · `bpmn_shopping` (6) · `paper_flow` (**16** — the montage is now **ten** of them:
+a base, eight transparent one-click overlays and an all-arrows static) · `flow_reactive` (23) — Day 2;
 `asyncapi_figures` (1, **handout-only**) — the AsyncAPI handout.
 Plus `reference_cards` (2, **print**), and two repair tools: `repatch_steps.py`,
 `repaint_paper_reds.py`.
@@ -155,7 +156,15 @@ Each cost real rework at least once. The long-form versions are in the skills.
     moving*. It does not. It says **dashed / solid**, with no colour, and `paper-notation-key.png` draws
     the dashed arrow in **carbon** — so the outline's *"Red dashed arrows"* contradicted its own next
     slide until R4-8. A cited convention can be misremembered by the very note warning you to check it.
-14. **Two settled decisions can contradict each other, and neither will say so.** The diagram
+    **⚑ And `styles.md` was carrying the same wrong example** — its palette table gave *"the red dashed
+    arrows: paper moving between trays"* as `annotation`'s home until R4-15. The spec is not immune.
+14. **A recorded blocker is a claim, and claims are checked like any other.** Two in one pass.
+    *"Recolour = redraw, no `.drawio` renderer here"* (R4-15): wrong — `repaint_paper_reds.py` remaps
+    the `.png` and the `.drawio` together and needs no renderer, so a ~5.5-day G1 item was ~20 minutes.
+    *"The builder cannot animate inside a figure"* (R4-13): **true, and irrelevant** — a layer is its
+    own transparent diagram and the builder stacks layers, which it could always do. **A blocker written
+    by the last person to look is evidence, not a verdict** — and rule 4 applies to it too.
+15. **Two settled decisions can contradict each other, and neither will say so.** The diagram
     panel and the 18pt floor were both agreed with Ian, months apart, and together put every
     figure at 37–53% of the size it was measured at. **When two specs meet, measure the join.**
 

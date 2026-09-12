@@ -392,6 +392,7 @@ class Laid:
         self.notes = []
         self.split = False       # True when one outline entry became two slides
         self.figures = []        # (src, rendered_w_in, canvas_w, canvas_h)
+        self.layered = []        # (src, layer count) for any `+ layers` picture
         # **What to call a slide that has no outline entry.** `deck_index` is how Ian
         # turns a slide number into something addressable, and a group divider with
         # no entry printed as a bare `[group]` -- unreviewable. Set by `group_slide`.
@@ -786,10 +787,38 @@ class Deck:
             dy = (ch - ph) / 2
             if optical is not None and len(placed) == 1:
                 dy = min(max((ch - ph) * optical, 0.0), max(ch - ph, 0.0))
-            laid += Image(x + c * (cw + PANEL_PAD) + (cw - pw) / 2,
-                          y + r * (ch + PANEL_PAD) + dy, pw, ph, path_of(b))
+            ix = x + c * (cw + PANEL_PAD) + (cw - pw) / 2
+            iy = y + r * (ch + PANEL_PAD) + dy
+            laid += Image(ix, iy, pw, ph, path_of(b))
             if not self._is_photo(b):
                 laid.figures.append((b.src, pw, iw / 3.0, ih / 3.0))
+            if getattr(b, "layers", False):
+                self._layers(laid, b, ix, iy, pw, ph)
+
+    # **This is how a figure gets animated without the builder animating INSIDE one.**
+    # `REVIEW.md` R4-13 recorded that as the blocker -- `<p:timing>` groups by outline
+    # block, not by parts of a picture -- and it is true and stays true. What moves is
+    # where the parts live: the family renders each click as its own TRANSPARENT PNG on
+    # the base's canvas, and they are stacked here at the base's exact rect with a step
+    # each. To `_timing` they are simply seven more image ops in seven more reveal
+    # groups, which it has always been able to do.
+    #
+    # Same rect, same scale, no re-fitting: a layer shares the base's canvas, so fitting
+    # it independently would drift it off the drawing it annotates.
+    def _layers(self, laid, b, x, y, w, h):
+        stem, ext = os.path.splitext(os.path.join(REPO, b.src))
+        n = 0
+        while True:
+            nxt = f"{stem}-l{n + 1}{ext}"
+            if not os.path.exists(nxt):
+                break
+            n += 1
+            laid.step += 1
+            laid += Image(x, y, w, h, nxt)
+        if n:
+            laid.layered.append((b.src, n))
+        else:
+            laid.notes.append(f"`+ layers` but no {os.path.basename(stem)}-l1{ext}")
 
     # -- body ------------------------------------------------------------------
     #
@@ -1366,6 +1395,19 @@ def main(argv):
             for l in forced:
                 print(f"      {l.slide.layout:<7} {l.slide.section[:22]:<24} "
                       f"{l.slide.title[:40]}")
+
+        # **Name every `+ layers` picture and what it costs in clicks**, for the same
+        # reason `#layout:` is named: the arrangement came from a flag in the outline
+        # rather than from the builder's own rules, so the report has to say so or the
+        # click total is unaccountable.
+        layered = [(l, src, n) for l in deck.slides
+                   for src, n in getattr(l, "layered", [])]
+        if layered:
+            print(f"    {len(layered)} figure(s) are disclosed a layer at a time "
+                  f"(`+ layers`), adding {sum(n for _l, _s, n in layered)} clicks:")
+            for l, src, n in layered:
+                print(f"      {n} layers  {os.path.basename(src):<34} "
+                      f"{(l.slide.title if l.slide else '')[:34]}")
 
         if deck.compare:
             print(f"    ⚑ {len(deck.compare)} entries carry more than one figure and "

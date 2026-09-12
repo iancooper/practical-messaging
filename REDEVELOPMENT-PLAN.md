@@ -2024,6 +2024,48 @@ figure is about.
 Newest first. Records **why**, including reasoning that changed no file — git history covers what
 changed in the outlines, not this.
 
+### 2026-09-12 — R4-13 and R4-15: two recorded blockers, and both were claims
+**§R4 is closed on content.** The last two rows were the two the file called figure jobs and `G1`
+territory, and **the premise of each turned out to be wrong or beside the point.**
+
+**R4-15 — "recolour = redraw, there is no `.drawio` renderer here".** The three 2021 error flows carry
+the identical two red layers as the four worked flows `79c735c` already fixed — `#CC0000` on the dashed
+hand-off edges, `#ff6666` on the commentary text — so `repaint_paper_reds.py` does them unchanged. **No
+renderer is needed because the tool remaps the `.png` and the `.drawio` together**, which is the point
+of it: the master and the render stay in step, so the next person to open the file in draw.io does not
+put the red back. A ~5.5-day item was ~20 minutes. Rule 13 ran and **cleared** it rather than blocking:
+the delegate brief says *dashed / solid* with no colour, and the notation key draws the hand-off in
+carbon. `styles.md`'s palette table was still giving *"the red dashed arrows"* as `annotation`'s home,
+and has been corrected — **the authoritative spec was carrying the error rule 13 exists to catch.**
+
+**R4-13 — "the builder cannot animate inside a figure".** True, and it does not matter. `<p:timing>`
+groups by outline block and still does. **What moved is where the parts live**: a layer is its own
+diagram — same canvas, no ground, nothing in it but that click's arrows — and `build_deck.py` stacks
+eight of them over the base at the base's exact rect with a reveal step each. To `_timing` they are
+eight more image ops in eight more groups, which it could always do. Rendering the montage nine times
+instead would have put **12MB** of the same four embedded flows into `resources/` and the `.pptx`; the
+transparent overlays cost **656KB**.
+
+**The original was established before anything was drawn** (rule 4). `slide66` of the archived 2025
+deck: 24 `rightArrow` shapes, `accent1` ×4 against `accent5` ×20, and a `<p:timing>` tree revealing
+them in 22 clicks flow by flow. Each arrow was ported as start/end **fractions of the flow picture it
+sits on**, so it lands in the same place relative to the drawing even though our 2×2 grid orders the
+four flows differently from his; two ran off their panel in his layout and are clamped.
+
+**Ian's three rulings, all of them the recommendation.** *Colour*: the house pair, **async carbon, sync
+muted** — his were two Office-theme blues that read almost alike at slide size and would have been the
+only off-palette colours in either deck, and twenty against four is the section's argument, so the
+phone call should recede. *Clicks*: **8, two per flow**, against his 22 — Day 2 spends 216 clicks over
+128 slides. *Assets*: **two files**, so the recap on *Full Flow* shows every arrow at once rather than
+re-teaching a reveal the room has already watched.
+
+**⚑ The defect that only looking found.** In OOXML a `rightArrow`'s `cy` is the height of the **whole**
+shape, wings included, and `adj1` puts the shaft at half of it. Reading `cy` across as a shaft thickness
+drew every arrow at exactly twice Ian's and buried the flow the arrows exist to reveal. **Every ratio I
+checked against his matched** — thickness/panel-height 9.3% against 9.2%, length/panel-width 32% against
+32% — because they were the same wrong quantity on both sides. Compositing one click and looking at it
+took a minute.
+
 ### 2026-09-12 — R3: Ian's second pass, and four of its rows were one number
 Sixteen rows against the rebuilt Day 1 deck, in two batches. Day 1 **136 → 129 slides**, and Ian
 closed Day 1 on the second batch: *"With that, I suspect we close out the review on Day One."*

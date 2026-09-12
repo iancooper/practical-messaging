@@ -262,13 +262,20 @@ movement C supply the vocabulary for what the room already saw.
 - Put the four flows side by side: **no desk knows more than its own step, and there is no coordinator.**
 
 #image: flow diagram — order confirmation  [→ resources/Order Confirmation.drawio.png]
-#image: montage — the four takeaway flow diagrams together  [→ resources/paper-worked-flows-montage.png]
+#image: montage — the four takeaway flow diagrams together, with the arrows arriving flow by flow  [→ resources/paper-worked-flows-montage.png + layers]
 
 Presenter notes: Land the montage — it is the close of the *see one* and the reason the four flows were
-walked separately. **Ask the room the movement's question here:** if you were asked to build this, how
-would you draw it? Take answers; they will describe an orchestrator or a set of services with a gateway
-in front. Do not correct them — write it on a flipchart and leave it up through the exercise, because that is
-movement B, and it is more powerful as their answer than as yours.
+walked separately. **The arrows arrive in eight clicks, two per flow, and the colour is the point:**
+**carbon is asynchronous, muted grey is synchronous, and there are twenty against four.** Do not name
+that split until the last click — let them watch the grey run out. One sentence a click: *the phone call
+that starts it* · *and everything after it is paper* · *the customer rings, and gets transferred* · *the
+order becomes paper too* · *the fax goes out* · *and the office keeps working while it is gone* · *the
+confirmation arrives on its own, later* · *only now does anyone pick up the phone.* **The drawings under
+the arrows are deliberately too small to read** — that is what the arrows are for, and it is why this
+works as one picture rather than four. **Ask the room the movement's question here:** if you were asked
+to build this, how would you draw it? Take answers; they will describe an orchestrator or a set of
+services with a gateway in front. Do not correct them — write it on a flipchart and leave it up through
+the exercise, because that is movement B, and it is more powerful as their answer than as yours.
 
 ### Slide: How Do We Deal with Errors?
 
@@ -1260,7 +1267,7 @@ and a piece of state somebody has to own across a restart.
 **The room picked these before it knew they were choices**, which is the point of having drawn them on
 paper first.
 
-#image: montage — the four takeaway flow diagrams together, as the room drew them  [→ resources/paper-worked-flows-montage.png]
+#image: montage — the four takeaway flow diagrams together, as the room drew them, every arrow on it  [→ resources/paper-worked-flows-montage-complete.png]
 #image: hand-drawn FBP overall 'Order Flow' — Qualify Restaurant through Cook Food and Book Courier  [→ resources/flowbased_order_all.png]
 
 #note: **These two are deliberate repeats** — the montage is first shown where the paper flows are

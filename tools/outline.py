@@ -316,10 +316,19 @@ def parse(path):
             alt = _IMAGE_LINK.sub("", rest).strip()
             if slide is not None:
                 src = m.group(1).strip() if m else None
+                # **`+ layers` says this picture is disclosed, not static.** The link
+                # names the BASE, and the builder stacks `<stem>-l1.png`, `-l2.png` …
+                # over it at the same rect, one click each. It rides on the link's
+                # existing `+ <word>` suffix convention rather than adding a directive,
+                # because it is a property of the picture and not of the entry --
+                # `#layout:` and `#reveal:` are per-entry and this is not.
+                layers = False
                 if src:
+                    src, n = re.subn(r"\s*\+\s*layers$", "", src)
+                    layers = bool(n)
                     src = re.sub(r"\s*\+\s*related$", "", src).strip()
                 slide.blocks.append(Block(
-                    "image", text=alt, src=src,
+                    "image", text=alt, src=src, layers=layers,
                     pending=bool(_PENDING.search(rest))))
             continue
 

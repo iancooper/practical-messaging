@@ -100,11 +100,23 @@ def main(argv):
         for name, build in module.FIGURES.items():
             d = build()
             _eff, fit, labels = measure(d)
+            # **A figure can legitimately have no labels at all**, and this crashed
+            # on the first one that did -- the montage's eight transparent arrow
+            # overlays, which are pure geometry stacked over another figure. There is
+            # no smallest label to report, and it does not count against the floor
+            # either way, so it is named and skipped rather than silently dropped.
+            if not labels:
+                rows.append((None, name, d.w, d.h, fit, "— no labels"))
+                continue
             total += 1
             under += labels[0][0] < floor - 0.05
             rows.append((labels[0][0], name, d.w, d.h, fit, labels[0][1]))
-        rows.sort()
+        rows.sort(key=lambda r: (r[0] is None, r[0]))
         for reads, name, w, h, fit, label in (rows if show_all else rows[:1]):
+            if reads is None:
+                print(f" {name:<35} {w:>5}x{h:<5} {w / h:>5.2f} {fit:>6} "
+                      f"{'—':>8}  {label[:34]}")
+                continue
             flag = " " if reads >= floor - 0.05 else "!"
             print(f"{flag}{name:<35} {w:>5}x{h:<5} {w / h:>5.2f} {fit:>6} "
                   f"{reads:>6.1f}pt  {label[:34]}")

@@ -132,7 +132,7 @@ editable `resources/*.drawio` diagrams.
 | `ink` | `#181B1F` | everything a clerk writes by hand |
 | `paper` | `#FDFCFA` | the slide ground |
 | `carbon` | `#1D4E6B` | the carbon copy — which **is** the outbox pattern we teach |
-| `annotation` | `#C0453B` | the red dashed arrows: paper moving between trays |
+| `annotation` | `#C0453B` | the one idea a figure is about — **not** the paper-moving arrows. That line was this table's own example until R4-15, and it was wrong: the delegate brief's line 35 says *dashed / solid* with **no colour**, `paper-notation-key.png` draws the hand-off in **carbon**, and all eight 2021 flows have now been repainted to agree |
 | `manila` | `#F3EFE6` | the file, the folder, the desk — and the diagram panel |
 | `rule` | `#E0D9C8` | panel edges, hairlines |
 | `muted` | `#8A8578` | hairlines, gridlines, dashed ties — **guides, never text** |
@@ -166,6 +166,12 @@ not because green is easy for them, but because to a deuteranope annotation red 
 - **Stroke** 1.6–1.8px at diagram scale. **Rounded corners**, `r=4`.
 - **Databases** as cylinders, attached to their service with a dashed `muted` line.
 - **One idea in red.** If two things are red, the diagram is doing two jobs.
+- **A trace is a block arrow laid OVER a finished drawing, and it is not a diagram element.**
+  `Diagram.trace()`. It says *follow this*, and it is deliberately far too big for what is under it —
+  which is the licence for the drawing beneath being tiny. **Asynchronous is `carbon`, synchronous is
+  `muted`**, because where the two are contrasted the asynchronous case is the argument and the phone
+  call is what should recede. A trace carries **no label**: if it needs one, it is an `arrow`. Traces
+  are exempt from the 18pt floor for the same reason — there is nothing on them to read.
 - **Muted is for *our* annotation, not the notation's own words.** A label that is part of what the
   diagram *is* — a stream's offsets, a port's name, a step number — is **ink at label size**, the same
   size as a box label. `muted` is for the remarks we add on top: the caveat at the foot, the aside

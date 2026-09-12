@@ -90,6 +90,46 @@ d.arrow(rcv, dlq, "cannot read it", lx=-62)              # nudge a label off the
 **`accent=True`** paints an element or arrow in annotation red. Per `styles.md`, **red marks the one thing
 the diagram is about** — if two things are red, the diagram is doing two jobs.
 
+### `Diagram.trace()` — the fat block arrow, and it is not an `arrow`
+
+```python
+d.trace((196, 145), (361, 145), weight=17, sync=True,  layer=1)   # muted
+d.trace((399, 242), (437, 131), weight=17, sync=False, layer=2)   # carbon
+```
+
+An **edge is part of the drawing** — this box talks to that one, sized to sit among the labels. A
+**trace is laid over a finished drawing** to say *follow this*, and it is deliberately far too big for
+what is underneath, which is what lets the drawing beneath it be tiny. It exists for the paper-flow
+montage, where Ian's note is the whole design: *"I added arrows to the diagram, colour-coded for
+synchronous and asynchronous communication and progressively showed the arrows so that the flow could
+be seen. **For this reason it did not matter that the scale was small.**"*
+
+- **`sync=True` is MUTED, and the default is CARBON.** Twenty asynchronous arrows against four
+  synchronous ones is the montage's argument, so the asynchronous ones take the strong colour and the
+  phone calls recede. `styles.md` puts muted on lines and not letters; a block arrow is a line.
+- **`weight` is the SHAFT.** If you are porting arrows out of a `.pptx`, halve its `cy` first — in
+  OOXML a `rightArrow`'s `cy` is the height of the *whole* shape, wings included, and `adj1` puts the
+  shaft at half of it. Reading `cy` across as a shaft drew every arrow at twice Ian's and buried the
+  flow. All the ratios matched on paper; only compositing a click and looking at it found it.
+- **`layer` is the click** — bookkeeping for the family, which renders one overlay per group.
+
+### Disclosing a figure a layer at a time
+
+`<p:timing>` groups by outline block, so the builder cannot animate *inside* a picture — and does not
+have to. **A layer is its own diagram**: same canvas, `transparent=True` so rsvg paints no ground, and
+nothing in it but that click's traces. `build_deck.py` stacks `<stem>-l1.png`, `-l2.png` … over the
+base at the base's exact rect, one reveal step each, and to `_timing` they are simply more image ops.
+
+The outline opts in on the link, beside the existing `+ related`:
+
+```
+#image: montage — …  [→ resources/paper-worked-flows-montage.png + layers]
+```
+
+**`transparent=True` is for this and nothing else.** Every ordinary figure wants the paper ground; it
+is what the whole deck is drawn on. And the layers must not be re-fitted — they share the base's
+canvas, so fitting one independently drifts it off the drawing it annotates.
+
 ### Label sizes are a floor, not a per-call decision
 
 `Diagram._legible()` runs at the top of **both** serialisers and raises every label to **18pt** — one

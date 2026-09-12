@@ -96,16 +96,99 @@ def notation_key():
     return d
 
 
-@figure("paper-worked-flows-montage")
-def worked_flows_montage():
+# **The 24 arrows, and not one of them was invented here.** They are Ian's, lifted
+# out of `archive/Practical Messaging -  Day 2 - 2025.pptx` slide 66 -- 24 `rightArrow`
+# shapes over the same four flows, with a `<p:timing>` tree that revealed them in 22
+# clicks. `REVIEW.md` R4-13 quotes why they existed: *"I added arrows to the diagram,
+# colour-coded for synchronous and asynchronous communication and progressively showed
+# the arrows so that the flow could be seen. For this reason it did not matter that the
+# scale was small."* Rule 4 -- the file was opened, not assumed.
+#
+# Each arrow was read as start/end **fractions of the flow picture it sits on**, so it
+# lands in the same place relative to the drawing even though our 2x2 grid orders the
+# four flows differently from his. Two of the 24 ran off the top of their own panel in
+# his layout, where the panels touched; here they are clamped into the cell and marked
+# below.
+#
+# **The colours are not his.** His were Office theme accents -- `#4F81BD` and `#4BACC6`,
+# two blues that read almost the same at slide size and would have been the only
+# off-palette colours in either deck. Ian ruled 2026-09-12 for the house pair, and for
+# this assignment of it: **asynchronous is CARBON and synchronous is MUTED**, because
+# twenty against four is the section's whole argument and the phone call is the part
+# that should recede. `styles.md` puts muted on lines rather than letters, and a block
+# arrow is a line.
+#
+# `layer` is the click. Ian chose **8, two per flow**, over his own 22 and over 4 --
+# Day 2 spends 208 clicks across 128 slides, so 22 on one picture is a tenth of the
+# deck's whole budget. Order Placement has no synchronous arrow at all, so its two
+# clicks split its paper run; Order Confirmation's pair is one of each.
+#
+#   layer  what you say while you click it
+#   -----  ----------------------------------------------------------------
+#     1    the phone call that starts it                    Onboarding, sync
+#     2    and everything after it is paper                 Onboarding, 7
+#     3    the customer rings, and gets transferred         Customer Order, 2 sync
+#     4    the order becomes paper too                      Customer Order, 4
+#     5    the fax goes out                                 Order Placement
+#     6    and the office keeps working while it is gone    Order Placement, 7
+#     7    the confirmation arrives on its own, later       Confirmation, async
+#     8    only now does anyone pick up the phone           Confirmation, sync
+#
+# **`weight` is the SHAFT, and that is half of what the .pptx records.** In OOXML a
+# `rightArrow`'s `cy` is the height of the whole shape -- the head's wings included --
+# and the default `adj1` puts the shaft at half of it. Reading `cy` straight across as
+# a shaft thickness drew every arrow at exactly twice Ian's, which obliterated the flow
+# the arrows exist to let you see. Caught by compositing a click and looking at it; the
+# ratios all matched on paper, which is why arithmetic alone would not have found it.
+#
+# (x1, y1, x2, y2, weight, sync, layer), in montage canvas units.
+MONTAGE_TRACES = [
+    # ---- Restaurant Onboarding, cell (40, 96) ----
+    (196.1, 145.2, 361.1, 145.2, 17.25, True,  1),   # the phone call
+    (399.0, 241.9, 437.2, 131.4, 17.25, False, 2),
+    (212.5, 244.8, 383.6, 244.8, 17.25, False, 2),
+    (118.4, 367.6, 114.4, 276.0, 17.25, False, 2),
+    (171.0, 277.9, 203.5, 370.5, 17.25, False, 2),
+    (407.2, 286.3, 236.1, 286.3, 17.25, False, 2),
+    (500.9, 454.6, 398.8, 429.8, 18.55, False, 2),
+    (446.4, 374.5, 493.4, 267.8, 17.25, False, 2),
+    # ---- Customer Order, cell (580, 96) ----
+    (758.5, 200.6, 915.7, 200.6, 16.00, True,  3),   # the phone call
+    (971.3, 341.5, 1033.4, 309.9, 16.00, True,  3),  # and the transfer
+    (675.2, 194.2, 918.7, 101.6, 16.00, False, 4),   # CLAMPED: ran off his panel top
+    (1004.5, 204.8, 1032.1, 106.6, 17.15, False, 4),
+    (936.2, 332.4, 950.5, 231.3, 17.15, False, 4),
+    (998.1, 417.4, 1006.6, 357.2, 19.20, False, 4),
+    # ---- Order Placement, cell (40, 522) -- no synchronous arrow at all ----
+    (462.5, 619.8, 470.9, 562.3, 18.35, False, 5),   # the fax goes out
+    (197.4, 593.2, 356.2, 593.2, 15.25, False, 6),
+    (379.4, 645.2, 220.6, 645.2, 15.25, False, 6),
+    (66.1, 721.7, 109.7, 627.3, 15.25, False, 6),
+    (102.2, 821.0, 137.7, 723.2, 15.25, False, 6),
+    (67.5, 737.8, 179.2, 812.5, 15.25, False, 6),
+    (174.4, 666.0, 169.7, 770.0, 15.25, False, 6),
+    (489.5, 793.2, 469.1, 665.0, 18.35, False, 6),
+    # ---- Order Confirmation, cell (580, 522) ----
+    (1055.0, 661.9, 1071.3, 527.6, 19.85, False, 7),  # CLAMPED: ran off his panel top
+    (936.2, 661.1, 761.3, 661.1, 16.50, True,  8),    # only now, the phone
+]
+
+MONTAGE_LAYERS = 8
+MONTAGE_W, MONTAGE_H = 1140, 944
+
+
+def _montage(traced=False):
     """The close of the *see one*: all four takeaway flows at once. Composition, not
     drawing -- every source is an existing editable .drawio in resources/, embedded
     here as a data URI so the montage does not depend on them staying put.
 
     The red line is the slide's own callout, and it is the reason the four flows were
     walked separately first.
+
+    `traced` adds all 24 of Ian's arrows at once -- the static form, for the recap on
+    *Full Flow, End to End*, which has already watched the animated one.
     """
-    d = Diagram("The Worked Flows — Just Paper Takeaway", w=1140, h=944)
+    d = Diagram("The Worked Flows — Just Paper Takeaway", w=MONTAGE_W, h=MONTAGE_H)
     d.note(570, 48, "four flows, no `main` — every desk acts because something "
                     "landed in its in-tray", ANNOTATION, 19)
     cells = [
@@ -117,7 +200,49 @@ def worked_flows_montage():
     for x, y, name in cells:
         d.image(x, y, 520, 372, os.path.join(OUT, f"{name}.drawio.png"))
         d.note(x + 260, y + 396, name, INK, 16)
+    if traced:
+        for x1, y1, x2, y2, wt, sync, _ in MONTAGE_TRACES:
+            d.trace((x1, y1), (x2, y2), weight=wt, sync=sync)
     return d
+
+
+@figure("paper-worked-flows-montage")
+def worked_flows_montage():
+    """The base: the four flows, no arrows. Layer 0 of the animated form, and this is
+    still the file the outline links -- it has not changed a byte."""
+    return _montage()
+
+
+@figure("paper-worked-flows-montage-complete")
+def worked_flows_montage_complete():
+    """All 24 arrows at once, static. *Full Flow, End to End* shows this: the room has
+    already watched them arrive one click at a time on slide 23, so repeating the
+    reveal there would re-teach what it is supposed to be recapping. Ian, 2026-09-12."""
+    return _montage(traced=True)
+
+
+# **The eight overlays, one per click.** Each is its own Diagram on the montage's
+# canvas with nothing in it but that click's arrows, so rsvg paints no ground and the
+# PNG is transparent -- a few KB against the base's 1.3MB. `build_deck.py` stacks them
+# at the base's rect, one reveal step each.
+#
+# They are registered in the loop rather than written out eight times so the count
+# lives in one place, `MONTAGE_LAYERS`, next to the traces it counts.
+def _montage_layer(k):
+    def fn():
+        d = Diagram(f"The Worked Flows — arrows, click {k}",
+                    w=MONTAGE_W, h=MONTAGE_H, transparent=True)
+        for x1, y1, x2, y2, wt, sync, layer in MONTAGE_TRACES:
+            if layer == k:
+                d.trace((x1, y1), (x2, y2), weight=wt, sync=sync, layer=layer)
+        return d
+    fn.__doc__ = (f"Click {k} of the montage reveal: "
+                  f"{sum(1 for t in MONTAGE_TRACES if t[6] == k)} arrows, transparent.")
+    return fn
+
+
+for _k in range(1, MONTAGE_LAYERS + 1):
+    figure(f"paper-worked-flows-montage-l{_k}")(_montage_layer(_k))
 
 
 @figure("paper-guest-cycle")

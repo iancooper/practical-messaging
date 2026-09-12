@@ -1,0 +1,13 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="The Worked Flows — arrows, click 1">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1140" pageHeight="944" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tr0" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.209;fillColor=#8A8578;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=0.0;" vertex="1" parent="1">
+          <mxGeometry x="196.1" y="128.8" width="165.0" height="32.8" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -27,6 +27,7 @@ Usage as a library:
 
 import base64
 import html
+import math
 import os
 import shutil
 import subprocess
@@ -147,18 +148,26 @@ class _Outliner:
 class Diagram:
     """A small declarative diagram. Coordinates are in diagram units (~px)."""
 
-    def __init__(self, title, w=260, h=170, panel=False, sketch=True, font=None):
+    def __init__(self, title, w=260, h=170, panel=False, sketch=True, font=None,
+                 transparent=False):
         """sketch=False draws straight strokes -- for a formal notation like BPMN,
         where a wobble would fight the point that this is the standard the industry
-        reads. font sets the label face: HAND for our own figures, PLAIN for BPMN."""
+        reads. font sets the label face: HAND for our own figures, PLAIN for BPMN.
+
+        transparent=True omits the paper ground, so the PNG carries alpha. It exists
+        for ONE thing: an overlay that has to stack over another figure on a slide and
+        let it show through. Every ordinary figure wants the ground -- it is the paper
+        the whole deck is drawn on -- so this defaults off and nothing else sets it."""
         self.title = title
         self.w, self.h = w, h
         self.panel = panel          # draw the manila panel behind it
+        self.transparent = transparent
         self.sketch = sketch
         self.font = font or HAND
         self.groups = []            # containers, drawn behind everything
         self.nodes = []             # dicts with kind/geometry/label
         self.edges = []
+        self.traces = []            # fat block arrows laid OVER the drawing
         self._n = 0
 
     # -- elements --
@@ -668,6 +677,58 @@ class Diagram:
                                dashed=dashed, via=list(via or []), ssid=ss, dsid=ds,
                                lx=lx, ly=ly, muted=muted))
 
+    # **A trace is not an edge, and the difference is the point.** An edge is part
+    # of the drawing: it says this box talks to that one, and it is sized to sit
+    # among the labels. A trace is laid *over* a finished drawing to say *follow
+    # this*, and it is deliberately far too big for what is underneath -- which is
+    # what lets the drawing beneath it be tiny. Ian, on the 2025 montage: *"I added
+    # arrows to the diagram, colour-coded for synchronous and asynchronous
+    # communication and progressively showed the arrows so that the flow could be
+    # seen. **For this reason it did not matter that the scale was small.**"*
+    #
+    # `layer` is what makes the progressive disclosure possible, and it is only
+    # bookkeeping here: the family groups its traces by it and renders one
+    # transparent overlay per group, and `build_deck.py` stacks those over the base
+    # with a click each. So the animation lives in the *deck*, not in the picture,
+    # and nothing in the builder has to learn to animate inside a figure -- which is
+    # what `REVIEW.md` R4-13 recorded as the blocker.
+    def trace(self, src, dst, weight=34, sync=False, layer=0):
+        """A fat block arrow over the drawing. src/dst are bare (x, y) points.
+
+        weight  -- the shaft thickness in canvas units; the head scales off it
+        sync    -- MUTED rather than CARBON. The montage's 4 synchronous arrows
+                   against its 20 asynchronous ones are the section's whole
+                   argument, so the asynchronous ones carry the strong colour and
+                   the phone calls recede. `styles.md`: muted is for lines, and a
+                   block arrow is a line.
+        layer   -- which reveal step this arrow belongs to; 0 is always-on
+        """
+        self.traces.append(dict(src=tuple(src), dst=tuple(dst), weight=weight,
+                                sync=bool(sync), layer=int(layer)))
+
+    @staticmethod
+    def _trace_poly(t):
+        """The seven points of a block arrow: up one side, round the tip, back.
+
+        base_left, neck_left, wing_left, TIP, wing_right, neck_right, base_right --
+        so the tip is the middle point of the seven. Head length is capped at 45% of
+        the run, or a short arrow degenerates into a triangle with a stub behind it.
+        """
+        (x1, y1), (x2, y2) = t["src"], t["dst"]
+        dx, dy = x2 - x1, y2 - y1
+        L = math.hypot(dx, dy) or 1.0
+        ux, uy = dx / L, dy / L
+        px, py = -uy, ux
+        w = t["weight"] / 2.0
+        head = min(2.0 * t["weight"], 0.45 * L)
+        hw = t["weight"] * 0.95
+        nx, ny = x2 - ux * head, y2 - uy * head
+        pts = [(x1 + px * w, y1 + py * w), (nx + px * w, ny + py * w),
+               (nx + px * hw, ny + py * hw), (x2, y2),
+               (nx - px * hw, ny - py * hw), (nx - px * w, ny - py * w),
+               (x1 - px * w, y1 - py * w)]
+        return " ".join(f"{a:.1f},{b:.1f}" for a, b in pts)
+
     def attach(self, src, dst, via=None, sides=None):
         """A dashed 'this belongs to that' tie -- e.g. a service to its database."""
         ss, ds = (sides or (None, None))
@@ -996,7 +1057,9 @@ class Diagram:
             f'<circle cx="3.4" cy="3" r="2.4" fill="{PAPER}" stroke="{ANNOTATION}" '
             f'stroke-width="1"/></marker>'
             '</defs>')
-        o.append(f'<rect width="{W}" height="{H}" fill="{MANILA if self.panel else PAPER}"/>')
+        if not self.transparent:
+            o.append(f'<rect width="{W}" height="{H}" '
+                     f'fill="{MANILA if self.panel else PAPER}"/>')
 
         wob = ' filter="url(#wob)"' if self.sketch else ""
         # containers first, so everything else sits inside them
@@ -1357,6 +1420,30 @@ class Diagram:
             self._text(o, e["label"], mx + e.get("lx", 0), my - 7 + e.get("ly", 0),
                        self._edge_pt(e), col, "middle")
 
+        # **The traces go on top of everything, including the labels.** They are an
+        # overlay on a finished picture, so anything they cover is covered on
+        # purpose -- that is the whole licence for drawing them this big. The
+        # paper-coloured rim keeps a carbon arrow from merging into a carbon stroke
+        # in the drawing underneath it.
+        #
+        # Guarded on `self.traces` so a figure without any emits exactly the bytes
+        # it emitted before this method existed -- `diagram.py` edits have to be
+        # additive (CLAUDE.md rule 5) and this one is checked by rebuilding all
+        # twelve families and diffing.
+        #
+        # A *layer* is not a filtered render of this diagram, it is its own diagram:
+        # same canvas, no nodes, only that click's traces. rsvg paints no ground, so
+        # the result is transparent and stacks over the base on the slide. Rendering
+        # the montage nine times instead would have put nine copies of the same four
+        # embedded flows in `resources/` and in the .pptx -- 1.3MB each.
+        if self.traces:
+            o.append(f'<g{wob} stroke-linejoin="round">')
+            for t in self.traces:
+                col = MUTED if t["sync"] else CARBON
+                o.append(f'<polygon points="{self._trace_poly(t)}" fill="{col}" '
+                         f'stroke="{PAPER}" stroke-width="2.5"/>')
+            o.append('</g>')
+
         o.append('</svg>')
         return "\n".join(o)
 
@@ -1577,6 +1664,29 @@ class Diagram:
                 arr.set("as", "points")
                 for vx, vy in e["via"]:
                     ET.SubElement(arr, "mxPoint", x=str(vx), y=str(vy))
+
+        # The traces, last so they sit on top in draw.io's z-order too. `singleArrow`
+        # is draw.io's own block-arrow shape; it is authored pointing right and
+        # rotated, which is exactly how the 2025 originals were built, so a file
+        # opened in draw.io gives the same handles Ian had.
+        for i, t in enumerate(self.traces):
+            (x1, y1), (x2, y2) = t["src"], t["dst"]
+            L = math.hypot(x2 - x1, y2 - y1) or 1.0
+            ang = math.degrees(math.atan2(y2 - y1, x2 - x1))
+            col = MUTED if t["sync"] else CARBON
+            head = min(2.0 * t["weight"], 0.45 * L)
+            style = (f"shape=singleArrow;html=1;direction=east;"
+                     f"arrowWidth={1 / 1.9:.3f};"
+                     f"arrowSize={head / L:.3f};"
+                     f"fillColor={col};strokeColor={PAPER};strokeWidth=2.5;"
+                     f"rotation={ang:.1f};")
+            cell = ET.SubElement(root, "mxCell", id=f"tr{i}", value="",
+                                 style=style, vertex="1", parent="1")
+            ET.SubElement(cell, "mxGeometry",
+                          x=str(round((x1 + x2) / 2 - L / 2, 1)),
+                          y=str(round((y1 + y2) / 2 - t["weight"] * 0.95, 1)),
+                          width=str(round(L, 1)),
+                          height=str(round(t["weight"] * 1.9, 1))).set("as", "geometry")
 
         ET.indent(mx, space="  ")
         return ET.tostring(mx, encoding="unicode")
