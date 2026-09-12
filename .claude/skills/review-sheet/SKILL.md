@@ -102,9 +102,9 @@ from a later session.
 | Muted Is For Lines | `421ddeb9-8353-4f27-98c2-f7c97bf4de12` | ⚑ awaiting him |
 | Four Answers, One Stage | `c75acd57-ab6a-4740-918f-af39a6823a08` | ✅ approved 2026-09-07 — *"this looks much better"*. **RPC's red is the one item he never answered**; closed unless he reopens it |
 | Four Composed, Two Printed | `40b2a941-5ce3-4260-a882-a4c33e442383` | ✅ reviewed 2026-09-09, both calls answered. `B2·2` approved, **`A4·1` overturned**. The cards' 24 BPMN glosses were on it and drew no comment — **seen, not approved** |
-| BPMN on a Half Stage | `3dc05399-3d6a-4fce-a39a-95a544444e47` | ⚑ **published 2026-09-12, awaiting his ruling.** §R4's three BPMN `side` merges (R4-40/41/42), each shown as it ships beside the full-width slide it replaced. Two of the three read at ~6.0 and ~6.6pt against the **8.9–12.8pt** band Ian ruled. **The first sheet built by `tools/review_sheet.py`** |
+| BPMN on a Half Stage | `3dc05399-3d6a-4fce-a39a-95a544444e47` | ✅ **ruled 2026-09-12, same day, all three addresses.** ⚑ **And two of the three answers were not options on the card** — he asked for an arrangement the builder did not have. Republished with the rulings as verdicts. §R4's three BPMN `side` merges (R4-40/41/42), each shown as it ships beside the full-width slide it replaced. Two of the three read at ~6.0 and ~6.6pt against the **8.9–12.8pt** band Ian ruled. **The first sheet built by `tools/review_sheet.py`** |
 
-**Four are now awaiting him** — the three old ones and sheet 8, which went up 2026-09-12 and asks two questions.
+**Three are still awaiting him.** Sheet 8 went up and came back the same day.
 
 ## What his review has actually been about
 
@@ -114,6 +114,12 @@ floor's *units*. Five are now enforced in `diagram.py` rather than remembered.
 
 **Nothing has been questioned about the content, the vocabulary split or the red pairing yet.**
 Do not read approval of a batch as approval of those.
+
+**⚑ And a sheet's options are a starting point, not a menu.** Sheet 8 offered keep / revert / revert
+two of three on each item, and two of the three answers were **none of them** — he described an
+arrangement the builder did not have, and it turned out to be strictly better than either option
+offered, recovering 47 percentage points where reverting would have recovered them at the cost of a
+slide. **Put the numbers and the pictures up; do not assume the answer space is the one you drew.**
 
 And the sharpest thing a sheet has produced: **the arithmetic was right and the drawing was still
 wrong.** Every number behind the composed lookup figure held up, and it took a reader looking at
