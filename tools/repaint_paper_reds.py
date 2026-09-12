@@ -74,7 +74,17 @@ FLOWS = ("Restaurant Onboarding", "Customer Order",
 ERROR_FLOWS = ("Restaurant Onboarding Errors", "Customer Order Errors",
                "Order Placement Errors")
 
-ALL = FLOWS + ERROR_FLOWS
+# **The eighth, added 2026-09-12 on Ian's ruling.** It sat out R4-15 because the
+# presenter note on *Your Flow, in the Standard Notation* leaned on its red, and
+# the note is true as drawn: every red arrow stays one side of the heavy bar and
+# the two blacks cross it. But the note's own argument is *which side of the bar*
+# -- it says so, and says "it is not the arrow style" -- so one clause frees it.
+# ⚑ It differs from the other seven twice over, and both are handled below rather
+# than by renaming Ian's file: its master is UNCOMPRESSED, and its render is
+# `<name>.png`, not `<name>.drawio.png`.
+GUEST_FLOW = ("Pre-Arrival Guest Flow",)
+
+ALL = FLOWS + ERROR_FLOWS + GUEST_FLOW
 
 # source -> target. Keys are what draw.io wrote; the comparison is case-insensitive
 # because these files use both `#CC0000` and `#ff6666`.
@@ -97,6 +107,16 @@ def payload(path):
     if not m:
         raise SystemExit(f"{path}: no <diagram> element")
     body = m.group(2).strip()
+
+    # **draw.io writes the model two ways and both are valid**: base64 +
+    # raw-deflate, or plain XML inline. Seven of the eight paper flows are
+    # packed and `Pre-Arrival Guest Flow` is not, so detect it -- feeding real
+    # XML to `b64decode` fails on a file that is perfectly well formed.
+    if body.startswith("<mxGraphModel"):
+        def repack_plain(new_xml):
+            return raw[:m.start(2)] + new_xml + raw[m.end(2):]
+        return body, repack_plain
+
     xml = urllib.parse.unquote(zlib.decompress(base64.b64decode(body), -15).decode())
 
     def repack(new_xml):
@@ -135,7 +155,11 @@ def patch_png(name, write):
     import numpy as np
     from PIL import Image
 
+    # `resources/` uses two naming conventions -- see CLAUDE.md. Seven flows
+    # render to `<name>.drawio.png`; the eighth is a bare `<name>.png`.
     path = os.path.join(OUT, f"{name}.drawio.png")
+    if not os.path.exists(path):
+        path = os.path.join(OUT, f"{name}.png")
     im = Image.open(path)
     arr = np.array(im.convert("RGB")).astype(float)
     bg = np.array(_rgb(PAPER), dtype=float)
