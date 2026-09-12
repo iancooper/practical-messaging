@@ -1211,8 +1211,6 @@ The requestor may not receive the expected response at all. What can it do?
 - **Retry** if no response arrives within that window (`greet()` → `greet()` → `acknowledge()`).
 - Because we might send twice, the provider operation must be **idempotent**, or the consumer must **de-duplicate** already-seen messages.
 
-#image: sequence — the requestor sends greet(), the timeout expires with nothing back, and the three things that are all still possible at that moment; then greet() again and an acknowledge()  [→ resources/conversation-timeout.png]
-
 Presenter notes: Call back to Guaranteed Delivery — this is the Inbox pattern earning its keep. Retry is why de-duplication is not optional: at-least-once delivery and requestor-side retry are two independent sources of duplicates.
 
 ### Slide: Blocking In-Out (Request-Reply)
