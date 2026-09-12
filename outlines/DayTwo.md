@@ -1028,6 +1028,16 @@ Presenter notes: Implementation paths depend on model type — embedded logic (o
 
 ---
 
+### Slide: Durable Execution
+
+Long-running processes must:
+
+- Survive restarts.
+- Handle retries and failures.
+- Resume after waiting (e.g. for payment or the hotel's answer).
+
+Durable execution = we **persist activity state** to indicate which steps are complete, when we're awaiting an event, etc.
+
 ### Slide: Tentative Operations
 
 A conversation that spans more than a request and a response: the requestor may not know whether the provider can succeed, and may not want to proceed without knowing.
@@ -1038,17 +1048,7 @@ A conversation that spans more than a request and a response: the requestor may 
 
 **The booking, exactly:** the agency asks the hotel to `reserve()` a room. The hotel holds it **with a timeout**, so it can sell the room to someone else if we go quiet. Guest pays inside the limit → `commit()` → `acknowledge()`, the room is allocated. Guest abandons, or the card is declined → `rollback()` → `freed()`.
 
-Presenter notes: **This is the bridge into durable execution**, and the hotel makes the bridge shorter: reserve/commit/rollback is a conversation with a *lifetime* — someone has to remember the reservation exists, honour its timeout, and drive it to commit or rollback **even across a restart**. That requirement is what the rest of this section is about. Two failure cards land here — *the guest checks out early, mid-flow* and *this desk goes home; anything not written into a file is forgotten*.
-
-### Slide: Durable Execution
-
-Long-running processes must:
-
-- Survive restarts.
-- Handle retries and failures.
-- Resume after waiting (e.g. for payment or the hotel's answer).
-
-Durable execution = we **persist activity state** to indicate which steps are complete, when we're awaiting an event, etc.
+Presenter notes: **Durable execution has just been named, and this is the first thing that needs it** — every activity type in this sub-section does, tentative included, which is why it comes second. The hotel makes it concrete: reserve/commit/rollback is a conversation with a *lifetime*, so someone has to remember the reservation exists, honour its timeout, and drive it to commit or rollback **even across a restart**. That requirement is what the rest of this section is about. Two failure cards land here — *the guest checks out early, mid-flow* and *this desk goes home; anything not written into a file is forgotten*.
 
 ### Slide: Activities and Resources
 
