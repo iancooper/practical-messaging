@@ -75,8 +75,8 @@ process boundary takes the top two off the table.**
 - **Common** — both parties share the same mutable store. Uncontrolled propagation of change; nobody owns
   the schema. Separate processes with **private data** do not have one.
 
-The opener said exactly this: *Messages In, Private Data, No Shared Transaction*. That slide was the
-mechanism. This is what it bought you.
+This is what *Messages In, Private Data, No Shared Transaction* buys you: the two tightest forms of
+coupling are not available across a process boundary.
 
 #image: the Myers coupling scale drawn vertically, tightest first, with the process boundary as a line across it — Content and Common above the line, struck through as *prevented*; Control, Stamp and Data below it, live  [→ resources/coupling-scale-boundary.png]
 
@@ -109,9 +109,8 @@ is why *Messaging* wins the comparison when §Integration Styles closes on *Why 
 
 ### Slide: Must We Both Be Up?
 
-There is a second axis, and interacting **between processes** is what forces it on you. If both parties
-must be present for the communication to succeed, they are **temporally coupled**: the availability of one
-becomes the availability of the other.
+The second axis is **time**. If both parties must be present for the communication to succeed, they are
+**temporally coupled**: the availability of one becomes the availability of the other.
 
 | | **Synchronous conversation** | **Asynchronous conversation** |
 |---|---|---|
@@ -173,8 +172,13 @@ One application writes a file; another reads it later. **The file is the contrac
 - **Asynchronous conversation** — nobody has to be up at the same time.
 - **Data coupling** — if you keep the file format elementary.
 
-**And the file is a message.** A batch of them, in a channel that happens to be a filesystem. Hold that
-thought — the last slide of this section is about everything you did *not* get with it.
+**And the file is a message.** A batch of them, in a channel that happens to be a filesystem.
+
+Presenter notes: **Plant this, and collect it on *Why Messaging*.** File Transfer and Messaging land in
+the same cell of the grid — asynchronous, and data coupled if the format stays elementary — so coupling
+alone will not separate them. What the file does not give you is ordering, locking and competing
+consumers, delivery guarantees, and any granularity finer than a batch. Do not list those here; the
+room should meet the gap when the grid makes it a question.
 
 #image: (s32) File Transfer — a file sitting on the process boundary; the producer writes it, the consumer reads it later, and the file is the whole of the contract  [→ resources/style-file-transfer.png]
 
