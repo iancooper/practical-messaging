@@ -1351,7 +1351,10 @@ A purchase-order message that inlines customer and restaurant data shows the cos
 
 ▎ Inline someone else's data and you have inherited their release schedule.
 
+#image: the purchase-order message as eight fields, bracketed by who owns each one — the order's own three in ink, the Customer's three and the Restaurant's two in red  [→ resources/eip-fat-message-transitive.png]
+
 Presenter notes: This is the slide that motivates the rule two slides later. The message did not just get bigger — it acquired two more reasons to change, and both are owned by other teams.
+**Walk the picture by owner, not by field.** Count the fields aloud — three ours, three the Customer's, two the Restaurant's — and then ask who has to be consulted before the message's schema can change. The answer is three teams, for one message.
 
 ### Slide: Skinny Message
 

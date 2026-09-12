@@ -781,6 +781,70 @@ def resequencer():
     return d
 
 
+# ---- 6.1 Fat and Skinny Messages ---------------------------------------------
+
+@figure("eip-fat-message-transitive")
+def fat_message_transitive():
+    """§6.1's *Fat Message -- Transitive Dependencies*, redrawn on Ian's ask.
+
+    **The 2025 original is Day 2 slide 37, and it is not a box-and-arrow diagram** --
+    it is a one-row Purchase Order table with three annotations and eight leader lines
+    fanning up into it. It carries no embedded image, which is why nothing in
+    `session-work/imgs/` matches it and why it had to be read out of the archived
+    `.pptx` shape by shape.
+
+    **What it teaches is ownership, so ownership is what is drawn.** The fields are
+    grouped by *whose schema they belong to* rather than annotated one by one: the
+    original's leader lines exist only because the annotations sat a long way from the
+    columns they described, and the groups say the same thing without eight lines
+    crossing the table.
+
+    **The field order is the original's**, which matters -- OrderId at the front and
+    Order Amount / Order items at the back, so *ours* is split in two and the two
+    borrowed blocks sit contiguously in the middle. That is what a real message looks
+    like, and regrouping it into three tidy blocks would have made the point easier and
+    less true.
+
+    **Red is the one idea: not yours.** Both borrowed groups carry it, because
+    *"five of these eight fields are somebody else's schema"* is a single idea -- the
+    same licence `paper-guest-cycle` uses to red four hand-offs. The groups then say
+    *whose*, which red alone cannot.
+    """
+    d = Diagram("Fat Message -- Transitive Dependencies", w=880, h=310)
+    d.note(440, 28, "five of these eight fields are somebody else's schema", ANNOTATION, 17)
+
+    # **Owner groups need a GUTTER, not just a border.** Laid out edge to edge the four
+    # dashed rectangles shared their borders, and the second "ours" label was struck
+    # through by the Restaurant group's right-hand edge -- the group-border defect the
+    # skill warns about, invisible to lint because it measures a label against the shape
+    # it sits in and a group border is neither.
+    CW, CY, CH, GUT = 88, 120, 74, 26
+    OWNERS = [(1, "ours", False), (3, "the Customer's", True),
+              (2, "the Restaurant's", True), (2, "ours", False)]
+
+    x, spans = 40, []
+    for n, label, borrowed in OWNERS:
+        spans.append((x, n, label, borrowed))
+        x += n * CW + GUT
+
+    for gx, n, label, borrowed in spans:                  # groups draw behind the cells
+        d.group(gx - 8, 92, n * CW + 16, 118, label, accent=borrowed, dashed=True)
+
+    fields = ["order\nid", "customer\nfirst name", "customer\nlast name",
+              "customer\npost code", "restaurant\nname", "restaurant\npost code",
+              "order\namount", "order\nitems"]
+    i = 0
+    for gx, n, _label, _borrowed in spans:
+        for j in range(n):
+            d.box(gx + j * CW, CY, CW, CH, fields[i], size=14)
+            i += 1
+
+    d.note(440, 76, "Purchase Order Message", INK, 15)
+    d.note(440, 248, "the two red blocks give the purchase order two more reasons to\n"
+                     "change, and neither of them is a reason of yours", COMMENT, 15)
+    return d
+
+
 def main(argv):
     if "--list" in argv:
         for name in FIGURES:
