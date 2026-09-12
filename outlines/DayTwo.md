@@ -14,9 +14,9 @@ Day Two moves from the single message to the **flow**. It opens on **Flow and Re
 
 ### Slide: Easy to Change, and Robust
 
-You will hear four reasons to distribute a system — **performance and scalability**, **availability**,
-**maintainability**, and applications that are **inherently distributed**. Strip the architecture words
-away and two properties are what you are actually buying:
+There are many drivers that cause us to distribute a system — **performance and scalability**,
+**availability**, **maintainability**, and applications that are **inherently distributed**. Strip the
+classification buckets away and the two properties you are actually buying are:
 
 - **Easy to change** — ship a part without shipping the whole. *Independent deployability.* One team
   decides its own release candidate and is in production in hours, not at the end of a two-week release
@@ -31,7 +31,7 @@ giving it back.
 Presenter notes: **Day 1 built the machinery; this is the first time the room is told what it was for.**
 That order is deliberate — the argument used to open Day 1 and it was preamble there, in front of people
 who had not yet seen a single mechanism. Here they have seen all of them, so it reads as a summing-up
-rather than a promise. Say the four reasons, then say that all four reduce to two properties, and put the
+rather than a promise. Say the drivers, then say that all of them reduce to two properties, and put the
 two words on the board — they are the spine of today. **Deliberately not here:** the case *for
 microservices*. The property is what matters and there is more than one way to buy it; a 2016 argument
 about decomposing monoliths is not what this room needs in 2026. If someone asks, the honest answer is
@@ -46,9 +46,7 @@ Yesterday answered *how do I send and receive reliably*. Today asks the harder q
 - **Who is in charge** — and does anyone need to be?
 - **Where does the work live** when a request is not a thread waiting for a reply?
 
-You already know the cost side. Temporal coupling multiplies outages; store and forward converts a
-failure into a delay. **That trade is settled.** What is not settled is what the system *looks like* when
-you take that trade seriously. That is today.
+Temporal coupling multiplies outages. Yesterday settled what to do about it.
 
 ▎ Messaging doesn't remove the outage; it converts a failure into a delay. Now: what does a system built
 that way actually look like?
