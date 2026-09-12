@@ -4,14 +4,13 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 `tools/*.py` are the source, `build/*.pptx` is output. An edit made in PowerPoint is lost on
 the next build.
 
-**Branch `deck-redevelopment`.** Day 1 is **129 slides**, Day 2 **157**, from 88 + 90 outline
-entries, with **104 figures** across twelve families plus **2 print cards**. **90 go on slides, 9 are
+**Branch `deck-redevelopment`.** Day 1 is **129 slides**, Day 2 **148**, from 88 + 91 outline
+entries, with **104 figures** across twelve families plus **2 print cards**. **89 go on slides, 9 are
 the two handouts'** (8 routing, 1 AsyncAPI), **4 are Paper Flow exercise materials** in `exercises/`,
-and **1 is placed nowhere** — `conversation-timeout`, dropped from a slide by R3-12 and kept in the
-family. *The old count here said 94-of-103 and never accounted for the exercise four; `tools/` is the
-arithmetic, not this line.* **Both days' counts move with every
-`REVIEW.md` row** — `python3 tools/deck_index.py <day>` is the truth; Day 2's 157 is 153 entries-and-figures
-plus **four `#group:` divider cards**, which are slides and carry a folio. `handouts/` is a third
+and **2 are placed nowhere** — `conversation-timeout` (R3-12) and `paper-the-desk` (R4-7), both kept in
+the family. *`tools/` is the arithmetic, not this line.* **Both days' counts move with every
+`REVIEW.md` row** — `python3 tools/deck_index.py <day>` is the truth. Day 2's 148 includes **four
+`#group:` divider cards**, which are slides and carry a folio. `handouts/` is a third
 destination beside the deck and the print cards, and a figure there is held at reading distance, not
 read across a room: it is fitted to a **154mm** text block, so its **printed letter size is `154 / w`**
 and the canvas width is the only lever on it.
@@ -28,6 +27,7 @@ and the canvas width is the only lever on it.
 | **`styles.md`** | the **authoritative visual spec** — canvas, type, sizes, palette, diagram rules, print. `tools/build_deck.py` implements it; **where the two disagree, `styles.md` wins** |
 | `outlines/DayOne.md`, `DayTwo.md` | **the build input.** Content edits happen here, never in the deck |
 | `tools/README.md` | how to build a figure: the `Diagram` API, the BPMN elements, per-family notes |
+| **the outline grammar** | `tools/outline.py`'s docstring is the implementation. **`#divider:`** opts a `#group:` into a divider slide; **`#reveal: bullets`** gives one click per bullet. Both opt-in per entry, like `#layout:` |
 | `handouts/*.md` | the **takeaway pack** — *Routing Patterns* and *Managing Asynchronous APIs*, both signposted from the deck. Tracked Markdown; **`handouts/build.sh` prints them to A4**, through `print.css` (the house sheet, styles.md at document sizes) and `print.html`. The **PDFs are generated and gitignored**, like `build/` |
 | `code-rewrites.md` | the **separate** Day 1 coding-exercise workstream. Read only if that is the job |
 | `PROMPT.md` (untracked, if present) | session hand-off — what happened lately, and Ian's open desk |
@@ -149,9 +149,12 @@ Each cost real rework at least once. The long-form versions are in the skills.
     and all of them are referenced from the **plan**. Wiring a worked answer in as an `#image:`
     puts it in front of the room before the task. A handout gets **one line and a presenter note**
     on the slide that hands it out, and nothing more.
-13. **Check whether a convention is *taught* before changing it.** Paper Flow's *red dashed =
-    paper moving* is line 35 of a printed delegate brief. `grep -rn` across `exercises/` and
-    `outlines/` first.
+13. **Check whether a convention is *taught* before changing it.** `grep -rn` across `exercises/`
+    and `outlines/` first — Paper Flow's notation is line 35 of a printed delegate brief.
+    **⚑ And check the evidence too**: this rule used to cite that line as teaching *red dashed = paper
+    moving*. It does not. It says **dashed / solid**, with no colour, and `paper-notation-key.png` draws
+    the dashed arrow in **carbon** — so the outline's *"Red dashed arrows"* contradicted its own next
+    slide until R4-8. A cited convention can be misremembered by the very note warning you to check it.
 14. **Two settled decisions can contradict each other, and neither will say so.** The diagram
     panel and the 18pt floor were both agreed with Ian, months apart, and together put every
     figure at 37–53% of the size it was measured at. **When two specs meet, measure the join.**
