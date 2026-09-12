@@ -57,8 +57,9 @@ def main(argv):
 
     for n, laid in rows:
         sl = laid.slide
-        title = sl.title if sl is not None else f"[{laid.kind}]"
-        sec = (sl.section if sl is not None else "") or ""
+        title = sl.title if sl is not None else (laid.label or f"[{laid.kind}]")
+        sec = (sl.section if sl is not None
+               else laid.label_section or "") or ""
         figs = ", ".join(os.path.basename(f[0]) for f in laid.figures)
         mark = "↳" if laid.split and laid.kind == "figure" else " "
         print(f"{n:4d} {mark} {laid.kind:7s}  {str(sec)[:24]:24s}  {title}"

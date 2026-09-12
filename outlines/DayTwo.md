@@ -103,6 +103,7 @@ charge whether you wanted it or not.
 ---
 
 #group: Movement A — How the Office Did It
+#divider: Paper workflows: the frame, the desk, the worked flows and how they failed — closing with the hotel's, drawn by you.
 
 ### Slide: Paper Workflows
 
@@ -299,6 +300,7 @@ Automation formalises it at the end of the day.
 ---
 
 #group: Movement B — How Would You Build That?
+#divider: Call and return, at object scale and at service scale — ending in the distributed monolith, which is the wrong answer, offered second.
 
 ### Slide: Object-Oriented Programming
 
@@ -362,6 +364,7 @@ Presenter notes: **This is the slide the movement exists for, and it is now an a
 ---
 
 #group: Movement C — The Formalism
+#divider: Dataflow, then flow-based programming — the same flows again as a graph, closing with yours redrawn.
 
 ### Slide: Data Flow Programming
 
@@ -552,6 +555,7 @@ planes of all. Still **no BPMN**.
 ---
 
 #group: Movement D — The Name
+#divider: Reactive: the name for what you have been building since yesterday morning.
 
 ### Slide: Reactive Architectures
 

@@ -15,6 +15,9 @@ documents it; this is the implementation.
     # Title                  the deck title, once
     ## Section               a teaching section
     #group: <title>          a run of slides inside a section -- NOT an entry, not counted
+    #divider: <one-line>     OPTS THE GROUP ABOVE INTO A DIVIDER SLIDE, and is the
+                             line it carries. Must follow a `#group:`. Opt-in on
+                             purpose: `DayTwo.md` has six groups and Ian named four
     ### Slide: <name>        an entry. `###` is reserved for slides and nothing else
     *blurb*                  italic line under a `##`, the section's own summary
     - bullet                 body; nested by two-space indent
@@ -46,7 +49,7 @@ import sys
 
 # A line that ends the block being accumulated. Everything else continues it.
 _STARTERS = re.compile(
-    r"^(#{1,3} |#image:|#group:|#note:|#layout:|Presenter notes:|▎|```|\||>\s|---\s*$|\s*[-*] |\s*\d+\. )")
+    r"^(#{1,3} |#image:|#group:|#divider:|#note:|#layout:|Presenter notes:|▎|```|\||>\s|---\s*$|\s*[-*] |\s*\d+\. )")
 
 # **A link may name more than one file.** Five Day 2 markers give the render AND its
 # editable source -- `[→ resources/x.png, resources/FBP x.drawio]` -- and one ends in
@@ -121,6 +124,10 @@ class Deck:
         self.title = title
         self.intro = []          # the lead paragraphs before the first `##`
         self.sections = []
+        # **`#group:` sets the kicker; a divider SLIDE is opt-in.** Keyed
+        # `(section name, group title)` because a group title is only unique within
+        # its section, and the value is the one line the card carries.
+        self.dividers = {}
 
     @property
     def slides(self):
@@ -237,6 +244,22 @@ def parse(path):
         if line.startswith("#group:"):
             close()
             group = line[len("#group:"):].strip()
+            in_notes = False
+            continue
+
+        # **A group divider is opt-in, and this line is what opts it in.** Four of
+        # `DayTwo.md`'s six groups get one (Ian, 2026-09-12); the two *Worked Flows*
+        # groups do not, so generating a card for every group would be wrong. The
+        # text is the card's own line -- the movement in one sentence -- and it is
+        # NOT provenance, so rule 2 still holds.
+        if line.startswith("#divider:"):
+            close()
+            text = line[len("#divider:"):].strip()
+            if group is None:
+                sys.stderr.write(
+                    f"  ! #divider: with no #group: above it, ignored: {text[:50]!r}\n")
+            else:
+                deck.dividers[(section.name if section else "", group)] = text
             in_notes = False
             continue
 

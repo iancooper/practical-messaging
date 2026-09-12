@@ -369,6 +369,11 @@ class Laid:
         self.notes = []
         self.split = False       # True when one outline entry became two slides
         self.figures = []        # (src, rendered_w_in, canvas_w, canvas_h)
+        # **What to call a slide that has no outline entry.** `deck_index` is how Ian
+        # turns a slide number into something addressable, and a group divider with
+        # no entry printed as a bare `[group]` -- unreviewable. Set by `group_slide`.
+        self.label = None
+        self.label_section = None
         # **Progressive disclosure, grouped by idea.** 0 is what is on screen before
         # the first click -- the ground, the kicker, the title, the folio. Everything
         # above 0 is a click. `_body` decides the grouping; see `_reveals`.
@@ -532,6 +537,48 @@ class Deck:
                             M_L, y, COMMENT)
             for o in ops:
                 laid += o
+        self.slides.append(laid)
+
+    def group_slide(self, sec, group, line):
+        """A `#group:` divider -- the quiet card. **Deliberately not a section.**
+
+        Ian, 2026-09-12, asked for a header on each of Day 2's four movements. A
+        `#group:` had never made a slide: it sets the kicker and nothing else, and
+        `run()` called `section_slide()` once per `##` only.
+
+        **The whole design problem is that it must NOT look like a `##` divider**, or
+        the room reads *Movement B* as a new section when it is one beat inside *Flow
+        and Reactive Programming*. A section card is manila, carries a 0.10in red bar
+        and sets its title at 40pt; this one is **paper, no bar, and 29pt** -- the same
+        weight as any slide title -- so it reads as a pause, not a boundary. Ian chose
+        this shape over manila-without-the-bar and over a 40pt rule, both of which kept
+        too much of the section card's weight.
+
+        **The eyebrow is CARBON, not muted**, though the mock-up that was agreed said
+        muted: `styles.md` puts muted at 3.6:1 on paper and reserves it for lines, not
+        letters. Carbon is also the right answer on its own terms -- the four-colour
+        rule gives carbon to *where does it go?*, and `Movement A` is an address.
+
+        The group title splits on the em dash into that address and the title proper;
+        a group with no dash just sets a title."""
+        laid = Laid(None, "group")
+        laid.label, laid.label_section = group, sec.name
+        self._ground(laid, PAPER)
+        self._kicker(laid, sec.name)
+        label, _, name = group.partition("—")
+        label, name = label.strip(), name.strip()
+        y = 2.60
+        if name:
+            laid += Text(M_L, y, [(label.upper(), False, False, False)],
+                         MONO, KICKER_PT, CARBON, track=0.16)
+            y += _in(KICKER_PT) * 1.70
+        else:
+            name = label
+        y = self._title(laid, name, y, CONTENT_W * 0.78)
+        ops, _ = _lines(O.runs(line), CONTENT_W * 0.60, SANS, BODY_PT,
+                        M_L, y, COMMENT)
+        for o in ops:
+            laid += o
         self.slides.append(laid)
 
     # A photograph tolerates being small; a drawing with labels in it does not. That
@@ -821,7 +868,17 @@ class Deck:
             if not sec.slides:
                 continue
             self.section_slide(sec)
+            # **The divider goes in where the group CHANGES**, which is the only place
+            # the group boundary exists: a `#group:` is carried on each slide it
+            # covers, not as an entry in the list. Opt-in, so a group with no
+            # `#divider:` line still just sets the kicker.
+            prev_group = None
             for sl in sec.slides:
+                if sl.group != prev_group:
+                    line = self.deck.dividers.get((sec.name, sl.group))
+                    if line:
+                        self.group_slide(sec, sl.group, line)
+                    prev_group = sl.group
                 self.content_slide(sl)
         # **Numbered here, not in the slide builders**, because the number is a
         # position in the deck and no builder knows one. The title slide is left

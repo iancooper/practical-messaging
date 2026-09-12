@@ -31,6 +31,23 @@ typographically serious — not replacing it with a corporate template.
 
 **16:9 — 13.333 × 7.5 in** (12192000 × 6858000 EMU).
 
+**Three kinds of slide carry no outline entry**: the **cover**, a **section card** (`## Section` —
+manila ground, a 0.10in `annotation` bar across the top, the section name at **40pt** and its blurb in
+`comment`), and a **group card** (`#group:` + `#divider:` — see below).
+
+**⚑ A group card must read as subordinate to a section card, and the whole design is that contrast.**
+Ian asked, 2026-09-12, for a header on each of Day 2's four movements; a movement is one beat inside
+*Flow and Reactive Programming*, so a card that looked like a section card would announce a section that
+does not exist. So the group card is **paper, no bar, and its title is 29pt** — the same weight as any
+slide title — over a `carbon` Plex Mono eyebrow (the part of the group title before the em dash) and one
+line of `comment`. Ian chose this over manila-without-the-bar and over a 40pt rule, both of which kept
+too much of the section card's weight. **It is opt-in**: `#group:` alone still only sets the kicker, and
+`#divider:` is what makes the slide, because Day 2 has six groups and four cards.
+
+**The eyebrow is `carbon`, not `muted`**, though the agreed mock-up said muted — muted is **3.6:1** on
+paper and is for lines, not letters. Carbon is also right on its own terms: the four-colour rule gives
+carbon to *where does it go?*, and *Movement A* is an address.
+
 **Layout.** A **kicker** — the section name, Plex Mono, uppercase, tracked — sits above the title on
 every slide, and a **folio** — the slide number — sits in the bottom-left margin of every slide but
 the cover. The folio is an address, not a piece of the slide: same face and same colour as the
