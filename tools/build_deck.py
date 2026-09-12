@@ -315,7 +315,7 @@ def plan_table(raw_rows, head, w):
 
     rows = []
     for ri, row in enumerate(raw_rows):
-        cells, lines_max = [], 1
+        cells, flat, lines_max = [], [], 1
         for ci in range(ncol):
             txt = row[ci] if ci < len(row) else ""
             runs = O.runs(txt)
@@ -323,9 +323,26 @@ def plan_table(raw_rows, head, w):
                 runs = [(t, True, i, m) for t, b, i, m in runs]
             lines = Type.wrap(runs, cols[ci] - 2 * CELL_PAD, SANS, TABLE_PT)
             cells.append(lines)
+            # **`cells` is wrapped, `flat` is not, and the back ends want different
+            # ones.** The preview draws the wrapped lines; PowerPoint is given the
+            # cell whole and re-wraps it to the same column. Flattening `cells` to
+            # get the second one LOSES A SPACE at every break, because `wrap` carries
+            # each word's leading space inside its own piece and the word that starts
+            # a line has none -- so `we need to know what we sent` was written into
+            # the `.pptx` as `we need to knowwhat we sent`, and `State Machine` as
+            # `StateMachine`, one unbreakable token in a narrow column. 51 of them
+            # across 37 cells in both decks, and **invisible in the preview**, which
+            # draws the lines separately and so always read correctly.
+            #
+            # Re-inserting a space at each boundary is NOT the fix: `wrap` breaks
+            # before the current word whether or not that word had a space in front
+            # of it, and `**bold**, then` puts `bold` and `,` on one line with no
+            # space between them -- a break there would write `bold ,`. The space is
+            # only safe where it was never removed, so keep the unwrapped runs.
+            flat.append(Type._merge(runs))
             lines_max = max(lines_max, len(lines))
         rows.append(dict(h=lines_max * _in(TABLE_PT) * CELL_LEAD + 2 * CELL_PAD,
-                         cells=cells))
+                         cells=cells, flat=flat))
     return cols, rows
 
 
@@ -1014,9 +1031,10 @@ def emit_pptx(laid_deck, path, animate=True):
                         tp = cell.text_frame.paragraphs[0]
                         tp.line_spacing = CELL_LEAD
                         # the layout already wrapped, so the cell is written as one
-                        # run sequence and PowerPoint re-wraps to the same width
-                        flat = [t for line in row["cells"][ci] for t in line]
-                        for t, bo, it, mo in Type._merge(flat):
+                        # run sequence and PowerPoint re-wraps to the same width --
+                        # from `flat`, the UNWRAPPED runs, not by re-joining the
+                        # wrapped lines, which drops the space at every break
+                        for t, bo, it, mo in row["flat"][ci]:
                             r = tp.add_run()
                             r.text = t
                             r.font.name = MONO if mo else SANS
