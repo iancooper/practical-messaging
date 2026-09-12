@@ -104,9 +104,9 @@ from a later session.
 | Four Composed, Two Printed | `40b2a941-5ce3-4260-a882-a4c33e442383` | ✅ reviewed 2026-09-09, both calls answered. `B2·2` approved, **`A4·1` overturned**. The cards' 24 BPMN glosses were on it and drew no comment — **seen, not approved** |
 | BPMN on a Half Stage | `3dc05399-3d6a-4fce-a39a-95a544444e47` | ✅ **ruled 2026-09-12, same day, all three addresses.** ⚑ **And two of the three answers were not options on the card** — he asked for an arrangement the builder did not have. Republished with the rulings as verdicts. §R4's three BPMN `side` merges (R4-40/41/42), each shown as it ships beside the full-width slide it replaced. Two of the three read at ~6.0 and ~6.6pt against the **8.9–12.8pt** band Ian ruled. **The first sheet built by `tools/review_sheet.py`** |
 
-| Day One Drawings, Reseated | `525f44f7-9057-4ff6-a39d-fe5854358da0` | ⚑ **published 2026-09-12, awaiting his look.** `BACKLOG.md` **F7** — the 13 Day 1 `side` slides after `SIDE_FIG_RISE`, three shown before and after, ten as they ship, and a section bounding what the change cannot touch |
+| Day One Drawings, Reseated | `525f44f7-9057-4ff6-a39d-fe5854358da0` | ✅ **approved 2026-09-12, same day** — *"Looks good, make it so."* `C1` answered no: Day 1 keeps the change. Republished with the verdicts. `BACKLOG.md` **F7** — the 13 Day 1 `side` slides after `SIDE_FIG_RISE`, three shown before and after, ten as they ship, and a section bounding what the change cannot touch |
 
-**Four are still awaiting him.** Sheet 8 went up and came back the same day.
+**Three are still awaiting him** — the three old ones. **Sheets 8 and 9 both went up and came back the same day**, which is what happens when the sheet names the decision and puts a number on it.
 
 **⚑ Measure the thing the sheet claims, do not eyeball it from the render.** Sheet 9's first draft
 grouped the 13 slides by how far they moved, from *looking* at them — and had **two of the extremes
