@@ -480,6 +480,8 @@ until cancelled: **Get → Translate → Dispatch → Handle**.
 **Each stage fails in its own way.** That is why a message which is never going to be handled has four
 different places to end up.
 
+#layout: side
+
 #image: diagram — the four-stage pump in a loop, with each stage's failure routed away: deliver to a dead letter channel, understand to an invalid message channel, dispatch to an error log, and a thrown handler to a requeue with a limit  [→ resources/eip-message-pump.png]
 
 Presenter notes: The loop takes a message, translates the body into a type the application understands,
@@ -498,6 +500,8 @@ Two of those four stages are driven by a registry: **Translate** looks up a **Me
 
 - A **Message Mapper** converts between a message and a domain object.
 - A **handler** is your code, subscribed to the channels the endpoint listens on.
+
+#layout: side
 
 #image: diagram — the same four-stage pump, with a Message Mapper Registry under Translate and a Handler Registry under Dispatch  [→ resources/eip-translate-and-dispatch.png]
 
