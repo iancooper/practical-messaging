@@ -4,9 +4,12 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 `tools/*.py` are the source, `build/*.pptx` is output. An edit made in PowerPoint is lost on
 the next build.
 
-**Branch `deck-redevelopment`.** Day 1 is **136 slides**, Day 2 **153**, from 88 + 90 outline
-entries, with **103 figures** across twelve families plus **2 print cards**. **94 of the 103 go on
-slides; the other 9 are the two handouts'** — 8 routing, 1 AsyncAPI. **Day 1's counts move with every
+**Branch `deck-redevelopment`.** Day 1 is **131 slides**, Day 2 **153**, from 88 + 90 outline
+entries, with **104 figures** across twelve families plus **2 print cards**. **90 go on slides, 9 are
+the two handouts'** (8 routing, 1 AsyncAPI), **4 are Paper Flow exercise materials** in `exercises/`,
+and **1 is placed nowhere** — `conversation-timeout`, dropped from a slide by R3-12 and kept in the
+family. *The old count here said 94-of-103 and never accounted for the exercise four; `tools/` is the
+arithmetic, not this line.* **Day 1's counts move with every
 `REVIEW.md` row** — `python3 tools/deck_index.py 1` is the truth. `handouts/` is a third
 destination beside the deck and the print cards, and a figure there is held at reading distance, not
 read across a room: it is fitted to a **154mm** text block, so its **printed letter size is `154 / w`**
@@ -72,7 +75,7 @@ python3 tools/side_cost.py 2          # what `#layout: side` WOULD cost a slide;
 ```
 
 **The twelve figure families**, each `python3 tools/<name>.py [figure-name | --list]`:
-`eip_figures` (25, **8 of them handout-only**) · `coupling_grids` (5) · `if_later` (2) ·
+`eip_figures` (26, **8 of them handout-only**) · `coupling_grids` (5) · `if_later` (2) ·
 `queues_streams` (11) · `integration_styles` (4) · `app_shapes` (3) · `conversations` (3) — Day 1;
 `bpmn_hotel` (13) · `bpmn_shopping` (6) · `paper_flow` (7) · `flow_reactive` (23) — Day 2;
 `asyncapi_figures` (1, **handout-only**) — the AsyncAPI handout.

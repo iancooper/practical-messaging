@@ -2024,6 +2024,43 @@ figure is about.
 Newest first. Records **why**, including reasoning that changed no file — git history covers what
 changed in the outlines, not this.
 
+### 2026-09-12 — R3: Ian's second pass, and four of its rows were one number
+Fourteen rows against the rebuilt Day 1 deck. Day 1 **136 → 131 slides**. The content rows are in
+`REVIEW.md` §R3; what belongs here is the one finding that was not a content decision.
+
+**Slides 50, 58, 76 and 113 were not four defects.** `_lines` reserved `n × pt × lead` for a block, and
+a callout's `lead` is **1.06** — chosen so Caveat's tall ascenders do not look sparse. Caveat's glyphs
+span **1.260em** ascent to descent. So every callout in both decks claimed to end **0.200em before its
+descenders did**, and whatever the layout put next was placed **0.067in too high**. On a text slide that
+is the next paragraph; on a figure slide the picture is opaque and simply covers the line, which is why
+Ian saw "hidden" on one and "clipped" on another and they are the same bug.
+
+**Measured in the emitted `.pptx`, not modelled.** The callout box is 0.37in tall for 24pt text and the
+next element began at 2.03–2.06in against a text bottom of 1.96in. After the fix every one of the four
+clears by 0.19in.
+
+**Not four slides — 108 callouts**, 73 of them sitting under an opaque picture. Ian happened to catch
+four of the 108, which is roughly what a reader catches.
+
+**The preview could not have shown it**, by construction: the preview draws the lines itself at the same
+1.06, so it agreed with the layout and always had. Fourth entry on the list of things the `.pptx` does
+that the preview cannot.
+
+**Scoped to Caveat, and the alternative was measured rather than assumed.** Plex is short too — `LEAD`
+1.24 against an ink extent of 1.300 — but by 0.060em against Caveat's 0.200em, it has never collided
+because body blocks carry an explicit gap before the next one while a figure is laid straight onto the
+stage. Raising both cost **four slides their fit and three points of median figure size** for a margin
+nothing has reported. `styles.md` says Caveat never carries body copy, so keying `_reserve` on the
+family keys on exactly the blocks at risk.
+
+**⚑ And the pass surfaced the join between two settled decisions, which is rule 14 again.** Ian has now
+asked for `#layout: side` eleven times. Every one of those slides reads at **8.9–12.8pt in the room
+against an 18pt floor**, because the half-stage is 6.1in where Phase 2 measured 12.4. **`reads_at.py`
+says those figures are at exactly 18.0pt**, because it measures against the full-width stage and knows
+nothing about the arrangement — the legibility check is blind to the one layout that halves the width.
+`BACKLOG.md` **G12** and **G13**. The four `queues_streams` figures are ours and can be re-laid; the
+other seven carry 2021 imports and are G1's.
+
 ### 2026-09-10 — R2-3: `#layout: side` is not rolled out to Day 2, and the measurement is why
 Ian asked for text-left/figure-right on six named Day 1 slides. R2-3 asked whether Day 2 should follow.
 **Changed no file, which is the point of recording it here** — the next session would otherwise re-derive

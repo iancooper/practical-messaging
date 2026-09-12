@@ -1,16 +1,19 @@
 # Review — Ian's first pass over the built decks #
 
 **Ian, 2026-09-10, on the rendered Day 1 deck:** *"First, this a great first pass."* Then
-twenty-six findings. This file was the **work list**, worked top to bottom, and it is now **closed**.
+twenty-six findings. This file is the **work list**, worked top to bottom. **§R1 and §R2 are closed; §R3 is Ian's
+second pass over the rebuilt Day 1 deck.**
 
 **Day 1 first, then a Day 2 pass** for the two findings that are not Day-1-specific — the text-box
 split and the AI-isms. Ian reviews Day 2 by hand after that.
 
-**⚑ All thirty rows are closed as of 2026-09-10.** The last two were Ian's own: **R2-3** — Day 2 does
+**§R1 and §R2's thirty rows closed 2026-09-10.** The last two were Ian's own: **R2-3** — Day 2 does
 *not* get a blanket `#layout: side`, he names slides one at a time when he reviews it — and **R2-4** —
 §*Putting It Together* drops *annotated* rather than growing ten new figures. **What R2-4 handed on
 rather than fixed is in `BACKLOG.md` G1**: slides **138** and **141** carry ~4pt annotations, and **138**
 and **144** ship typos.
+
+**§R3 opened 2026-09-12 — fourteen rows, all applied.** Day 1 **136 → 131 slides**.
 
 > **Read `BACKLOG.md` for everything else that is outstanding.** This file is only this review.
 > When a row here closes it closes here; `BACKLOG.md` §H carries one line pointing at this file.
@@ -101,3 +104,43 @@ Recorded so it does not get done by accident, and so the next session does not r
   G1 stays scoped-and-not-started.
 - **Nothing about `styles.md`.** The palette, the type scale and the two registers are not in scope.
 - **No new sections and no cuts to §1, §2, §3, §6.1 or §6.3** beyond R1-1's prose sweep.
+
+
+---
+
+## §R3 — Ian's second pass over Day 1 ##
+
+**2026-09-12, against the rebuilt deck.** Fourteen rows. **⚑ Ian numbers by the slide numbers he was
+reading, which were the 136-slide build**; Day 1 is **131** now, so every number below 31 is unchanged
+and everything above it has moved. The rows are anchored on **entry titles**, which did not move.
+
+| # | slide (his) | the ask | state |
+|---|---|---|---|
+| **R3-1** | **7** | *"The opener said exactly this… That slide was the mechanism. This is what it bought you."* — AI-ism. Three sentences for one point, two of them about a previous slide | ✅ |
+| **R3-2** | **10** | *"There is a second axis, and interacting between processes is what forces it on you."* — AI-ism. Announces an axis, then states it. Now *"The second axis is **time**."* | ✅ |
+| **R3-3** | **14** | *"Hold that thought — the last slide of this section is about everything you did not get with it."* — AI-ism. A forward reference is presenter guidance; the entry had **no presenter note at all** and now has a specific one, checked against *Why Messaging* rather than paraphrased | ✅ |
+| **R3-4** | **31 + 32** | *Queues Contain Tasks* — shrink and merge. *"Too hard to talk to the text, then repeat on the slide"* | ✅ |
+| **R3-5** | **33 + 34** | *Streams Contain Facts* — merge, and drop four lines that are **on the image anyway**. **Three of the four are**: the offset store, the bookmark-on-restart sentence nearly verbatim, and *facts are an inverse database*. **The clause that is not** — *navigate the offsets to compute a point-in-time position* — went to the notes. The callout was not on the image either, but it **restated the two slide titles**, so it earned the cut | ✅ |
+| **R3-6** | **50** | Text hidden under the picture. **⚑ Not a content row — see R3-14.** Ian quoted slide 58's callout against this slide; 50's own is *"Your handler is not a message handler…"*. The defect is real on both | ✅ |
+| **R3-7** | **53 + 54** | *Competing Consumers on a Queue* — merge; *"Read-past buys you throughput. It spends your ordering to do it."* to the notes | ✅ |
+| **R3-8** | **55 + 56** | *Competing Consumers on a Stream* — merge; *"On a queue you spend ordering to buy throughput…"* to the notes | ✅ |
+| **R3-9** | **58** | The picture clips the callout. **R3-14** | ✅ |
+| **R3-10** | **76** | The picture clips the callout. **R3-14** | ✅ |
+| **R3-11** | **77 + 78** | *Inbox (Idempotency)* — shrink and merge | ✅ |
+| **R3-12** | **101** | *"Drop. The other pattern slides are only text, and I don't think that this diagram adds."* `conversation-timeout` is now **placed zero times** — kept in `resources/` and in the family, not deleted | ✅ |
+| **R3-13** | **111** | *"The original deck has a diagram for transitive dependencies… let's redraw and add it, probably on its own slide for space."* **It is Day 2 2025 slide 37, not Day 1** — and it has **no extracted image**, because the original is a native table plus text boxes and leader lines. Read out of the archived `.pptx` shape by shape and redrawn as `eip-fat-message-transitive` | ✅ |
+| **R3-14** | **113** | The callout overlaps the prose. **⚑ This, R3-6, R3-9 and R3-10 are one number.** `_lines` reserved `n × pt × lead`, and the callout's `lead` is 1.06 against Caveat's 1.260em ink extent — so every callout claimed to end **0.200em before its descenders did**, and whatever came next sat 0.067in too high. **108 callouts across both decks**, 73 of them under an opaque picture. Fixed in `_reserve`; inter-line spacing is untouched | ✅ |
+
+### What §R3 turned up that Ian did not ask about ###
+
+- **⚑ Every `#layout: side` slide reads at 8.9–12.8pt against an 18pt floor.** Eleven of them now. The
+  half-stage is **6.1in** where Phase 2 measured 12.4. **`reads_at.py` cannot see it** — it measures
+  against the full-width stage and knows nothing about the arrangement, and it reports all four
+  `queues_streams` figures at exactly 18.0pt. The four `qs-*` figures are **ours**, so re-laying each
+  into a narrower, taller canvas brings them back to the floor at 6.1in. **Not done — Ian has not asked
+  for it, and it is figure work.**
+- **The preview could not have shown R3-14**, by construction: it draws the lines itself at the same
+  1.06, so it agreed with the layout and always had. That is the fourth thing the `.pptx` does that the
+  preview cannot show.
+- **⚑ R3-14 is unverifiable on this machine.** There is no PowerPoint here. Slides 50, 58, 76 and 113
+  need re-opening.

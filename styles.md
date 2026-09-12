@@ -267,6 +267,6 @@ quotation or a callout is its own step; a run of bullets with no lead-in is one 
 picture is its own. Chrome — ground, kicker, title, folio — is step 0 and never animates.
 `--no-animation` builds without it.
 | body | **18pt** Plex Sans · sub-items 16pt |
-| callout | **24pt** Caveat, annotation red, with a red bar |
+| callout | **24pt** Caveat, annotation red, with a red bar. Lines are set **1.06em** apart — Caveat's ascenders look sparse at the body's 1.24 — but the block **reserves the font's own 1.260em ink extent for its last line**, or the next thing sits on the descenders. See `_reserve` in `build_deck.py` |
 | table | 15pt Plex Sans, columns proportional to content |
 | code | 15pt Plex Mono on manila |

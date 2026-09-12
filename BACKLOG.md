@@ -9,7 +9,7 @@ and a table you can read the length of does not.
 Last reconciled against the repo: **2026-09-10**, after C4. **§C's two handouts are both built**, so
 **nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built.
 **§G is the full-deck visual sweep — eleven findings.** G2, G3, G4, G6, G7, G8 and G10 are fixed; G9 was withdrawn on inspection; **G1 (the register, 30 slides) and G11 (the preview drops italic) are open.** B2 and B3 have no
-action available. **§H is closed** — it was Ian's first pass over the built decks, 2026-09-10, twenty-six findings; the worked list is `REVIEW.md`.
+action available. **§H holds Ian's two passes over the built decks** — 2026-09-10 (26 findings) and **2026-09-12 (14 more, §R3)**; both worked, and the list is `REVIEW.md`. **§R3 opened G12 and G13.**
 
 **Where things stand.** Phases 1 and 2 are closed, and **Phase 3 has nothing actionable left**: §A, §B
 and §C are all closed but for B2 and B3, which have no action available. What remains is §F — Ian's.
@@ -143,9 +143,29 @@ rows, and a narrow Day 2 pass afterwards. Ian: *"That's enough for a first pass 
 **Both of H2's blocking questions were put to Ian on 2026-09-10 and both were answered**: the full §4.5
 restructure, and the builder inferring reveal groups rather than a marker in the outline.
 
-**§H is closed.** Both of its open rows were ruled on by Ian on 2026-09-10: R2-3 *no roll-out, ask per
-slide*, R2-4 *drop `annotated`*. **⚑ R2-4 handed G1 two named jobs** — slides **138 and 141** carry ~4pt
-annotations (plan §14.3) and **138 and 144 ship typos** (§14.2), and retitling touched none of it.
+**§H's first pass is closed.** Both of its last two rows were ruled on by Ian on 2026-09-10: R2-3 *no
+roll-out, ask per slide*, R2-4 *drop `annotated`*. **⚑ R2-4 handed G1 two named jobs** — slides **138
+and 141** carry ~4pt annotations (plan §14.3) and **138 and 144 ship typos** (§14.2), and retitling
+touched none of it.
+
+**§R3 — his second pass over Day 1, 2026-09-12, fourteen rows, all applied.** Day 1 **136 → 131
+slides**. Three AI-isms; five entries merged to one slide each on `#layout: side`; the timeout sequence
+dropped from *In-Out*; the transitive-dependencies picture redrawn from the 2025 **Day 2** deck, where it
+is a native table with leader lines and carries no extracted image. **⚑ Four of the fourteen were one
+number** — the callout reserved 1.06em where Caveat's ink extent is 1.260em, so **108 callouts across
+both decks** sat 0.067in too close to whatever came next, 73 of them under an opaque picture.
+**Invisible in the preview by construction, and unverifiable on this machine.**
+
+**⚑ §R3 left one thing measured and not acted on, and it is new work rather than a loose end.**
+**Every `#layout: side` slide reads at 8.9–12.8pt in the room against an 18pt floor** — eleven of them
+now, after Ian asked for five more. The half-stage is 6.1in where Phase 2 measured 12.4, and
+**`reads_at.py` is blind to it**: it measures against the full-width stage and reports all four
+`queues_streams` figures at exactly 18.0pt. Two separable jobs, neither started:
+
+| | | | |
+|---|---|---|---|
+| **G12** | **`reads_at.py` does not know about `#layout: side`** | S | The legibility check reports the full-width number for eleven slides that are not laid out that way. It should take the arrangement from the outline, as `side_cost.py` does |
+| **G13** | **The four `qs-*` figures want re-laying for the half-stage** | M | `qs-queue-tasks`, `qs-stream-facts`, `qs-queue-competing`, `qs-stream-partitions` are drawn ~2:1 and fitted by **width** at 6.1in, so half the stage is empty and the labels are at ~10pt. Narrower and taller brings them back to the floor. **Available only because these four are ours** — the other seven side slides carry 2021 imports and belong to **G1** |
 
 **New tool: `tools/deck_index.py`.** Ian reviews by slide number and the slide number is not the
 outline entry number — 91 entries build 138 slides. It runs the real layout and prints the map.
