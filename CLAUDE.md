@@ -4,7 +4,7 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 `tools/*.py` are the source, `build/*.pptx` is output. An edit made in PowerPoint is lost on
 the next build.
 
-**Branch `deck-redevelopment`.** Day 1 is **131 slides**, Day 2 **153**, from 88 + 90 outline
+**Branch `deck-redevelopment`.** Day 1 is **129 slides**, Day 2 **153**, from 88 + 90 outline
 entries, with **104 figures** across twelve families plus **2 print cards**. **90 go on slides, 9 are
 the two handouts'** (8 routing, 1 AsyncAPI), **4 are Paper Flow exercise materials** in `exercises/`,
 and **1 is placed nowhere** — `conversation-timeout`, dropped from a slide by R3-12 and kept in the

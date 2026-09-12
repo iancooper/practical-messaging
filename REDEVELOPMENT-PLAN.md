@@ -2025,7 +2025,11 @@ Newest first. Records **why**, including reasoning that changed no file — git 
 changed in the outlines, not this.
 
 ### 2026-09-12 — R3: Ian's second pass, and four of its rows were one number
-Fourteen rows against the rebuilt Day 1 deck. Day 1 **136 → 131 slides**. The content rows are in
+Sixteen rows against the rebuilt Day 1 deck, in two batches. Day 1 **136 → 129 slides**, and Ian
+closed Day 1 on the second batch: *"With that, I suspect we close out the review on Day One."*
+**⚑ The two batches are numbered against different builds** — the first fourteen off the 136-slide
+deck, the last two off the 131-slide rebuild. `deck_index.py` and the entry titles are what made
+that safe; counting `###` would have landed on the wrong entries twice. The content rows are in
 `REVIEW.md` §R3; what belongs here is the one finding that was not a content decision.
 
 **Slides 50, 58, 76 and 113 were not four defects.** `_lines` reserved `n × pt × lead` for a block, and

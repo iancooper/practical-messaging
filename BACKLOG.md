@@ -9,7 +9,7 @@ and a table you can read the length of does not.
 Last reconciled against the repo: **2026-09-10**, after C4. **§C's two handouts are both built**, so
 **nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built.
 **§G is the full-deck visual sweep — eleven findings.** G2, G3, G4, G6, G7, G8 and G10 are fixed; G9 was withdrawn on inspection; **G1 (the register, 30 slides) and G11 (the preview drops italic) are open.** B2 and B3 have no
-action available. **§H holds Ian's two passes over the built decks** — 2026-09-10 (26 findings) and **2026-09-12 (14 more, §R3)**; both worked, and the list is `REVIEW.md`. **§R3 opened G12; G13 was closed by Ian's ruling that the `side` slides' figure size is fine.**
+action available. **§H holds Ian's two passes over the built decks** — 2026-09-10 (26 findings) and **2026-09-12 (16 more, §R3 — **Day 1 closed**)**; both worked, and the list is `REVIEW.md`. **§R3 opened G12; G13 was closed by Ian's ruling that the `side` slides' figure size is fine.**
 
 **Where things stand.** Phases 1 and 2 are closed, and **Phase 3 has nothing actionable left**: §A, §B
 and §C are all closed but for B2 and B3, which have no action available. What remains is §F — Ian's.
@@ -148,8 +148,9 @@ roll-out, ask per slide*, R2-4 *drop `annotated`*. **⚑ R2-4 handed G1 two name
 and 141** carry ~4pt annotations (plan §14.3) and **138 and 144 ship typos** (§14.2), and retitling
 touched none of it.
 
-**§R3 — his second pass over Day 1, 2026-09-12, fourteen rows, all applied.** Day 1 **136 → 131
-slides**. Three AI-isms; five entries merged to one slide each on `#layout: side`; the timeout sequence
+**✅ §R3 — his second pass over Day 1, 2026-09-12, sixteen rows, all applied. Ian has closed Day 1:**
+*"With that, I suspect we close out the review on Day One."* Day 1 **136 → 129 slides**, and **Day 2 is
+next**. Three AI-isms; five entries merged to one slide each on `#layout: side`; the timeout sequence
 dropped from *In-Out*; the transitive-dependencies picture redrawn from the 2025 **Day 2** deck, where it
 is a native table with leader lines and carries no extracted image. **⚑ Four of the fourteen were one
 number** — the callout reserved 1.06em where Caveat's ink extent is 1.260em, so **108 callouts across

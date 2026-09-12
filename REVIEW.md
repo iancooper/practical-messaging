@@ -13,7 +13,9 @@ split and the AI-isms. Ian reviews Day 2 by hand after that.
 rather than fixed is in `BACKLOG.md` G1**: slides **138** and **141** carry ~4pt annotations, and **138**
 and **144** ship typos.
 
-**§R3 opened 2026-09-12 — fourteen rows, all applied.** Day 1 **136 → 131 slides**.
+**§R3 — Ian's second pass over Day 1, 2026-09-12. Sixteen rows, all applied, and Ian has called Day 1
+closed**: *"With that, I suspect we close out the review on Day One."* Day 1 **136 → 129 slides**.
+**⚑ Rows 1–14 are numbered against the 136-slide build; rows 15–16 against the 131-slide one.**
 
 > **Read `BACKLOG.md` for everything else that is outstanding.** This file is only this review.
 > When a row here closes it closes here; `BACKLOG.md` §H carries one line pointing at this file.
@@ -110,9 +112,10 @@ Recorded so it does not get done by accident, and so the next session does not r
 
 ## §R3 — Ian's second pass over Day 1 ##
 
-**2026-09-12, against the rebuilt deck.** Fourteen rows. **⚑ Ian numbers by the slide numbers he was
-reading, which were the 136-slide build**; Day 1 is **131** now, so every number below 31 is unchanged
-and everything above it has moved. The rows are anchored on **entry titles**, which did not move.
+**2026-09-12, against the rebuilt deck.** Sixteen rows, in two batches — and **the two batches are
+numbered against different builds**, which is exactly the trap `deck_index.py` exists for. R3-1…R3-14
+were read off the **136-slide** deck; R3-15 and R3-16 off the **131-slide** rebuild. Day 1 is **129**
+now. **Every row below is anchored on its entry title**, which is the only thing that did not move.
 
 | # | slide (his) | the ask | state |
 |---|---|---|---|
@@ -129,6 +132,8 @@ and everything above it has moved. The rows are anchored on **entry titles**, wh
 | **R3-11** | **77 + 78** | *Inbox (Idempotency)* — shrink and merge | ✅ |
 | **R3-12** | **101** | *"Drop. The other pattern slides are only text, and I don't think that this diagram adds."* `conversation-timeout` is now **placed zero times** — kept in `resources/` and in the family, not deleted | ✅ |
 | **R3-13** | **111** | *"The original deck has a diagram for transitive dependencies… let's redraw and add it, probably on its own slide for space."* **It is Day 2 2025 slide 37, not Day 1** — and it has **no extracted image**, because the original is a native table plus text boxes and leader lines. Read out of the archived `.pptx` shape by shape and redrawn as `eip-fat-message-transitive` | ✅ |
+| **R3-15** | **41 + 42** | *Translate and Dispatch* — *"Shrink the diagram and merge into one slide. Too hard to talk to separately."* **Numbered against the 131-slide build**, not the 136 one | ✅ |
+| **R3-16** | **43 + 44** | *The Message Pump* — the same instruction. **The pair shares a spine**, so split they showed the same four-stage drawing four times in four slides. Nothing cut, nothing moved to notes: both fit beside their figure | ✅ |
 | **R3-14** | **113** | The callout overlaps the prose. **⚑ This, R3-6, R3-9 and R3-10 are one number.** `_lines` reserved `n × pt × lead`, and the callout's `lead` is 1.06 against Caveat's 1.260em ink extent — so every callout claimed to end **0.200em before its descenders did**, and whatever came next sat 0.067in too high. **108 callouts across both decks**, 73 of them under an opaque picture. Fixed in `_reserve`; inter-line spacing is untouched | ✅ |
 
 ### What §R3 turned up that Ian did not ask about ###
