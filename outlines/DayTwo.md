@@ -332,19 +332,21 @@ Presenter notes: Deliberately uncontroversial — everyone in the room has this,
 
 ### Slide: Call and Return, and the God Object
 
+#layout: side
+
 - **Call and return.** `main` is the entry point. It invokes objects, which invoke other objects and
   return to their caller. Control is passed down a stack and handed back.
 - **The god object.** The danger is one object — `Cart`, usually — that controls all the others. High
   behavioural coupling: it knows the whole use case, so it changes whenever any step of the use case
   changes.
 
-▎ Somebody has to be in charge, and in call and return it is always `main`.
-
 #image: hand-drawn call-and-return diagram — main invoking Cart, and Cart invoking Restaurant, Account, Menu, Payment, Order, Delivery  [→ resources/flow-call-and-return.png]
 
 Presenter notes: A system passes control between classes to meet a use case, via message passing — "call and return" from `main` on down. **Contrast it directly with the flows they drew this morning**: no desk in the takeaway knew the whole process; `main` knows nothing else. Hold the phrase *knowledge of the whole process lives in one place*; movement D and the exercise's round 4 both come back to it.
 
 ### Slide: SOA Is OO at Macro Scale
+
+#layout: side
 
 **SOA** creates OO-like components: a service has a role and responsibilities exposed as
 operations, and encapsulates the data those operations need. This is the Web Services approach — OO
@@ -353,17 +355,25 @@ as an architectural principle.
 - Same idea, bigger unit: role, responsibilities, encapsulated data.
 - We are taking the view that **microservices are SOA 3.0** — most of the best practice still applies.
 
-▎ "A service should represent a self-contained functionality that corresponds to a real-world business
-activity." — Nicolai Josuttis, *SOA in Practice*
-
 #image: hand-drawn service-orientation diagram — a service's operations, its input and output messages, and the data shut away behind them  [→ resources/flow-soa-service.png]
 
-Presenter notes: SOA takes objects to a macro scale. The Josuttis quote is the standard against which the next slide fails: he says align the service with a *business activity*. The next slide shows what you get when you align it with an *entity* instead. **A desk is a business activity** — the takeaway flows already satisfied Josuttis, which is worth saying out loud here rather than at the end.
+Presenter notes: SOA takes objects to a macro scale. **The quote is on the drawing, without its
+attribution — so point at it and supply the name**: *"A service should represent a self-contained
+functionality that corresponds to a real-world business activity"* is Nicolai Josuttis, *SOA in
+Practice*. He says align the service with a *business activity*; the next slide shows what you get when
+you align it with an *entity* instead. **A desk is a business activity** — the drawing says so too, and
+it means the takeaway flows already satisfied Josuttis, which is worth saying out loud here rather than
+at the end.
 
-#note: **This is the only place the Josuttis quote is read out.** It belongs here, where it is the
-yardstick *Feature Envy* fails against — do not reintroduce it in Process Automation.
+#note: **The Josuttis quote is lettered into `flow-soa-service.png` itself** — which is why R4-18 took
+it off the slide as a callout rather than moving it anywhere: the slide was saying twice what the drawing
+already said once. The attribution is *not* on the drawing and is in the presenter note. This is the only
+place it is read out, because it is the yardstick *Feature Envy* fails against — do not reintroduce it in
+Process Automation, and do not put it back on a slide as text.
 
 ### Slide: Feature Envy — You Built a Distributed Monolith
+
+#layout: side
 
 - We expose significant **resources** and the operations you can perform on them — usually CRUD.
   Entity services: `Cart`, `Restaurant`, `Account`, `Menu`, `Payment`, `Order`, `Delivery`.
