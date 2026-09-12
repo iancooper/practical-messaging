@@ -9,7 +9,7 @@ and a table you can read the length of does not.
 Last reconciled against the repo: **2026-09-10**, after C4. **§C's two handouts are both built**, so
 **nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built.
 **§G is the full-deck visual sweep — eleven findings.** G2, G3, G4, G6, G7, G8 and G10 are fixed; G9 was withdrawn on inspection; **G1 (the register, 30 slides) and G11 (the preview drops italic) are open.** B2 and B3 have no
-action available. **§H holds Ian's two passes over the built decks** — 2026-09-10 (26 findings) and **2026-09-12 (14 more, §R3)**; both worked, and the list is `REVIEW.md`. **§R3 opened G12 and G13.**
+action available. **§H holds Ian's two passes over the built decks** — 2026-09-10 (26 findings) and **2026-09-12 (14 more, §R3)**; both worked, and the list is `REVIEW.md`. **§R3 opened G12; G13 was closed by Ian's ruling that the `side` slides' figure size is fine.**
 
 **Where things stand.** Phases 1 and 2 are closed, and **Phase 3 has nothing actionable left**: §A, §B
 and §C are all closed but for B2 and B3, which have no action available. What remains is §F — Ian's.
@@ -156,16 +156,16 @@ number** — the callout reserved 1.06em where Caveat's ink extent is 1.260em, s
 both decks** sat 0.067in too close to whatever came next, 73 of them under an opaque picture.
 **Invisible in the preview by construction, and unverifiable on this machine.**
 
-**⚑ §R3 left one thing measured and not acted on, and it is new work rather than a loose end.**
-**Every `#layout: side` slide reads at 8.9–12.8pt in the room against an 18pt floor** — eleven of them
-now, after Ian asked for five more. The half-stage is 6.1in where Phase 2 measured 12.4, and
-**`reads_at.py` is blind to it**: it measures against the full-width stage and reports all four
-`queues_streams` figures at exactly 18.0pt. Two separable jobs, neither started:
+**§R3 measured one thing and put it to Ian, and he ruled on it.** **Every `#layout: side` slide reads
+at 8.9–12.8pt in the room against an 18pt floor** — eleven of them now, because the half-stage is 6.1in
+where every figure was measured at 12.4. **Ian, 2026-09-12: *"I think that is fine."*** So the floor
+does not apply to a `side` slide, and that exception is now written into `styles.md` and `CLAUDE.md`
+rule 7 rather than left to be rediscovered.
 
 | | | | |
 |---|---|---|---|
-| **G12** | **`reads_at.py` does not know about `#layout: side`** | S | The legibility check reports the full-width number for eleven slides that are not laid out that way. It should take the arrangement from the outline, as `side_cost.py` does |
-| **G13** | **The four `qs-*` figures want re-laying for the half-stage** | M | `qs-queue-tasks`, `qs-stream-facts`, `qs-queue-competing`, `qs-stream-partitions` are drawn ~2:1 and fitted by **width** at 6.1in, so half the stage is empty and the labels are at ~10pt. Narrower and taller brings them back to the floor. **Available only because these four are ours** — the other seven side slides carry 2021 imports and belong to **G1** |
+| **G12** | **`reads_at.py` does not know about `#layout: side`** | S | It reports the full-width number for eleven slides that are not laid out that way — 18.0pt for figures the room gets at 9.5. **Ian's ruling makes this less urgent, not wrong**: the size is agreed, but the legibility check still prints a number nobody should act on, and the next person to run it has no way to tell which eleven rows are fiction. It should read `#layout:` from the outline, as `side_cost.py` already does |
+| **G13** | ~~Re-lay the four `qs-*` figures for the half-stage~~ | — | **✅ Closed 2026-09-12 without work.** It existed only to bring those four back to the 18pt floor, and Ian ruled the current size fine. Reopen only if he changes his mind on a specific slide — `tools/side_cost.py 1 --slide N` is the measurement |
 
 **New tool: `tools/deck_index.py`.** Ian reviews by slide number and the slide number is not the
 outline entry number — 91 entries build 138 slides. It runs the real layout and prints the map.

@@ -180,6 +180,15 @@ not because green is easy for them, but because to a deuteranope annotation red 
   x-height, never by point number — comparing point numbers is what let the labels drift.
 - **The floor is enforced, not remembered.** `Diagram._legible()` raises every label at render time, so a
   figure cannot quietly ship at 13pt again. Set a size only to go *above* the floor.
+- **⚑ `#layout: side` is an agreed exception to all of the above, and it is not small.** The half-stage
+  is **6.1in** where every number here was measured at 12.4, so a figure on a `side` slide reads at
+  roughly **half** what its canvas width predicts. The eleven of them land at **8.9–12.8 real points**.
+  **Ian, 2026-09-12, shown those figures: *"I think that is fine."*** So a `side` slide is not held to
+  the 18pt floor — it is held to being **read at a metre, not across the room**, which is what the
+  arrangement is for: the words and the picture are one thought and the room has the words beside it.
+  **This does not relax the floor anywhere else**, and it is not a licence to put `side` on a figure the
+  room has to read on its own. It is also why `reads_at.py` still reports 18.0pt for those figures —
+  it measures the full-width stage and is blind to the arrangement (`BACKLOG.md` G12).
 
 ### Building them
 

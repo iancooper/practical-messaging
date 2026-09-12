@@ -133,12 +133,14 @@ and everything above it has moved. The rows are anchored on **entry titles**, wh
 
 ### What §R3 turned up that Ian did not ask about ###
 
-- **⚑ Every `#layout: side` slide reads at 8.9–12.8pt against an 18pt floor.** Eleven of them now. The
-  half-stage is **6.1in** where Phase 2 measured 12.4. **`reads_at.py` cannot see it** — it measures
-  against the full-width stage and knows nothing about the arrangement, and it reports all four
-  `queues_streams` figures at exactly 18.0pt. The four `qs-*` figures are **ours**, so re-laying each
-  into a narrower, taller canvas brings them back to the floor at 6.1in. **Not done — Ian has not asked
-  for it, and it is figure work.**
+- **⚑ Every `#layout: side` slide reads at 8.9–12.8pt against an 18pt floor** — eleven of them now,
+  because the half-stage is **6.1in** where Phase 2 measured 12.4. Put to Ian with the figures.
+  **Ian, 2026-09-12: *"I think that is fine."*** **So `#layout: side` is a standing exception to the
+  floor**, now written into `styles.md` and `CLAUDE.md` rule 7 so it is not rediscovered as a defect.
+  It is *not* a licence to put `side` on a figure the room must read on its own — the arrangement exists
+  because the words sit beside the picture. **`reads_at.py` is still blind to it** and reports those
+  figures at 18.0pt (`BACKLOG.md` **G12**); re-laying the four `qs-*` figures is **closed unstarted**
+  (**G13**), since it existed only to reach a floor that no longer applies here.
 - **The preview could not have shown R3-14**, by construction: it draws the lines itself at the same
   1.06, so it agreed with the layout and always had. That is the fourth thing the `.pptx` does that the
   preview cannot show.
