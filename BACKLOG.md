@@ -172,7 +172,7 @@ rule 7 rather than left to be rediscovered.
 
 | | | | |
 |---|---|---|---|
-| **G12** | **`reads_at.py` does not know about `#layout: side`** | S | It reports the full-width number for thirteen slides that are not laid out that way — 18.0pt for figures the room gets at 9.5. **Ian's ruling makes this less urgent, not wrong**: the size is agreed, but the legibility check still prints a number nobody should act on, and the next person to run it has no way to tell which thirteen rows are fiction. It should read `#layout:` from the outline, as `side_cost.py` already does |
+| **G12** | **`reads_at.py` does not know about `#layout: side`** | S | It reports the full-width number for **21** slides that are not laid out that way — 18.0pt for figures the room gets at ~9.5. ⚑ **This row said *thirteen* until 2026-09-12**, which was Day 1's count alone; Day 2 has since gained eight `side` slides of its own (R4-28…33, R4-40…42), so the figure was stale in the direction that understates it. **Ian's ruling makes this less urgent, not wrong**: the size is agreed, but the legibility check still prints a number nobody should act on, and the next person to run it has no way to tell which thirteen rows are fiction. It should read `#layout:` from the outline, as `side_cost.py` already does |
 | **G13** | ~~Re-lay the four `qs-*` figures for the half-stage~~ | — | **✅ Closed 2026-09-12 without work.** It existed only to bring those four back to the 18pt floor, and Ian ruled the current size fine. Reopen only if he changes his mind on a specific slide — `tools/side_cost.py 1 --slide N` is the measurement |
 
 **New tool: `tools/deck_index.py`.** Ian reviews by slide number and the slide number is not the
