@@ -567,14 +567,9 @@ planes of all. Still **no BPMN**.
 #group: Movement D — The Name
 #divider: Reactive: the name for what you have been building since yesterday morning.
 
-### Slide: Reactive Architectures
+### Slide: The Reactive Manifesto
 
 Reactive derives from **reactive programming**, not from OO.
-
-Presenter notes: The room has now drawn the same system four times, in two notations, and made it fail.
-Movement D adds no new mechanism — it supplies the name, and shows that somebody published it in 2014.
-
-### Slide: The Reactive Manifesto
 
 Published 2014. It defines an architectural style — **Reactive Applications**. Write applications that:
 
@@ -587,7 +582,7 @@ Four traits: **Responsive** (responds in a timely manner), **Resilient** (stays 
 presence of failure), **Elastic** (stays responsive under varying workload), **Message Driven** (relies
 on asynchronous message passing). — reactivemanifesto.org
 
-Presenter notes: Published September 2014 by Jonas Bonér, with Erik Meijer, Martin Odersky, Greg Young, Martin Thompson, Roland Kuhn, James Ward and Guillaume Bort — say the names, do not put them on the screen. **Ask the room to give you the two properties back from memory before you turn the slide**, because the next one is the mapping and it only lands if they got there first. Also: **not just the actor model** — these ideas have expression well beyond it, and following Helland, many implementations are possible.
+Presenter notes: The room has now drawn the same system four times, in two notations, and made it fail. Movement D adds no new mechanism — it supplies the name, and shows that somebody published it in 2014. Published September 2014 by Jonas Bonér, with Erik Meijer, Martin Odersky, Greg Young, Martin Thompson, Roland Kuhn, James Ward and Guillaume Bort — say the names, do not put them on the screen. **Ask the room to give you the two properties back from memory before you turn the slide**, because the next one is the mapping and it only lands if they got there first. Also: **not just the actor model** — these ideas have expression well beyond it, and following Helland, many implementations are possible.
 
 ### Slide: The Reactive Manifesto
 
@@ -600,8 +595,6 @@ Presenter notes: Published September 2014 by Jonas Bonér, with Erik Meijer, Mar
 - **Elastic** and **Responsive** are the two Day 1 did not have names for.
 - **Message Driven** is the mechanism — the same one, all the way through.
 
-▎ Two properties, one mechanism. Somebody wrote it down in 2014.
-
 Presenter notes: **This is the payoff of *Easy to Change, and Robust*, and neither day has said the word "Reactive" before now, so it lands as recognition rather than repetition.** One caveat since the timing pass: the two properties are now named **this morning** rather than yesterday, so the gap is ninety minutes, not a day — the recognition is weaker and you have to work for it. Do not re-read the opener's wording. Present the manifesto as their own two properties, already published, with two more added.
 
 ### Slide: Reactive Traits — Value, Form, Means
@@ -612,12 +605,9 @@ Read the four traits as value, form and means:
 - **Resilient** and **Elastic** are the **form** — the shape that delivers it under failure and load.
 - **Message Driven** is the **means** — how the form is achieved.
 
-**Attribution.** This is a **gloss, not manifesto text.** The manifesto names the four traits and says
-Message Driven is the foundation the others rest on, but it never assigns value / form / means. The
-split is how Bonér has presented it in talks, and it is a defensible reading — say so on the slide
-rather than letting it read as a quotation.
+This split is **Bonér's**, from his talks — the manifesto itself does not rank the four traits this way.
 
-Presenter notes: Fixed attribution — the old slide showed four words and three labels with no source, which reads as if quoting. If you would rather not carry someone else's gloss, this is the most cuttable slide in the movement; the manifesto slide above stands on its own.
+Presenter notes: The manifesto names the four traits and says Message Driven is the foundation the others rest on, but it never assigns value, form and means — that reading is Bonér's, and it is a defensible one. Say the attribution aloud rather than expanding it on the screen. The old slide showed four words and three labels with no source at all, which read as if it were quoting. If you would rather not carry someone else's gloss, this is the most cuttable slide in the movement; the manifesto slide above stands on its own.
 
 ### Slide: Message Passing
 
@@ -630,13 +620,13 @@ Presenter notes: Message passing invokes behaviour on a computer. In contrast to
 
 ### Slide: Microservices Are Reactive Architectures
 
+#layout: side
+
 We separate data from behaviour, activate a component in response to work being on a queue, process it,
 and send an outgoing message. That is a node with ports. That is a desk with trays.
 
 - A component's inputs are commands and events; its outputs are events.
 - Nobody holds the whole process. There is no gateway `main`.
-
-▎ **This morning called independent deployability the prize. This is how you stop giving it back.**
 
 #image: hand-drawn message-passing diagram — in-request, out-request and out-result: commands in, events out  [→ resources/flow-command-event-ports.png]
 
@@ -644,18 +634,27 @@ Presenter notes: **Close the loop explicitly** — name *Easy to Change, and Rob
 
 ### Slide: Partitioning and Dataflow
 
+#layout: side
+
 - **Partition to exploit parallelism** — find the tasks that could run concurrently and give each its
   own component.
 - **Coordinate dataflow** — "orchestrate a continuous steady flow of information", dividing the system
   by **behaviour**, not by structure.
 
-▎ Divide by verb, not by noun. Entity services divide by noun — that is Feature Envy.
-
 #image: hand-drawn FBP diagram — Checkout and Take Payment, purchase / priced / payment due, and no gateway  [→ resources/flow-partition-checkout.png]
 
-Presenter notes: The direct answer to movement B. Reactive inherits from dataflow: conceive the application as a graph of nodes operating on data flowing through it. It shines for data-driven applications composed from components in workflows — let components subscribe to each other's event streams and consume published facts asynchronously, on demand. **Every desk in the paper office was a verb**: Take Order, Send Fax, Make Catalogue. That is why the office had no god object and the gateway does.
+#note: **The rule this slide states is already lettered into `flow-partition-checkout.png`** — *divide
+by verb, not by noun* is the red line across the top, and *entity services divide by noun — Cart,
+Payment, Order — and then the verbs have nowhere to live but the gateway* is the green comment under the
+graph. Only the **name** *Feature Envy* is absent from the drawing, which is why that word is the one
+thing the presenter note has to supply. **Do not put either sentence on the slide** — it would be the
+same words at two sizes.
+
+Presenter notes: The direct answer to movement B — **and the name for what movement B drew is Feature Envy**, so say it while pointing at the red line across the top of the drawing, which states the rule. Reactive inherits from dataflow: conceive the application as a graph of nodes operating on data flowing through it. It shines for data-driven applications composed from components in workflows — let components subscribe to each other's event streams and consume published facts asynchronously, on demand. **Every desk in the paper office was a verb**: Take Order, Send Fax, Make Catalogue. That is why the office had no god object and the gateway does.
 
 ### Slide: Bulkheads
+
+#layout: side
 
 In a synchronous conversation both parties must be up, so a fault **propagates** back up the chain and
 we are brittle. In an asynchronous conversation it does not: the work queues up instead.
@@ -664,11 +663,9 @@ we are brittle. In an asynchronous conversation it does not: the work queues up 
 - Messages wait until the receiver asks for them; results go to a queue for collection.
 - The failure is contained in one compartment — a **bulkhead**.
 
-▎ You met this on Day 1 §4.4. Store and forward is what makes it a delay.
-
 #image: hand-drawn FBP diagram — Take Payment down, and the work queueing up on the arc: the bulkhead  [→ resources/flow-bulkhead.png]
 
-Presenter notes: This slide absorbs the cut *SOA — Faults Propagate* — the fault propagation claim is made here, where it is immediately answered, instead of standing alone. And the callout is Day 1 §Coupling's central argument arriving for the third time: availabilities multiply only under temporal coupling; store-and-forward breaks the chain. This requires storage and retransmission — usually Message-Oriented Middleware. If a table drew *"the night porter is on a break"* in block 1, this is that card with a name on it.
+Presenter notes: This slide absorbs the cut *SOA — Faults Propagate* — the fault propagation claim is made here, where it is immediately answered, instead of standing alone. **Say it out loud: you met this on Day 1 §Coupling, and store and forward is what makes the outage a delay.** That is the section's central argument arriving for the third time: availabilities multiply only under temporal coupling; store-and-forward breaks the chain. This requires storage and retransmission — usually Message-Oriented Middleware. If a table drew *"the night porter is on a break"* in block 1, this is that card with a name on it.
 
 ### Slide: When the Pipe Fills — Backpressure or Load-Shedding
 

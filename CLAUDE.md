@@ -4,12 +4,12 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 `tools/*.py` are the source, `build/*.pptx` is output. An edit made in PowerPoint is lost on
 the next build.
 
-**Branch `deck-redevelopment`.** Day 1 is **129 slides**, Day 2 **148**, from 88 + 91 outline
+**Branch `deck-redevelopment`.** Day 1 is **129 slides**, Day 2 **144**, from 88 + 90 outline
 entries, with **104 figures** across twelve families plus **2 print cards**. **89 go on slides, 9 are
 the two handouts'** (8 routing, 1 AsyncAPI), **4 are Paper Flow exercise materials** in `exercises/`,
 and **2 are placed nowhere** — `conversation-timeout` (R3-12) and `paper-the-desk` (R4-7), both kept in
 the family. *`tools/` is the arithmetic, not this line.* **Both days' counts move with every
-`REVIEW.md` row** — `python3 tools/deck_index.py <day>` is the truth. Day 2's 148 includes **four
+`REVIEW.md` row** — `python3 tools/deck_index.py <day>` is the truth. Day 2's 144 includes **four
 `#group:` divider cards**, which are slides and carry a folio. `handouts/` is a third
 destination beside the deck and the print cards, and a figure there is held at reading distance, not
 read across a room: it is fitted to a **154mm** text block, so its **printed letter size is `154 / w`**
