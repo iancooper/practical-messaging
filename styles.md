@@ -244,6 +244,20 @@ ones or every `*emphasis*` in the pack renders upright without a warning.
 
 ---
 
+### Callouts and the substituted face
+
+**A callout's reserve is `n` lines of Caveat, and PowerPoint may need `n + 1`.** Caveat is not installed
+on the presenting machine, so PowerPoint substitutes a wider face, the callout wraps once more than the
+layout reserved, and everything below it — prose, or the figure — is 1.06em too high. Ian saw it on Day 2
+slides 7 and 82. **It is not the first-baseline model** (Caveat's lift is 0.008em) and not the reserve,
+which R3-14 already fixed.
+
+**The fix is `cp tools/fonts/*.ttf ~/Library/Fonts/`**, because a wider face is also the *wrong* face and
+nothing in the builder can make a fallback look like handwriting. The builder's job is only to make the
+risk visible: it re-wraps every callout at **`SUBST_W` = 0.90** of its measure and names any that would
+gain a line. That number is **a guard calibrated on Ian's two observations** (93.7% and 90.6%), not a
+measurement — there is no PowerPoint here to measure the substitute with.
+
 ## Open
 
 - ☑ **Plex Mono confirmed** for kickers, labels and code (2026-09-01).

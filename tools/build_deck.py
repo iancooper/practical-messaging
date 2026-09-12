@@ -84,6 +84,26 @@ KICKER_PT  = 12
 BODY_PT    = 18        # the floor. styles.md: nothing below 16, sub-items may be 16.
 SUB_PT     = 16
 CALLOUT_PT = 24        # 18pt of Plex in Caveat's x-height -- see the module docstring
+
+# **How much narrower a callout is assumed to set in a SUBSTITUTED face.** Ian, 2026-09-12,
+# on Day 2 slides 7 and 82: a callout overlapping the prose under it, and a callout clipped
+# by the diagram under it. Both clear in the preview AND in the layout -- slide 7 reserves
+# 0.534in -- so the error is in PowerPoint, and it is not `_first_baseline`: Caveat's lift at
+# 24pt/1.06 is 0.808em against the 0.80em assumed, which is 0.008em.
+#
+# It is `BACKLOG.md` F2. Caveat is not installed on his machine, PowerPoint substitutes a
+# wider face, and the callout wraps to a second line -- into a reserve computed for one. R0-2
+# turned `word_wrap` on, which is what converted Day 1's *runs off the right of the slide*
+# into *grows down into whatever is below*, so this is R0-3's residual rather than a new bug.
+#
+# **Ian's chosen fix is to install the fonts**, which no builder change can substitute for:
+# a wider face is also the WRONG face, and nothing here can make a fallback look like
+# handwriting. This number only makes the risk visible so it is never diagnosed from scratch
+# again. **It is a guard, not a measurement.** There is no way to measure the substitute
+# without PowerPoint, so it is calibrated on the only evidence there is: the two callouts
+# Ian saw overlap, at 93.7% and **90.6%** of their measure. 0.92 caught the first and missed
+# the second, so the substitute is at least ~11% wider than Caveat and this is 0.90.
+SUBST_W = 0.90
 TABLE_PT   = 15
 CODE_PT    = 15
 FOLIO_PT   = 10        # the slide number. Quieter than the kicker on purpose
@@ -463,6 +483,7 @@ class Deck:
         self.slides = []          # list[Laid]
         self.compare = []         # entries whose figures were shown one at a time
         self._kicker_warned = set()   # one line per offending title, not per slide
+        self._callout_warned = set()  # one line per callout, not per slide it lands on
 
     # -- chrome ----------------------------------------------------------------
     def _ground(self, laid, colour=PAPER):
@@ -777,8 +798,27 @@ class Deck:
                 cy += h
             elif b.kind == "callout":
                 cy += _in(13)
-                laid += Rect(x, cy + 0.03, 0.055, _in(CALLOUT_PT) * 1.06 *
-                             len(Type.wrap(O.runs(b.text), w - 0.30, HAND, CALLOUT_PT)),
+                runs, meas = O.runs(b.text), w - 0.30
+                n = len(Type.wrap(runs, meas, HAND, CALLOUT_PT))
+                # **The reserve is n lines of Caveat, and a substituted face may need
+                # n + 1.** Everything below this callout is then 1.06em too high. See
+                # SUBST_W: the fix is installing the font, and this is the warning.
+                if (len(Type.wrap(runs, meas * SUBST_W, HAND, CALLOUT_PT)) > n
+                        and b.text not in self._callout_warned):
+                    self._callout_warned.add(b.text)
+                    # The percentage is only meaningful while the callout is ONE line;
+                    # above that it is total text over measure and reads as nonsense.
+                    frac = Type.width(O.plain(b.text), HAND, CALLOUT_PT) / meas
+                    fill = f" ({frac * 100:.0f}% of the measure)" if n == 1 else ""
+                    # **Named by entry, not by folio**: `run()` numbers the deck after
+                    # every slide is laid out, so no slide knows its own number here.
+                    where = laid.slide.title if laid.slide is not None else "?"
+                    print(f"  ! callout wraps {n} → {n + 1} lines in a face "
+                          f"{1 / SUBST_W - 1:.0%} wider than Caveat{fill}, and will grow "
+                          f"into whatever is below it unless Caveat is installed "
+                          f"(BACKLOG F2) — {where!r}: {O.plain(b.text)[:48]!r}",
+                          file=sys.stderr)
+                laid += Rect(x, cy + 0.03, 0.055, _in(CALLOUT_PT) * 1.06 * n,
                              fill=ANNOTATION)
                 ops, h = _lines(O.runs(b.text), w - 0.30, HAND, CALLOUT_PT,
                                 x + 0.24, cy, ANNOTATION, lead=1.06)
