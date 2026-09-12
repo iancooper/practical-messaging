@@ -61,7 +61,7 @@
         <mxCell id="t2" value="the desk, the tray, the heavy bar" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="169" y="562" width="120" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="t3" value="the task, the message flow, the pool" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#2F5D3A;" vertex="1" parent="1">
+        <mxCell id="t3" value="the task, the sequence flow, the pool" style="text;html=1;align=center;fontFamily=Caveat;fontSize=14;fontColor=#2F5D3A;" vertex="1" parent="1">
           <mxGeometry x="780" y="562" width="120" height="20" as="geometry" />
         </mxCell>
         <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#1D4E6B;strokeWidth=1.5;fontColor=#1D4E6B;fontFamily=IBM Plex Sans;fontSize=14;dashed=1;dashPattern=6 5;startArrow=oval;startFill=0;endArrow=open;endFill=0;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t5" target="t7">

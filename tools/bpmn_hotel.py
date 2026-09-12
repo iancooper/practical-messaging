@@ -336,7 +336,7 @@ def your_flow_side_by_side():
     d.note(620, 40, "you already had every concept — this is only the vocabulary",
            ANNOTATION, 18)
     d.note(229, 574, "the desk, the tray, the heavy bar", COMMENT, 14)
-    d.note(840, 574, "the task, the message flow, the pool", COMMENT, 14)
+    d.note(840, 574, "the task, the sequence flow, the pool", COMMENT, 14)
     return d
 
 

@@ -784,18 +784,23 @@ hand-offs, same numbered steps:
 |---|---|
 | a desk | a **task**, sitting in a **lane** |
 | the heavy vertical bar | a **pool** boundary |
-| a dashed arrow between an out-tray and an in-tray | a **message flow** |
-| a numbered step from one desk to the next inside the bar | a **sequence flow** |
+| a hand-off between two desks **inside** the same bar — out-tray to in-tray | a **sequence flow** |
+| a hand-off **across** the bar — the phone call, the fax, the mail cart | a **message flow** |
 | a folder | the state a task reads and writes |
 | the conductor holding the routing slip | the **process**, and its **token** |
+
+**The bar is the discriminator, not the arrow style.** Inside it, control walks from desk to desk and
+the process holds together. Across it, a message leaves and nobody controls what happens next.
 
 Nothing new happens in this section. It gives names to what the room already built.
 
 #image: side by side: the Pre-Arrival paper flow as delegates have it, and the same flow as a BPMN collaboration — three pools, Guest / Just Paper Hotels (Booking Team, Fax Operator) / The Hotel  [→ resources/bpmn-your-flow-side-by-side.png]
 
-Presenter notes: **This slide exists to keep the promise made on the previous one.** Delegates have just run their own flow with a conductor and without one, and were told that the next section gives those two things their names *and a notation* — so do not open on BPMN primitives, open on their own drawing. Put the paper version up alone first and ask what a stranger could not tell from it; then reveal the BPMN. **The mapping table is the teaching move: they already have every concept, they lack only the vocabulary.** The primitives on *BPMN — The Elements* and *Tasks, Events and Gateways* then arrive as *what you needed in order to draw that*, rather than as a legend to be memorised. Do not read the table out — walk the diagram and point at each pair.
+Presenter notes: **This slide exists to keep the promise made on the previous one.** Delegates have just run their own flow with a conductor and without one, and were told that the next section gives those two things their names *and a notation* — so do not open on BPMN primitives, open on their own drawing. Put the paper version up alone first and ask what a stranger could not tell from it; then reveal the BPMN. **The mapping table is the teaching move: they already have every concept, they lack only the vocabulary.** The primitives on *BPMN — The Elements* and *Tasks, Events and Gateways* then arrive as *what you needed in order to draw that*, rather than as a legend to be memorised. Do not read the table out — walk the diagram and point at each pair. **⚑ The two flow rows are the takeaway of the whole section, and they are the two people get backwards.** Sequence flow is **orchestration** — the token stays inside one pool, and something in there is in charge of what happens next. Message flow is **choreography** — the message crosses out and the sender has no say in what the other side does with it. **Say what the discriminator is *not*: it is not the arrow style.** On their own paper every hand-off is dashed and numbered; the reds inside the bar are paper between trays and the blacks across it are a phone call or a fax, so the notation they invented already separates the two — by *which side of the bar the paper ends up on*. Point at `Create Booking Request → Fax the Hotel`: two different desks, two different lanes, one solid sequence flow, because both are inside Just Paper Hotels. Then point at the fax leaving for The Hotel, and note that it is dashed for exactly one reason — it crossed the pool boundary.
 
 ### Slide: BPMN
+
+#layout: side
 
 **BPMN** (Business Process Management and Notation) is a visual language for diagramming business processes clearly, in a standardized and comprehensive way.
 
@@ -809,6 +814,8 @@ Presenter notes: Second example, and deliberately the *takeaway* domain rather t
 
 ### Slide: BPMN — The Elements
 
+#layout: side
+
 A BPMN diagram is six things: **Start Event**, **End Event**, **Activity** (Task or Sub-process), **Gateway**, **Event**, and the arrows that join them.
 
 There are two kinds of arrow, and the difference between them is what the rest of this section is about:
@@ -816,11 +823,9 @@ There are two kinds of arrow, and the difference between them is what the rest o
 - **Sequence Flow** — control moving *within* one participant. **The token follows it.**
 - **Message Flow** — a message crossing *between* participants. **No token crosses it.**
 
-▎ Sequence flow is what happens at a desk. Message flow is what happens between desks.
-
 #image: BPMN diagram — two pools; in the first, start event, task, message event, a parallel gateway splitting to two tasks, merge gateway, end event, with each element named; a message flow from the second pool into the message event  [→ resources/bpmn-elements.png]
 
-Presenter notes: **The load-bearing line is the token one**, so say it out loud: it is *ACID at a desk, BASE across desks* from block 1's debrief, in BPMN's own vocabulary, and it is the distinction that makes orchestration-vs-choreography obvious twelve slides from now rather than arbitrary.
+Presenter notes: **The load-bearing line is the token one**, so say it out loud: it is *ACID at a desk, BASE across desks* from block 1's debrief, in BPMN's own vocabulary, and it is the distinction that makes orchestration-vs-choreography obvious twelve slides from now rather than arbitrary. **⚑ Do not reach for *at a desk* / *between desks* as the shorthand for the two arrows** — a desk is a lane, and two desks inside one pool are joined by a **sequence** flow, which is the confusion *Your Flow, in the Standard Notation* has just spent a table correcting. The boundary that matters is the pool.
 
 ### Slide: BPMN — Tasks, Events and Gateways
 
@@ -882,6 +887,8 @@ Merge non-concurrent paths back into one. BPMN: a converging sequence flow — n
 #image: BPMN diagram: a message event (Confirmation Received) and a timer event (Chase the Agency) converging on Check the Booking with no gateway, then Pack for the Trip  [→ resources/bpmn-hotel-p5-simple-merge.png]
 
 ### Slide: Process = Orchestration
+
+#layout: side
 
 A **Process** describes a sequence/flow of activities. In BPMN it is a graph of flow elements (a sequence flow of activities, events, gateways).
 
