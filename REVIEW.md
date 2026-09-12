@@ -138,7 +138,7 @@ now. **Every row below is anchored on its entry title**, which is the only thing
 
 ### What §R3 turned up that Ian did not ask about ###
 
-- **⚑ Every `#layout: side` slide reads at 8.9–12.8pt against an 18pt floor** — eleven of them now,
+- **⚑ Every `#layout: side` slide reads at 8.9–12.8pt against an 18pt floor** — thirteen of them now,
   because the half-stage is **6.1in** where Phase 2 measured 12.4. Put to Ian with the figures.
   **Ian, 2026-09-12: *"I think that is fine."*** **So `#layout: side` is a standing exception to the
   floor**, now written into `styles.md` and `CLAUDE.md` rule 7 so it is not rediscovered as a defect.

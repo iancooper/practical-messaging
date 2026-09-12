@@ -2058,7 +2058,7 @@ nothing has reported. `styles.md` says Caveat never carries body copy, so keying
 family keys on exactly the blocks at risk.
 
 **⚑ And the pass surfaced the join between two settled decisions, which is rule 14 again.** Ian has now
-asked for `#layout: side` eleven times. Every one of those slides reads at **8.9–12.8pt in the room
+asked for `#layout: side` eleven times — **thirteen by the end of the day**. Every one of those slides reads at **8.9–12.8pt in the room
 against an 18pt floor**, because the half-stage is 6.1in where Phase 2 measured 12.4. **`reads_at.py`
 says those figures are at exactly 18.0pt**, because it measures against the full-width stage and knows
 nothing about the arrangement — the legibility check is blind to the one layout that halves the width.
@@ -2068,7 +2068,7 @@ other seven carry 2021 imports and are G1's.
 **⚑ Ian ruled on it the same day, and the ruling is the more useful half of this entry.** Shown the
 figures: ***"I think that is fine."*** So **`#layout: side` is a standing exception to the 18pt floor**,
 and that is now in `styles.md` beside the floor itself and in `CLAUDE.md` rule 7 — because a rule that
-eleven slides knowingly break, with the exception recorded nowhere, is a defect waiting to be
+thirteen slides knowingly break, with the exception recorded nowhere, is a defect waiting to be
 rediscovered and re-argued. **G13 closed unstarted**: it existed only to reach a floor that no longer
 applies to those slides.
 
@@ -2077,7 +2077,7 @@ readable across the room, because the arrangement exists precisely for the case 
 picture are one thought and the words are on the slide beside it. It is **not** a licence to put `side`
 on a figure the room has to read on its own, and it relaxes nothing anywhere else. **G12 survives the
 ruling**: the size is agreed, but `reads_at.py` still prints 18.0pt for figures the room gets at 9.5,
-and nothing in its output says which eleven rows are fiction.
+and nothing in its output says which thirteen rows are fiction.
 
 ### 2026-09-10 — R2-3: `#layout: side` is not rolled out to Day 2, and the measurement is why
 Ian asked for text-left/figure-right on six named Day 1 slides. R2-3 asked whether Day 2 should follow.

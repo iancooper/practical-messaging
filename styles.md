@@ -182,7 +182,7 @@ not because green is easy for them, but because to a deuteranope annotation red 
   figure cannot quietly ship at 13pt again. Set a size only to go *above* the floor.
 - **⚑ `#layout: side` is an agreed exception to all of the above, and it is not small.** The half-stage
   is **6.1in** where every number here was measured at 12.4, so a figure on a `side` slide reads at
-  roughly **half** what its canvas width predicts. The eleven of them land at **8.9–12.8 real points**.
+  roughly **half** what its canvas width predicts. The **thirteen** of them land at **8.9–12.8 real points**.
   **Ian, 2026-09-12, shown those figures: *"I think that is fine."*** So a `side` slide is not held to
   the 18pt floor — it is held to being **read at a metre, not across the room**, which is what the
   arrangement is for: the words and the picture are one thought and the room has the words beside it.

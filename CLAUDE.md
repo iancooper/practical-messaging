@@ -133,7 +133,7 @@ Each cost real rework at least once. The long-form versions are in the skills.
    half** — a 16:9 slide leaves ~2.2 : 1, so anything squarer is fitted by *height* and the width
    stops mattering. `reads_at.py` is the legibility check; `lint_figures.py` is not.
    **⚑ `#layout: side` is the agreed exception** — a half-stage is 6.1in against the 12.4 every
-   figure was measured at, so its eleven slides read at **8.9–12.8pt** and Ian has ruled that
+   figure was measured at, so its thirteen slides read at **8.9–12.8pt** and Ian has ruled that
    fine (`styles.md`). **`reads_at.py` cannot see it** and reports them at the full-width number.
 8. **"Cut" means gone.** Check the content has not reappeared as a note somewhere else.
 9. **Anchor outline cuts on `'\n## X\n'`.** Headings recur inside prose in backticks; an

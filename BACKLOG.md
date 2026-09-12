@@ -158,14 +158,14 @@ both decks** sat 0.067in too close to whatever came next, 73 of them under an op
 **Invisible in the preview by construction, and unverifiable on this machine.**
 
 **§R3 measured one thing and put it to Ian, and he ruled on it.** **Every `#layout: side` slide reads
-at 8.9–12.8pt in the room against an 18pt floor** — eleven of them now, because the half-stage is 6.1in
+at 8.9–12.8pt in the room against an 18pt floor** — thirteen of them now, because the half-stage is 6.1in
 where every figure was measured at 12.4. **Ian, 2026-09-12: *"I think that is fine."*** So the floor
 does not apply to a `side` slide, and that exception is now written into `styles.md` and `CLAUDE.md`
 rule 7 rather than left to be rediscovered.
 
 | | | | |
 |---|---|---|---|
-| **G12** | **`reads_at.py` does not know about `#layout: side`** | S | It reports the full-width number for eleven slides that are not laid out that way — 18.0pt for figures the room gets at 9.5. **Ian's ruling makes this less urgent, not wrong**: the size is agreed, but the legibility check still prints a number nobody should act on, and the next person to run it has no way to tell which eleven rows are fiction. It should read `#layout:` from the outline, as `side_cost.py` already does |
+| **G12** | **`reads_at.py` does not know about `#layout: side`** | S | It reports the full-width number for thirteen slides that are not laid out that way — 18.0pt for figures the room gets at 9.5. **Ian's ruling makes this less urgent, not wrong**: the size is agreed, but the legibility check still prints a number nobody should act on, and the next person to run it has no way to tell which thirteen rows are fiction. It should read `#layout:` from the outline, as `side_cost.py` already does |
 | **G13** | ~~Re-lay the four `qs-*` figures for the half-stage~~ | — | **✅ Closed 2026-09-12 without work.** It existed only to bring those four back to the 18pt floor, and Ian ruled the current size fine. Reopen only if he changes his mind on a specific slide — `tools/side_cost.py 1 --slide N` is the measurement |
 
 **New tool: `tools/deck_index.py`.** Ian reviews by slide number and the slide number is not the
