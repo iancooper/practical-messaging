@@ -392,6 +392,8 @@ Presenter notes: **This is the slide the movement exists for, and it is now an a
 
 ### Slide: Data Flow Programming
 
+#layout: side
+
 **Dataflow programming** conceptualises a program as a directed graph: operations are **nodes**,
 connected by **arcs** through which data flows. A node performs its operation when its input data is
 available — not when someone calls it.
@@ -399,42 +401,32 @@ available — not when someone calls it.
 - Nothing is in charge. There is no `main`.
 - You already use one: the Unix command line. Pipes and filters.
 
-▎ In call and return, control moves and data sits still. In dataflow, data moves and control sits still.
-
 #image: hand-drawn dataflow graph — nodes connected by arcs, one of them firing because its input arrived  [→ resources/flow-dataflow-graph.png]
 
 Presenter notes: Perhaps the oldest expression of the reactive approach, and **the formal version of the paper flow they drew themselves an hour ago** — say that in the first sentence, because it is the whole reason this movement lands where it does. Unlike OO — where state is co-located with behaviour in the node — data *moves between* transformations along arcs. **The desk is a node; the tray is an arc; the file is the node's state.** Draw that mapping on the board and leave it up for the rest of the movement.
 
 ### Slide: Nodes, Ports and Firing
 
-A node is a **black box** with **ports**.
-
-- It is **activated** — *fired* — when a packet arrives on an input port's arc.
-- It computes.
-- As a black box, it reports what happened by raising an event on an **output port**, which others may
-  react to.
-- Generally a node is **single-threaded**. Concurrency comes from having many nodes, not from one node
-  doing many things.
-
-**Packets are just data.** No special requirements — primitive or compound values travelling between
-ports.
-
 #image: hand-drawn diagram — a dataflow node as a black box with in and out ports; activation, process, push  [→ resources/flow-node-ports.png]
 #image: hand-drawn diagram — two nodes passing packets between ports  [→ resources/flow-two-nodes.png]
 
-Presenter notes: Single-threaded-node / concurrency-from-many-nodes is the clerk rule: one clerk does one document at a time, and you get throughput by hiring clerks. Every delegate has just enacted this with cards.
+Presenter notes: **The two drawings are the slide — walk them, do not read a list first.** A node is a
+**black box with ports**: it is *fired* when a packet arrives on an input port's arc, it computes, and as
+a black box it reports what happened by raising an event on an **output port** that others may react to.
+**Packets are just data** — primitive or compound values travelling between ports, with no special
+requirements. And **a node is generally single-threaded**: concurrency comes from having many nodes, not
+from one node doing many things. That last one is the clerk rule — one clerk does one document at a time,
+and you get throughput by hiring clerks — and every delegate has just enacted it with cards.
 
 ### Slide: Capacity, Backpressure and Node Lifetime
 
-- **Node lifetime.** In classic dataflow a node lives from activation until it has pushed its answer.
-  Push = something arrived and there is work to do. Pull = a sink asked for work.
-- **Capacity.** We do not activate a node to read input if there is no space on its output. Links with
-  infinite capacity exist only in theory.
-- Therefore: **backpressure**. A full buffer means either slow the producer, or drop data.
-
 #image: hand-drawn diagram — a buffered arc between two nodes: capacity, push and pull, and a full buffer  [→ resources/flow-arc-buffers.png]
 
-Presenter notes: Arcs connect nodes; buffered arcs allow asynchrony — a node can push its output onto the buffer while the downstream node is still busy, which is what enables parallelism. Throughput is then limited by the slowest node. None of this is *required* for dataflow: a synchronous, unbuffered, single-threaded pipeline is a valid dataflow program. Push is a hot source you listen to (mouse clicks); pull means nothing is generated until a sink pulls the chain. Introduce backpressure and load-shedding as the two available answers here — movement D turns them into a decision. If a table got *"this in-tray holds only three documents"* in block 1, this is their card, named.
+Presenter notes: **Three things, off the drawing.** *Node lifetime* — in classic dataflow a node lives
+from activation until it has pushed its answer; push means something arrived and there is work to do,
+pull means a sink asked for work. *Capacity* — we do not activate a node to read input if there is no
+space on its output, and links with infinite capacity exist only in theory. *Therefore backpressure* — a
+full buffer means either slow the producer or drop data. Arcs connect nodes; buffered arcs allow asynchrony — a node can push its output onto the buffer while the downstream node is still busy, which is what enables parallelism. Throughput is then limited by the slowest node. None of this is *required* for dataflow: a synchronous, unbuffered, single-threaded pipeline is a valid dataflow program. Push is a hot source you listen to (mouse clicks); pull means nothing is generated until a sink pulls the chain. Introduce backpressure and load-shedding as the two available answers here — movement D turns them into a decision. If a table got *"this in-tray holds only three documents"* in block 1, this is their card, named.
 
 ### Slide: Flow-Based Programming
 
@@ -500,8 +492,6 @@ is a fax machine.
 - **Lookup.** We build a store from packets raised by another component, to act as the lookup table for
   information needed to process a request. *That is the Catalogue Maker.*
 
-▎ Nothing here was invented. It was named.
-
 #image: hand-drawn FBP 'Onboard Restaurant' flow  [→ resources/flowbased_onboard_restaurant.png, resources/FBP Onboard Restaurant.drawio]
 
 Presenter notes: **Walk the paper diagram and the graph side by side if the room allows it** — the point
@@ -521,8 +511,6 @@ compose into a single network — which is the thing paper could not show you.
   shape as onboarding.
 - **The whole network.** Put them together and the confirmation is just another packet arriving on
   another port. There is no step at which anything is "in charge".
-
-▎ Three flows on paper. One graph. The composition was always there — paper just could not draw it.
 
 #image: hand-drawn FBP 'Order Food' flow  [→ resources/flowbased_order_food.png, resources/FBP Order Food.drawio]
 #image: hand-drawn FBP 'Order Placement' flow  [→ resources/flowbased_order_placement.png, resources/FBP Order Placement.drawio]
@@ -545,8 +533,6 @@ goes missing, no receipt comes back, the same document arrives twice — express
 - The failure is **local to a node**. The graph does not unwind; the packet waits.
 
 Then the last move of the movement: **make the arcs middleware and the nodes processes.**
-
-▎ You have just drawn a distributed system.
 
 #image: hand-drawn FBP 'Order Food Errors' flow  [→ resources/flowbased_order_food_errors.png, resources/FBP Order Food Failure.drawio]
 #image: hand-drawn FBP diagram — nodes as processes, arcs as message-oriented middleware  [→ resources/flow-nodes-as-processes.png]
