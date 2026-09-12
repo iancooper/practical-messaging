@@ -652,6 +652,25 @@ same words at two sizes.
 
 Presenter notes: The direct answer to movement B — **and the name for what movement B drew is Feature Envy**, so say it while pointing at the red line across the top of the drawing, which states the rule. Reactive inherits from dataflow: conceive the application as a graph of nodes operating on data flowing through it. It shines for data-driven applications composed from components in workflows — let components subscribe to each other's event streams and consume published facts asynchronously, on demand. **Every desk in the paper office was a verb**: Take Order, Send Fax, Make Catalogue. That is why the office had no god object and the gateway does.
 
+### Slide: Putting Reactive Together
+
+Four mechanisms are coming, and each one answers a different way of being overwhelmed.
+
+- **Message passing** decouples in time — the bulkhead.
+- **Backpressure and load-shedding** handle a consumer that cannot keep up.
+- **Circuit breaker** handles a downstream that is failing rather than slow: stop consuming, stop
+  hammering it, resume when it recovers.
+- **Scale out, not up** — a supervisor fans work out to worker instances; that is elasticity, and it is
+  competing consumers from Day 1 §4.3.
+
+▎ Responsive under failure, responsive under load. The traits are these mechanisms.
+
+Presenter notes: **This is the set, and the next four slides are the set.** Say all four now, briefly, so
+the room knows how far it has to go — then take them one at a time. Land the callout on the way in:
+Resilient and Elastic are not aspirations, they are these four mechanisms. The circuit-breaker and
+scale-out diagrams used to be orphaned images under a "recap" heading and were never really taught;
+each has its own slide now.
+
 ### Slide: Bulkheads
 
 #layout: side
@@ -688,23 +707,45 @@ answers, and it is a **decision**, not a default.
 
 Presenter notes: Merged from two slides. The idea was introduced as a mechanism back in *Capacity, Backpressure and Node Lifetime*; here it becomes the choice. Worth asking the room which one their current system does — the answer is usually "neither, it falls over", which is a third option nobody chooses on purpose.
 
-### Slide: Putting Reactive Together
+### Slide: Circuit Breaker
 
-Four mechanisms, and each one answers a different way of being overwhelmed.
+Backpressure answers a consumer that is **slow**. This answers a downstream that is **down** — and that
+every retry in the system is now making it harder to come back.
 
-- **Message passing** decouples in time — the bulkhead.
-- **Backpressure and load-shedding** handle a consumer that cannot keep up.
-- **Circuit breaker** handles a downstream that is failing rather than slow: stop consuming, stop
-  hammering it, resume when it recovers.
-- **Scale out, not up** — a supervisor fans work out to worker instances; that is elasticity, and it is
-  competing consumers from Day 1 §4.3.
-
-▎ Responsive under failure, responsive under load. The traits are these mechanisms.
+- **Closed** — normal. Calls go through, and failures are counted.
+- **Open** — the count crossed a threshold, so we stop consuming altogether.
+- **Half-open** — after a wait, one trial call. It succeeds and we close; it fails and we open again.
 
 #image: hand-drawn message-passing diagram — circuit breaker: stop consuming, and let one trial call through  [→ resources/flow-circuit-breaker.png]
+
+#note: **The drawing states the reason and the contrast**, so the slide must not: *stop consuming, so you
+stop hammering something that is already down* is the red line, and *the bulkhead answers a downstream
+that is down; the circuit breaker answers one that is down and being retried into the ground* is the
+green comment. What it does **not** carry is the three state names, which is what the bullets are for.
+
+Presenter notes: The three names are the vocabulary; the picture is the reason. Point at the lock on the
+in-port — **we stop reading the queue**, which is what makes this different from a retry policy: the work
+is still there when we come back, exactly as it was on the bulkhead. Ask what happens if every consumer
+opens at once, and let them find the thundering herd on recovery.
+
+### Slide: Scale Out, Not Up
+
+The fourth answer is not a mechanism inside one component — it is **more components**. A supervisor fans
+the same work out to identical workers.
+
+- **Not up.** A bigger machine has a ceiling, and buys nothing at all when the machine dies.
+- **Out.** Throughput is a count you can change while the system is running.
+- One arrangement, two traits: **Elastic** going up, **Resilient** going down.
+
 #image: hand-drawn 'scale out not up' diagram — a Supervisor fanning work out to identical Workers: one added, one in a fault region, and the rest carrying on regardless  [→ resources/flow-scale-out.png]
 
-Presenter notes: The circuit-breaker and scale-out diagrams used to be orphaned images under a "recap" heading and were never really taught. Give them a sentence each. Land the callout: Resilient and Elastic are not aspirations, they are the four mechanisms on this slide.
+Presenter notes: **The drawing carries the mechanics — interchangeable workers, add one, lose one — so
+say the consequence and let it show the machinery. Call back to Competing Consumers, Day 1 §4.3** — this is that pattern, drawn from the
+supervisor's side rather than the queue's, and the room has already done the arithmetic that motivates it
+(*if the rate of arrival exceeds the rate of consumption the channel backs up*). The queue and stream
+split is the detail they met there: on a queue you add consumers and lose ordering; on a stream you add
+partitions and keep it. The drawing letters the reason the supervisor can do this at all — **it does not
+know how many workers there are** — so point at that line rather than reading it.
 
 ### Slide: So Who Is in Charge?
 
