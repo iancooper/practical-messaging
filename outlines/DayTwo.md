@@ -62,12 +62,8 @@ built yesterday and let somebody describe the outbox out loud.
 
 ## Flow and Reactive Programming
 
-*The opening section of Day Two. Four movements: **A — how the office did it** (paper workflows: the
-frame, the desk, the worked flows and their failures — the exercise's *see one*, closing with delegates
-drawing the hotel's). **B — how would you build that?** (call and return, at object scale and at service
-scale, ending in the distributed monolith — the wrong answer, offered second). **C — the formalism**
-(dataflow, then flow-based programming; the same flows again as a graph, closing with delegates redrawing
-theirs). **D — the name** (Reactive, which is what you have been building since yesterday morning).*
+*The opening section of Day Two, in four movements — and the question under all of them is what is in
+charge.*
 
 **Section goal:** stop drawing your system as call-and-return, and start drawing it as flow — and know
 what that buys.
@@ -89,14 +85,24 @@ before it, and there is no long recap: round 0 shrinks to a pointer at slides th
 
 ### Slide: Flow and Reactive Programming
 
+#reveal: bullets
+
 ▎ Everything in this section is one question: *what is in charge?*
 
+Four movements:
+
+- **How the office did it** — paper workflows, and the failures they already had answers for.
+- **How would you build that?** — call and return, at object scale and at service scale.
+- **The formalism** — dataflow, then flow-based programming: the same flows as a graph.
+- **The name** — and you have been building it since yesterday morning.
+
 Presenter notes: **The first teaching slide of Day Two**, straight off *So How Do You Design One?*, which
-asked *who is in charge — and does anyone need to be?* This marker is that question, alone on a slide. It
-has to earn the room's attention in one line, and the line is the question, not the agenda. Do not list
-the movements. The route is: watch an office do it with no
-one in charge, do it yourself, then discover that the way you already build software puts somebody in
-charge whether you wanted it or not.
+asked *who is in charge — and does anyone need to be?* Open on the question, not the agenda — it is the
+callout, and it is the line that has to earn the room's attention. **Then take the four movements one
+click at a time**, and do not explain them: each is one phrase, each gets its own card when we reach it,
+and the point of showing all four now is only that the room can hear the shape of the morning. The route
+is: watch an office do it with no one in charge, do it yourself, then discover that the way you already
+build software puts somebody in charge whether you wanted it or not.
 
 ---
 

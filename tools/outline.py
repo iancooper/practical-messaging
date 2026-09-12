@@ -15,6 +15,8 @@ documents it; this is the implementation.
     # Title                  the deck title, once
     ## Section               a teaching section
     #group: <title>          a run of slides inside a section -- NOT an entry, not counted
+    #reveal: bullets         one click PER BULLET on this entry, overriding R0-4's rule
+                             that a bullet run is one idea. Opt-in, like `#layout:`
     #divider: <one-line>     OPTS THE GROUP ABOVE INTO A DIVIDER SLIDE, and is the
                              line it carries. Must follow a `#group:`. Opt-in on
                              purpose: `DayTwo.md` has six groups and Ian named four
@@ -49,7 +51,7 @@ import sys
 
 # A line that ends the block being accumulated. Everything else continues it.
 _STARTERS = re.compile(
-    r"^(#{1,3} |#image:|#group:|#divider:|#note:|#layout:|Presenter notes:|▎|```|\||>\s|---\s*$|\s*[-*] |\s*\d+\. )")
+    r"^(#{1,3} |#image:|#group:|#divider:|#note:|#layout:|#reveal:|Presenter notes:|▎|```|\||>\s|---\s*$|\s*[-*] |\s*\d+\. )")
 
 # **A link may name more than one file.** Five Day 2 markers give the render AND its
 # editable source -- `[→ resources/x.png, resources/FBP x.drawio]` -- and one ends in
@@ -78,6 +80,7 @@ class Slide:
         self.blocks = []
         self.notes = []          # presenter-note paragraphs, in order
         self.layout = None       # `#layout:` -- None means the builder decides
+        self.reveal = None       # `#reveal:` -- None means R0-4's inferred grouping
 
     @property
     def images(self):
@@ -277,6 +280,25 @@ def parse(path):
                 print(f"  ! {path}: unknown #layout: {want!r} — ignored", file=sys.stderr)
             elif slide is not None:
                 slide.layout = want
+            continue
+
+        # **`#reveal:` overrides the builder's INFERRED reveal grouping for one entry.**
+        # R0-4's rule -- Ian's, 2026-09-10 -- is that a run of bullets with no lead-in
+        # is one idea and so one click, which is right nearly everywhere: five bullets
+        # elaborating one point should not cost five clicks. It is wrong where the
+        # bullets ARE the ideas, and the case that found it is R4-3, where Ian asked for
+        # Day 2's four movements "as bullet points (progressively disclosed)".
+        #
+        # Opt-in per entry, exactly like `#layout:`, and for the same reason: the
+        # default stays inferred, so this is not the outline annotating 286 slides.
+        if line.startswith("#reveal:"):
+            close()
+            in_notes = False
+            want = line[len("#reveal:"):].strip().lower()
+            if want != "bullets":
+                print(f"  ! {path}: unknown #reveal: {want!r} — ignored", file=sys.stderr)
+            elif slide is not None:
+                slide.reveal = want
             continue
 
         if line.startswith("#note:"):

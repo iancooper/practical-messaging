@@ -766,17 +766,25 @@ class Deck:
     # A slide whose grouping is wrong is fixed in PowerPoint, per shape, which is what
     # one text box per paragraph (R0-2) bought.
     @staticmethod
-    def _reveals(prev, kind):
-        """True when `kind` opens a new reveal step after a block of `prev`."""
+    def _reveals(prev, kind, per_bullet=False):
+        """True when `kind` opens a new reveal step after a block of `prev`.
+
+        `per_bullet` is `#reveal: bullets` -- see the note on the directive in
+        `outline.py`. The inferred rule folds a bullet run into one idea, which is
+        wrong where the bullets *are* the ideas."""
+        if per_bullet and kind == "bullet":
+            return True
         return not (kind == "bullet" and prev in ("prose", "bullet"))
 
     def _body(self, laid, blocks, x, y, w):
         cy = y
         prev = None
+        per_bullet = (laid.slide is not None
+                      and getattr(laid.slide, "reveal", None) == "bullets")
         for b in blocks:
             if b.kind == "image":
                 continue
-            if self._reveals(prev, b.kind):
+            if self._reveals(prev, b.kind, per_bullet):
                 laid.step += 1
             prev = b.kind
             if b.kind == "bullet":
