@@ -1119,7 +1119,7 @@ When handler interaction becomes complex, make the activity **explicit**.
 - The handler loads the state machine for the conversation id, triggers the transition denoted by the message, and runs the associated code.
 - Save the new state and ack the message.
 
-Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic.
+Presenter notes: States e.g. Requested → SentToHotel → Accepted → Paid → Confirmed; transitions triggered by events/commands; implemented via the state pattern, switch statements, or a library (e.g. Stateless). Durable via persisted state + event log. Benefits: predictable, easier to visualize/test, avoids duplication across handlers. Drawback: no concurrency or waiting logic. **Plant the word now: when a messaging framework says *saga*, this is almost always what it means** — a state machine with a compensating path back to safe. *Compensation, Four Ways* comes back to it and shows the other three, and the room will recognise this one when it does.
 
 ### Slide: State Machine + Activity State Updates
 
@@ -1169,18 +1169,16 @@ Presenter notes: External orchestrators — Temporal, Camunda, Azure Logic Apps,
 
 ### Slide: Compensation, Four Ways
 
-You cannot roll back across desks. So for every "do", you write an "undo" — and the four mechanisms differ only in **where the undo lives**.
+You cannot roll back across desks, so for every "do" you write an "undo".
 
 | mechanism | where the undo lives | what triggers it | the catch |
 |---|---|---|---|
-| **Handlers** | a fallback handler per step | a **fault message** — In-Only needs a dedicated fault channel used only for compensation; In-Out marks the response as a fault, not a success | retry first, compensate only after X failures; the undo logic scatters exactly like the do logic |
+| **Handlers** | a fallback handler per step | a **fault message** — In-Only needs a dedicated fault channel; In-Out marks the response as a fault | retry first, compensate only after X failures; the undo logic scatters exactly like the do logic |
 | **State Machine** | a transition to a faulted state, then a compensating flow back to *safe* | the same fault message, but it drives a transition | run **all** fault transitions to safe *before* acking the fault message; needs durable execution, so a restart mid-fault resumes |
 | **Routing Slip** | the slip's **fault next** — the reverse of the step just completed | context on the envelope flips to "faulted" and the slip runs backwards | the slip must carry the undo route as well as the do route |
 | **Workflow Engine** | a **compensation event** linked to the task | retry handles technical faults; a *business* error (card declined) is a modelled branch on a gateway | with no catch, the workflow rolls back to the last wait state or terminates |
 
 ▎ This is the **Saga**. Four costumes, one idea.
-
-#image: BPMN fragment: Take Payment with an attached compensation event, associated to Refund the Card  [→ resources/bpmn-compensation-fragment.png]
 
 Presenter notes: **One argument, four costumes — as a table the repetition becomes the point.** The Saga name comes from a 1980s paper on long-lived database transactions, and messaging frameworks that say "saga" almost always mean the state-machine row. **The distinction to land is business error vs. technical error** — retry is for technical, a gateway branch is for business, and confusing the two is how teams end up retrying a declined card forty times. (Ruecker, *Practical Process Automation*.) On the hotel: the undo for *reserve a room* is *release the room*; the undo for *take payment* is *refund*. Ask the room which of the four they would use, and why.
 
@@ -1192,13 +1190,13 @@ Embedded in a service, or an external orchestrator? The question underneath is w
 - Keep core domain logic **inside** services; let the engine coordinate *outcomes*, not fine-grained steps.
 - Consider choreography, or a local embedded orchestration, where autonomy matters more than visibility.
 
-Presenter notes: The failure mode is **anaemic services**: all domain logic migrates into the engine and the services become passive executors of workflow directives. That is the ESB, rebuilt, and it sets up the next slide.
+▎ "Smart endpoints and dumb pipes." — James Lewis and Martin Fowler
 
-### Slide: Smart Endpoints, Dumb Pipes
+ESB products often include sophisticated routing, choreography, transformation and business rules. The
+microservice community favours the alternative, and that phrase is the name for the danger above: the
+more the pipe knows, the less the endpoints are allowed to.
 
-ESB products often include sophisticated routing, choreography, transformation, and business rules. The microservice community favours the alternative: **smart endpoints and dumb pipes**. (martinfowler.com/articles/microservices.html)
-
-Presenter notes: Microservices promote smart services and minimal messaging infrastructure. This is the closing argument of the section, and it is Day 1 §2's coupling argument at process scale: put the process in the pipe and every participant is coupled to the pipe.
+Presenter notes: The failure mode is **anaemic services**: all domain logic migrates into the engine and the services become passive executors of workflow directives. That is the ESB, rebuilt. The quotation is from *Microservices* (2014) — **say both names, and say it is a slogan rather than an argument**, because the argument is the bullets above it. Microservices promote smart services and minimal messaging infrastructure. This is the closing argument of the section, and it is Day 1 §Coupling at process scale: put the process in the pipe and every participant is coupled to the pipe.
 
 ### Slide: Implementing Workflow Patterns
 
@@ -1255,19 +1253,20 @@ because the In-Only that started it took no response, so there is no response fo
 
 ### Slide: Full Flow, End to End
 
-Order placement, end to end. **Name each arc as you walk it, and count the In-Outs** — every one of
-them is a correlation id and a piece of state somebody has to own across a restart.
+Everything, both ways round: the four flows as the room drew them on paper, and the whole thing as one
+graph. **Name each arc as you walk it, and count the In-Outs** — every one of them is a correlation id
+and a piece of state somebody has to own across a restart.
 
-#image: (s173) collaboration diagram — order placement (fax operators create/accept order, book driver)  [→ resources/Order Placement.drawio.png]
-#image: (s174) FBP 'Order Placement' flow — the same graph as when it was first taught  [→ resources/flowbased_order_placement.png]
+**The room picked these before it knew they were choices**, which is the point of having drawn them on
+paper first.
 
-### Slide: Putting It Together — Recap
+#image: montage — the four takeaway flow diagrams together, as the room drew them  [→ resources/paper-worked-flows-montage.png]
+#image: hand-drawn FBP overall 'Order Flow' — Qualify Restaurant through Cook Food and Book Courier  [→ resources/flowbased_order_all.png]
 
-Every flow the room drew, and every exchange pattern in them. **The room picked these before it knew
-they were choices** — which is the point of having drawn them on paper first.
-
-#image: (s175) collaboration diagram — order confirmation (customer phones in, Customer Care confirms)  [→ resources/Order Confirmation.drawio.png]
-#image: (s176) FBP overall 'Order Flow' — Qualify Restaurant through Cook Food and Book Courier  [→ resources/flowbased_order_all.png]
+#note: **These two are deliberate repeats** — the montage is first shown where the paper flows are
+taught, and the overall FBP graph where the graph form is. Ian's ruling is that repeating them here is
+right, because this is the only slide in the section that is actually end to end; the four slides above
+it are each one flow. **Do not swap either for a single-flow diagram again.**
 
 ---
 
