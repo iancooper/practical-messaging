@@ -9,14 +9,15 @@ and a table you can read the length of does not.
 Last reconciled against the repo: **2026-09-10**, after C4. **§C's two handouts are both built**, so
 **nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built.
 **§G is the full-deck visual sweep — eleven findings.** G2, G3, G4, G6, G7, G8 and G10 are fixed; G9 was withdrawn on inspection; **G1 (the register, 30 slides) and G11 (the preview drops italic) are open.** B2 and B3 have no
-action available. **§H holds Ian's two passes over the built decks** — 2026-09-10 (26 findings) and **2026-09-12 (16 more, §R3 — **Day 1 closed**)**; both worked, and the list is `REVIEW.md`. **§R3 opened G12; G13 was closed by Ian's ruling that the `side` slides' figure size is fine.**
+action available. **§H holds Ian's three passes over the built decks** — 2026-09-10 (26 findings), 2026-09-12 (16 more, §R3 — **Day 1 closed**), and **2026-09-12's manual Day 2 pass (§R4, FIFTY rows, none applied — the live queue)**. The list is `REVIEW.md`. **§R3 opened G12; G13 was closed by Ian's ruling that the `side` slides' figure size is fine. §R4 reopens Day 1 for one builder fix** (R4-0-1) and turns **F2** from a nuisance into the cause of a shipping defect (R4-0-2).
 
 **Where things stand.** Phases 1 and 2 are closed, and **Phase 3 has nothing actionable left**: §A, §B
 and §C are all closed but for B2 and B3, which have no action available. What remains is §F — Ian's.
-Both decks build clean from `outlines/` with an empty overflow report, Day 1 **138 slides** and Day 2
-**153**; **99 figures** across twelve families plus **2 print cards** — 90 on slides, **9 in the two
-handouts** — lint clean, `reads_at` **30 of 99**, and speaker notes ship into both `.pptx`. **Day 1's
-figures sit at a median 91% of their Phase 2 label size with two under 85%, Day 2 at 96% with three.**
+Both decks build clean from `outlines/` with an empty overflow report, Day 1 **129 slides** and Day 2
+**153**; **104 figures** across twelve families plus **2 print cards** — 90 on slides, **9 in the two
+handouts**, 4 Paper Flow exercise materials, and `conversation-timeout` placed nowhere — lint clean,
+`reads_at` **30 of 104**, and speaker notes ship into both `.pptx`. **Day 1's figures sit at a median
+87% of their Phase 2 label size, Day 2 at 96% with three under 85%.**
 **The takeaway pack is complete**: `handouts/Routing-Patterns.md` and
 `handouts/Managing-Asynchronous-APIs.md`, both signposted from the deck, both printable today. What is
 left is below.
@@ -128,7 +129,7 @@ cross-reference, no figure family off-style, and no defect at all in `queues_str
 
 ---
 
-## H. Ian's first pass over the built decks — 2026-09-10 ##
+## H. Ian's passes over the built decks — 2026-09-10, 2026-09-12 ##
 
 **The detail is in `REVIEW.md`, and that file is the work list.** Twenty-six findings from reading
 the rendered Day 1 deck: five builder changes that land on **both** days, twenty-one Day 1 content
@@ -139,6 +140,9 @@ rows, and a narrow Day 2 pass afterwards. Ian: *"That's enough for a first pass 
 | **H1** | ✅ **§R0 — the builder, all five done.** A folio bottom-left on every slide but the cover; **one text box per block instead of one per line**, which fixed all four reported overflows in one change; progressive disclosure grouped by idea — 230 clicks on Day 1, 221 on Day 2, `--no-animation` to turn it off; and `#layout: side`, a fourth arrangement. **The animation could not be checked here** — no PowerPoint on this machine, and a malformed `p:timing` refuses to open rather than degrading. **Settled 2026-09-12: Ian read four slides out of the built deck, so it opens and the timing part is accepted.** What is still unconfirmed is only how it *behaves* — that a click advances one group, not one shape | M–L | ✅ |
 | **H2** | ✅ **§R1 — Day 1 content, all 21 rows.** Day 1 **138 → 136 slides**, four figures added (2 pump, 2 reference-data), §4.1 rebuilt with two tables and both broker models, §4.5 **13 → 6**, §Conversations re-ordered pattern-by-pattern with **Out-In** put back, and the AI-ism sweep run against the 2025 deck as the test of what is Ian's. **Nine cross-references re-anchored** after the restructure, plus four more that were stale before it | L | ✅ |
 | **H3** | **§R2 — Day 2, all four rows.** R2-1 (text boxes) and R2-2 (AI-isms) ✅. **R2-3: Ian, 2026-09-10 — do not roll `#layout: side` out to Day 2**, ask per slide when he reviews it. Measured first: 23 eligible entries, median figure **96% → 53%**, **all 23** under 85%, 7 needing text cut to notes, and 8 of them BPMN, the one family already at the type floor. **R2-4: drop *annotated*.** §*Putting It Together* promised a pattern-name layer **none of its ten figures carries**; all ten are used twice, and their `.excalidraw` / `.drawio` sources cannot be rendered here, so annotating means redrawing — **G1's job, not this row's.** Four titles and five alt lines corrected instead | M | ✅ |
+
+| **H4** | **§R3 — Ian's second pass over Day 1. Sixteen rows, all applied; Day 1 closed** at **129 slides**. Opened **G12**, closed **G13**, and made `#layout: side` a written exception to the 18pt floor | M | ✅ |
+| **H5** | **⚑ §R4 — Ian's manual pass over Day 2, 2026-09-12. FIFTY rows, none applied. This is the live queue.** Numbered against the **153-slide** build at `d356745`. **§R4-0 first — three builder rows**: a wrapped table cell loses a space at every line break (**51 lost spaces, 37 cells, and it is on Day 1 too**, so it reopens Day 1 for a builder fix); a near-width callout grows into the slide below because **F2** leaves Caveat uninstalled and PowerPoint substitutes a wider face (**13 Day 2 callouts at ≥75% of their width**); and **a `#group:` has no divider slide**, which gates his four movement-header rows. Between them the first two answer **seven** of his content rows. **Eleven new `#layout: side` pairs** named per R2-3. **Six rows are questions for Ian, not work.** The biggest single row is **R4-13** — restore the progressive, colour-coded arrows on the paper-flow montage, which needs animation *inside* a figure, something R0-4 cannot do. **R4-38 is a correctness fix on what Ian calls the section's key takeaway**: *sequence flow* and *message flow* are the wrong way round on slide 81 | L | ☐ |
 
 **Both of H2's blocking questions were put to Ian on 2026-09-10 and both were answered**: the full §4.5
 restructure, and the builder inferring reveal groups rather than a marker in the outline.
