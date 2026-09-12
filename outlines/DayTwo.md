@@ -183,58 +183,47 @@ in-tray — nobody shouts across the office.** That last one is the whole exerci
 also the hard rule on the printed delegate brief, so say it in those words. The out-tray-to-in-tray rule
 is what makes the fracture planes visible.
 
-### Slide: Two Devices You Already Know
+#group: The Worked Flows
 
-Two devices on that desk are worth naming, because they are patterns you already know:
+### Slide: Worked Example: Just Paper Takeaway
 
-- **The order wheel.** A new order is clipped on and the wheel turned from the server's side to the
-  kitchen's; completed orders turn back. Orders are made and returned **in sequence** — a queue, with
-  the ordering guarantee made out of plywood.
-- **The carbon-copy memo.** Writing on it creates a copy underneath. You keep a copy of everything you
-  send; and you can read a file's message history to reconstruct its current state. That is the
-  **outbox**, and it is event sourcing.
+We are going to demonstrate how a paper flow used to work. Our business produces a paper catalogue of
+local restaurant menus that we mail to nearby households. Customers phone us to order from the
+catalogue. We then pass the order to the restaurant. Restaurants handle their own delivery.
 
-#image: photo — an order wheel in a restaurant kitchen, tickets clipped round the rim and one being clipped on  [→ resources/photo-order-wheel.jpg]
-#image: photo — a multi-part carbon-copy (NCR) form pad, top sheet peeled back to show the copies beneath  [→ resources/photo-carbon-copy-pad.jpg]
-
-Presenter notes: **Name the pattern only after they have recognised the object.** Both are things the room
-has handled, and both are mechanisms they will meet again under a different name — the wheel when queues
-come back, the memo when we get to keeping a copy of what you sent. Ask what happens if the wheel is
-turned before the ticket is clipped on.
-
-#group: The Worked Flows — Just Paper Takeaway
+Presenter notes: **Frame the business before the first flow, not during it.** Nothing in the deck
+previously said what Just Paper Takeaway actually did, so the four flows that follow arrived as diagrams
+of an unstated company. Keep it to the five sentences: who we are, what we post, how an order reaches us,
+how it reaches the restaurant, and who delivers. **The last one matters** — restaurants deliver, so the
+takeaway never sees a driver, and that is why no flow in this section has one.
 
 ### Slide: Worked Flow — Restaurant Onboarding
 
-**Just Paper Takeaway.** Signing up a new restaurant, as paper: the value stream first, then the flow.
+**Signing up a new restaurant**, as paper.
 
 - Who the desks are: Restaurant Owner, Sales Team, Fax Operator, Chef, Catalogue Maker.
 - Where the organisational boundary falls.
 - Every hand-off annotated *Put X in Outbox* / *Take X from Inbox*.
 
-#image: value-stream map — restaurant onboarding  [→ resources/Restaurant Onboarding Value Stream.drawio.png]
 #image: flow diagram — restaurant onboarding  [→ resources/Restaurant Onboarding.drawio.png]
 
 Presenter notes: **This is the first of four *see one* flows, and the slowest.** It is the diagram
 delegates reproduce for the hotel in block 1, and the structural twin of Hotel Onboarding. Point at the
 boundary bar and at two trays explicitly; those are the only two pieces of notation they need to start.
-Walk the value stream first and the flow second, and say why: the value stream says *what the customer
-gets*, the flow says *who has to do what to whom*. **Ask the room where the waiting is** before you show
-the flow — the answer is always "at the boundary", which is the point.
+**Ask the room where the waiting is** before you walk the flow — the answer is always "at the boundary",
+which is the point.
 
 ### Slide: Worked Flow — Customer Order
 
 **The customer orders.** The first flow that crosses into the customer's world, and the first with more
 than one channel in it.
 
-- The value stream for the order side of the business, end to end.
 - Order taking is **phone, card machine and order pad** — three channels, one flow, and none of them
   is a computer.
 - The order pad is the in-tray; the pad's carbon copy is the outbox; the till roll is the file.
 
 ▎ Three different media, one notation. The notation does not care what the arrow is made of.
 
-#image: value-stream map — order flow  [→ resources/Order Flow Value Stream.drawio.png]
 #image: photo — order taking (phone / card machine / order pad)
 #image: flow diagram — customer order  [→ resources/Customer Order.drawio.png]
 
@@ -253,8 +242,6 @@ another organisation, on the far side of the heavy bar, reachable only by fax.
 - The state has to be **filed** before the fax goes, because the answer arrives minutes later and
   possibly to a different clerk.
 - The reference number written on the fax is what matches the answer back to the file.
-
-▎ Store, send, and be able to pick it up again. Two hundred years before anyone called it a saga.
 
 #image: flow diagram — order placement  [→ resources/Order Placement.drawio.png]
 
