@@ -992,7 +992,7 @@ The booking choreography — the flow of messages between participants.
 
 Presenter notes: Even this simple interaction produces a set of messages flowing between participants. Choreography is what happens "between" — it has no explicit owner. When flow leaves your application (or workflow engine) it "goes blind": the **event horizon**. You understand your workflow — it's in your code — but debugging becomes hard because at times nothing happens that's supposed to, and you struggle to know why. **This is round 4 with no conductor**, drawn.
 
-### Slide: Messaging and Eventing (Orchestration vs. Choreography)
+### Slide: Misunderstandings: Choreography and Orchestration
 
 A common EDA notion: *messaging (commands) is orchestration; eventing is choreography.*
 
@@ -1000,7 +1000,7 @@ A common EDA notion: *messaging (commands) is orchestration; eventing is choreog
 - Choreography is the flow of control and information *between* orchestrations — frequently out of process, and can use messaging or eventing as required.
 - An orchestration is a sequence with attendant session state (token) — frequently not distributed, within an executable process. A **routing slip** is a distributed orchestration that uses message attributes as the engine of application state.
 
-### Slide: Event Chaining
+### Slide: Mistakes: Event Chaining
 
 A sensible balance of orchestrated bounded contexts and choreography between them reduces event chaining. But **Event Pinball** can still be a problem between orchestrated services.
 
