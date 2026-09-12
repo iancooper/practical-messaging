@@ -800,7 +800,7 @@ Presenter notes: **This slide exists to keep the promise made on the previous on
 
 ### Slide: BPMN
 
-#layout: side
+#layout: figure
 
 **BPMN** (Business Process Management and Notation) is a visual language for diagramming business processes clearly, in a standardized and comprehensive way.
 
@@ -888,7 +888,7 @@ Merge non-concurrent paths back into one. BPMN: a converging sequence flow — n
 
 ### Slide: Process = Orchestration
 
-#layout: side
+#layout: figure
 
 A **Process** describes a sequence/flow of activities. In BPMN it is a graph of flow elements (a sequence flow of activities, events, gateways).
 

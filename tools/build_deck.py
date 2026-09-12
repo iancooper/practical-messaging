@@ -128,6 +128,9 @@ PANEL_PAD = 0.15
 SIDE_TEXT_W = (CONTENT_W - GUTTER) * 0.47
 SIDE_FIG_W  = (CONTENT_W - GUTTER) * 0.53
 SIDE_FIG_X  = M_L + SIDE_TEXT_W + GUTTER
+# Where the drawing sits in the half-stage, as a fraction of the slack above it. 0.5
+# is true centre and reads low; see `_side_slide`.
+SIDE_FIG_RISE = 0.40
 
 
 def _in(pt):
@@ -656,6 +659,23 @@ class Deck:
         if sl.layout == "side" and len(figs) == 1:
             self._side_slide(sl, figs[0], argument + callouts, photos)
             return
+        # **`#layout: figure` forces the one-slide stack** -- title, the argument
+        # across the full width, then the drawing across the full width under it.
+        # It is the same arrangement `_figure_slide` gives a short entry; the flag
+        # just overrides FIGURE_SLIDE_BODY_MAX, which is a threshold and not a rule.
+        # Ian, 2026-09-12, ruling on the BPMN `side` merges: *"move it below the text,
+        # you have more space with greater width to make it larger"*. The drawing keeps
+        # the full 12.4in, so it loses only the height the argument takes -- and a wide,
+        # short figure was fitted by WIDTH, so it loses nothing at all.
+        if sl.layout == "figure" and len(figs) == 1:
+            self._figure_slide(sl, figs, argument + callouts, photos)
+            return
+        # `#layout: split` forces the other way: argument and drawing on separate
+        # slides, for an entry the threshold would have combined.
+        if sl.layout == "split" and len(figs) == 1:
+            self._text_slide(sl, argument, photos, split=True)
+            self._figure_slide(sl, figs, callouts, [], split=True)
+            return
         if h <= self.FIGURE_SLIDE_BODY_MAX and len(figs) == 1:
             self._figure_slide(sl, figs, argument + callouts, photos)
             return
@@ -718,12 +738,26 @@ class Deck:
         if used > avail + 0.01:
             laid.overflow = used - avail
         laid.step += 1                      # the picture is its own reveal
-        self._stage(laid, [fig] + photos, y, x=SIDE_FIG_X, w=SIDE_FIG_W)
+        # **The drawing sits optically centred, not mathematically centred.** A short
+        # figure exactly halfway down a tall stage reads as LOW, because the text
+        # beside it starts at the top and the eye takes the pair as one block. Ian,
+        # 2026-09-12, on *BPMN -- The Elements*: *"move it up slightly so the top edge
+        # is more aligned with the text 'There are two kinds of arrow'. That looks to
+        # be one row of height."* On that slide 0.40 puts it within a few points of
+        # where he asked, and unlike centring it on the argument -- which was the first
+        # attempt and overshot by two lines -- it degrades safely: a figure that fills
+        # the stage does not move at all.
+        self._stage(laid, [fig] + photos, y, x=SIDE_FIG_X, w=SIDE_FIG_W,
+                    optical=SIDE_FIG_RISE)
         self.slides.append(laid)
 
-    def _stage(self, laid, imgs, y, x=None, w=None):
+    def _stage(self, laid, imgs, y, x=None, w=None, optical=None):
         """The full-width figure stage. One picture fills it; several share it, and
-        the report says what that costs."""
+        the report says what that costs.
+
+        `optical` replaces the 0.5 in the vertical centring of a single picture, so
+        `_side_slide` can seat its drawing a little above true centre. Only the
+        POSITION changes; the picture is still sized against the whole stage."""
         x = M_L if x is None else x
         w = CONTENT_W if w is None else w
         h = H_IN - M_B - y
@@ -749,8 +783,11 @@ class Deck:
             placed.append((b, iw * k, ih * k, k, iw, ih))
         for i, (b, pw, ph, k, iw, ih) in enumerate(placed):
             c, r = i % cols, i // cols
+            dy = (ch - ph) / 2
+            if optical is not None and len(placed) == 1:
+                dy = min(max((ch - ph) * optical, 0.0), max(ch - ph, 0.0))
             laid += Image(x + c * (cw + PANEL_PAD) + (cw - pw) / 2,
-                          y + r * (ch + PANEL_PAD) + (ch - ph) / 2, pw, ph, path_of(b))
+                          y + r * (ch + PANEL_PAD) + dy, pw, ph, path_of(b))
             if not self._is_photo(b):
                 laid.figures.append((b.src, pw, iw / 3.0, ih / 3.0))
 
@@ -1315,6 +1352,20 @@ def main(argv):
                 for src, pw, frac in l.reads_at():
                     print(f"      {frac*100:3.0f}%  {pw:4.1f}in  "
                           f"{os.path.basename(src)[:34]:<36} {l.slide.title[:30]}")
+
+        # `#layout: figure` and `#layout: split` are overrides too, and an override
+        # nobody can see is one nobody re-examines. The `side` block above says what
+        # its slides cost; these two say only that they were forced, because a forced
+        # stack costs the drawing nothing in width -- only the height the text takes.
+        forced = [l for l in deck.slides
+                  if l.slide is not None                # section and divider cards
+                  and l.slide.layout in ("figure", "split") and l.kind != "content"]
+        if forced:
+            print(f"    {len(forced)} slides take their arrangement from `#layout:` "
+                  f"rather than the body-height threshold:")
+            for l in forced:
+                print(f"      {l.slide.layout:<7} {l.slide.section[:22]:<24} "
+                      f"{l.slide.title[:40]}")
 
         if deck.compare:
             print(f"    ⚑ {len(deck.compare)} entries carry more than one figure and "
