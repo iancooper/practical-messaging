@@ -361,6 +361,8 @@ task is gone.
 - Nobody else should action a done task; a receiver of one discards it. If we cannot action it, someone
   else must.
 
+#layout: side
+
 #image: diagram — a queue of envelopes: Consumer One locks the one at the head, Consumer Two reads past it and locks the next  [→ resources/qs-queue-tasks.png]
 
 Presenter notes: The lock is the whole of a queue, and everything in §4.3 and §4.4 rests on it —
@@ -374,16 +376,16 @@ reading and nothing is deleted.
 
 - The first consumer reads the next record and processes it; a second consumer reads the next and
   processes it — and **both can read the same records**.
-- Each consumer stores an **offset** marking how far it has read.
-- On restart, a consumer reads the store to find the last record it processed.
-- Facts are an "inverse database" — how the current state was arrived at. Navigate the offsets to
-  compute a point-in-time position.
 
-▎ A queue holds work to be done. A stream holds what happened. Everything else follows from that.
+#layout: side
 
 #image: diagram — an append-only log of numbered cells, two consumers reading all of it, each with its own offset store  [→ resources/qs-stream-facts.png]
 
-Presenter notes: This is the *series* row of the previous table with a picture on it — stateful, PULL,
+Presenter notes: **The drawing carries the offset story — walk it, do not read it.** The offset store
+under each consumer, the bookmark on restart, and facts as an inverse database are all lettered onto the
+picture. **The one thing that is not on it:** navigate the offsets and you can compute a point-in-time
+position, which is the property that makes a stream a source of truth rather than a transport.
+This is the *series* row of the previous table with a picture on it — stateful, PULL,
 context and offset. There is no lock here and there is nothing to ack, which is why the whole of §4.4
 has to be taught twice: once for a broker that can hold a message back, once for one that cannot.
 
@@ -578,11 +580,12 @@ Add consumers to the same queue. The broker's **lock** does the rest.
 - Another consumer **reads past** the locked one and picks up the next item.
 - Nothing says which of them finishes first, so **you have sacrificed ordering** to get the throughput.
 
-▎ Read-past buys you throughput. It spends your ordering to do it.
+#layout: side
 
 #image: diagram — three competing consumers on one queue, each holding a locked message, one still waiting  [→ resources/qs-queue-competing.png]
 
-Presenter notes: This is the lock from §4.1 doing the work it exists for. Push on the ordering cost,
+Presenter notes: **Read-past buys you throughput. It spends your ordering to do it** — say that line, it
+is the one the room should leave with. This is the lock from §4.1 doing the work it exists for. Push on the ordering cost,
 because rooms consistently under-rate it: two consumers, two messages for the same customer, and nothing
 in the system decides which lands first. If they need ordering they do not need a bigger queue, they
 need *Competing Consumers on a Stream*.
@@ -597,11 +600,13 @@ There is no lock, so there is no read-past. You scale by **partitioning**.
 - The price: **no delay and no read-past.** A slow record holds up its partition, and there is nothing
   to skip it with.
 
-▎ On a queue you spend ordering to buy throughput. On a stream you spend the read-past instead.
+#layout: side
 
 #image: diagram — a stream split into three partitions, one consumer and one offset store per partition  [→ resources/qs-stream-partitions.png]
 
-Presenter notes: Choose the key deliberately: it has to be the thing whose order matters — the entity
+Presenter notes: **On a queue you spend ordering to buy throughput. On a stream you spend the read-past
+instead** — that is the pair of slides in one sentence; say it here, with both pictures still fresh.
+Choose the key deliberately: it has to be the thing whose order matters — the entity
 id, not the message type — and it has to spread, or one partition takes all the traffic and you have
 scaled nothing. Say what happens when a record will not process: on a queue someone else reads past it,
 on a stream the partition stops. That is the same trade the room will meet again on the error slides in
@@ -926,6 +931,8 @@ If the message isn't idempotent (not side-effect free), use an **Inbox** to reco
 
 - Producer-side reliability creates a consumer-side obligation — the two halves are one design.
 - If the handler *is* naturally idempotent, you do not need an Inbox. Most aren't.
+
+#layout: side
 
 #image: hand-drawn Outbox→Inbox diagram — sender Outbox to channel to receiver Entity/Inbox for de-duplication  [→ resources/Inbox.png]
 
