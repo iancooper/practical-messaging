@@ -128,37 +128,60 @@ ends by *asking* that, and movement B answers it badly on purpose.
 
 #image: photo — mailroom pigeonhole shelves stuffed with sorted mail and parcels  [→ resources/photo-mailroom-pigeonholes.jpg]
 #image: photo — a worker pushing a mail-delivery cart through an office  [→ resources/photo-mail-cart.jpg]
-#image: a desk drawn in the paper notation — an overflowing in-tray, the file, a telephone, and an out-tray with one document in it  [→ resources/paper-the-desk.png]
 
-In a mail room, **the frame** was the rack of pigeonholes: mail was sorted into it by floor, then a
-worker took a cart round and delivered it.
+In a mail room, **the frame** was the rack of pigeonholes: mail was sorted into it by floor. **A mail
+cart** then picked mail up from the frame and distributed it.
 
 - The frame creates **channels** you post to.
 - Contents are delivered to whoever subscribes to that pigeonhole.
 - The sender does not wait, and does not know who collects.
+- Nobody walks to the frame to look. **The cart is what moves it**, desk by desk.
 
-▎ That is a broker. We have been building one since Day 1.
+▎ If the frame is the broker, with its topics, then the cart is the queue, distributing the messages to
+consumers. We built both yesterday.
 
-Presenter notes: Direct callback to Day 1 §4 — channels, endpoints, the message pump. Say the words *this is a broker* out loud; the physical picture is what makes the pattern stick for people who have only ever seen it as a Docker container.
+Presenter notes: Direct callback to Day 1 §4 — channels, endpoints, the message pump. Say the words *this
+is a broker* out loud; the physical picture is what makes the pattern stick for people who have only ever
+seen it as a Docker container. **Both photographs earn their place, so point at each**: the frame is the
+topic and the cart is the queue, and the pair is the whole of publish-subscribe-then-deliver in two
+objects the room has handled.
+
+### Slide: Skinny and Fat, on Paper
+
+#image: photo — an interdepartmental manila delivery envelope, ruled with name boxes and tied with string  [→ resources/Manila Envelope.jpg]
+#image: photo — a large stack of manila file folders and papers  [→ resources/Folder Stack.jpg]
+
+Two things arrive in an in-tray, and you met them both yesterday.
+
+- An **interdepartmental envelope** — one form, one hand-off, one action. That is a **skinny** message.
+- A **sack of folders** — the whole file carried over, because the next desk may need any of it. That is
+  a **fat** message.
+
+▎ Day 1 §6.1 named these. The office had both, and it chose per hand-off.
+
+Presenter notes: **A deliberate callback to Day 1 §6.1 *Fat and Skinny Messages***, and the two
+photographs are the whole slide — hold them up rather than reading the bullets. The envelope is one
+document going one place; the sack is somebody deciding it was cheaper to send everything than to be
+asked twice. **Ian's 2025 framing pairs these with the other axis** — skinny with *Messaging / discrete
+event, immediately actioned*, fat with *series event (document), supports action* — which is worth saying
+if the room is strong, but Day 1 teaches the two axes separately and the slide deliberately claims only
+the size one. Ask which the fax in the next flow is; the answer is skinny, and it is why a reference
+number has to be written on it.
 
 ### Slide: The Desk — In-Tray, Out-Tray, File
 
-**The notation for the rest of the day.** A desk is drawn as a box with three things:
+#image: notation key — the desk (in-tray, out-tray, file), the boundary bar, dashed vs. solid arrows, numbered steps, and the out-tray-to-in-tray rule drawn as two desks  [→ resources/paper-notation-key.png]
 
-- an **in-tray** — work that has arrived and not yet been done;
-- an **out-tray** — work finished here and not yet collected;
-- a **file** — what this desk knows, written down, because the clerk goes home at five.
-
-Rules of the notation:
-
-- A heavy vertical bar is an **organisational boundary**.
-- Numbered steps show sequence. Red dashed arrows are paper moving; solid arrows are phone or fax.
-- **Every hand-off goes out-tray to in-tray.** Nobody shouts across the office.
-
-#image: notation key — the desk (in-tray, out-tray, file), the boundary bar, red-dashed vs. solid arrows, numbered steps, and the out-tray-to-in-tray rule drawn as two desks  [→ resources/paper-notation-key.png]
-#image: photo — a large stack of manila file folders and papers  [→ resources/Folder Stack.jpg]
-
-Presenter notes: **New slide.** The notation was previously never taught — it was demonstrated in passing across a dozen unlabelled photographs. It has to be explicit now, because delegates draw in it within the hour and the exercise's hard rule (*every hand-off through a tray*) is what makes the fracture planes visible. The out-tray-to-in-tray rule is the whole exercise in one line.
+Presenter notes: **The key is the slide — walk it, do not read a list beside it.** The notation was
+previously never taught; it was demonstrated in passing across a dozen unlabelled photographs, and it has
+to be explicit now, because delegates draw in it within the hour. **Name the three things on a desk**: an
+*in-tray*, work that has arrived and is not done yet; an *out-tray*, work finished here and not yet
+collected; and a *file*, what this desk knows written down, because the clerk goes home at five. **Then
+the three rules**: a heavy vertical bar is an organisational boundary; numbered steps show sequence, with
+dashed arrows for paper moving and solid for a phone call or a fax; and **every hand-off goes out-tray to
+in-tray — nobody shouts across the office.** That last one is the whole exercise in one line and it is
+also the hard rule on the printed delegate brief, so say it in those words. The out-tray-to-in-tray rule
+is what makes the fracture planes visible.
 
 ### Slide: Two Devices You Already Know
 
