@@ -188,6 +188,14 @@ Each cost real rework at least once. The long-form versions are in the skills.
   destroys the alignment, so the diagrams are pure ASCII; and **WeasyPrint does not synthesise an
   oblique**, so before the italic faces were vendored every `*emphasis*` in both handouts rendered
   upright, silently. Reading the Markdown shows you none of the four.
+- **A font installed is not a font PowerPoint can see.** Office reads its font list **at launch**.
+  `tools/fonts/*.ttf` went into `~/Library/Fonts/` on 10 Sep and five callouts still wrapped two days
+  later, because PowerPoint had been up since 8 Sep. `ps -eo pid,lstart,comm | grep -i powerpoint`
+  against the font's mtime settles it in one command — **run it before believing any install**.
+  ⚑ And the substitute is a different **face**, not Caveat scaled, so `SUBST_W`'s single factor
+  cannot rank which callouts wrap; it matched four of five by luck and made the fifth look like a
+  separate bug. **Only a screenshot can see this class of defect** — the preview renderer reads the
+  vendored files directly and never substitutes.
 - **Ask before publishing anything** — a review sheet is a web page and needs Ian's say-so.
 - **One commit per item**, with the reasoning in the message. Update the plan *and* `BACKLOG.md`
   in the same pass as the outline.
