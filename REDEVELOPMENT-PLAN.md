@@ -2050,6 +2050,10 @@ four of the 108, which is roughly what a reader catches.
 1.06, so it agreed with the layout and always had. Fourth entry on the list of things the `.pptx` does
 that the preview cannot.
 
+**Verified by Ian in the built deck, 2026-09-12** — this was the one change in the pass that could not be
+proved from the source, and the check also retired the standing *does the deck open?* risk carried since
+progressive disclosure landed: PowerPoint accepts the `<p:timing>` part.
+
 **Scoped to Caveat, and the alternative was measured rather than assumed.** Plex is short too — `LEAD`
 1.24 against an ink extent of 1.300 — but by 0.060em against Caveat's 0.200em, it has never collided
 because body blocks carry an explicit gap before the next one while a figure is laid straight onto the

@@ -136,7 +136,7 @@ rows, and a narrow Day 2 pass afterwards. Ian: *"That's enough for a first pass 
 
 | # | the shape of it | size | state |
 |---|---|---|---|
-| **H1** | ✅ **§R0 — the builder, all five done.** A folio bottom-left on every slide but the cover; **one text box per block instead of one per line**, which fixed all four reported overflows in one change; progressive disclosure grouped by idea — 230 clicks on Day 1, 221 on Day 2, `--no-animation` to turn it off; and `#layout: side`, a fourth arrangement. **⚑ The animation is the one thing in the build that cannot be checked here** — no PowerPoint on this machine, and a malformed `p:timing` refuses to open rather than degrading. Ian should open a deck early | M–L | ✅ |
+| **H1** | ✅ **§R0 — the builder, all five done.** A folio bottom-left on every slide but the cover; **one text box per block instead of one per line**, which fixed all four reported overflows in one change; progressive disclosure grouped by idea — 230 clicks on Day 1, 221 on Day 2, `--no-animation` to turn it off; and `#layout: side`, a fourth arrangement. **The animation could not be checked here** — no PowerPoint on this machine, and a malformed `p:timing` refuses to open rather than degrading. **Settled 2026-09-12: Ian read four slides out of the built deck, so it opens and the timing part is accepted.** What is still unconfirmed is only how it *behaves* — that a click advances one group, not one shape | M–L | ✅ |
 | **H2** | ✅ **§R1 — Day 1 content, all 21 rows.** Day 1 **138 → 136 slides**, four figures added (2 pump, 2 reference-data), §4.1 rebuilt with two tables and both broker models, §4.5 **13 → 6**, §Conversations re-ordered pattern-by-pattern with **Out-In** put back, and the AI-ism sweep run against the 2025 deck as the test of what is Ian's. **Nine cross-references re-anchored** after the restructure, plus four more that were stale before it | L | ✅ |
 | **H3** | **§R2 — Day 2, all four rows.** R2-1 (text boxes) and R2-2 (AI-isms) ✅. **R2-3: Ian, 2026-09-10 — do not roll `#layout: side` out to Day 2**, ask per slide when he reviews it. Measured first: 23 eligible entries, median figure **96% → 53%**, **all 23** under 85%, 7 needing text cut to notes, and 8 of them BPMN, the one family already at the type floor. **R2-4: drop *annotated*.** §*Putting It Together* promised a pattern-name layer **none of its ten figures carries**; all ten are used twice, and their `.excalidraw` / `.drawio` sources cannot be rendered here, so annotating means redrawing — **G1's job, not this row's.** Four titles and five alt lines corrected instead | M | ✅ |
 
@@ -155,7 +155,7 @@ dropped from *In-Out*; the transitive-dependencies picture redrawn from the 2025
 is a native table with leader lines and carries no extracted image. **⚑ Four of the fourteen were one
 number** — the callout reserved 1.06em where Caveat's ink extent is 1.260em, so **108 callouts across
 both decks** sat 0.067in too close to whatever came next, 73 of them under an opaque picture.
-**Invisible in the preview by construction, and unverifiable on this machine.**
+**Invisible in the preview by construction** — it draws the lines itself at the same 1.06. **Verified by Ian in the built deck, 2026-09-12.**
 
 **§R3 measured one thing and put it to Ian, and he ruled on it.** **Every `#layout: side` slide reads
 at 8.9–12.8pt in the room against an 18pt floor** — thirteen of them now, because the half-stage is 6.1in
