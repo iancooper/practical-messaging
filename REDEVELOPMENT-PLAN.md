@@ -1365,6 +1365,40 @@ un-blended against the paper and re-blended with the new colour at the same alph
 shape instead of growing a fringe — 0.3–2.0% of pixels per file. `paper-worked-flows-montage` was rebuilt
 after, since it embeds them as data URIs.
 
+### ✅ 22a. The two halves of the BPMN mapping slide invert each other, and that stays
+
+**Ian, 2026-09-12: leave it, and let the note carry it.**
+
+Item 22's sibling. Repainting `Pre-Arrival Guest Flow` closed G8 and regenerated
+`bpmn-your-flow-side-by-side`, and looking at the result — not the source — showed the two halves of
+Day 2 slide **75** using the same strokes for opposite meanings:
+
+| stroke | left, their paper | right, BPMN |
+|---|---|---|
+| carbon dashed | a hand-off **inside** a lane | a **message flow** — the one that *crosses* a pool |
+| black solid | the phone call, **across** the heavy bar | a **sequence flow** — *inside* a pool |
+
+**Both colours are inverted, not just carbon**, which the first write-up of it missed. That matters,
+because every remedy moved one colour and left the other doing the same thing.
+
+**Why leaving it is a decision and not an omission.** The presenter note at `DayTwo.md:806` already
+says outright *"say what the discriminator is **not**: it is not the arrow style"*, and the mapping
+table beneath the callout is the slide's entire job — the two notations *are* different, and the room
+is being handed the bridge. Since the repaint, the paper half is also the half that **matches**
+`paper-notation-key.png`, which draws both of its arrows in carbon.
+
+**The option that would have fixed it completely was rejected before it was offered.** Repainting the
+paper side's *crossing* arrows carbon dashed makes carbon mean *across* on both halves, and nothing
+else does. It also draws a **fax dashed**, and `exercises/Paper-Flow-Delegate-Brief.md:35` is in the
+delegates' hands saying a fax is **solid**. Rules §13 — check whether a convention is *taught*.
+
+**One real defect fell out of the measurement and is recorded, not fixed** (BACKLOG **G16**): the
+export draws its two faxes dashed, so the flow the course shows back to the room as *their* drawing
+disobeys the brief the course printed for them. Making them solid gives the paper half a *stroke*
+discriminator, at which point dashed means **inside** left and **across** right — the louder
+inversion, on the exact axis :806 tells the room to ignore. The fix is free at a redraw and
+expensive today, so it waits for one, the way §14.3's two typos do.
+
 ### 23. Phase 3 — the deck builds, the figure leads, and seven slides are over the floor
 
 **2026-09-08.** `tools/outline.py` parses the outlines; `tools/build_deck.py` lays them out to
