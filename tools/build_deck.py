@@ -137,6 +137,18 @@ def _in(pt):
     return pt / 72.0
 
 
+def _op_top(kind, a):
+    """The topmost inch of a draw-op, for asking what sits under something.
+
+    Every op but `text` is placed by its top-left. `text` is placed by its
+    BASELINE, so its top is a font-ascent above that -- the same 0.80em the
+    layout uses to put a baseline inside a box. Approximate on purpose: this
+    decides whether two things are a line apart, not where a glyph starts."""
+    if kind == "text":
+        return a["y"] - _in(a["pt"]) * 0.80
+    return a["y"]
+
+
 # ---- measurement -------------------------------------------------------------
 
 class Type:
@@ -393,6 +405,11 @@ class Laid:
         self.split = False       # True when one outline entry became two slides
         self.figures = []        # (src, rendered_w_in, canvas_w, canvas_h)
         self.layered = []        # (src, layer count) for any `+ layers` picture
+        # **Callouts a substituted face would push onto an extra line**, as
+        # (text, lines, reserved_bottom_in). Whether that is a DEFECT depends on
+        # what ends up underneath, which is not known until the slide is laid
+        # out -- so the test is deferred to `_callout_collisions`.
+        self.callouts = []
         # **What to call a slide that has no outline entry.** `deck_index` is how Ian
         # turns a slide number into something addressable, and a group divider with
         # no entry printed as a bare `[group]` -- unreviewable. Set by `group_slide`.
@@ -877,21 +894,9 @@ class Deck:
                 # **The reserve is n lines of Caveat, and a substituted face may need
                 # n + 1.** Everything below this callout is then 1.06em too high. See
                 # SUBST_W: the fix is installing the font, and this is the warning.
-                if (len(Type.wrap(runs, meas * SUBST_W, HAND, CALLOUT_PT)) > n
-                        and b.text not in self._callout_warned):
-                    self._callout_warned.add(b.text)
-                    # The percentage is only meaningful while the callout is ONE line;
-                    # above that it is total text over measure and reads as nonsense.
-                    frac = Type.width(O.plain(b.text), HAND, CALLOUT_PT) / meas
-                    fill = f" ({frac * 100:.0f}% of the measure)" if n == 1 else ""
-                    # **Named by entry, not by folio**: `run()` numbers the deck after
-                    # every slide is laid out, so no slide knows its own number here.
-                    where = laid.slide.title if laid.slide is not None else "?"
-                    print(f"  ! callout wraps {n} → {n + 1} lines in a face "
-                          f"{1 / SUBST_W - 1:.0%} wider than Caveat{fill}, and will grow "
-                          f"into whatever is below it unless Caveat is installed "
-                          f"(BACKLOG F2) — {where!r}: {O.plain(b.text)[:48]!r}",
-                          file=sys.stderr)
+                if len(Type.wrap(runs, meas * SUBST_W, HAND, CALLOUT_PT)) > n:
+                    laid.callouts.append((O.plain(b.text), n,
+                                          cy + _in(CALLOUT_PT) * 1.06 * n))
                 laid += Rect(x, cy + 0.03, 0.055, _in(CALLOUT_PT) * 1.06 * n,
                              fill=ANNOTATION)
                 ops, h = _lines(O.runs(b.text), w - 0.30, HAND, CALLOUT_PT,
@@ -976,6 +981,43 @@ class Deck:
                 f"{n} figures in one panel — each is fitted to about {k*100:.0f}% "
                 f"of its linear size, so its labels read at about {k*100:.0f}% too")
 
+    def _callout_collisions(self, laid, folio):
+        """Name the callouts a substituted Caveat would drive into something.
+
+        **The wrap is not the defect; the collision is.** Ian's 2026-09-12 pass
+        proved both halves of that. Three warned slides were clean because the
+        callout was the last thing on them and the extra line grew into empty
+        space, and one real collision -- Day 1 slide 46 -- was never warned at
+        all. So the question is how much CLEARANCE the callout has, which no
+        amount of measuring its width can answer and which is not known until
+        the slide is laid out. Hence: recorded in `_body`, judged here.
+
+        **⚑ `SUBST_W` is one number and the substitute is a different FACE.**
+        A scalar cannot rank per-glyph widths, so this list is the callouts
+        *at risk*, never a prediction of which will break. It got four of five
+        right on Ian's machine and made the fifth look like a separate bug.
+
+        Called before `_folio` so the folio is not mistaken for what is below.
+        """
+        extra = _in(CALLOUT_PT) * 1.06
+        for text, n, bottom in laid.callouts:
+            if text in self._callout_warned:
+                continue
+            below = [t for t in (_op_top(k, a) for k, a in laid.ops)
+                     if t >= bottom - 0.01]
+            if not below:
+                continue                      # grows into empty space; not a defect
+            clear = min(below) - bottom
+            if clear >= extra:
+                continue                      # the reserve already absorbs a line
+            self._callout_warned.add(text)
+            print(f"  ! slide {folio}: callout would wrap {n} → {n + 1} lines in a "
+                  f"face {1 / SUBST_W - 1:.0%} wider than Caveat, and has only "
+                  f"{clear:.3f}in of clearance against the {extra:.3f}in that costs "
+                  f"— it will be cut by what is below it on any machine where "
+                  f"Caveat is missing OR the app has not been restarted since it "
+                  f"was installed (BACKLOG F2): {text[:48]!r}", file=sys.stderr)
+
     def run(self):
         self.title_slide()
         for sec in self.deck.sections:
@@ -999,6 +1041,7 @@ class Deck:
         # blank -- a cover with a "1" on it reads as a mistake -- so the folio on
         # every other slide is its own 1-based index and matches `deck_index.py`.
         for n, laid in enumerate(self.slides, 1):
+            self._callout_collisions(laid, n)
             if laid.kind != "title":
                 self._folio(laid, n)
         return self

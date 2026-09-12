@@ -196,6 +196,10 @@ Each cost real rework at least once. The long-form versions are in the skills.
   cannot rank which callouts wrap; it matched four of five by luck and made the fifth look like a
   separate bug. **Only a screenshot can see this class of defect** — the preview renderer reads the
   vendored files directly and never substitutes.
+- **A `.pptx` is never byte-identical between builds** — it is a zip, and the entry mtimes move
+  every time. Rule 5's test is for figures; to prove a builder change touched nothing, `unzip -q`
+  both builds and `diff -r` the trees. That is what proved the callout-warning rewrite was
+  stderr-only.
 - **Ask before publishing anything** — a review sheet is a web page and needs Ian's say-so.
 - **One commit per item**, with the reasoning in the message. Update the plan *and* `BACKLOG.md`
   in the same pass as the outline.
