@@ -4,7 +4,7 @@
 
 **Reconciled 2026-09-13, after the Day 1 2026 delivery snapshot was cut and pushed.** Everything
 else in this file is closed, parked with no action available, or a record of a finished review pass.
-**Read this block and stop** — the 46 rows below are history unless one of these six sends you there.
+**Read this block and stop** — the 46 rows below are history unless one of these seven sends you there.
 
 | do | what | size | why it is here |
 |---|---|---|---|
@@ -13,7 +13,10 @@ else in this file is closed, parked with no action available, or a record of a f
 | **3** | **G18 — three of Day 1's four reading slides have no cover** | S | Only EIP's is in `resources/`. The other three ship as a title and two lines and read as unfinished beside it. Needs Ian to source three covers, or the recorded fallback: merge the three into one slide |
 | **4** | **G16 — the Pre-Arrival faxes are dashed; the printed brief says solid** | S | A conformance defect against a handout the delegates hold. **Deliberately not fixed** — solid faxes make the D2 s75 inversion worse. **Free at a redraw**, so it waits for one |
 | **5** | **G17 — five bold mono characters draw light in the PNG preview** | S | Preview-only, never on a slide. `**main**` on D2 s8. No bold mono is vendored. Cosmetic |
-| **6** | **G1 — the 2021 imports** | **L, ≈5 days** | **Ruled *do not start*, twice.** ⚑ **Ian reviewed both decks across 50+ rows and never raised one of these 24 slides.** Nothing is broken; it is register and label size. Re-scoped 2026-09-13 — **17 diagrams, not 19** — in plan **§14.0**, which is where a later pass starts |
+| **6** | **The Kafka call-back that was never written** | S | **Not a `BACKLOG` row until 2026-09-13** — it lived only as a `☐` in plan §16 and a re-sweep found it. Ian's aside, *"Kafka shows its file transfer origins clearly with offsets and records"*, was ruled a **presenter note on §4.5's Kafka material**, as the call-back — not on the §3 figure, which is nine slides too early. **Checked 2026-09-13: the phrase appears nowhere in either outline, so it is genuinely unwritten.** Ian's own line; placement already decided |
+| **7** | **G1 — the 2021 imports** | **L, ≈5 days** | **Ruled *do not start*, twice.** ⚑ **Ian reviewed both decks across 50+ rows and never raised one of these 24 slides.** Nothing is broken; it is register and label size. Re-scoped 2026-09-13 — **17 diagrams, not 19** — in plan **§14.0**, which is where a later pass starts |
+
+**⚑ The re-sweep that found #6 also found the repo's own `☐` markers lying in BOTH directions**, 2026-09-13. Nine were stale — the *TODO — build* heading whose seven items are all built; *"B is a decision, not a task"* when both runs were redrawn (`queues_streams` 11, `flow_reactive` 23); §8's *order taking* master, cut today; the Out-In export, since drawn as `conversation-out-in`; 23e, which Ian ruled; `styles.md`'s font install, done 2026-09-10; `REVIEW.md`'s six questions, all answered; and `D1-10 outstanding`, done 2026-08-28. **And the plan's P1/P2/P3 grid is a progress table nobody maintained** — it still shows *"☐ 12 EIP redraws"* where `eip_figures` has shipped 26 — so it now carries a warning not to read a `☐` there as work. **A marker that says work is outstanding when it is not is worse than no marker**: it costs the next person the same verification twice.
 
 **Not on the list, and why:** **B2, B3** — no action available, the builder names them every run.
 **F4, F5** — answered or closed unless Ian reopens. **§A, §C, §H** — infrastructure and finished

@@ -276,10 +276,19 @@ measurement — there is no PowerPoint here to measure the substitute with.
   one by one rather than globbing the directory, and a rebuild of all eleven families after they landed
   came back byte-identical. They exist because **WeasyPrint does not synthesise an oblique and does not
   warn**, so every `*emphasis*` in both handouts was rendering upright.
-- ☐ **System font install — now live, not future.** `tools/fonts/` holds the OFL files for the preview
-  renderer, which outlines glyphs to paths and needs no install. **PowerPoint does need them installed**,
-  and the built decks name all four faces, so until `cp tools/fonts/*.ttf ~/Library/Fonts/` has been run
-  PowerPoint substitutes and the first thing Ian sees is not the deck we built. Ian's machine, Ian's call.
+- ✅ **System font install — done 2026-09-10, and a restart was the other half.** `tools/fonts/` holds the
+  OFL files for the preview renderer, which outlines glyphs to paths and needs no install. **PowerPoint
+  does need them installed**, and the built decks name all four faces. Ian ran
+  `cp tools/fonts/*.ttf ~/Library/Fonts/`; five callouts still wrapped for two days because **Office reads
+  its font list at launch** and the running process had never seen them. A quit-and-reopen fixed all five.
+  **`README.md` §Prerequisites is the standing instruction**, and the one-line test is *if a red callout
+  is not handwriting, the fonts are not being used*.
+- ⚑ **But PowerPoint substitutes for Caveat when it EXPORTS a PDF, even with the font installed and the
+  screen correct.** Found 2026-09-13: neither `Practical Messaging - Day N - 2026.pdf` contains the
+  string `Caveat` at all. **The screen is not the test for a PDF** — `grep -c Caveat` the file, or render
+  a callout page with `pdftoppm` and look. Caveat is the only family in the library with no static
+  member; static instances are built at `tools/fonts/Caveat-{Regular,Bold}.ttf` and deliberately not
+  installed. `BACKLOG.md` **G19**.
 - **⚑ Two registers, two scales — on slides as well as in figures.** Caveat's x-height is 0.400em against
   Plex Sans's 0.516, so **18pt of Plex reads as 23pt of Caveat**. The 18pt body floor above is a *Plex*
   measure: a callout set at 18pt Caveat would sit a fifth below the floor while appearing to obey it.

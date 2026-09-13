@@ -194,8 +194,13 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 
 ## 4. Day 1 work queue — `outlines/DayOne.md`, 7 sections, **90 entries**
 
-> **§9 (review queue, 2026-08-28) is fully applied to Day 1 — D1-1 … D1-11 are all done.** The rows below
-> are current. Everything still outstanding in §9 is on Day 2.
+> **§9 (review queue, 2026-08-28) is fully applied to Day 1 — D1-1 … D1-11 are all done.**
+>
+> **⚑ The P1 / P2 / P3 columns below are a PROGRESS GRID from Phases 1–3 and they are NOT maintained.**
+> Several `☐` cells name work that has since been built — *"☐ 12 EIP redraws"* on row 4, for instance,
+> when `eip_figures` has shipped 26. **Do not read a `☐` here as outstanding work.** The live list is the
+> pick-up block at the top of `BACKLOG.md`; the entry counts in the second column are also pre-2026-09-13
+> and `python3 tools/deck_index.py <day>` is the truth.
 
 | # | Section | entries | P1 | P2 | P3 |
 |---|---|---:|---|---|---|
@@ -210,7 +215,7 @@ Two of the Day 2 merges are **load-bearing, not cosmetic**:
 | 4e | · **4.4 Guaranteed Delivery** | **13** | ✅ D1-8: producer / consumer / broker, +*Ack and Nack*; ✅ **R1-12** *Ack and Nack* split, second half rewritten as **requeue or reject**; ✅ **R1-17** *Streams — No Requeue or DLQ* moved in from §4.5, so every mechanism is taught on both brokers | | |
 | 4f | · 4.5 Queues and Streams | **6** | +Kafka Quick Start; ✅ **R1-17, Ian's ruling 2026-09-10** — 13 → 6. Four entries moved out to where the idea is first taught and *Queue Lifecycle* was cut as a full repeat of §4.4 (its figure moved onto *Not Acking*). What is left is what has no counterpart on the other side: consumer groups, archive and replay, the matrix, Kafka | | |
 | 5 | **Conversations** *(moved from Day 2)* | **13** | ✅ 25 → 15, rebuilt as a decision; **T-1: fault slides 3 → 1** | ☐ 1 new grid + reuse §2 grid | ☐ |
-| 6 | **Designing Messages** *(moved from Day 2)* | **18** | ✅ moved by D1-9; **☐ D1-10 outstanding** | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
+| 6 | **Designing Messages** *(moved from Day 2)* | **18** | ✅ moved by D1-9; **✅ D1-10 done 2026-08-28** (this cell said outstanding until 2026-09-13) | ☐ 2 If-Later diagrams; 1 EIP redraw | ☐ |
 | 6a | · 6.1 Fat and Skinny Messages | 5 | ✅ rebuilt on the lifetime rule | | |
 | 6b | · 6.2 Reference Data | **7** | ✅ D1-10: ECST rewritten as **the recommendation**; +*Content Enricher*. **P3: ECST split into three at its own seams** (§8 item 23b) | | |
 | 6c | · 6.3 Event Shape | 6 | ✅ +*Why ECST Needs Snapshots* | | |
@@ -533,7 +538,7 @@ measure too. Settled 2026-08-29.
 circulates dealing failures. Five tables covers the cycle; fewer, and drop stages from the middle,
 keeping Onboarding and Departure.
 
-### ☐ TODO — build
+### ✅ TODO — build · **all seven built 2026-09-02; heading corrected 2026-09-13**
 
 **Scope corrected by Ian, 2026-09-02.** These were previously parked behind "the deferred `exercises/`
 phase". That was a misreading, and Ian corrected it: *"Day One includes some coding exercises for RMQ and
@@ -1178,9 +1183,10 @@ than a blank canvas.
    **`participants()` moved into the module**, so both figures draw the two boxes and their lifelines the
    same way. It is a pure extraction: `conversation-timeout` re-rendered byte-identical.
 
-   **☐ A fourth 2021 export is sitting in `resources/` linked to nothing** —
-   `Practical Messaging - Day 2 - 2024 - 34.png`, *Out-In (Solicit-Response)*. The **Out-In slide has no
-   picture**, and Out-In is deliberately not on this figure, because *Messaging or Eventing?*'s own table
+   **✅ Answered since — `a422fe9` drew `conversation-out-in`**, and *Out-In* is `DayOne.md:1254`. The
+   note below is the state as it was. ~~A fourth 2021 export is sitting in `resources/` linked to
+   nothing~~ — `Practical Messaging - Day 2 - 2024 - 34.png`, *Out-In (Solicit-Response)*. The Out-In
+   slide had **no picture** then, and Out-In is deliberately not on this figure, because *Messaging or Eventing?*'s own table
    does not list it. Whether that slide wants one is a separate question. The three replaced files are
    left in `resources/` rather than deleted — they are the 2021 originals, and unlinking them is
    reversible in a way that deleting is not.
@@ -1714,7 +1720,7 @@ downstream can tell the difference.*
 **The general lesson, and it is rule 2 again:** an overflowing slide is not just over-long, it is
 **unreviewed**. Fixing the overflow is what puts it in front of you for the first time.
 
-#### 23e. ☐ Which of the 17 multi-figure entries are comparisons — Ian ruled 2026-09-08
+#### 23e. ✅ Which of the 17 multi-figure entries are comparisons — Ian ruled 2026-09-08
 
 **The question 23a left open, and it was put as four groups rather than seventeen slides**, grouped by
 what each slide's own text does with its figures. Ian's ruling:
@@ -2013,13 +2019,20 @@ papers* is `day2-s053-2.jpg` — the second image on a slide whose first image h
 which is how it was missed. Also found in the same pass: **`DON'T PANIC`** (`day2-s113-1.jpg`, identical
 to `day1-s090-1.jpg`), which is **one file serving four markers** across both days.
 
-**☐ One master genuinely is not there** — *order taking (phone / card machine / order pad)*, Day 2 §Flow,
+**✅ One master genuinely was not there, and the marker was CUT rather than filled — 2026-09-13, item 22b.**
+Ian: *drop the marker.* Proved exhaustively before asking: only **20** of the 220 extracted masters are
+`.jpg` and all twenty went on one contact sheet. The line below stands as the record of the search.
+~~One master genuinely is not there~~ — *order taking (phone / card machine / order pad)*, Day 2 §Flow,
 on the *Three different media, one notation* slide. **All 14 Day 2 `.jpg`s and all 6 Day 1 `.jpg`s have
 now been opened**; the photos in this deck are all `.jpg`, and none of them is this. **Ian offered to
 export it from the deck** — that is the right next step, and it is a real ask this time, not an
 unchecked one.
 
-### ☐ B is a decision, not a task — for Ian
+### ✅ B is a decision, not a task — for Ian · **DECIDED AND DONE; heading corrected 2026-09-13**
+
+**Both runs were redrawn.** `queues_streams` is **11** figures and `flow_reactive` is **23** — the two
+longest technical runs are in the Field Guide register, and §14.4 records that the `FBP *.drawio` sources
+went with them. The argument below is kept because it is why the work happened, not because it is open.
 
 **~36 hand-drawn diagrams in two runs**: Day 1 §4.5 *Queues and Streams* (queues, streams, offsets,
 partitions, consumer groups, replay, the comparison grid) and Day 2's *Flow and Reactive* run (OO,

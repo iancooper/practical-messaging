@@ -20,8 +20,9 @@ closed**: *"With that, I suspect we close out the review on Day One."* Day 1 **1
 **§R4 — Ian's manual pass over Day 2, 2026-09-12. Fifty rows, none applied — this is the live queue.**
 Numbered against the **153-slide** build at `d356745`. **§R4-0-1 is done — it closed R4-14 and R4-46 with it.** Three builder rows, two of
 which answer seven of his content rows between them, and one of which reopens **Day 1** for a builder
-fix. **Six rows are `☐` questions for Ian, not work** — R4-15, R4-34/35, R4-38, R4-45, and R4-0-2's
-choice of fix.
+fix. ~~Six rows are `☐` questions for Ian, not work~~ — R4-15, R4-34/35, R4-38, R4-45, and R4-0-2's
+choice of fix. **✅ All six were answered and §R4 is closed, all fifty-three rows** — see the row text
+for each ruling. **No `☐` in this file is outstanding.**
 
 > **Read `BACKLOG.md` for everything else that is outstanding.** This file is only this review.
 > When a row here closes it closes here; `BACKLOG.md` §H carries one line pointing at this file.
