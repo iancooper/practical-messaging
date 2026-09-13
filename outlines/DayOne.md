@@ -1571,9 +1571,43 @@ Presenter notes: This is how both event shapes coexist — deltas inside a domai
 
 ## Closing
 
-### Slide: Further Reading
+*Where to go deeper, and what to ask.*
 
-Pointers for going deeper.
+### Slide: Further Reading — Data on the Outside
+
+*Data on the Outside versus Data on the Inside* — Pat Helland, CIDR 2005. Free online.
+
+The paper behind this morning: data that crosses a process boundary is a **copy**, immutable and already
+stale, and that is why it travels as a message rather than a call.
+
+Presenter notes: **The four readings walk the day in the order it was taught** — the boundary, then
+coupling and the styles, then the pattern catalogue, then queues and streams. Say that, because it turns
+a bibliography into a map of what they just did. This one is the cheapest to act on: it is a paper, it is
+free, and it is the argument §The Process Boundary makes without naming its source.
+
+### Slide: Further Reading — Building Microservices
+
+*Building Microservices* — Sam Newman (O'Reilly, 2nd edition). samnewman.io
+
+For §Coupling and §Integration Styles — the same four styles on the same grid, argued at book length, and
+the boundary as an **organisational** one as much as a technical one.
+
+### Slide: Further Reading — Enterprise Integration Patterns
+
+*Enterprise Integration Patterns* — Gregor Hohpe & Bobby Woolf. enterpriseintegrationpatterns.com
+
+**The catalogue §Messaging Patterns follows.** Every pattern named today is written up there in full, with
+the trade-offs the slides had to compress.
+
+
+#image: book cover — 'Enterprise Integration Patterns' by Gregor Hohpe and Bobby Woolf  [→ resources/cover-enterprise-integration-patterns.jpg]
+
+### Slide: Further Reading — Designing Data-Intensive Applications
+
+*Designing Data-Intensive Applications* — Martin Kleppmann (O'Reilly). dataintensive.net
+
+For §4.5 Queues and Streams and §6.3 Event Shape — ordering, idempotency, replication, and why a log and a
+queue are not the same thing.
 
 ### Slide: Q&A
 

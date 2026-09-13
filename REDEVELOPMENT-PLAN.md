@@ -1572,6 +1572,52 @@ the callout below it. Only the rule bar's height is drawn from `n`, so the bar i
 grow — but the asymmetry is there, on that one slide, and it is a revert of four lines if Ian
 dislikes it.
 
+### ✅ 22f. Day 1 closes on a bibliography, and it walks the day
+
+**Ian, 2026-09-13: all four, and *"Where to go deeper, and what to ask."* on the divider.**
+
+*Further Reading* was one sentence — **"Pointers for going deeper."** — listing nothing, against
+Day 2's four proper reading slides with their covers. The *Closing* divider was also the only
+one in either deck with no sub-line.
+
+**The candidates were drawn from what Day 1 actually cites, not from a general reading list.**
+Checked first: Day 1 names exactly **one** authority anywhere, Hohpe & Woolf at `DayOne.md:269`
+and `:345`, and §Messaging Patterns says outright that the catalogue is theirs. Every other
+section leans on ideas with well-known sources and names none of them, so each candidate had to
+earn its place against a section:
+
+| slide | work | what it serves |
+|---|---|---|
+| 128 | Helland, *Data on the Outside versus Data on the Inside* | §The Process Boundary, §6.1 Fat and Skinny |
+| 129 | Newman, *Building Microservices* | §Coupling, §Integration Styles |
+| 130 | Hohpe & Woolf, *Enterprise Integration Patterns* | §Messaging Patterns — the catalogue itself |
+| 131 | Kleppmann, *Designing Data-Intensive Applications* | §4.5 Queues and Streams, §6.3 Event Shape |
+
+**They are in the order the day taught them**, which turns a bibliography into a map of what the
+room just did; the presenter note on the first says so, because that is the only place it can be
+said.
+
+**Day 1's EIP slide is deliberately not Day 2's.** Day 2's exists to *hand out* the *Routing
+Patterns* pack and names its eight patterns — rules §12, one line and a presenter note. Day 1's
+points at the book the day's own patterns came from. Same cover, different job.
+
+**Two things the render settled that the source could not.** The Helland title —
+*Further Reading — Data on the Outside vs Data on the Inside* — ran to within 80px of the
+content edge, so it is shortened to *Data on the Outside*, matching Day 2's habit of a short-form
+title with the full name on the line beneath. And `§Messaging Patterns` in body text was checked
+rather than "corrected": `§` is established house style for a cross-reference and appears in
+Day 2 body text and callouts (`:160`, `:468`, `:1245`) and in `DayOne.md:42`. It stays.
+
+**Day 1: 129 → 132 slides, 88 → 91 entries.** No overflow; the five expected callout warnings are
+unchanged.
+
+**⚑ It leaves one thing, and it is visible rather than structural — BACKLOG G18.** Only EIP has a
+cover in `resources/`. Its slide lays out with the art beside the text and is the shape Day 2
+set; the other three are a title and two lines on an empty stage and, next to it, read as
+unfinished. Sourcing three covers is third-party art with **F6** still open, so it is Ian's call
+and not a file to go and find. The fallback, if he does not want it, is to merge the three
+coverless entries into one slide and leave EIP its own.
+
 ### 23. Phase 3 — the deck builds, the figure leads, and seven slides are over the floor
 
 **2026-09-08.** `tools/outline.py` parses the outlines; `tools/build_deck.py` lays them out to
