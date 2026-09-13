@@ -1,6 +1,6 @@
 ---
 name: review-sheet
-description: Build and publish a Practical Messaging artwork review sheet — the page Ian reviews figures on, because he cannot see PNGs in a terminal. Carries the generator's requirements (inlined data URIs, styles.md palette, an address on every claim, light in both themes), the publish etiquette, and the seven sheets already out. Use when a batch of artwork needs review, when findings come back, or when asked to republish a sheet.
+description: Build and publish a Practical Messaging artwork review sheet — the page Ian reviews figures on, because he cannot see PNGs in a terminal. Carries the generator's requirements (inlined data URIs, styles.md palette, an address on every claim, light in both themes), the publish etiquette, and the nine sheets already out. Use when a batch of artwork needs review, when findings come back, or when asked to republish a sheet.
 ---
 
 # Review sheets
@@ -91,22 +91,32 @@ from a later session.
 - **Record the sheet and its state** in the table below — this skill is its home — and in
   `BACKLOG.md` F3.
 
-## The seven so far
+## The nine so far — six reviewed, three written off
 
 | sheet | url fragment | state |
 |---|---|---|
 | EIP | `b40f4cbe-2e48-49c7-bfd6-6b08e99c6710` | ✅ approved, one reword applied |
 | BPMN | `7202244e-cbad-47ee-8192-444411c344df` | ✅ approved 2026-09-02 — *"straight-stroked and set in Plex Sans ⇒ agreed"* |
-| The Artwork Sheet | `65063d42-0c09-441f-ae2f-eba020814824` | ⚑ part-reviewed — 56 figures up 2026-09-03, 2 findings in and applied, the rest unread |
-| The Legibility Floor | `e95f4eb1-94f1-499c-96db-1c0fbc1d148e` | ⚑ awaiting him |
-| Muted Is For Lines | `421ddeb9-8353-4f27-98c2-f7c97bf4de12` | ⚑ awaiting him |
+| The Artwork Sheet | `65063d42-0c09-441f-ae2f-eba020814824` | ⊘ **written off 2026-09-13.** 56 figures up 2026-09-03; **114 of the 216 non-`.drawio` PNGs have changed since**, so it shows a deck that no longer exists. Its 2 findings came back, were applied, and stay applied |
+| The Legibility Floor | `e95f4eb1-94f1-499c-96db-1c0fbc1d148e` | ⊘ **written off 2026-09-13.** Superseded twice — by the 890 sweep (`690f44a`, `b234362`) and by Ian's 2026-09-12 ruling on the `side` band. **And its numbers are the measure G12 replaced**: full-width, where the honest one is `room` |
+| Muted Is For Lines | `421ddeb9-8353-4f27-98c2-f7c97bf4de12` | ⊘ **written off 2026-09-13 — it was ANSWERED, just not through the page.** Ian said it in prose: *"making it a more readable colour such as green."* Applied in `9c73839` |
 | Four Answers, One Stage | `c75acd57-ab6a-4740-918f-af39a6823a08` | ✅ approved 2026-09-07 — *"this looks much better"*. **RPC's red is the one item he never answered**; closed unless he reopens it |
 | Four Composed, Two Printed | `40b2a941-5ce3-4260-a882-a4c33e442383` | ✅ reviewed 2026-09-09, both calls answered. `B2·2` approved, **`A4·1` overturned**. The cards' 24 BPMN glosses were on it and drew no comment — **seen, not approved** |
 | BPMN on a Half Stage | `3dc05399-3d6a-4fce-a39a-95a544444e47` | ✅ **ruled 2026-09-12, same day, all three addresses.** ⚑ **And two of the three answers were not options on the card** — he asked for an arrangement the builder did not have. Republished with the rulings as verdicts. §R4's three BPMN `side` merges (R4-40/41/42), each shown as it ships beside the full-width slide it replaced. Two of the three read at ~6.0 and ~6.6pt against the **8.9–12.8pt** band Ian ruled. **The first sheet built by `tools/review_sheet.py`** |
 
 | Day One Drawings, Reseated | `525f44f7-9057-4ff6-a39d-fe5854358da0` | ✅ **approved 2026-09-12, same day** — *"Looks good, make it so."* `C1` answered no: Day 1 keeps the change. Republished with the verdicts. `BACKLOG.md` **F7** — the 13 Day 1 `side` slides after `SIDE_FIG_RISE`, three shown before and after, ten as they ship, and a section bounding what the change cannot touch |
 
-**Three are still awaiting him** — the three old ones. **Sheets 8 and 9 both went up and came back the same day**, which is what happens when the sheet names the decision and puts a number on it.
+**⚑ No sheet is awaiting Ian.** The three old ones were **written off 2026-09-13** with the reasons in the
+table above, and the lesson is in the first of them: **a sheet can be answered without being read.**
+*Muted Is For Lines* got its ruling in ordinary conversation and stayed marked "awaiting him" for six
+days. **Check whether the question has already been answered elsewhere before chasing a sheet**, and
+check the artwork is still the artwork — more than half of it moved under the Artwork Sheet while it sat.
+
+**A stale sheet is worse than no sheet**, because a finding against a redrawn figure costs a round trip
+to discover. **Sheets 8 and 9 both went up and came back the same day**, which is what happens when a
+sheet names the decision, puts a number on it, and goes up while the work is warm. Build a fresh one
+rather than reviving an old one — `tools/review_sheet.py` is committed now and did not exist when the
+three written-off sheets were hand-built.
 
 **⚑ Measure the thing the sheet claims, do not eyeball it from the render.** Sheet 9's first draft
 grouped the 13 slides by how far they moved, from *looking* at them — and had **two of the extremes
