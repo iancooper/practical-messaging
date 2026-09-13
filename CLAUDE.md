@@ -4,6 +4,22 @@ A two-day training course. **The decks are generated**, not edited: `outlines/*.
 `tools/*.py` are the source, `build/*.pptx` is output. An edit made in PowerPoint is lost on
 the next build.
 
+**⚑ `Practical Messaging - Day N - 2026.pptx` at the ROOT is a delivery snapshot, not source.**
+It is a copy of `build/` taken for a specific delivery, committed so the pack can be picked up
+without a build, and it goes **stale the moment an outline changes**. **Never edit either, and
+never treat the root `.pptx` as the current deck**: `python3 tools/build_deck.py` is what is
+current. Refresh the snapshot by re-copying from `build/` and asking Ian to re-export the PDF.
+Previous years' pairs live in `archive/`.
+
+**⚑ The 2026 PDFs are NOT a faithful copy, and the `.pptx` is the artefact that is.** PowerPoint
+substitutes for Caveat **when it exports**, though it renders it correctly on screen, so every
+callout in both PDFs is in Plex Sans and the near-width ones wrap to two lines. Verified rather
+than assumed: **zero occurrences of the string `Caveat`** in either PDF, raw or through every
+decompressed stream, against `typeface="Caveat"` **38** and **32** times in the decks. **The test
+is one line** — `grep -c Caveat` a PDF, or render a callout page with `pdftoppm` and look at it;
+on D1 p23 the figure's baked-in labels are handwriting and the callouts above them are not.
+BACKLOG **G19** has the diagnosis and the built-but-uninstalled fix.
+
 **Branch `deck-redevelopment`.** Day 1 is **132 slides**, Day 2 **138**, from 91 + 90 outline
 entries, with **113 figures** across twelve families plus **2 print cards**. **97 go on slides, 9 are
 the two handouts'** (8 routing, 1 AsyncAPI), **4 are Paper Flow exercise materials** in `exercises/`,
