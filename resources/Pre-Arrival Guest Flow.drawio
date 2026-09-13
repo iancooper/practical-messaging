@@ -1,6 +1,5 @@
 <mxfile host="Electron" modified="2024-06-10T20:11:41.920Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.1 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="7Vi4k7tTD1Gb1InyXpVw" version="24.5.1" type="device">
-  <diagram id="s1wjewC_EDPXD6lyP388" name="Page-1">
-    <mxGraphModel dx="1461" dy="1067" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <diagram id="s1wjewC_EDPXD6lyP388" name="Page-1"><mxGraphModel dx="1461" dy="1067" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -42,13 +41,13 @@
             <mxPoint x="780" y="120" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Mk5SVBXxe3C7Iov1JNiq-28" value="&lt;font color=&quot;#ff6666&quot;&gt;Put Booking Request&lt;br&gt;in Outbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="Mk5SVBXxe3C7Iov1JNiq-28" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Put Booking Request&lt;br&gt;in Outbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="966.5" y="104.5" width="53.5" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="Mk5SVBXxe3C7Iov1JNiq-30" value="&lt;font color=&quot;#ff6666&quot;&gt;Book Hotels&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="Mk5SVBXxe3C7Iov1JNiq-30" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Book Hotels&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="858.25" y="121.5" width="53.5" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="Mk5SVBXxe3C7Iov1JNiq-31" value="&lt;font color=&quot;#ff6666&quot;&gt;Use Just Paper Hotels&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+        <mxCell id="Mk5SVBXxe3C7Iov1JNiq-31" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Use Just Paper Hotels&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="230" y="98.75" width="53.5" height="85.5" as="geometry" />
         </mxCell>
         <mxCell id="Mk5SVBXxe3C7Iov1JNiq-35" value="Phone call" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
@@ -67,7 +66,7 @@
           <mxGeometry x="190" y="121.5" width="40" height="40" as="geometry" />
         </mxCell>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-3">
-          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" edge="1" parent="1" target="fXm3TF-NPhIa8S-7mA_j-2">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#1D4E6B;endFill=0;strokeWidth=2;" edge="1" parent="1" target="fXm3TF-NPhIa8S-7mA_j-2">
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="164" y="84.75" as="sourcePoint" />
               <mxPoint x="90" y="292.75" as="targetPoint" />
@@ -78,7 +77,7 @@
           <mxGeometry x="980" y="10" width="47" height="72" as="geometry" />
         </mxCell>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-5">
-          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" edge="1" parent="1" source="fXm3TF-NPhIa8S-7mA_j-4" target="fXm3TF-NPhIa8S-7mA_j-6">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#1D4E6B;endFill=0;strokeWidth=2;" edge="1" parent="1" source="fXm3TF-NPhIa8S-7mA_j-4" target="fXm3TF-NPhIa8S-7mA_j-6">
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="1010.75" y="76.75" as="sourcePoint" />
               <mxPoint x="1040.75" y="114" as="targetPoint" />
@@ -97,14 +96,14 @@
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-9" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.phone_digital;" vertex="1" parent="1">
           <mxGeometry x="836.5" y="355" width="40" height="37" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-10" value="&lt;font color=&quot;#ff6666&quot;&gt;Take Payment&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-10" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Take Payment&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="876.5" y="326.75" width="53.5" height="85.5" as="geometry" />
         </mxCell>
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-11" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.concepts.mailbox;" vertex="1" parent="1">
           <mxGeometry x="930" y="336.5" width="40" height="40" as="geometry" />
         </mxCell>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-13">
-          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" edge="1" parent="1" target="fXm3TF-NPhIa8S-7mA_j-79">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#1D4E6B;endFill=0;strokeWidth=2;" edge="1" parent="1" target="fXm3TF-NPhIa8S-7mA_j-79">
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="959.3015662650603" y="355" as="sourcePoint" />
               <mxPoint x="954.0430178645615" y="536.5" as="targetPoint" />
@@ -120,17 +119,17 @@
             <mxPoint x="1016.5" y="286.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-17" value="&lt;font style=&quot;font-size: 29px&quot;&gt;4&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-17" value="&lt;font style=&quot;font-size: 29px&quot;&gt;3&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="726.5" y="355" width="60" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-18" value="&lt;font style=&quot;font-size: 29px&quot;&gt;5&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-18" value="&lt;font style=&quot;font-size: 29px&quot;&gt;4&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="1023.25" y="336.5" width="60" height="48.5" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-19" value="&lt;font style=&quot;font-size: 29px&quot;&gt;6&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-19" value="&lt;font style=&quot;font-size: 29px&quot;&gt;5&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="963.25" y="591.25" width="60" height="40" as="geometry" />
         </mxCell>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-21">
-          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" edge="1" parent="1" source="Mk5SVBXxe3C7Iov1JNiq-7" target="fXm3TF-NPhIa8S-7mA_j-11">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#1D4E6B;endFill=0;strokeWidth=2;" edge="1" parent="1" source="Mk5SVBXxe3C7Iov1JNiq-7" target="fXm3TF-NPhIa8S-7mA_j-11">
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="860.0015662650602" y="261.5" as="sourcePoint" />
               <mxPoint x="841" y="509" as="targetPoint" />
@@ -167,10 +166,10 @@
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-86" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.fax;" vertex="1" parent="1">
           <mxGeometry x="360" y="664.5" width="57" height="47" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-87" value="&lt;font color=&quot;#ff6666&quot;&gt;Take Bookng from Inbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-87" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Take Bookng from Inbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="790" y="568.5" width="53.5" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-88" value="&lt;font color=&quot;#ff6666&quot;&gt;Make Booking with Hotel&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-88" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Make Booking with Hotel&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="626.5" y="577.5" width="53.5" height="85.5" as="geometry" />
         </mxCell>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-89">
@@ -192,13 +191,13 @@
             </mxGeometry>
           </mxCell>
         </UserObject>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-91" value="&lt;font color=&quot;#ff6666&quot;&gt;Take Booking from Inbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-91" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Take Booking from Inbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="340" y="579" width="53.5" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-92" value="&lt;font color=&quot;#ff6666&quot;&gt;Put Order &lt;br&gt;In Outbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-92" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Put Order &lt;br&gt;In Outbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="103.25" y="688.5" width="53.5" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-93" value="&lt;font color=&quot;#ff6666&quot;&gt;Place Booking&lt;br&gt;with&amp;nbsp;&lt;br&gt;Hotel&lt;br&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-93" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Place Booking&lt;br&gt;with&amp;nbsp;&lt;br&gt;Hotel&lt;br&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="858" y="663" width="53.5" height="85.5" as="geometry" />
         </mxCell>
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-94" value="Fax Operator" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
@@ -207,33 +206,33 @@
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-95" value="Fax Operator" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1030" y="673" width="40" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-96" value="&lt;font color=&quot;#ff6666&quot;&gt;Put Order&amp;nbsp;&lt;br&gt;Confirmation&lt;br&gt;in Outbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-96" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Put Order&amp;nbsp;&lt;br&gt;Confirmation&lt;br&gt;in Outbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="956.5" y="728.5" width="53.5" height="85.5" as="geometry" />
         </mxCell>
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-98" value="&lt;font style=&quot;font-size: 29px&quot;&gt;7&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="263.5" y="591.25" width="60" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-99" value="&lt;font color=&quot;#ff6666&quot;&gt;Respond with Booking Accept/Reject&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-99" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Respond with Booking Accept/Reject&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="470" y="728.5" width="80" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-100" value="&lt;font style=&quot;font-size: 29px&quot;&gt;7&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-100" value="&lt;font style=&quot;font-size: 29px&quot;&gt;6&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="777" y="748.5" width="60" height="40" as="geometry" />
         </mxCell>
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-103" value="Pre-Arrival" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#000000;fontSize=24;" vertex="1" parent="1">
           <mxGeometry x="30" y="1300" width="270" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-104" value="&lt;font color=&quot;#ff6666&quot;&gt;Create Booking Request&lt;br&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-104" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Create Booking Request&lt;br&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="230" y="650.25" width="53.5" height="85.5" as="geometry" />
         </mxCell>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-108">
-          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" edge="1" parent="1" target="fXm3TF-NPhIa8S-7mA_j-114">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#1D4E6B;endFill=0;strokeWidth=2;" edge="1" parent="1" target="fXm3TF-NPhIa8S-7mA_j-114">
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="189.99746478873237" y="699" as="sourcePoint" />
               <mxPoint x="73.73684550602593" y="872.5" as="targetPoint" />
             </mxGeometry>
           </mxCell>
         </UserObject>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-111" value="&lt;font color=&quot;#ff6666&quot;&gt;Put Booking&lt;br&gt;Accept in&lt;br&gt;Outbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-111" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Put Booking&lt;br&gt;Accept in&lt;br&gt;Outbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="293.5" y="823" width="96.5" height="85.5" as="geometry" />
         </mxCell>
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-112" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;shape=mxgraph.floorplan.table;" vertex="1" parent="1">
@@ -248,14 +247,14 @@
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-115" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.concepts.mailbox;" vertex="1" parent="1">
           <mxGeometry x="284.75" y="974.5" width="40" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-116" value="&lt;font color=&quot;#ff6666&quot;&gt;Concierge&lt;br&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-116" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Concierge&lt;br&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="224.75" y="951.75" width="53.5" height="85.5" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-118" value="&lt;font color=&quot;#ff6666&quot;&gt;Take Booking Request&lt;br&gt;from Inbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-118" value="&lt;font color=&quot;#2F5D3A&quot;&gt;Take Booking Request&lt;br&gt;from Inbox&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="50" y="954.5" width="96.5" height="85.5" as="geometry" />
         </mxCell>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-119">
-          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" edge="1" parent="1" source="fXm3TF-NPhIa8S-7mA_j-115" target="fXm3TF-NPhIa8S-7mA_j-84">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#1D4E6B;endFill=0;strokeWidth=2;" edge="1" parent="1" source="fXm3TF-NPhIa8S-7mA_j-115" target="fXm3TF-NPhIa8S-7mA_j-84">
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="273.0074647887327" y="908.4999999999998" as="sourcePoint" />
               <mxPoint x="221.8985626257545" y="1112" as="targetPoint" />
@@ -263,7 +262,7 @@
           </mxCell>
         </UserObject>
         <UserObject label="" tooltip="Point of change.&#xa;How the map is changing e.g. competitive forces." id="fXm3TF-NPhIa8S-7mA_j-122">
-          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#CC0000;endFill=0;strokeWidth=2;" edge="1" parent="1" source="fXm3TF-NPhIa8S-7mA_j-80">
+          <mxCell style="endArrow=open;dashed=1;html=1;strokeColor=#1D4E6B;endFill=0;strokeWidth=2;" edge="1" parent="1" source="fXm3TF-NPhIa8S-7mA_j-80">
             <mxGeometry width="50" height="50" relative="1" as="geometry">
               <mxPoint x="1021.1074647887326" y="876.7499999999998" as="sourcePoint" />
               <mxPoint x="969.9985626257545" y="1080.25" as="targetPoint" />
@@ -273,22 +272,21 @@
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-123" value="" style="verticalLabelPosition=bottom;sketch=0;aspect=fixed;html=1;verticalAlign=top;strokeColor=none;align=center;outlineConnect=0;shape=mxgraph.citrix.document;fillColor=#FF3333;" vertex="1" parent="1">
           <mxGeometry x="1000" y="1018.5" width="47" height="72" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-125" value="&lt;font style=&quot;font-size: 29px&quot;&gt;4&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-125" value="&lt;font style=&quot;font-size: 29px&quot;&gt;8&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="97" y="920" width="60" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-126" value="&lt;font style=&quot;font-size: 29px&quot;&gt;6&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-126" value="&lt;font style=&quot;font-size: 29px&quot;&gt;10&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="323.5" y="754.5" width="60" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-127" value="&lt;font style=&quot;font-size: 29px&quot;&gt;8&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-127" value="&lt;font style=&quot;font-size: 29px&quot;&gt;11&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="1020" y="783" width="60" height="40" as="geometry" />
         </mxCell>
         <mxCell id="fXm3TF-NPhIa8S-7mA_j-128" value="Booking Confirmation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1070" y="1008.5" width="40" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fXm3TF-NPhIa8S-7mA_j-130" value="&lt;font style=&quot;font-size: 29px&quot;&gt;5&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+        <mxCell id="fXm3TF-NPhIa8S-7mA_j-130" value="&lt;font style=&quot;font-size: 29px&quot;&gt;9&lt;/font&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
           <mxGeometry x="350" y="940" width="60" height="40" as="geometry" />
         </mxCell>
       </root>
-    </mxGraphModel>
-  </diagram>
+    </mxGraphModel></diagram>
 </mxfile>

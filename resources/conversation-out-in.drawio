@@ -1,0 +1,70 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Out-In (Solicit-Response)">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="817" pageHeight="428" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="the provider asks who is willing — and the question expires" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="348.50000000000006" y="46.900000000000006" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" value="Courier A" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="88.60000000000001" width="110.00000000000001" height="49.50000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" value="Courier B" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="166.5" y="88.60000000000001" width="110.00000000000001" height="49.50000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="Delivery" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="667.0" y="88.60000000000001" width="110.00000000000001" height="49.50000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="95.0" y="138.10000000000002" width="0.55" height="220.00000000000003" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="221.50000000000003" y="138.10000000000002" width="0.55" height="220.00000000000003" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="722.0" y="138.10000000000002" width="0.55" height="220.00000000000003" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="to every subscriber — it knows they exist, not who they are" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="414.50000000000006" y="195.4" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="k7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="703.0" y="263.2" width="38" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="the solicitation expires" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="636.7" y="273.5" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="too late to be useful — the work is already allocated" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="414.50000000000006" y="330.7" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="a late answer is a timeout problem, not an availability one — both of you were up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="348.50000000000006" y="370.3" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="solicit()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="722.0" y="161.20000000000002" as="sourcePoint" />
+            <mxPoint x="221.50000000000003" y="161.20000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="722.0" y="183.20000000000002" as="sourcePoint" />
+            <mxPoint x="95.0" y="183.20000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="ready()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="95.0" y="254.7" as="sourcePoint" />
+            <mxPoint x="722.0" y="254.7" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="ready()" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="221.50000000000003" y="315.2" as="sourcePoint" />
+            <mxPoint x="722.0" y="315.2" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

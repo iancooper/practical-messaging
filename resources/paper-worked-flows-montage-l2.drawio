@@ -1,0 +1,31 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="The Worked Flows — arrows, click 2">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1140" pageHeight="944" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tr0" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.295;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=-70.9;" vertex="1" parent="1">
+          <mxGeometry x="359.6" y="170.3" width="116.9" height="32.8" as="geometry" />
+        </mxCell>
+        <mxCell id="tr1" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.202;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=0.0;" vertex="1" parent="1">
+          <mxGeometry x="212.5" y="228.4" width="171.1" height="32.8" as="geometry" />
+        </mxCell>
+        <mxCell id="tr2" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.376;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=-92.5;" vertex="1" parent="1">
+          <mxGeometry x="70.6" y="305.4" width="91.7" height="32.8" as="geometry" />
+        </mxCell>
+        <mxCell id="tr3" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.352;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=70.7;" vertex="1" parent="1">
+          <mxGeometry x="138.2" y="307.8" width="98.1" height="32.8" as="geometry" />
+        </mxCell>
+        <mxCell id="tr4" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.202;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=180.0;" vertex="1" parent="1">
+          <mxGeometry x="236.1" y="269.9" width="171.1" height="32.8" as="geometry" />
+        </mxCell>
+        <mxCell id="tr5" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.353;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=-166.3;" vertex="1" parent="1">
+          <mxGeometry x="397.3" y="424.6" width="105.1" height="35.2" as="geometry" />
+        </mxCell>
+        <mxCell id="tr6" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.296;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=-66.2;" vertex="1" parent="1">
+          <mxGeometry x="411.6" y="304.8" width="116.6" height="32.8" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

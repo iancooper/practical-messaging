@@ -1,0 +1,64 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Nodes, Ports and Firing">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="636" pageHeight="405" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="it is reactive because it fires in response to an event — a packet arriving is the event" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="254.95150753760913" y="45.1" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="x1" value="a black box" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="204.67683873910278" y="120.32414344447696" width="220.54933759701265" height="126.44828688895393" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#C0453B;fontColor=#C0453B;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="199.53068752850584" y="178.40213567835696" width="10.292302421193924" height="10.292302421193924" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="135.11970077656557" y="161.25598446776" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="420.0800251255185" y="178.40213567835696" width="10.292302421193924" height="10.292302421193924" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="374.78331429865267" y="161.25598446776" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="q4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="50.292302421193924" y="173.9911489264167" width="22.054933759701267" height="19.11427592507443" as="geometry" />
+        </mxCell>
+        <mxCell id="q5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="557.555778894323" y="173.9911489264167" width="22.054933759701267" height="19.11427592507443" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="you do not see inside it,&#10;and it does not see out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="254.95150753760913" y="199.48453631790886" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="286.4713111008932" width="176.43947007761014" height="0.7351644586567089" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="activation — it fires" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="68.21973503880508" y="293.5855870259676" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="228.20210141611747" y="286.4713111008932" width="173.4988122429833" height="0.7351644586567089" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="process, and make an answer" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="254.95150753760913" y="293.5855870259676" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="422.28551850148864" y="286.4713111008932" width="173.4988122429833" height="0.7351644586567089" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="push the answer out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="449.03492462298027" y="293.5855870259676" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" value="generally a node is single-threaded: one clerk does one document at a time.&#10;Throughput comes from having many nodes, not from one node doing many things." style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="254.95150753760913" y="337.6954545453701" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q4" target="o2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o3" target="q5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

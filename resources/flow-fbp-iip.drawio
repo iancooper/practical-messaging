@@ -1,0 +1,75 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="FBP — Initial Information Packets">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="841" pageHeight="478" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="a node that has just started knows nothing — the IIP is the standing instruction pinned above the desk" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="374.98442105263143" y="45.1" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="x1" value="Price Order" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=hexagon;perimeter=hexagonPerimeter2;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="425.8391578947367" y="177.8174736842105" width="256.0673684210526" height="146.32421052631577" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#C0453B;fontColor=#C0453B;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="419.43747368421043" y="220.19052631578944" width="12.80336842105263" height="12.80336842105263" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="iip_in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="353.9503157894736" y="201.78884210526314" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="419.43747368421043" y="268.9652631578947" width="12.80336842105263" height="12.80336842105263" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="in" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="353.9503157894736" y="250.5635789473684" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="675.504842105263" y="244.57789473684207" width="12.80336842105263" height="12.80336842105263" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="633.7953684210524" y="226.17621052631574" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="q5" value="IIP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#C0453B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="178.91705263157888" y="214.7033684210526" width="34.751999999999995" height="23.77768421052631" as="geometry" />
+        </mxCell>
+        <mxCell id="q6" value="CP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="41.73810526315785" y="263.4781052631579" width="40.239157894736834" height="23.77768421052631" as="geometry" />
+        </mxCell>
+        <mxCell id="q7" value="IP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="109.41305263157889" y="263.4781052631579" width="40.239157894736834" height="23.77768421052631" as="geometry" />
+        </mxCell>
+        <mxCell id="q8" value="IP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="177.08799999999994" y="263.4781052631579" width="40.239157894736834" height="23.77768421052631" as="geometry" />
+        </mxCell>
+        <mxCell id="q9" value="CP" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="244.76294736842098" y="263.4781052631579" width="40.239157894736834" height="23.77768421052631" as="geometry" />
+        </mxCell>
+        <mxCell id="r10" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="41.73810526315785" y="302.8027368421052" width="270.6997894736842" height="0.9145263157894735" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="control packets bracket a stream into groups" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="117.08799999999994" y="316.4094736842105" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="q11" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=22;dashed=1;dashPattern=5 4;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="773.3591578947367" y="239.09073684210523" width="27.435789473684206" height="23.77768421052631" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="configuration, or a starting value —&#10;read once, at start-up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="118.91705263157888" y="131.0654736842105" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="MQTT retained messages are the same idea: the broker holds the&#10;last value on a topic so a late subscriber gets state immediately" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="374.98442105263143" y="410.9105263157894" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="q5" target="o2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="o3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="312.43789473684205" y="275.36694736842105" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="o4" target="q11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

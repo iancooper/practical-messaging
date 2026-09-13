@@ -1,0 +1,35 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Compensation, attached to the task">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="560" pageHeight="270" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="Take Payment" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="70" y="64" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;outline=eventInt;symbol=compensation;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="195" y="109" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="Refund the Card" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="330" y="168" width="180" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="compensation event,&#10;attached to the task" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="52" y="154" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="the undo lives with the task it undoes" style="text;html=1;align=center;fontFamily=Caveat;fontSize=17;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="220" y="22" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="you cannot roll back across desks, so for every do you write an undo" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="220" y="242" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#8A8578;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;html=1;dashed=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e2" target="t3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="198" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

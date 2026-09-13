@@ -1,0 +1,64 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Shared Database">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="771" pageHeight="405" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="g2" value="producer process" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=18;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
+          <mxGeometry x="108.39084118295375" y="107.13220153339935" width="235.13198247532182" height="106.11084337347856" as="geometry" />
+        </mxCell>
+        <mxCell id="g3" value="consumer process" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=18;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
+          <mxGeometry x="427.9291763417244" y="107.13220153339935" width="235.13198247532182" height="106.11084337347856" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="nobody owns the schema — a change reaches every reader whether they wanted it or not" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="325.726" y="46.900000000000006" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="the process boundary" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="325.726" y="80.66254107337954" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="385.726" y="97.48576122671949" width="0.6029025191674918" height="192.9288061335974" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="Application" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="121.65469660463857" y="134.86571741510397" width="120.58050383349837" height="53.05542168673928" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" value="ORM" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="254.29325082148677" y="134.86571741510397" width="48.23220153339935" height="53.05542168673928" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="ORM" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="468.9265476451139" y="134.86571741510397" width="48.23220153339935" height="53.05542168673928" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" value="Application" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="529.2167995618631" y="134.86571741510397" width="120.58050383349837" height="53.05542168673928" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=cylinder3;boundedLbl=1;backgroundOutline=1;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="347.14023877328054" y="234.94753559690758" width="77.17152245343895" height="55.467031763409246" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="one schema" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="325.726" y="301.3248630886815" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="not temporally coupled — neither has to be up when the other is. what couples them is the shared mutable schema" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="325.726" y="326.64676889371617" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="and that is the boundary itself, handed back: you are agreeing release dates across teams again" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="325.726" y="347.1454545454109" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="writes" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n5" target="n8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="278.40935158818644" y="262.68105147861223" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" value="reads" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="n8" target="n6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="424.31176122671945" y="262.68105147861223" />
+              <mxPoint x="493.04264841181356" y="262.68105147861223" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,119 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Departure">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1300" pageHeight="880" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="the bill is not written at check-out — it is assembled from paper that has been landing in the file all week" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="590" y="32" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="b1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="490" y="96" width="7" height="740" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="Departure" style="text;html=1;align=center;fontFamily=Caveat;fontSize=26;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="0" y="824" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" value="Guest" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=top;verticalAlign=bottom;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="80" y="360" width="330" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="y3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="118" y="412" width="64" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="Settle Up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="190" y="424" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="y4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="310" y="412" width="64" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" value="Front Desk" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=top;verticalAlign=bottom;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="570" y="110" width="350" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="Total the&#10;Invoices" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="616" y="168" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="y6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="836" y="156" width="64" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="f7" value="Guest Stay File" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1086" y="292" width="84" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="filed here all week —&#10;that is Occupancy's flow" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="1068" y="168" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="d8" value="Front Desk" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=top;verticalAlign=bottom;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="570" y="440" width="350" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="y9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="606" y="490" width="64" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="File the Receipt" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="702" y="500" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="y10" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="836" y="490" width="64" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="d11" value="Housekeeping" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=top;verticalAlign=bottom;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="620" y="700" width="340" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="y12" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="656" y="744" width="64" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="Make the Room&#10;Available" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="770" y="756" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="f13" value="Room List" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=folder;tabWidth=40;tabHeight=12;tabPosition=left;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#F3EFE6;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1086" y="722" width="84" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s14" value="1" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="439" y="457" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="s15" value="2" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="607" y="279" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="s16" value="3" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="237" y="543" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="s17" value="4" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="999" y="489" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="s18" value="5" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="999" y="675" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#8A8578;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;html=1;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" target="f7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1128" y="214" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" value="asks to check out" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="d2" target="d5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="take the stay file" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#C0453B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;html=1;dashed=1;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="f7" target="d5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="the bill" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;dashed=1;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="y6" target="y3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="the payment" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;dashed=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="y4" target="y9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="the key" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;dashed=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="y4" target="y9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="342" y="636" />
+              <mxPoint x="638" y="636" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="the receipt" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;dashed=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="d8" target="f7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="room vacated" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;dashed=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="y10" target="y12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="free again" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;dashed=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="d11" target="f13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

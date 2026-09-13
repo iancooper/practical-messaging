@@ -1,0 +1,22 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="The Worked Flows — arrows, click 4">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="1140" pageHeight="944" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tr0" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.123;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=-20.8;" vertex="1" parent="1">
+          <mxGeometry x="666.7" y="132.7" width="260.5" height="30.4" as="geometry" />
+        </mxCell>
+        <mxCell id="tr1" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.336;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=-74.3;" vertex="1" parent="1">
+          <mxGeometry x="967.3" y="139.4" width="102.0" height="32.6" as="geometry" />
+        </mxCell>
+        <mxCell id="tr2" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.336;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=-81.9;" vertex="1" parent="1">
+          <mxGeometry x="892.3" y="265.6" width="102.1" height="32.6" as="geometry" />
+        </mxCell>
+        <mxCell id="tr3" value="" style="shape=singleArrow;html=1;direction=east;arrowWidth=0.526;arrowSize=0.450;fillColor=#1D4E6B;strokeColor=#FDFCFA;strokeWidth=2.5;rotation=-82.0;" vertex="1" parent="1">
+          <mxGeometry x="972.0" y="369.1" width="60.8" height="36.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

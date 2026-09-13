@@ -1,0 +1,55 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Scaling Streams — Consumer Groups">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="836" pageHeight="405" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="g1" value="consumer group" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=8;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fillColor=none;strokeColor=#8A8578;strokeWidth=1.4;fontColor=#2F5D3A;fontSize=18;dashed=1;dashPattern=6 5;" vertex="1" parent="1">
+          <mxGeometry x="534.3144312546318" y="89.55116453792908" width="262.10555972942717" height="237.14312546948176" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="one consumer per partition at a time — the spare is there to take over, not to help" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="405.66773703978185" y="45.10000000000001" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=table;childLayout=tableLayout;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry x="191.08096018038194" y="112.01735537187999" width="262.10555972942717" height="32.45116453792908" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="partition 0" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="122.34410818940103" y="118.73918106683908" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="Consumer 1" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="559.2768655145773" y="107.0248685198909" width="143.53399699468633" height="42.43613824190726" as="geometry" />
+        </mxCell>
+        <mxCell id="k4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="506.3369706986646" y="115.24293764084453" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="l5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=table;childLayout=tableLayout;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=17;" vertex="1" parent="1">
+          <mxGeometry x="191.08096018038194" y="193.14526671670268" width="262.10555972942717" height="32.45116453792908" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="partition 1" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="122.34410818940103" y="199.86709241166182" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="Consumer 2" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="559.2768655145773" y="188.15277986471358" width="143.53399699468633" height="42.43613824190726" as="geometry" />
+        </mxCell>
+        <mxCell id="k7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=20;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="506.3369706986646" y="196.37084898566724" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" value="Consumer 3" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="559.2768655145773" y="251.8069872275745" width="143.53399699468633" height="42.43613824190726" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="holding nothing, and that is correct" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="571.0438640119204" y="299.7168294514436" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="a consumer may hold more than one of the group's partitions — but a partition is never held by two at once" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="305.81800000000004" y="347.14545454533993" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="l2" target="n3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="l5" target="n6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

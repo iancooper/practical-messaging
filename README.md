@@ -20,3 +20,34 @@ Coding Exercises:
 * The exercise and solutions are in branches, not trunk
 * On Day One the prerequisite is the ability to run Rabbit MQ.
 * On Day Two there is one exercise using Kafka. 
+
+## Prerequisites
+
+**For the coding exercises** — RabbitMQ on Day One, Kafka for one exercise on Day Two. See *Coding
+Exercises* above.
+
+**For presenting or rebuilding the slides** — the decks are set in four typefaces and use no others.
+All of them are vendored in this repo, under `tools/fonts/`:
+
+* **IBM Plex Serif** — Regular, SemiBold, Italic. Slide titles
+* **IBM Plex Sans** — Variable, Italic, SemiBold Italic. All body copy, and the labels on the BPMN drawings
+* **IBM Plex Mono** — section kickers, code and tables
+* **Caveat** — every handwritten callout, and the labels in every drawing except BPMN
+
+Install all eight before opening a deck:
+
+```bash
+cp tools/fonts/*.ttf ~/Library/Fonts/          # macOS
+cp tools/fonts/*.ttf ~/.local/share/fonts/ && fc-cache -f   # Linux
+```
+
+On Windows, select all eight, right-click, **Install**.
+
+**Then quit PowerPoint completely and reopen it.** This part is not optional and it is the part that
+catches people. Office reads its font list *when it launches*, so a font installed underneath a
+running copy stays invisible to it — and nothing on screen tells you. PowerPoint still reports the
+font as `Caveat` in the toolbar, because that is what the file asks for; it simply draws something
+else. The callouts fall back to a wider face, wrap onto a line the slide has no room for, and are cut
+in half by the figure underneath. The result reads as a short sentence rather than as a bug.
+
+If a red callout on a slide does not look like handwriting, the fonts are not being used.

@@ -1,0 +1,70 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Hotel Example — The Hotel Pool">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="900" pageHeight="350" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1" value="The Hotel" style="swimlane;html=1;horizontal=0;startSize=26;fillColor=none;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;swimlaneFillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="18" y="20" width="864" height="282" as="geometry" />
+        </mxCell>
+        <mxCell id="p1l0" value="Concierge" style="swimlane;html=1;horizontal=0;startSize=26;fillColor=none;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;swimlaneFillColor=none;" vertex="1" parent="p1">
+          <mxGeometry x="26" y="0" width="838" height="141" as="geometry" />
+        </mxCell>
+        <mxCell id="p1l1" value="Front Desk" style="swimlane;html=1;horizontal=0;startSize=26;fillColor=none;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;swimlaneFillColor=none;" vertex="1" parent="p1">
+          <mxGeometry x="26" y="141" width="838" height="141" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="Booking Request" style="shape=mxgraph.bpmn.shape;perimeter=ellipsePerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;outline=standard;symbol=message;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="125" y="45" width="34" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="Take Request&#10;from Inbox" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="196" y="38" width="150" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="Check Availability" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="400" y="178" width="156" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="g5" value="" style="shape=mxgraph.bpmn.shape;perimeter=rhombusPerimeter;verticalLabelPosition=bottom;verticalAlign=top;align=center;labelBackgroundColor=none;outlineConnect=0;background=gateway;outline=none;symbol=exclusiveGw;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="601" y="181" width="42" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="Accept Booking" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="712" y="38" width="146" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="t6i" style="shape=message;html=1;fillColor=#181B1F;strokeColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="719" y="45" width="14" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="Reject Booking" style="rounded=1;arcSize=14;whiteSpace=wrap;html=1;fillColor=#FDFCFA;strokeColor=#181B1F;fontColor=#181B1F;fontFamily=IBM Plex Sans;fontSize=13;strokeWidth=1.6;" vertex="1" parent="1">
+          <mxGeometry x="712" y="178" width="146" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="t7i" style="shape=message;html=1;fillColor=#181B1F;strokeColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="719" y="185" width="14" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="the same shape a third time — which is the point of showing it a third time" style="text;html=1;align=center;fontFamily=Caveat;fontSize=13;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="390" y="316" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=14;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="e2" target="t3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=14;endArrow=block;endFill=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t3" target="t4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="271" y="132" />
+              <mxPoint x="478" y="132" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=14;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t4" target="g5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="room free" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=14;endArrow=block;endFill=1;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="g5" target="t6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="622" y="62" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="hotel full" style="edgeStyle=none;rounded=0;html=1;strokeColor=#181B1F;strokeWidth=1.5;fontColor=#2F5D3A;fontFamily=IBM Plex Sans;fontSize=14;endArrow=block;endFill=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="g5" target="t7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

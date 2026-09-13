@@ -4,6 +4,26 @@ This is the order to work through this material. The code is marked up for what 
 
 If an  exercises are marked [Not Available] there may be code but we are not currently covering in the course. They may be covered in some presentations of the course where we are trying it out.
 
+## Paper Flow — run in the room, not at a keyboard ##
+
+**The one Day 2 exercise that is not code.** It runs inside `## Flow and Reactive Programming`, in three
+placements totalling ~100 minutes, and it needs printing before the day. Everything below this section is
+self-paced code; this one is not, and it is easy to miss because there is nothing to clone.
+
+| read | who for |
+|---|---|
+| `Paper-Flow-Facilitator-Guide.md` | **you** — run-of-show, circulating prompts, which failure card suits which flow, the reveal order |
+| `Paper-Flow-Delegate-Brief.md` | one per delegate |
+| `Paper-Flow-Printables.md` | the print list: role cards, document cards, tray sheets, failure cards |
+| `Paper Flow.pptx` | the slides for the three placements |
+
+**In-person only** — the design assumes a room with tables, and there is no remote fallback.
+
+**Print before the day.** Nothing here can be improvised on the morning except the flipchart sheets.
+
+**Delegates must not meet BPMN before this runs.** They invent a notation; Process Automation formalises
+it afterwards. Running the Process Automation section first breaks the exercise, not just the ordering.
+
 ## Precursors ##
 
 These have speaker notes accompanying the slides

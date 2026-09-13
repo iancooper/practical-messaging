@@ -1,0 +1,100 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="The Five Exchange Patterns, on the Same Grid">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="644" pageHeight="405" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="r1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="176.32373584905275" y="115.22950257288096" width="410.32590051445385" height="0.5698970840478526" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="176.32373584905275" y="308.99451114915087" width="410.32590051445385" height="0.5698970840478526" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="176.32373584905275" y="115.22950257288096" width="0.5698970840478526" height="193.76500857626988" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="586.6496363635065" y="115.22950257288096" width="0.5698970840478526" height="193.76500857626988" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="258.38891595194355" y="115.22950257288096" width="0.5698970840478526" height="193.76500857626988" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="340.4540960548343" y="115.22950257288096" width="0.5698970840478526" height="193.76500857626988" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="422.519276157725" y="115.22950257288096" width="0.5698970840478526" height="193.76500857626988" as="geometry" />
+        </mxCell>
+        <mxCell id="r8" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;direction=north;strokeColor=#8A8578;strokeWidth=1.7;fillColor=none;fontColor=#8A8578;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="504.5844562606158" y="115.22950257288096" width="0.5698970840478526" height="193.76500857626988" as="geometry" />
+        </mxCell>
+        <mxCell id="r9" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=line;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="176.32373584905275" y="212.1120068610159" width="410.32590051445385" height="0.5698970840478526" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="must we both be up?" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="103.786" y="89.5519725557325" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="no —&#10;both can be down" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="103.786" y="141.98250428813492" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="yes —&#10;both must be up" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="103.786" y="241.14459691246128" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="Content" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="157.35632590049812" y="311.811835334395" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="Common" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="239.4215060033889" y="311.811835334395" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="Control" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="321.4866861062797" y="311.811835334395" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="Stamp" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="403.55186620917044" y="311.811835334395" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" value="Data" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="485.6170463120611" y="311.811835334395" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t9" value="tightest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="157.35632590049812" y="325.4893653515435" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t10" value="loosest" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="485.6170463120611" y="325.4893653515435" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t11" value="what are we coupled about?" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="321.4866861062797" y="347.1454545453619" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t12" value="only Blocking In-Out sits below the line — every other pattern lets both sides be down" style="text;html=1;align=center;fontFamily=Caveat;fontSize=19;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="270.19594854197294" y="45.1" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o10" value="Out-Only" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="541.6277667237262" y="144.29425385932143" width="7.978559176669936" height="7.978559176669936" as="geometry" />
+        </mxCell>
+        <mxCell id="o11" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="377.49740651794474" y="132.89631217836438" width="7.978559176669936" height="7.978559176669936" as="geometry" />
+        </mxCell>
+        <mxCell id="t13" value="In-Only" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="332.8846277872367" y="127.73507718693861" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o12" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="377.49740651794474" y="162.5309605488527" width="7.978559176669936" height="7.978559176669936" as="geometry" />
+        </mxCell>
+        <mxCell id="t14" value="In-Out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="332.8846277872367" y="157.36972555742693" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o13" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#181B1F;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="377.49740651794474" y="192.16560891934105" width="7.978559176669936" height="7.978559176669936" as="geometry" />
+        </mxCell>
+        <mxCell id="t15" value="Out-In" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="332.8846277872367" y="187.0043739279153" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="o14" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;ellipse;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#C0453B;strokeWidth=1.7;fillColor=#C0453B;fontColor=#C0453B;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="377.49740651794474" y="252.57469982841343" width="7.978559176669936" height="7.978559176669936" as="geometry" />
+        </mxCell>
+        <mxCell id="t16" value="Blocking In-Out" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="332.8846277872367" y="247.41346483698766" width="120" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

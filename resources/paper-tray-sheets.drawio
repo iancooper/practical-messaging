@@ -1,0 +1,46 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Tray Sheets">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="620" pageHeight="880" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="d1" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=top;verticalAlign=bottom;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="24" y="30" width="572" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="y2" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="74" width="96" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="t1" value="IN-TRAY" style="text;html=1;align=center;fontFamily=Caveat;fontSize=34;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="150" y="84" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="work that has arrived, and is not done yet" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="150" y="124" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="put paper here" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="250.0" y="208" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="nobody shouts across the office" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="250.0" y="358" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=top;verticalAlign=bottom;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="24" y="460" width="572" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="y4" value="" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;shape=document;boundedLbl=1;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#181B1F;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#181B1F;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="70" y="504" width="96" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="OUT-TRAY" style="text;html=1;align=center;fontFamily=Caveat;fontSize=34;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="150" y="514" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="finished here, and not yet collected" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="150" y="554" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t7" value="put paper here" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#181B1F;" vertex="1" parent="1">
+          <mxGeometry x="250.0" y="638" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t8" value="nobody shouts across the office" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="250.0" y="788" width="120" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
