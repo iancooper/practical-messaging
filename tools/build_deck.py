@@ -19,7 +19,15 @@ returns a flat list of `("text" | "rect" | "image" | "table", …)` and `_Pptx` 
 and for the same reason: **there is no PowerPoint on this machine**, so the only way
 to see a slide before shipping it is to render it here — and a preview that re-derives
 the layout is a preview of a different deck. `PROMPT.md` rule 2 is *look at the PNG*;
-this is what makes that possible for 174 slides nobody can open.
+this is what makes that possible for the **267** slides nobody can open.
+
+**⚑ That claim held for layout and failed for one attribute, from the first preview until
+2026-09-13.** `_Pptx` set `r.font.italic`; `_Svg` unpacked the same flag and threw it
+away, so **1,752 characters came back roman** in every PNG ever looked at -- and nothing
+downstream could tell, because a roman run is a perfectly plausible run. Shared layout is
+necessary and it was not sufficient: **an attribute only one back end reads is the shape
+of this bug**, and `r.font.bold`, `spc` tracking and the mono size drop are the others to
+check first if a preview and a deck ever disagree again.
 
 **The overflow report is a deliverable, not a diagnostic.** `styles.md`: *"Expect the
 floor to force content off crowded slides. That is intended -- it will find the slides
@@ -77,6 +85,12 @@ _FILES = {
     SANS:  "IBMPlexSans-Variable.ttf",
     MONO:  "IBMPlexMono-Regular.ttf",
     HAND:  "Caveat.ttf",
+    # Preview only -- `_face` resolves an italic run to one of these, and `_variable`
+    # then asks the FILE whether it has a weight axis. Both are static, so both answer
+    # no. `diagram.py`'s `_FONT_FILES` carries them for the outliner; this map is what
+    # measurement and `_variable` read, and the two have to agree on the filename.
+    "IBM Plex Sans Italic": "IBMPlexSans-Italic.ttf",
+    "IBM Plex Sans SemiBold Italic": "IBMPlexSans-SemiBoldItalic.ttf",
 }
 
 TITLE_PT   = 29
@@ -1286,6 +1300,80 @@ def _esc(t):
     return (t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
 
 
+# **The preview drew every italic roman, and every bold Caveat light.** `emit_pptx` has
+# always set `r.font.italic` and `r.font.bold`; `emit_svg` unpacked the same two flags and
+# used only one of them, and only for one family. Across the two decks that silently lost
+# **1,752 italic characters** -- 1,735 Plex Sans, 17 its semibold, 28 Caveat -- and **100
+# bold Caveat characters**, because the weight was passed `if fam == SANS` and Caveat is a
+# variable font too, `wght` 400-700. Nothing downstream could tell: a roman run is a
+# perfectly plausible run.
+#
+# **It contradicted the one claim the two back ends exist to keep** -- they share a layout
+# so a preview cannot be a preview of a different deck. Shared layout turned out to be
+# necessary and not sufficient. **An attribute only one back end reads is the shape of this
+# bug**, so the others were checked rather than assumed: `spc` tracking and the mono size
+# drop are applied by both, and `Type.width` already measured bold Caveat at 600 -- which
+# is why the preview now draws it at 600 and not at 700. Preview and measurement agree; it
+# is PowerPoint that will pick its own bold.
+#
+# **The faces are not symmetrical, so the fix is two halves.** Plex Sans has real italics,
+# vendored for the handouts in C3, and Caveat and Plex Sans are variable -- those are face
+# and axis lookups, measurements rather than models. **Caveat has no italic** and there is
+# no such file to fetch; it is already handwriting. PowerPoint synthesises an oblique for
+# it, so the preview does too.
+_ITALIC_OF = {
+    SANS: ("IBM Plex Sans Italic", "IBM Plex Sans SemiBold Italic"),
+}
+
+# **The synthetic oblique is a MODEL of PowerPoint, like `_first_baseline` above, and it is
+# flagged here for the same reason** -- there is no PowerPoint on this machine to measure
+# the real shear against. 12 degrees is the common synthetic-italic angle and it is what the
+# three Caveat runs are drawn at: Day 1 slides 60 and 117, Day 2 slide 6, all of them
+# emphasis inside a callout, which is the presenter's spoken stress. If a shipped callout
+# leans visibly more or less than its preview, this constant is the one place to correct it.
+# Advances are deliberately NOT adjusted -- a synthetic slant does not move them, and the
+# layout measures roman anyway, 1.5% wide (2.4% for the semibold), which is the safe way to
+# be wrong.
+#
+# **One run is still drawn lighter than it ships**: `**main**` on Day 2 slide 8, five
+# characters of bold inside a mono span. `IBMPlexMono-Regular.ttf` is static and no bold
+# mono is vendored, so PowerPoint synthesises a smear the preview would have to invent.
+# Five characters did not justify a second unverifiable model -- BACKLOG G17.
+OBLIQUE_DEG = 12
+
+
+def _variable(family):
+    """Does this face carry a `wght` axis? Cached, because it opens the file."""
+    key = ("_var", family)
+    if key not in Type._cache:
+        from fontTools.ttLib import TTFont
+        f = TTFont(os.path.join(FONT_DIR, _FILES[family]), fontNumber=0, lazy=True)
+        Type._cache[key] = "fvar" in f and any(
+            a.axisTag == "wght" for a in f["fvar"].axes)
+    return Type._cache[key]
+
+
+def _face(family, bold, italic):
+    """(family-for-the-outliner, weight-or-None, wants-a-synthetic-slant).
+
+    **The weight is asked of the FILE, not of a hard-coded family list.** That is what the
+    old `if fam == SANS` got wrong: Caveat has a `wght` axis as well, so its bold was drawn
+    at 400. A static italic file has no axis at all, so `weight=` must be None for it or the
+    glyph set is asked for a variation it does not carry."""
+    if italic:
+        pair = _ITALIC_OF.get(family)
+        if pair:
+            family = pair[1 if bold else 0]
+        else:
+            return family, (600 if bold else 400) if _variable(family) else None, True
+    return family, (600 if bold else 400) if _variable(family) else None, False
+
+
+def _slant(y):
+    """Skew about the baseline. `skewX` pivots on y alone, so x does not enter it."""
+    return f'translate(0,{y:.1f}) skewX({-OBLIQUE_DEG}) translate(0,{-y:.1f})'
+
+
 def emit_svg(laid, path_png):
     """Render one laid-out slide, with text outlined to paths so no font install is
     needed — the same trick, and the same reason, as `diagram.py`."""
@@ -1317,21 +1405,21 @@ def emit_svg(laid, path_png):
             x = a["x"] * SCALE
             y = a["y"] * SCALE
             for text, b, i, m in a["runs"]:
-                fam = MONO if m else a["family"]
+                fam, wt, slant = _face(MONO if m else a["family"], b, i)
                 pt = (a["pt"] - (1 if m else 0)) * SCALE / 72.0
-                wt = 600 if b else 400
+                tr = f' transform="{_slant(y)}"' if slant else ""
                 if a["track"]:
                     for ch in text:
                         d, adv = _Outliner.outline(ch, fam, pt, x, y, "start",
-                                                   weight=wt if fam == SANS else None)
+                                                   weight=wt)
                         if d:
-                            o.append(f'<path d="{d}" fill="{a["colour"]}"/>')
+                            o.append(f'<path d="{d}" fill="{a["colour"]}"{tr}/>')
                         x += adv + a["track"] * pt
                 else:
                     d, adv = _Outliner.outline(text, fam, pt, x, y, "start",
-                                               weight=wt if fam == SANS else None)
+                                               weight=wt)
                     if d:
-                        o.append(f'<path d="{d}" fill="{a["colour"]}"/>')
+                        o.append(f'<path d="{d}" fill="{a["colour"]}"{tr}/>')
                     x += adv
         elif kind == "table":
             rows, cols, head = a["rows"], a["cols"], a["head"]
@@ -1348,11 +1436,12 @@ def emit_svg(laid, path_png):
                     for line in row["cells"][ci]:
                         tx = (cx + CELL_PAD) * SCALE
                         for t, b, i, m in line:
-                            d, adv = _Outliner.outline(
-                                t, MONO if m else SANS, pt, tx, ty, "start",
-                                weight=600 if b else 400)
+                            fam, wt, slant = _face(MONO if m else SANS, b, i)
+                            tr = f' transform="{_slant(ty)}"' if slant else ""
+                            d, adv = _Outliner.outline(t, fam, pt, tx, ty,
+                                                       "start", weight=wt)
                             if d:
-                                o.append(f'<path d="{d}" fill="{INK}"/>')
+                                o.append(f'<path d="{d}" fill="{INK}"{tr}/>')
                             tx += adv
                         ty += pt * CELL_LEAD
                     cx += cw

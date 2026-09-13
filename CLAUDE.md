@@ -55,6 +55,14 @@ resources/*.jpg ────┘                                                 
 preview — for the same reason: **there is no PowerPoint and no drawio CLI on this machine**, so
 a preview that re-derived the layout would be a preview of a different deck.
 
+**⚑ Shared layout is necessary and it is not sufficient.** Until 2026-09-13 the preview drew
+**every italic roman and every bold Caveat light** — 1,752 and 100 characters — because
+`emit_pptx` set the attribute and `emit_svg` unpacked it and threw it away. The geometry
+agreed perfectly the whole time. **An attribute only one back end reads is the shape of this
+bug**, and a roman run looks like a run, so nothing downstream can catch it: the whole §G
+visual sweep was run blind to italics. When a preview and a deck might disagree, the question
+is never *do they share a layout* — it is **which attributes does each one read**.
+
 ## Commands
 
 `/verify` · `/build` · `/preview` · `/figure` · `/sheet` — see `.claude/commands/`. The

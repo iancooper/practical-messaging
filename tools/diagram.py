@@ -60,6 +60,13 @@ _FONT_FILES = {
     # same outliner and needs them registered here rather than keeping its own map.
     "IBM Plex Serif": "IBMPlexSerif-Regular.ttf",
     "IBM Plex Serif SemiBold": "IBMPlexSerif-SemiBold.ttf",
+    # Phase 3 only, and for the same reason -- the PNG preview had no way to draw an
+    # italic and drew 1,752 characters of one roman. These are STATIC faces, not the
+    # variable file, so the bold/regular choice is a choice of FILE and `weight=` must
+    # stay None for them; `_ITALIC_OF` in build_deck.py is the mapping. No figure sets
+    # an italic label, so adding them cannot move any existing drawing.
+    "IBM Plex Sans Italic": "IBMPlexSans-Italic.ttf",
+    "IBM Plex Sans SemiBold Italic": "IBMPlexSans-SemiBoldItalic.ttf",
 }
 
 # The two registers are NOT on the same scale, and comparing their point numbers

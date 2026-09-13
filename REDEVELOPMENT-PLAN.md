@@ -1428,6 +1428,57 @@ downstream referred to it.
 **Day 2's `#image:` count falls 77 → 76 and both days are now fully annotated**, which had been one line
 short since 2026-09-02.
 
+### ✅ 22c. The preview drew every italic roman, and it had done since the first preview
+
+**Closed 2026-09-13.** `emit_pptx` set `r.font.italic`; `emit_svg` unpacked the same flag and
+discarded it. **1,752 characters across the two decks came back roman in every PNG anyone has
+ever looked at** — 1,735 of Plex Sans, 17 of its semibold, 28 of Caveat. The §G visual sweep was
+run blind to italics and could not have known.
+
+**It broke the one claim the two back ends exist to keep.** They share a layout so a preview
+cannot be a preview of a different deck. The *geometry* agreed perfectly the whole time; an
+attribute only one back end read did not. **That is the shape of this bug**, and it is now
+written into `CLAUDE.md`'s pipeline section, because a roman run looks exactly like a run and
+nothing downstream can catch it.
+
+**Two halves, because the faces are not symmetrical.**
+
+| family | italic chars | what the preview does now |
+|---|---:|---|
+| Plex Sans | 1,735 | `IBMPlexSans-Italic.ttf` — a real face, vendored for the handouts in C3 |
+| Plex Sans semibold | 17 | `IBMPlexSans-SemiBoldItalic.ttf` — likewise |
+| **Caveat** | 28 | **no italic exists** — a synthetic 12° oblique, skewed about the baseline |
+
+`OBLIQUE_DEG` is **a model of PowerPoint and is flagged as one in the source**, exactly as
+`_first_baseline` is, because there is no PowerPoint here to measure the real shear against. The
+three runs that use it are Day 1 **60** and **117** and Day 2 **6**, every one of them emphasis
+inside a callout — the presenter's spoken stress.
+
+**⚑ Checking the neighbours instead of asserting them found a second instance of the same bug.**
+The draft comment was about to claim that bold and tracking were handled. Bold was not: the
+weight was passed `if fam == SANS`, and **Caveat is a variable font too**, `wght` 400–700 — so
+**100 characters of bold Caveat were being drawn at 400**, on Day 1 **97** and Day 2 **79** and
+**114**. `_face` now asks the *file* whether it carries a weight axis rather than consulting a
+hard-coded list of families, which is the fix that stops this recurring. `spc` tracking and the
+mono size drop were checked and are applied by both back ends.
+
+**Measurement was deliberately left alone.** Plex Sans Italic is **1.5% narrower** than roman —
+2.4% for the semibold — so the layout slightly *over*-reserves every italic run. That is the safe
+direction, the overflow report is empty, and switching measurement to the italic metrics would
+move the wrapping in **both** outputs, which is a change to the shipped decks and not a preview
+fix.
+
+**Proved rather than assumed, three ways.** All thirteen figure families rebuilt and **not one
+figure moved** (rules §5, for the `diagram.py` font-table edit). Both `.pptx` `unzip`ped and
+`diff -r`'d against the pre-change build — **identical trees**, which is the test that suits a
+zip and the one a checksum cannot do. And four previews opened and looked at: a body italic
+(Day 2 47), a table italic (Day 1 92), the synthetic oblique (Day 2 6) and bold Caveat (Day 2 79).
+
+**One run is still drawn lighter than it ships** and is recorded rather than modelled — five
+characters of bold inside a mono span on Day 2 slide 8. `IBMPlexMono-Regular.ttf` is static and
+no bold mono is vendored, so there is no axis to turn and no face to swap to. **One unverifiable
+model of PowerPoint per commit is enough.** BACKLOG **G17**.
+
 ### 23. Phase 3 — the deck builds, the figure leads, and seven slides are over the floor
 
 **2026-09-08.** `tools/outline.py` parses the outlines; `tools/build_deck.py` lays them out to
