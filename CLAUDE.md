@@ -79,7 +79,7 @@ python3 tools/build_deck.py --report  #   measure only, write nothing
 python3 tools/build_deck.py --day 1 --preview 14,15   # -> build/preview/ ; also `all`, `over`
 python3 tools/lint_figures.py         # labels off/onto shapes, all TWELVE families -- 5+ MINUTES
 python3 tools/lint_figures.py reference_cards         # the cards are NOT in the default twelve
-python3 tools/reads_at.py             # what a label reads at IN THE ROOM -- ~2 min; --all, --floor N
+python3 tools/reads_at.py             # `at full` AND `room` -- ~2.5 min; --all, --floor N, --no-deck
 python3 tools/side_cost.py 2          # what `#layout: side` WOULD cost a slide; --slide N, --all
 ```
 
@@ -143,8 +143,15 @@ Each cost real rework at least once. The long-form versions are in the skills.
    half** — a 16:9 slide leaves ~2.2 : 1, so anything squarer is fitted by *height* and the width
    stops mattering. `reads_at.py` is the legibility check; `lint_figures.py` is not.
    **⚑ `#layout: side` is the agreed exception** — a half-stage is 6.1in against the 12.4 every
-   figure was measured at, so its thirteen slides read at **8.9–12.8pt** and Ian has ruled that
-   fine (`styles.md`). **`reads_at.py` cannot see it** and reports them at the full-width number.
+   figure was measured at, and Ian has ruled that fine (`styles.md`).
+   **⚑ And `side` is only the LOUDEST way a figure gets less than the full stage.** `#layout:
+   figure`, a photograph sharing the panel and a multi-figure entry all narrow it too, and the
+   deck's median figure lands at **87%** of the width the floor was set from. So the drawing's
+   own number and the room's number are two different things, and **`reads_at.py` now prints
+   both** — `at full` is a property of the figure, `room` is what the narrowest slide it is
+   actually on gives it. **61 of 89 placed figures are under the floor in the room; 31 of 105
+   were under it at full width**, and the second number is the one this file used to quote.
+   `--no-deck` still prints it, labelled as the fiction it is.
 8. **"Cut" means gone.** Check the content has not reappeared as a note somewhere else.
 9. **Anchor outline cuts on `'\n## X\n'`.** Headings recur inside prose in backticks; an
    unanchored cut mangled `DayTwo.md` once.

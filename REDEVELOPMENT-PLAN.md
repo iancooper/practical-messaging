@@ -1479,6 +1479,47 @@ characters of bold inside a mono span on Day 2 slide 8. `IBMPlexMono-Regular.ttf
 no bold mono is vendored, so there is no axis to turn and no face to swap to. **One unverifiable
 model of PowerPoint per commit is enough.** BACKLOG **G17**.
 
+### ✅ 22d. `reads_at.py` prints two numbers now, because a figure and its slide are not the same thing
+
+**Closed 2026-09-13.** The row asked for one thing and the measurement asked for another.
+
+**What G12 said:** the tool reports the full-width number for the 21 slides laid out
+`#layout: side`, so it prints 18.0pt for figures the room gets at about half that, and
+nothing in the output says which rows are fiction. It suggested reading `#layout:` from the
+outline, as `side_cost.py` does.
+
+**What is actually true:** `side` is only the loudest way a figure gets less than the full
+stage. `#layout: figure`, a photograph sharing the panel and a multi-figure entry all narrow
+it, and **the deck's median figure lands at 87%** of the width the 18pt floor was set from.
+Reading `#layout:` would have fixed a fifth of the problem and left the rest, while looking
+like a complete fix.
+
+**So the tool prints two numbers and names the slide:**
+
+    at full   what it reads at on a full-width stage -- a property of the DRAWING
+    room      what the narrowest slide it is actually placed on gives it
+    on        which slide that is, e.g. `D2 s63`
+
+**⚑ The `room` fraction is the builder's own, taken whole rather than restated**, and the
+first draft proved why that matters by restating it wrongly: it scaled by the *rendered*
+width, when a figure squarer than 2.2:1 is fitted by **height** and its effective width is
+the larger `2.2 × h`. That understated every squarer figure and read **78 of 89**. Calling
+`Laid.reads_at()` leaves one formula where there were two, and the output now reconciles
+exactly with the build report — `flow-partition-checkout` at 8.9/18.0 = **49%**,
+`bpmn-elements` at 7.2/13.9 = **52%**, both the builder's own published percentages.
+
+**The headline moves 31 of 105 → 61 of 89, for two separate reasons, both labelled.** The
+room number replaces a full-width one; and **16 figures that are on no slide are excluded**
+rather than counted against a stage they never get — 9 handout-only, 4 Paper Flow exercise
+materials, 3 orphans. A handout figure is fitted to a **154mm** text block, so a slide floor
+was never the right bar for it. **`--no-deck` reproduces the old 31 of 105 exactly**, and
+says in the summary that it is the full-stage fiction.
+
+**None of this is a queue of defects.** Ian ruled the `side` band fine on 2026-09-12 and that
+ruling stands; what was wrong was a tool printing a number nobody should act on without
+saying so. `CLAUDE.md` rule 7 carried the old claim — *"`reads_at.py` cannot see it"* — and is
+corrected.
+
 ### 23. Phase 3 — the deck builds, the figure leads, and seven slides are over the floor
 
 **2026-09-08.** `tools/outline.py` parses the outlines; `tools/build_deck.py` lays them out to
