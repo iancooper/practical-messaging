@@ -224,7 +224,6 @@ than one channel in it.
 
 ▎ Three different media, one notation. The notation does not care what the arrow is made of.
 
-#image: photo — order taking (phone / card machine / order pad)
 #image: flow diagram — customer order  [→ resources/Customer Order.drawio.png]
 
 Presenter notes: Pace picks up now the notation is known — one diagram, walked, but briskly. The useful

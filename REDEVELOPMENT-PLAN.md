@@ -1399,6 +1399,35 @@ discriminator, at which point dashed means **inside** left and **across** right 
 inversion, on the exact axis :806 tells the room to ignore. The fix is free at a redraw and
 expensive today, so it waits for one, the way §14.3's two typos do.
 
+### ✅ 22b. The order-taking photograph is cut, and that closes the last `#image:` marker
+
+**Ian, 2026-09-13: drop the marker.** `outlines/DayTwo.md`, *Worked Flow — Customer Order*.
+
+**The recorded claim was right, and it was still worth two minutes to prove.** The hand-off said the
+photo is in neither the 2024 nor the 2025 deck. The 2025 slides through that stretch are bare pictures
+with no text at all, so **no text search can reach them** — but only **twenty** of the 220 extracted
+masters are `.jpg`, and those decks store photographs as jpg and diagrams as png. Twenty on one contact
+sheet, looked at: **no order-taking photograph exists.** The same sheet independently confirmed
+`day2-s054-1.jpg` as the watermarked Getty comp that §F6 is about — the agency name is legible across
+the in-tray.
+
+**What the check did turn up was two photographs already in `resources/` and placed nowhere**, and they
+are not oversights: `photo-order-wheel.jpg` and `photo-carbon-copy-pad.jpg` are **orphans of R4-9**, the
+*Two Devices You Already Know* cut. Both were offered, with that history stated, and the carbon pad was
+the near miss — the slide's own second bullet reads *"the pad's carbon copy is the outbox"*. It shows
+**one** of the three channels, not three, and it is a print-supplier product shot on electric blue, the
+only saturated background that would be anywhere in the deck.
+
+**Cutting is the honest answer and it costs nothing.** The marker parsed as an `image` with no path, so
+it built no slide: the entry produced Day 2 **15** (text and callout) and **16** (the flow diagram)
+before, and produces exactly those after. The callout already carries the point in words — *"Three
+different media, one notation. The notation does not care what the arrow is made of."* — and the
+presenter note argues channel heterogeneity without leaning on a picture. Rule 8 checked: nothing
+downstream referred to it.
+
+**Day 2's `#image:` count falls 77 → 76 and both days are now fully annotated**, which had been one line
+short since 2026-09-02.
+
 ### 23. Phase 3 — the deck builds, the figure leads, and seven slides are over the floor
 
 **2026-09-08.** `tools/outline.py` parses the outlines; `tools/build_deck.py` lays them out to
@@ -1745,17 +1774,19 @@ accurate to the element. `resources/card-bpmn-reference.png`.
 
 ### `#image:` annotation state
 
-**Re-measured 2026-09-07, after the Integration Styles four.** **Both days have zero pending markers**,
-and have had since 2026-09-02. The counts below are the ones the hand-off's verification block prints;
-**re-measure rather than trusting them**, because this table has gone stale between sessions before.
+**Re-measured 2026-09-13, and ✅ BOTH DAYS ARE FULLY ANNOTATED — zero unlinked markers anywhere.**
+**⚑ This table had gone stale in both rows again**, exactly as the warning below it predicted, so the
+warning is repeated and meant: **re-measure rather than trusting it.** One line settles it —
+`grep "^#image:" outlines/DayTwo.md | grep -vc "\[→"`.
 
 | file | `#image:` lines | `[→ resources/…]` | `[external / EIP]` | pending `☐`/NEW | unannotated |
 |---|---|---:|---:|---:|---:|
-| `outlines/DayOne.md` | **49** | **49** | 0 | **0** | **0** |
-| `outlines/DayTwo.md` | **84** | **83** | 0 | **0** | **1** |
+| `outlines/DayOne.md` | **53** | **53** | 0 | **0** | **0** |
+| `outlines/DayTwo.md` | **76** | **76** | 0 | **0** | **0** |
 
-**Re-measured again after class D, 2026-09-07. Day 1 is fully annotated**, and the one line left on Day 2
-is the order-taking photograph, which is Ian's export.
+**The last one closed 2026-09-13, and it closed by being cut** — see item **22b**. The order-taking
+photograph was never Ian's to export: it is in neither old deck, proved across all twenty extracted
+photographs, and the callout already makes the point in words.
 
 Day 1 fell 62 → 49 as §4.6 left for the handout and T-0 cut the preamble; its `[external]` count fell
 20 → 12 for the same reason, and **those 12 were the EIP redraw budget (item 5), now built** — which is
@@ -1776,7 +1807,7 @@ different answers**, and only one of them is mechanical.
 
 | class | count | left | what it needs |
 |---|---:|---:|---|
-| **A — link only** | ~18 | **1** | photos, book covers, screenshots, the *DON'T PANIC* motif, an icon. Find the master, copy to `resources/`, link. No visual decision. The one left is the order-taking photograph — **Ian's export**. |
+| **A — link only** | ~18 | **0** | ✅ **closed 2026-09-13.** Photos, book covers, screenshots, the *DON'T PANIC* motif, an icon. Find the master, copy to `resources/`, link. No visual decision. The last one, the order-taking photograph, was **cut rather than linked** — item **22b**. |
 | **B — the two hand-drawn families** | ~36 | **0** | Day 1 §4.5 *Queues and Streams* (11, run 1) and Day 2's OO/FBP run (25, run 2). **Both done.** |
 | **C — Integration Styles, s32–s35** | 4 | **0** | ✅ **built 2026-09-07** — `tools/integration_styles.py`, four figures on one shared stage. Item 9 above. |
 | **D — the rest** | ~9 | **0** | ✅ **done 2026-09-07** — item 14 below. Six drawn (`app_shapes` ×4, `eip-the-big-picture`, `conversation-timeout`), two linked, and the last one is class A's. |
