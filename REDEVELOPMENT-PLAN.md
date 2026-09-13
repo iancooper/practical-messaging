@@ -3408,3 +3408,85 @@ the 18pt floor**, which is the argument for A–D independent of the register.
 sources (`FBP Basics`, `FBP IP`, `FBP Ports and Connectors`, `FBP Network`, `FBP Service`, `FBP Sub
 Networks`) were **already redrawn** in run 2 as `flow-fbp-component`, `flow-fbp-ports`, `flow-fbp-iip` and
 `flow-fbp-lifetime`; only the *worked examples* built on them were left behind.
+
+### ✅ 24. The RabbitMQ Quick Start's five diagrams are in the house register
+
+**2026-09-13.** Ian, opening the item: *"I note that some files I want to keep are in an older style
+that might jar with our new style. In the exercises sub-folder: Quick-Start-Kafka.pptx
+Quick-Start-RMQ.pptx — I wonder if we can update them?"* He was offered four scopes and took **the
+RMQ five only**. `tools/rmq_figures.py`, a thirteenth family.
+
+#### 24.1 Why the answer was "some of them", and how that was established
+
+**The two decks are three problems and only the first was ours.** Every image in both was
+extracted and **looked at** — 9 from RMQ, 16 from Kafka, on two contact sheets — rather than
+inferred from filenames:
+
+| | what it is | verdict |
+|---|---|---|
+| **RMQ ×5** (s3–s7) | Arial, orange gradient producer/consumer boxes, red-ruled annotation panels, EIP pattern names in **blue** | **redrawn.** The only images in either deck in a register the house has no relationship to |
+| **RMQ ×4** (s8–s10) | management-console screenshots, **2020-06-06, RabbitMQ 3.8.4 / Erlang 23.0.2** | **not a style defect.** Six years stale; needs a running broker. `BACKLOG` **Q1c** |
+| **Kafka ×11** | Excalidraw — hand-drawn, handwriting labels, Excalidraw's default violet/orange | **left, on G1's own argument.** Off-*palette*, not off-register |
+| **Kafka ×5** | Carbon-style code screenshots | cosmetic |
+
+**⚑ There is no editable source for any of the 16 Kafka images.** The 25 `.excalidraw` files in
+`resources/` are all main-deck (`flowbased_*`, Value Stream Map, Outbox, Emissaries); perceptual
+matching puts every Kafka image at Hamming distance **≥49** from its nearest neighbour in
+`resources/`. They are baked pixels inside the `.pptx`, so `repaint_paper_reds.py` — which needs a
+`.drawio` + `.png` pair — cannot touch them. **On that side *update* means *redraw*, which is
+exactly G1's price**, and G1 is ruled *do not start*. Treating Kafka differently would have been
+inconsistent with a ruling made the same day.
+
+**All nine RMQ images were already in `resources/` as named files**, and `grep` across both
+outlines says **none of the nine is on a 2026 slide**. They live only in the Quick Start. Nothing
+here overwrites them.
+
+#### 24.2 What the redraw decided that the original had not
+
+- **A binding is a relationship, so it is an EDGE.** The original hung a `Recipient List` **cylinder**
+  off the exchange — a cylinder is a database in this vocabulary — and the first draft here nested a
+  `bindings` box inside a `group`. Both say the routing table is an object the exchange consults. It is
+  the exchange's own state. Drawing it as an arrow also fixed three defects at once: `group` labels are
+  COMMENT green by house convention and were mis-colouring every **primitive** name; arrows leaving a
+  nested box crossed their own container's border; and the routing key finally sat on the binding rather
+  than floating on a queue's mouth ellipse.
+- **The three exchanges carry the SAME THREE QUEUES.** The original drew *direct* with four queues all
+  receiving and *fanout* with three all receiving — the same picture with a different caption. They now
+  differ only in which arrows fire, which is `eip-recipient-list`'s lesson: *the pattern is only visible
+  when a channel that exists does not get a copy.*
+- **They are NOT composed into one figure.** Shared apparatus is half the composition test; competing
+  fan patterns between the same two nodes is the half `flow-lookup-two-answers` failed and Ian split
+  back. Three figures, as the source deck already had.
+- **Three typos are fixed for free**, read out of the originals' own `.drawio`: *"fowards"*,
+  *"recieve"* (`fanout-exchange`) and *"association the queue with an exchange"*
+  (`rabbitmq-workflow`) — the same free-at-a-redraw position §14.3 records.
+- **The `Durable` panel is demoted and corrected.** It was a second heading-and-paragraph block
+  competing with the figure's subject, and it stopped a clause short: a message survives a restart only
+  if it was published **persistent**, which the presenter note already said and the picture did not.
+
+#### 24.3 ⚑ `d.step()` clamps `compact()`, and it does so silently
+
+**`rmq-declare-flow` was stuck at 1116 units wide with every label at 14.4pt**, and wrapping the long
+notes — the obvious reading, and the one `compact`'s own diagnostic suggests — moved it **not at all**.
+The clamp is not computed over notes. It is `(advance + 12) / w` over **shaped** nodes, and on a
+`d.step()` marker that is `(8 + 12) / 26 = 0.77`: the `+12` is box padding, and on a 26-unit circle it is
+**half the shape**. So `k` could never fall below 0.77. Drawing the four markers at `r=22` drops the
+clamp under `K_FLOOR` and the figure reaches 890 — **14.4pt → 18.0pt, a 25% gain, from one keyword.**
+
+**Fixed in the family and deliberately not in `diagram.py`**: `paper_flow` draws seven steps of its own,
+and changing the shared clamp would recompact them — rule 5. **And the branch that binds here `pass`es
+silently**, exactly as `K_FLOOR` does, so neither figure printed a word about why it would not compact.
+`reads_at.py` was the only thing that said so.
+
+`rmq-primitives` was a *different* cause reaching the same symptom — pinned at `K_FLOOR` at 894 units,
+0.1pt under. Its lever was raw width: the horizontal runs are distance, distance carries no information,
+and tightening them landed it at 884.
+
+**All five now read at 18.0pt, lint clean.** `lint_figures.py` and `reads_at.py` both carry
+`rmq_figures` in `FAMILIES`, so it is in the default sweep — **thirteen families, 118 figures**.
+
+#### 24.4 What is left, and it is Ian's
+
+**Q1b** — the five PNGs are built but **not in the deck**. There is no PowerPoint on this machine, so
+placing them is his: they replace slides **3, 4, 5, 6, 7** of `exercises/Quick-Start-RMQ.pptx`, in that
+order. **Q1c** — the four console screenshots need re-capturing against a current broker.

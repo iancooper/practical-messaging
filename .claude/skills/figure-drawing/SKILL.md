@@ -52,7 +52,7 @@ yourself out of.
 **Each of lint's three blind spots has produced a defect nobody caught by machine.** Run both,
 then still look.
 
-`lint_figures.py` takes **over five minutes** across the twelve families — background it or ask
+`lint_figures.py` takes **over five minutes** across the thirteen families — background it or ask
 for a longer timeout, or it will look like it hangs. One family is fast. `reads_at.py` is ~2 min.
 **`reference_cards` is in neither default** — lint it by name, and it is deliberately not in
 `reads_at` at all.
@@ -244,7 +244,7 @@ numbers are indistinguishable from an export.
 
 ## After any `diagram.py` edit
 
-**Rebuild all twelve families and check `git status`.** Every existing figure must come back
+**Rebuild all thirteen families and check `git status`.** Every existing figure must come back
 **byte-identical**; if one moves, the change was not additive. Ten seconds, and it has caught
 real regressions — note cell ids once came from `id(n)`, a memory address, so every rebuild
 rewrote every `.drawio`.
@@ -252,7 +252,7 @@ rewrote every `.drawio`.
 ```bash
 for f in eip_figures coupling_grids if_later queues_streams integration_styles \
          app_shapes conversations bpmn_hotel bpmn_shopping paper_flow flow_reactive \
-         asyncapi_figures; do
+         asyncapi_figures rmq_figures; do
   python3 tools/$f.py > /dev/null; done
 git status --short resources/
 ```

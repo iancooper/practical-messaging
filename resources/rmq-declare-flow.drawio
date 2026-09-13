@@ -1,0 +1,61 @@
+<mxfile host="practical-messaging" type="device">
+  <diagram name="Declaring What You Need">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" page="1" pageWidth="890" pageHeight="385" background="#FDFCFA">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" value="the client declares its own infrastructure --&#10;and binding is the step that joins the two" style="text;html=1;align=center;fontFamily=Caveat;fontSize=21;fontColor=#C0453B;" vertex="1" parent="1">
+          <mxGeometry x="397.08955223866354" y="57.92500000000001" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" value="1" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="42.41791044776037" y="147.2981343283318" width="26.59701492536405" height="26.59701492536405" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" value="Connect" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="40.0" y="176.3130597014562" width="157.16417910442394" height="58.02985074624884" as="geometry" />
+        </mxCell>
+        <mxCell id="t2" value="one TCP connection,&#10;many cheap channels" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="58.58208955221197" y="248.93992537306912" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="2" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="260.0298507461935" y="147.2981343283318" width="26.59701492536405" height="26.59701492536405" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="Declare an&#10;Exchange" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="257.6119402984332" y="176.3130597014562" width="157.16417910442394" height="58.02985074624884" as="geometry" />
+        </mxCell>
+        <mxCell id="t3" value="the routing table --&#10;one per routing scope" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="276.1940298506451" y="248.93992537306912" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" value="3" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="477.64179104462664" y="147.2981343283318" width="26.59701492536405" height="26.59701492536405" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="Declare a&#10;Queue" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#181B1F;strokeWidth=1.7;fillColor=none;fontColor=#181B1F;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="475.2238805968663" y="176.3130597014562" width="157.16417910442394" height="58.02985074624884" as="geometry" />
+        </mxCell>
+        <mxCell id="t4" value="FIFO, and a read message&#10;is locked until it is acked" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="493.80597014907823" y="248.93992537306912" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="s7" value="4" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=0;verticalLabelPosition=bottom;verticalAlign=top;strokeColor=#1D4E6B;strokeWidth=1.7;fillColor=#FDFCFA;fontColor=#1D4E6B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="695.2537313430598" y="147.2981343283318" width="26.59701492536405" height="26.59701492536405" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" value="Bind" style="sketch=1;hachureGap=4;jiggle=2;curveFitting=1;fontFamily=Caveat;html=1;rounded=1;arcSize=12;strokeColor=#C0453B;strokeWidth=1.7;fillColor=none;fontColor=#C0453B;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="692.8358208952994" y="176.3130597014562" width="157.16417910442394" height="58.02985074624884" as="geometry" />
+        </mxCell>
+        <mxCell id="t5" value="a routing key joins&#10;the queue to the exchange" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="711.4179104475114" y="248.93992537306912" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t6" value="re-declaring something that already exists is fine,&#10;as long as every parameter agrees" style="text;html=1;align=center;fontFamily=Caveat;fontSize=18;fontColor=#2F5D3A;" vertex="1" parent="1">
+          <mxGeometry x="397.08955223866354" y="317.8503731342396" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n2" target="n4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n4" target="n6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="" style="sketch=1;jiggle=2;curveFitting=1;edgeStyle=none;rounded=0;strokeColor=#1D4E6B;strokeWidth=1.8;fontFamily=Caveat;fontSize=18;fontColor=#1D4E6B;html=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="n6" target="n8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
