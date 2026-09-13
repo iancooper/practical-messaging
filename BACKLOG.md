@@ -1,12 +1,38 @@
 # Backlog — what is outstanding #
 
+## ▶ PICKING THIS UP BEFORE A PRESENTATION? THIS IS THE WHOLE OF IT ##
+
+**Reconciled 2026-09-13, after the Day 1 2026 delivery snapshot was cut and pushed.** Everything
+else in this file is closed, parked with no action available, or a record of a finished review pass.
+**Read this block and stop** — the 46 rows below are history unless one of these six sends you there.
+
+| do | what | size | why it is here |
+|---|---|---|---|
+| **1** | **G19 — the exported PDFs are not a faithful copy** | S | **The only one that affects something handed out.** PowerPoint substitutes for Caveat *when it exports*, so every callout in `Practical Messaging - Day N - 2026.pdf` is Plex Sans, not handwriting. **The screen is fine**; this is export-only. **The fix is built and committed, and deliberately not installed** — `tools/fonts/Caveat-{Regular,Bold}.ttf`. Install both, restart PowerPoint, check D1 s23 is still handwriting, re-export, then `grep -c Caveat` the PDF |
+| **2** | **The three typos that ship on every delivery** | S | *"Reccieve Confirmation"* (D2 s20); *"from the inox"* and *"we put a an invalid card"* (D2 s24, s126). **Not fixable on this machine** — nothing here re-renders text. Two files, three string edits, a draw.io re-export. Minutes, and independent of G1. Detail in plan **§14.0** |
+| **3** | **G18 — three of Day 1's four reading slides have no cover** | S | Only EIP's is in `resources/`. The other three ship as a title and two lines and read as unfinished beside it. Needs Ian to source three covers, or the recorded fallback: merge the three into one slide |
+| **4** | **G16 — the Pre-Arrival faxes are dashed; the printed brief says solid** | S | A conformance defect against a handout the delegates hold. **Deliberately not fixed** — solid faxes make the D2 s75 inversion worse. **Free at a redraw**, so it waits for one |
+| **5** | **G17 — five bold mono characters draw light in the PNG preview** | S | Preview-only, never on a slide. `**main**` on D2 s8. No bold mono is vendored. Cosmetic |
+| **6** | **G1 — the 2021 imports** | **L, ≈5 days** | **Ruled *do not start*, twice.** ⚑ **Ian reviewed both decks across 50+ rows and never raised one of these 24 slides.** Nothing is broken; it is register and label size. Re-scoped 2026-09-13 — **17 diagrams, not 19** — in plan **§14.0**, which is where a later pass starts |
+
+**Not on the list, and why:** **B2, B3** — no action available, the builder names them every run.
+**F4, F5** — answered or closed unless Ian reopens. **§A, §C, §H** — infrastructure and finished
+review passes. **The five callout warnings every build prints are EXPECTED**, not a regression: Ian
+ruled the README covers them rather than shrink five figures. **`code-rewrites.md` is a separate
+workstream** and is not tracked here.
+
+**⚑ `PROMPT.md` is gitignored and is session state only.** Nothing outstanding may live only there.
+If you add work, it goes in this file.
+
+---
+
 **An index, not a source of truth.** Every line points at where the real detail lives.
 `REDEVELOPMENT-PLAN.md` is the source of truth for the decks; **`code-rewrites.md` is a separate
 workstream with its own brief**. If this file and the plan disagree, **the plan wins and this file
 is stale**. Kept as a table on purpose — counts in prose go stale silently,
 and a table you can read the length of does not.
 
-Last reconciled against the repo: **2026-09-10**, after C4. **§C's two handouts are both built**, so
+Last reconciled against the repo: **2026-09-13** — see the pick-up block at the top, which is the short version of everything below. Before that, **2026-09-10**, after C4. **§C's two handouts are both built**, so
 **nothing is left in §B or §C.** B7 closed as a clean negative, C3 and C4 are built.
 **§G is the full-deck visual sweep — SEVENTEEN findings now**, because the sweep keeps finding its own consequences: G12 came out of §R3, G14 and G15 out of G8's repaint, **G16 out of measuring G14**, and **G17 out of fixing G11 and G18 out of closing G5**. G2, G3, G4, G5, G6, G7, G8, G10, G11, G12, G13, G14 and G15 are closed; G9 was withdrawn on inspection; **four are open — G1 (the register, 30 slides), G16 (the Pre-Arrival faxes are dashed where the printed brief says solid), G17 (five bold mono characters draw light in the preview) and G18 (three of Day 1's four reading slides have no cover).** ⚑ **The build still names five callouts every run and that is now EXPECTED, not a regression** — Ian ruled the README covers them rather than shrinking five figures to reserve a line. B2 and B3 have no
 action available. **§H holds Ian's three passes over the built decks** — 2026-09-10 (26 findings), 2026-09-12 (16 more, §R3 — **Day 1 closed**), and **2026-09-12's manual Day 2 pass (§R4, FIFTY rows, none applied — the live queue)**. The list is `REVIEW.md`. **§R3 opened G12; G13 was closed by Ian's ruling that the `side` slides' figure size is fine. §R4 reopens Day 1 for one builder fix** (R4-0-1) and turns **F2** from a nuisance into the cause of a shipping defect (R4-0-2).
