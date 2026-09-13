@@ -3485,8 +3485,23 @@ and tightening them landed it at 884.
 **All five now read at 18.0pt, lint clean.** `lint_figures.py` and `reads_at.py` both carry
 `rmq_figures` in `FAMILIES`, so it is in the default sweep — **thirteen families, 118 figures**.
 
-#### 24.4 What is left, and it is Ian's
+#### ✅ 24.4 Both residues closed the same day
 
-**Q1b** — the five PNGs are built but **not in the deck**. There is no PowerPoint on this machine, so
-placing them is his: they replace slides **3, 4, 5, 6, 7** of `exercises/Quick-Start-RMQ.pptx`, in that
-order. **Q1c** — the four console screenshots need re-capturing against a current broker.
+**Q1b — the five are in the deck, and the drop was verified rather than trusted.** Ian placed them;
+every one is **byte-identical** in `ppt/media` (PowerPoint did not recompress), on slides **3, 4, 5,
+6, 7** in that order, the four console screenshots are untouched, and **all ten presenter notes
+survived** — `# Primitives #`, `# Flow #`, `# Direct Exchange #`, `# Default Exchange #`,
+`# Fanout #` are still on their slides, which is the thing a picture-swap most often loses silently.
+
+**They sit at 11.93in of 13.333 — 89% of the slide width — and read at 16.1–16.5pt.** Under the 18pt
+floor, and **above this repo's median**: 61 of 89 placed figures in the main decks are under it in
+the room, at a median 87%. Full-bleed would buy ~1.9pt. Left at 89% deliberately.
+
+**⚑ Q1c is closed as NOT A DEFECT, and the correction is mine.** I recorded the four 2020-06-06
+screenshots as six years stale on the strength of the version string — *RabbitMQ 3.8.4 / Erlang
+23.0.2* — and the reasoning was that a 4.x management UI would have moved. Ian checked the actual
+console: *"I checked and the RMQ console hasn't changed in all those years :)"* It has not. **So the
+one thing in either Quick Start deck that looked like a real defect was not one**, and the claim came
+from inferring a UI from a version number instead of looking at it — `CLAUDE.md` rule 4 in a form it
+did not yet have an example of: *a thing assumed CHANGED, never checked*, which is the same error as
+assuming one absent. **Do not re-raise this from version numbers.**

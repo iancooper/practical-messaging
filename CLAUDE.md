@@ -148,6 +148,11 @@ Each cost real rework at least once. The long-form versions are in the skills.
    same shape: something assumed absent, never checked. A file may exist and still not contain
    what a note says it contains; a marker with a link on it is not proof there is a picture —
    check the extension and open it. **Spend the two minutes proving it.**
+   **⚑ And "assumed CHANGED" is the same error wearing the other face.** Q1c reported four
+   RabbitMQ console screenshots as six years stale off the **version string alone** — 3.8.4
+   against a current 4.x — and Ian looked at his console: *it has not changed.* A version number
+   is not a screenshot, a changelog is not a UI, and neither is evidence about **this** picture.
+   **Never age an artefact by inference.**
 5. **Rebuilds must be byte-identical.** After ANY `diagram.py` edit, rebuild all thirteen families
    and check `git status`. Every existing figure must come back unchanged; if one moves, the
    change was not additive. Ten seconds, and it has caught real regressions.
