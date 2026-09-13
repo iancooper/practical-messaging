@@ -728,7 +728,7 @@ class Deck:
         w = TEXT_W if photos else CONTENT_W
         y = self._title(laid, sl.title, y, w)
         avail = H_IN - M_B - y
-        used = self._body(laid, blocks, M_L, y, w)
+        used = self._body(laid, blocks, M_L, y, w, reserve=True)
         if used > avail + 0.01:
             laid.overflow = used - avail
         if photos:
@@ -873,12 +873,30 @@ class Deck:
             return True
         return not (kind == "bullet" and prev in ("prose", "bullet"))
 
-    def _body(self, laid, blocks, x, y, w):
+    def _body(self, laid, blocks, x, y, w, reserve=False):
+        """`reserve` lets an at-risk callout book the second line a substituted face
+        would need, instead of only warning about it.
+
+        **It is passed by `_content_slide` and by nothing else, and that is the whole
+        of Ian's 2026-09-13 ruling on G15.** Below a callout on a content slide is more
+        text, and text moves down; below one on a figure slide is the picture, and a
+        picture can only get smaller. Measured before asking him: reserving on the five
+        figure slides costs `grid-integration-styles` 76 → 69% and four more 87 → 81%,
+        which drops four of them out of the 85% band. **He chose the README** — install
+        the fonts, restart the app — **and to keep the picture.** So the reserve is taken
+        only where it is free, which today is Day 2 slide 8, a Martin Amis quotation with
+        text under it and the one of the six that cannot be shortened instead.
+
+        **Not the last block, because the last block grows into empty space.** Ian's
+        2026-09-12 pass proved that half: slides 60, 72 and 97 were warned and were fine.
+        Reserving on every at-risk callout regardless pushes *Faults, by Pattern* 0.31in
+        and *Log Tailing* 0.09in into overflow, which is why it is guarded here and not
+        at `_callout_collisions`."""
         cy = y
         prev = None
         per_bullet = (laid.slide is not None
                       and getattr(laid.slide, "reveal", None) == "bullets")
-        for b in blocks:
+        for i, b in enumerate(blocks):
             if b.kind == "image":
                 continue
             if self._reveals(prev, b.kind, per_bullet):
@@ -908,16 +926,23 @@ class Deck:
                 # **The reserve is n lines of Caveat, and a substituted face may need
                 # n + 1.** Everything below this callout is then 1.06em too high. See
                 # SUBST_W: the fix is installing the font, and this is the warning.
-                if len(Type.wrap(runs, meas * SUBST_W, HAND, CALLOUT_PT)) > n:
+                at_risk = len(Type.wrap(runs, meas * SUBST_W, HAND,
+                                        CALLOUT_PT)) > n
+                if at_risk:
                     laid.callouts.append((O.plain(b.text), n,
                                           cy + _in(CALLOUT_PT) * 1.06 * n))
+                # The RULE is n lines; the reserve is what the next block starts after.
+                # Only the rule is drawn, so a booked-but-unused line leaves no mark on
+                # a machine that has Caveat -- it is white space, not a longer bar.
+                booked = (_in(CALLOUT_PT) * 1.06
+                          if reserve and at_risk and i < len(blocks) - 1 else 0.0)
                 laid += Rect(x, cy + 0.03, 0.055, _in(CALLOUT_PT) * 1.06 * n,
                              fill=ANNOTATION)
                 ops, h = _lines(O.runs(b.text), w - 0.30, HAND, CALLOUT_PT,
                                 x + 0.24, cy, ANNOTATION, lead=1.06)
                 for o in ops:
                     laid += o
-                cy += h + _in(4)
+                cy += h + _in(4) + booked
             elif b.kind == "quote":
                 cy += _in(10)
                 laid += Rect(x, cy + 0.03, 0.03,

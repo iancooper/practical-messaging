@@ -1520,6 +1520,58 @@ ruling stands; what was wrong was a tool printing a number nobody should act on 
 saying so. `CLAUDE.md` rule 7 carried the old claim — *"`reads_at.py` cannot see it"* — and is
 corrected.
 
+### ✅ 22e. The callout reserve is taken only where it is free
+
+**Ian, 2026-09-13: the README for the five, and take the free one.**
+
+Six callouts sit close enough to their measure that a substituted Caveat wraps them to a
+second line, and on five of the six something below cuts that line in half — silently, so it
+reads as a short sentence. G15 offered two answers: the README, or reserve the extra line.
+**Measuring first showed both were mis-stated.**
+
+**The blanket reserve is dominated and was not offered.** *"Reserve under any callout that has
+something below it"* fires on every **at-risk** callout, including the three Ian proved were
+fine on 2026-09-12 — Day 1 60, 72 and 97, where the callout is last and the extra line grows
+into empty space. That pushes **two slides into overflow**: *Faults, by Pattern* 0.31in over
+and *Log Tailing* 0.09in. A collision-only reserve avoids both.
+
+**And the collision-only reserve's cost is legibility, not height**, which is the number Ian
+thinks in and the one the row did not carry:
+
+| slide | figure | now | reserved |
+|---|---|---:|---:|
+| D1 23 | `grid-integration-styles` | 76% | **69%** |
+| D1 52 | `task-queue-shape` | 87% | **81%** |
+| D1 70 | `qs-stream-no-requeue` | 87% | **81%** |
+| D1 112 | `eip-content-enricher` | 87% | **81%** |
+| D2 75 | `bpmn-your-flow-side-by-side` | 87% | **81%** |
+
+Four of the five cross out of the 85% band — Day 1's under-85 count 14 → 17, Day 2's 9 → 10.
+
+**A third option the row never listed**, and it is nearly free on paper: shorten them. Three
+are **one character** over budget, two are four and one is six. **But `SUBST_W` is a single
+factor standing in for a different FACE**, and `CLAUDE.md` records that it cannot rank which
+callouts wrap — it matched four of five by luck and made the fifth look like a separate bug.
+Trimming to a one-character margin passes the *warning*, not the font; a real trim wants ten.
+
+**Day 2 slide 8 separates from the other five, and that is what made the decision cheap.** It
+is a **content** slide: below the callout is more text, and text moves down, so the reserve
+costs only white space — no figure to shrink, and no overflow. It is also the one of the six
+that **cannot** be shortened, being *"My life looked good on paper…"* with its attribution to
+Martin Amis.
+
+**So `_body` gained `reserve`, passed by `_content_slide` and by nothing else**, guarded on
+*not the last block*. The build report comes back **byte-identical**: no figure moved, nothing
+overflows, and the warning count falls **6 → 5**. The five that remain — D1 23, 52, 70, 112 and
+D2 75 — are **expected output**, not a regression, and `README.md` §Prerequisites is the fix
+for them: install the fonts, restart the app.
+
+**One visible cost, reported rather than buried.** On a machine that *has* Caveat the booked
+line is white space, so the gap under the Amis quotation is a line larger than the gap under
+the callout below it. Only the rule bar's height is drawn from `n`, so the bar itself does not
+grow — but the asymmetry is there, on that one slide, and it is a revert of four lines if Ian
+dislikes it.
+
 ### 23. Phase 3 — the deck builds, the figure leads, and seven slides are over the floor
 
 **2026-09-08.** `tools/outline.py` parses the outlines; `tools/build_deck.py` lays them out to
