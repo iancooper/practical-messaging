@@ -3283,7 +3283,61 @@ slides, and treat that as the floor doing its job rather than as a problem to ro
 
 ---
 
-## 14. The 2021 imports — scoped 2026-09-10, not started
+## 14. The 2021 imports — scoped 2026-09-10, RE-SCOPED 2026-09-13, not started
+
+**⚑ Ian, 2026-09-13: *"Let's not start it. I have to run this deck tomorrow, and it's good for that
+where it is. We can pull a backlog from `PROMPT.md` for a later pass at this, if we wish."*** His
+2026-09-10 ruling therefore stands, reaffirmed against a corrected scope and a delivery date.
+
+**⚑ And the strongest argument against this row is his own review.** Ian has been through both decks —
+**fifty rows on Day 2 in §R4** and a full pass on Day 1 in §R3 — and **did not raise one of these 24
+slides.** Nothing here is broken: the imports render, and the Customer Order flow on D2 s16 is
+perfectly serviceable at slide size. The two complaints are that they carry **Excalidraw's default
+blue-and-orange** rather than the Field Guide palette, and that their labels are small. That is
+polish, not a defect, and it is worth saying plainly at the top of a five-day estimate.
+
+### ⚑ 14.0 What 2026-09-13 corrected in the scope below
+
+The numbers in §14.1 were measured on 2026-09-10 and **three of them are stale**. The section is left
+standing because its reasoning is good; read it through this table.
+
+| §14 says | actually, 2026-09-13 | why |
+|---|---|---|
+| 19 diagrams, 30 slides | **17 diagrams, 24 slides** | group E is gone |
+| **E** — 2 value-stream maps, *cut or redraw?* | **already cut** | **R4-10 and R4-11, 2026-09-12** — *"the value stream work is not referenced elsewhere"*. Two days AFTER this section was written. **§14.2 finding 3 is moot**, and with it the only new vocabulary in the job |
+| ≈5.5 days | **≈5 days** | E's 0.5 was the difference |
+| `flowbased_order_all` is *"four times the next largest"* | **2.2×** — 180 elements against 81 | arithmetic, checked |
+| it is the one that is *"already unreadable"* | **it is not the worst** | measured at the width each figure gets on its own slide, **all five of group D are under the floor**, and `flowbased_order_food_errors` is worse |
+| two typos would be inherited | **THREE** | a third was found by dumping every label: **`"from the inox"`** |
+
+**What group D actually reads at**, at the width the builder gives each figure — real points from the
+Excalidraw font sizes, against a floor quoted in Caveat-equivalents, so close but not exact:
+
+| figure | slides | reads at |
+|---|---|---:|
+| `flowbased_order_food_errors` | 54, 127 | **5.6 / 6.1pt** |
+| `flowbased_order_all` | 52, 130 | **6.4pt** |
+| `flowbased_order_food` | 50, 124 | 9.3pt |
+| `flowbased_order_placement` | 51 | 9.9pt |
+| `flowbased_onboard_restaurant` | 48, 121 | 13.0pt |
+
+**The third typo, and where all three are.** `resources/Customer Order Errors.drawio` carries **two**
+of them — *"We take an "invalid order" from the **inox**"* and *"we put **a an** invalid card
+details in the outbox"* — and the same file spells *Inbox* correctly elsewhere, so the first is
+plainly a slip. `resources/Order Confirmation.drawio` carries *"**Reccieve** Confirmation"*.
+**They cannot be fixed on this machine**: `repaint_paper_reds.py` remaps colours in a `.png`, but
+nothing here re-renders text, so it is a draw.io re-export or a redraw. They ship on every delivery
+until one of those happens.
+
+**The 17, measured by laid slide** — `python3 tools/deck_index.py` numbering, current build:
+
+| group | diagrams | slides |
+|---|---|---|
+| **A** Day 1 producer side | `Transactional No Outbox`, `Transactional With Outbox`, `Log Tailing`, `State Change Capture`, `Inbox` | D1 58, 59, 60, 61, 71 |
+| **B** paper worked flows | `Restaurant Onboarding`, `Customer Order`, `Order Placement`, `Order Confirmation` | D2 14, 16, 18, 20, 120, 123 |
+| **C** paper error flows | `Restaurant Onboarding Errors`, `Customer Order Errors`, `Order Placement Errors` | D2 23, 24, 25, 126 |
+| **D** FBP worked examples | the five `flowbased_*` | D2 48, 50, 51, 52, 54, 121, 124, 127, 130 |
+
 
 **`BACKLOG.md` G1.** The full-deck sweep found **30 slides — 10% of the deck — still carrying 2021
 imports in a foreign register**, against the instruction recorded in §8: *"Let's redraw both runs. One
